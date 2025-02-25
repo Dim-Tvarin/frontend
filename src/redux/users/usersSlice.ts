@@ -1,9 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { loginThunk, logoutThunk, registerThunk } from './usersOperations';
 
 interface User {
   name: string;
   email: string;
-  phone: string;
+  phone?: string;
   userType: string;
   avatarURL: string;
   theme: 'light' | 'dark';
@@ -43,8 +44,21 @@ const slice = createSlice({
     selectIsLoggedIn: state => state.isLoggedIn,
   },
   reducers: {},
-  //   extraReducers: builder => {
-  //   },
+  extraReducers: builder => {
+    builder
+      .addCase(registerThunk.fulfilled, (state, action) => {
+        state.user = action.payload.user;
+        //   state.isLoggedIn = true;
+      })
+      .addCase(loginThunk.fulfilled, (state, action) => {
+        state.user = action.payload.user;
+        state.token = action.payload.token;
+        state.isLoggedIn = true;
+      })
+      .addCase(logoutThunk.fulfilled, () => {
+        return initialState;
+      });
+  },
 });
 
 export const usersReducer = slice.reducer;
