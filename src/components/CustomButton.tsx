@@ -4,6 +4,7 @@ import { cn } from './lib/utils';
 interface CustomButtonProps extends React.ComponentProps<typeof Button> {
   children: React.ReactNode;
   className?: string;
+  type?: string;
 }
 
 export const CustomButton = ({

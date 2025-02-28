@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { clearToken, marketplaceApiUsers, setToken } from '../../api';
+import { marketplaceApiUsers, setToken, clearToken } from 'src/api';
+
 
 interface Credentials {
   email: string;
