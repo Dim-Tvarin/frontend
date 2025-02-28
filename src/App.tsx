@@ -1,20 +1,31 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, Route, Routes } from "react-router-dom";
 import "./App.css";
+import Error from "pages/Error";
+import Registration from "pages/Auth/Registration";
+import Main from "pages/Layout/Main";
 
 function App() {
 
   return (
     <>
-      <h1>Pets Marketplace</h1>
-       <nav>
-      <NavLink to="/" end>
-        Home
-      </NavLink>
-      <NavLink to="/register" end>
-        Sign Up
-        </NavLink>
-        
-    </nav>
+      <Routes>
+        <Route path="" element={<Main />} />
+        <Route index element={<Home />} />
+
+
+
+        <Route path="/" element={<App />} />
+        <Route path="register" element={<Registration />} />
+        <Route path="*" element={<Error />} />
+    </Routes>
+
+
+
+
+      
+      
+      
+
     </>
   );
 }
