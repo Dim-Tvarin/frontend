@@ -6,7 +6,7 @@ const Main = () => {
   return (
     <div className="main-container">
       <Header />
-      <div id="detail" className="main-content">
+      <div >
         <Outlet />
       </div>
       <Footer />
