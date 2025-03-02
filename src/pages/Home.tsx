@@ -1,13 +1,13 @@
-import React from 'react'
-import { InputField } from 'components/InputField';
-import { PhoneInput } from 'components/PhoneInput';
-import { PasswordField } from 'components/PasswordField';
-import { CustomButton } from 'components/CustomButton';
+// import { InputField } from 'components/InputField';
+// import { PhoneInput } from 'components/PhoneInput';
+// import { PasswordField } from 'components/PasswordField';
+// import { CustomButton } from 'components/CustomButton';
 
 export const Home = () => {
   return (
-    <div>Home
-
+    <div>
+      Home
+      {/* 
        <div className="flex flex-col gap-8 bg-[#f7ebeb] p-30">
         <div className="flex gap-5">
           <InputField
@@ -53,7 +53,7 @@ export const Home = () => {
         >
           Register
         </CustomButton>
-      </div>
+      </div> */}
     </div>
-  )
-}
+  );
+};

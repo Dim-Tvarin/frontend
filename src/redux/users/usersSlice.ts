@@ -5,9 +5,10 @@ interface User {
   name: string;
   email: string;
   phone?: string;
-  userType: string;
-  avatarURL: string;
-  theme: 'light' | 'dark';
+  userType?: string;
+  avatarURL?: string;
+  location?: string;
+  theme?: 'light' | 'dark';
 }
 
 interface UserState {
@@ -25,6 +26,7 @@ const initialState: UserState = {
     phone: '',
     userType: '',
     avatarURL: '',
+    location: '',
     theme: 'light',
   },
   token: null,
