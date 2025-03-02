@@ -55,7 +55,7 @@ const Registration: React.FC = () => {
         userType: 'guardian',
       })
     );
-    // setFormData(initialFormState);
+    setFormData(initialFormState);
   };
 
   return (
