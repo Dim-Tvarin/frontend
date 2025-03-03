@@ -3,12 +3,14 @@
 @tailwind utilities;
 
 #root {
-  max-width: 1280px;
+  max-width: 1440px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0;
   text-align: center;
   line-height: 1.5;
-  font-weight: 400;
+  font-weight: 500;
+  width: 100%;
+  font-family: Inter, serif;
 }
 
 :root {
@@ -58,6 +60,14 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.87 0 0);
+}
+
+.container {
+  max-width: 1440px;
+  padding: 0 80px;
+  text-align: center;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
 a {
