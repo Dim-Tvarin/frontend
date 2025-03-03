@@ -63,7 +63,7 @@ const Registration: React.FC = () => {
       <h1>Registration</h1>
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col gap-8 bg-[#f7ebeb] p-30"
+        className="flex flex-col gap-8 bg-main-pink-l p-30"
       >
         <div className="flex gap-5">
           <InputField
@@ -116,7 +116,7 @@ const Registration: React.FC = () => {
           value={formData.password}
           onChange={handleChange}
         >
-          Пароль повинен містити не менше 7 символів. Для кращого пароля
+          Пароль повинен містити не менше 8 символів. Для кращого пароля
           використайте букви, великі букви та цифри.
         </PasswordField>
         <PasswordField
@@ -129,7 +129,7 @@ const Registration: React.FC = () => {
         />
         <CustomButton
           type="submit"
-          className="rounded-[20px] px-6 py-2.5 w-[236px] h-[44px] mt-[54px] bg-[#042d4a] mx-auto disabled:bg-[#4b6578]"
+          styleType="defaultButton"
           disabled={!isPasswordMatch}
         >
           Зареєструватися

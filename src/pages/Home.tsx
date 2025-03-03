@@ -13,7 +13,7 @@ export const Home = () => {
       <div>Текст домашньої сторінки marketplace</div>
       <CustomButton
         type="button"
-        className="rounded-[20px] px-6 py-2.5 w-[236px] h-[44px] mt-[54px] bg-[#042d4a] mx-auto disabled:bg-[#4b6578]"
+        styleType="defaultButton"
         onClick={handleClick}
       >
         Вийти

@@ -39,7 +39,7 @@ const Login: React.FC = () => {
       <h1>Login</h1>
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col gap-8 bg-[#f7ebeb] p-30"
+        className="flex flex-col gap-8 bg-main-pink-l p-30"
       >
         <InputField
           label="Адреса електронної пошти"
@@ -58,10 +58,7 @@ const Login: React.FC = () => {
           value={formData.password}
           onChange={handleChange}
         />
-        <CustomButton
-          type="submit"
-          className="rounded-[20px] px-6 py-2.5 w-[236px] h-[44px] mt-[54px] bg-[#042d4a] mx-auto disabled:bg-[#4b6578]"
-        >
+        <CustomButton type="submit" styleType="defaultButton">
           Увійти
         </CustomButton>
       </form>

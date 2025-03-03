@@ -28,14 +28,14 @@ export const PasswordField = ({
         <Input
           type={visible ? 'text' : 'password'}
           className={cn(
-            'border border-[#99a2a5] rounded-[8px] px-[28px] py-[14px] h-[48px]',
+            'border border-[#99a2a5] rounded-[8px] px-[28px] py-[14px] h-[48px] placeholder:text-input-border',
             className
           )}
           {...props}
         />
         <button
           type="button"
-          className="absolute inset-y-0 right-0 flex items-center p-[14px] text-gray-500 hover:border-transparent"
+          className="absolute inset-y-0 right-0 flex items-center p-[14px] text-gray-500 hover:border-transparent focus:outline-0 focus-visible:outline-0"
           onClick={() => setVisible(!visible)}
           tabIndex={-1}
           aria-label={visible ? 'Сховати пароль' : 'Показати пароль'}
@@ -45,7 +45,7 @@ export const PasswordField = ({
       </div>
       {children && (
         <p
-          className="flex mt-[10px] text-[12px] text-[#99a2a5] w-[493px] text-start"
+          className="flex mt-[10px] text-[12px] text-input-border w-[493px] text-start"
           style={{
             fontFamily: 'var(--font-family)',
             fontWeight: 400,
