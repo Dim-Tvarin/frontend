@@ -11,8 +11,16 @@ export const Home = () => {
             <Link to="/lookfor">Створити оголошення</Link>
           </CustomButton>
         </div>
-        <div className="h-[630px] w-[557px] bg-[#f7ebeb] rounded-[30px]"></div>
+        <div className="h-[510px] w-[580px] bg-[#f7ebeb] rounded-[30px]  border-l-[50px] border-t-[50px]"></div>
+      </section>
 
+      <section className="flex flex-row gap-[20px] mt-[134px]">
+        <div className="h-[475px] w-[580px] bg-[#f7ebeb] rounded-[30px] border-r-[50px] border-t-[50px]"></div>
+        <div className="flex flex-col gap-[24px] justify-start w-2/4 items-start">
+          <h3 className="mb-[67px] text-[48px]">Трішки про нас</h3>
+          <p className="text-[30px]">Ми любимо тварин тому...</p>
+        </div>
+        
       </section>
       
     </div>
