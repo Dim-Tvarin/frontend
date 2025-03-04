@@ -10,10 +10,11 @@ export const Home = () => {
   };
   return (
     <>
-      <div>Текст домашньої сторінки marketplace</div>
+      <div>Home - Текст домашньої сторінки marketplace</div>
       <CustomButton
         type="button"
         styleType="defaultButton"
+        className="w-[30px]"
         onClick={handleClick}
       >
         Вийти
