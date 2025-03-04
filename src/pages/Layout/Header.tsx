@@ -1,7 +1,8 @@
 import { NavLink } from 'react-router-dom'
 import logo from '../../assets/logo.svg'
 import { FaRegHeart } from "react-icons/fa";
-import { GoPerson } from "react-icons/go";
+import { IoIosSearch } from "react-icons/io";
+import { CustomButton } from 'components/CustomButton';
 
 
 export const Header = () => {
@@ -28,15 +29,26 @@ export const Header = () => {
               <NavLink to="/lookfor" end>
                 Доглянути за тваринкою
               </NavLink>
+          </li>
+          
+           <li  className='ml-auto mr-[20px]'>
+              <NavLink to="/favorite" end>
+              <IoIosSearch size="26px"/>
+              </NavLink>
             </li>
-            <li  className='ml-auto mr-[20px]'>
+            <li  className='mr-[20px]'>
               <NavLink to="/favorite" end>
               <FaRegHeart size="20px"/>
               </NavLink>
             </li>
             <li>
-              <NavLink to="/register" end>
-                <GoPerson  size="26px"/>
+            <NavLink to="/register" end>
+              <CustomButton
+                type="button"
+                className="w-[100px] m-auto"
+              >
+                Увійти
+              </CustomButton>
               </NavLink>
             </li>
           </ul>
