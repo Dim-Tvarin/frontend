@@ -6,9 +6,9 @@ const Main = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      <div className="grow">
+      <main className="grow">
         <Outlet />
-      </div>
+      </main>
       <Footer />
     </div>
   );
