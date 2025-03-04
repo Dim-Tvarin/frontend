@@ -10,11 +10,11 @@
   line-height: 1.5;
   font-weight: 500;
   width: 100%;
-  font-family: Inter, serif;
 }
 
 @theme {
   --color-header: #ede9e9;
+  --color-black: #000;
   --color-link: #535bf2;
   --color-main-pink-l: #f7ebeb;
   --color-main-pink-d: #dbd0d0;
@@ -25,6 +25,7 @@
   --color-disabled: #4b6578;
   --color-red-btn: #ef4444;
   --color-red-btn-hov: #dc2626;
+  --color-error: #ff564f;
 }
 
 :root {

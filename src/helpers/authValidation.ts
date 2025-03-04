@@ -19,11 +19,7 @@ export const registrationSchema = z
     email: z
       .string()
       .email('Невірний формат email')
-      .nonempty('Email є обовʼязковим')
-      .regex(
-        /^(?!.*(?:[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})).*$/,
-        'Email не може бути порожнім'
-      ),
+      .nonempty('Email є обовʼязковим'),
 
     location: z
       .string()
@@ -50,11 +46,11 @@ export const registrationSchema = z
 
     confirmPassword: z.string().nonempty('Повторення паролю є обовʼязковим'),
 
-    userType: z
-      .enum(['Опікун', 'Усиновлювач'])
-      .refine(val => ['Опікун', 'Усиновлювач'].includes(val), {
-        message: 'Тип користувача є обовʼязковим',
-      }),
+    userType: z.enum(['Опікун', 'Усиновлювач'], {
+      errorMap: () => {
+        return { message: 'Тип користувача є обовʼязковим' };
+      },
+    }),
   })
   .refine(data => data.password === data.confirmPassword, {
     message: 'Паролі не співпадають',
@@ -65,11 +61,7 @@ export const loginSchema = z.object({
   email: z
     .string()
     .email('Невірний формат email')
-    .nonempty('Email є обовʼязковим')
-    .regex(
-      /^(?!.*(?:[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})).*$/,
-      'Email не може бути порожнім'
-    ),
+    .nonempty('Email є обовʼязковим'),
 
   password: z
     .string()

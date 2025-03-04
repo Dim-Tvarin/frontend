@@ -1,10 +1,10 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import Error from 'pages/Error';
-import Registration from 'pages/Auth/Registration';
+import Registration from 'components/RegistrationForm';
 import Main from 'pages/Layout/Main';
 import { Home } from 'pages/Home';
-import Login from 'pages/Auth/Login';
+import Login from 'components/LoginForm';
 
 function App() {
   return (
