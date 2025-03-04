@@ -46,7 +46,7 @@ export const registrationSchema = z
 
     confirmPassword: z.string().nonempty('Повторення паролю є обовʼязковим'),
 
-    userType: z.enum(['Опікун', 'Усиновлювач'], {
+    userType: z.enum(['Опікун', 'Усиновлювач', ''], {
       errorMap: () => {
         return { message: 'Тип користувача є обовʼязковим' };
       },

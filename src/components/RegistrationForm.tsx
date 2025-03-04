@@ -1,144 +1,128 @@
-import { useState, type ChangeEvent, type FormEvent } from 'react';
+import { useDispatch } from 'react-redux';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { NavLink } from 'react-router-dom';
 import { InputField } from 'components/InputField';
 import { PhoneInput } from 'components/PhoneInput';
 import { PasswordField } from 'components/PasswordField';
 import { CustomButton } from 'components/CustomButton';
-import { useDispatch } from 'react-redux';
-import type { AppDispatch } from '../redux/store';
-import { registerThunk } from '../redux/users/usersOperations';
-import CustomSelect from 'components/components/CustomSelect';
+import CustomSelect from 'components/CustomSelect';
 import { SelectItem } from 'components/components/ui/select';
+import { registerThunk } from '../redux/users/usersOperations';
+import { registrationSchema } from 'helpers/authValidation';
+import type { AppDispatch } from '../redux/store';
+import { z } from 'zod';
 
-interface FormData {
-  name: string;
-  surname: string;
-  email: string;
-  location: string;
-  phone: string;
-  password: string;
-  confirmPassword: string;
-  userType: '' | 'guardian' | 'adopter';
-}
+type FormData = z.infer<typeof registrationSchema>;
 
 const RegistrationForm: React.FC = () => {
-  const initialFormState: FormData = {
-    name: '',
-    surname: '',
-    email: '',
-    location: '',
-    phone: '',
-    password: '',
-    confirmPassword: '',
-    userType: '',
-  };
-  const [formData, setFormData] = useState<FormData>(initialFormState);
-  const isPasswordMatch = formData.password === formData.confirmPassword;
   const dispatch = useDispatch<AppDispatch>();
 
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    const { id, value } = e.target;
-    setFormData(prev => ({ ...prev, [id]: value }));
-  };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+    setValue,
+    watch,
+  } = useForm<FormData>({
+    resolver: zodResolver(registrationSchema),
+    mode: 'onChange',
+  });
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log(formData);
+  const onSubmit = (data: FormData) => {
     dispatch(
       registerThunk({
-        name: formData.name + ' ' + formData.surname,
-        phone: formData.phone,
-        email: formData.email,
-        location: formData.location,
-        password: formData.password,
-        repeat_password: formData.confirmPassword,
-        userType: formData.userType,
+        name: data.name + ' ' + data.surname,
+        phone: data.phone,
+        email: data.email,
+        location: data.location,
+        password: data.password,
+        repeat_password: data.confirmPassword,
+        userType: data.userType,
       })
     );
-    setFormData(initialFormState);
   };
+  const userTypeValue = watch('userType', '');
 
   return (
-    <>
-      <h1>Реєстрація акаунту</h1>
-      <form
-        onSubmit={handleSubmit}
-        className="flex flex-col gap-8 bg-main-pink-l p-30"
-      >
+    <div className=" bg-main-pink-l flex flex-col max-w-[630px] mx-auto">
+      <h1 className="mb-[41px] text-[32px] text-black">Реєстрація акаунту</h1>
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
         <div className="flex gap-5">
           <InputField
             label="Імʼя"
             placeholder="Введіть ваше імʼя"
             className="w-[305px]"
             id="name"
-            value={formData.name}
-            onChange={handleChange}
+            {...register('name')}
+            error={errors.name?.message}
           />
           <InputField
             label="Прізвище"
             placeholder="Введіть ваше прізвище"
             className="w-[305px]"
             id="surname"
-            value={formData.surname}
-            onChange={handleChange}
+            {...register('surname')}
+            error={errors.surname?.message}
           />
         </div>
+
         <InputField
           label="Адреса електронної пошти"
           placeholder="Введіть адресу електронної пошти"
           className="w-[630px]"
           id="email"
-          value={formData.email}
-          onChange={handleChange}
+          {...register('email')}
+          error={errors.email?.message}
         />
+
         <div className="flex gap-5">
           <InputField
             label="Місто"
             placeholder="Введіть ваше місто"
             className="w-[305px]"
             id="location"
-            value={formData.location}
-            onChange={handleChange}
+            {...register('location')}
+            error={errors.location?.message}
           />
           <PhoneInput
             label="Номер телефону"
             placeholder="+380"
             id="phone"
-            value={formData.phone}
-            onChange={handleChange}
+            {...register('phone')}
+            error={errors.phone?.message}
           />
         </div>
+
         <PasswordField
           label="Пароль"
           placeholder="Введіть надійний пароль"
           className="w-[630px]"
           id="password"
-          value={formData.password}
-          onChange={handleChange}
+          {...register('password')}
+          error={errors.password?.message}
         >
           Пароль повинен містити не менше 8 символів. Для кращого пароля
           використайте букви, великі букви та цифри.
         </PasswordField>
+
         <PasswordField
           label="Повторіть пароль"
           placeholder="Введіть пароль повторно"
           className="w-[630px]"
           id="confirmPassword"
-          value={formData.confirmPassword}
-          onChange={handleChange}
+          {...register('confirmPassword')}
+          error={errors.confirmPassword?.message}
         />
+
         <CustomSelect
           label="Тип користувача"
-          value={formData.userType}
+          value={userTypeValue}
           placeholder="Оберіть тип користувача"
           onChange={value =>
-            setFormData(prev => ({
-              ...prev,
-              userType: value as 'guardian' | 'adopter',
-            }))
+            setValue('userType', value as 'Опікун' | 'Усиновлювач')
           }
+          error={errors.userType?.message}
         >
           <SelectItem value="guardian">Опікун</SelectItem>
           <SelectItem value="adopter">Усиновлювач</SelectItem>
@@ -147,7 +131,7 @@ const RegistrationForm: React.FC = () => {
         <CustomButton
           type="submit"
           styleType="defaultButton"
-          disabled={!isPasswordMatch}
+          disabled={!isValid}
         >
           Зареєструватися
         </CustomButton>
@@ -156,7 +140,7 @@ const RegistrationForm: React.FC = () => {
       <NavLink to="/" end>
         Home
       </NavLink>
-    </>
+    </div>
   );
 };
 

@@ -1,6 +1,12 @@
 import type { FC, ReactNode } from 'react';
-import { Select, SelectTrigger, SelectContent, SelectValue } from './ui/select';
+import {
+  Select,
+  SelectTrigger,
+  SelectContent,
+  SelectValue,
+} from './components/ui/select';
 import { cn } from 'components/lib/utils';
+import { MdErrorOutline } from 'react-icons/md';
 
 interface CustomSelectProps {
   label: string;
@@ -9,6 +15,7 @@ interface CustomSelectProps {
   children: ReactNode;
   placeholder?: string;
   className?: string;
+  error?: string;
 }
 
 const CustomSelect: FC<CustomSelectProps> = ({
@@ -18,6 +25,7 @@ const CustomSelect: FC<CustomSelectProps> = ({
   onChange,
   children,
   placeholder = 'Оберіть варіант',
+  error,
 }) => {
   return (
     <div className="w-full">
@@ -39,6 +47,12 @@ const CustomSelect: FC<CustomSelectProps> = ({
           {children}
         </SelectContent>
       </Select>
+      {error && (
+        <div className="flex items-center mt-[10px] gap-[4px]">
+          <MdErrorOutline size={18} className="text-error" />
+          <p className="text-left text-error text-xs">{error}</p>
+        </div>
+      )}
     </div>
   );
 };
