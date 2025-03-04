@@ -7,6 +7,8 @@ import { CustomButton } from 'components/CustomButton';
 import { useDispatch } from 'react-redux';
 import type { AppDispatch } from '../../redux/store';
 import { registerThunk } from '../../redux/users/usersOperations';
+import CustomSelect from 'components/components/CustomSelect';
+import { SelectItem } from 'components/components/ui/select';
 
 interface FormData {
   name: string;
@@ -16,7 +18,7 @@ interface FormData {
   phone: string;
   password: string;
   confirmPassword: string;
-  // userType: string;
+  userType: '' | 'guardian' | 'adopter';
 }
 
 const Registration: React.FC = () => {
@@ -28,7 +30,7 @@ const Registration: React.FC = () => {
     phone: '',
     password: '',
     confirmPassword: '',
-    // userType: '',
+    userType: '',
   };
   const [formData, setFormData] = useState<FormData>(initialFormState);
   const isPasswordMatch = formData.password === formData.confirmPassword;
@@ -52,7 +54,7 @@ const Registration: React.FC = () => {
         location: formData.location,
         password: formData.password,
         repeat_password: formData.confirmPassword,
-        userType: 'guardian',
+        userType: formData.userType,
       })
     );
     setFormData(initialFormState);
@@ -127,6 +129,21 @@ const Registration: React.FC = () => {
           value={formData.confirmPassword}
           onChange={handleChange}
         />
+        <CustomSelect
+          label="Тип користувача"
+          value={formData.userType}
+          placeholder="Оберіть тип користувача"
+          onChange={value =>
+            setFormData(prev => ({
+              ...prev,
+              userType: value as 'guardian' | 'adopter',
+            }))
+          }
+        >
+          <SelectItem value="guardian">Опікун</SelectItem>
+          <SelectItem value="adopter">Усиновлювач</SelectItem>
+        </CustomSelect>
+
         <CustomButton
           type="submit"
           styleType="defaultButton"
