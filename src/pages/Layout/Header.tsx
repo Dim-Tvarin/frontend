@@ -1,7 +1,8 @@
 import { NavLink } from 'react-router-dom'
 import logo from '../../assets/logo.svg'
-import hart from '../../assets/hart.svg'
-import cabinet from '../../assets/cabinet.svg'
+import { FaRegHeart } from "react-icons/fa";
+import { GoPerson } from "react-icons/go";
+
 
 export const Header = () => {
   return (
@@ -30,12 +31,12 @@ export const Header = () => {
             </li>
             <li  className='ml-auto mr-[20px]'>
               <NavLink to="/favorite" end>
-                <img src={hart} alt="favorite pets" />
+              <FaRegHeart size="20px"/>
               </NavLink>
             </li>
             <li>
               <NavLink to="/register" end>
-                <img src={cabinet} alt="personal cabinet" />
+                <GoPerson  size="26px"/>
               </NavLink>
             </li>
           </ul>
