@@ -1,8 +1,8 @@
 import { NavLink } from 'react-router-dom';
 import logo from '../../assets/logo.svg';
-import hart from '../../assets/hart.svg';
-import cabinet from '../../assets/cabinet.svg';
 import { CustomButton } from 'components/CustomButton';
+import { FaRegHeart } from 'react-icons/fa';
+import { IoIosSearch } from 'react-icons/io';
 import { useDispatch } from 'react-redux';
 import type { AppDispatch } from '../../redux/store';
 import { logoutThunk } from '../../redux/users/usersOperations';
@@ -14,7 +14,7 @@ export const Header = () => {
   };
 
   return (
-    <header className="h-[100px] bg-[#f7ebeb] flex items-center container">
+    <header className="h-100 bg-main-pink-l flex items-center container">
       <nav className="w-full">
         <ul className="flex flex-row items-center">
           <li className="mr-auto">
@@ -22,29 +22,37 @@ export const Header = () => {
               <img src={logo} alt="logo" />
             </NavLink>
           </li>
-          <li className="mr-[80px]">
+          <li className="mr-80">
             <NavLink to="/find" end>
               Знайти тваринку
             </NavLink>
           </li>
-          <li className="mr-[80px]">
+          <li className="mr-80">
             <NavLink to="/giveaway" end>
               Віддати тваринку
             </NavLink>
           </li>
-          <li className="mr-[80px]">
+          <li className="mr-80">
             <NavLink to="/lookfor" end>
               Доглянути за тваринкою
             </NavLink>
           </li>
-          <li className="ml-auto mr-[20px]">
+
+          <li className="ml-auto mr-20">
             <NavLink to="/favorite" end>
-              <img src={hart} alt="favorite pets" />
+              <IoIosSearch size="26px" />
+            </NavLink>
+          </li>
+          <li className="mr-20">
+            <NavLink to="/favorite" end>
+              <FaRegHeart size="20px" />
             </NavLink>
           </li>
           <li>
             <NavLink to="/register" end>
-              <img src={cabinet} alt="personal cabinet" />
+              <CustomButton type="button" className="w-100 m-auto">
+                Увійти
+              </CustomButton>
             </NavLink>
           </li>
           <li>
