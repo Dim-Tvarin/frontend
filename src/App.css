@@ -29,21 +29,6 @@
   --color-error: #ff564f;
 }
 
-@theme {
-  --color-header: #ede9e9;
-  --color-black: #000;
-  --color-link: #535bf2;
-  --color-main-pink-l: #f7ebeb;
-  --color-main-pink-d: #dbd0d0;
-  --color-input-border: #99a2a5;
-  --color-input-label: #242b33;
-  --color-default-btn: #042d4a;
-  --color-default-btn-hov: #6c7b92;
-  --color-disabled: #4b6578;
-  --color-red-btn: #ef4444;
-  --color-red-btn-hov: #dc2626;
-  --color-error: #ff564f;
-
   /* Font Size */
   --text-xxs: 14px;
   --text-xs: 16px;
