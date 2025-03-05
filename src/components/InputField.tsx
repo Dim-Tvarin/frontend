@@ -1,24 +1,45 @@
+import type { FC } from 'react';
 import { Input } from './components/ui/input';
 import { cn } from './lib/utils';
+import { MdErrorOutline } from 'react-icons/md';
 
 interface InputFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
-  className?: string;
+  id: string;
+  error?: string;
 }
 
-export const InputField = ({ label, className, ...props }: InputFieldProps) => (
-  <div className="w-full ">
-    {label && (
-      <label className="block text-left h-[20px] font-medium text-[16px] text-[#242b33] mb-[10px]">
-        {label}
-      </label>
-    )}
-    <Input
-      className={cn(
-        'border border-[#99a2a5] rounded-[8px] px-[28px] py-[14px] h-[48px] placeholder:text-[#99a2a5]',
-        className
+export const InputField: FC<InputFieldProps> = ({
+  label,
+  id,
+  error,
+  className,
+  ...rest
+}) => {
+  return (
+    <div className="w-full ">
+      {label && (
+        <label
+          htmlFor={id}
+          className="block text-left h-[20px] font-medium text-[16px] text-input-label mb-[10px]"
+        >
+          {label}
+        </label>
       )}
-      {...props}
-    />
-  </div>
-);
+      <Input
+        id={id}
+        className={cn(
+          'border border-input-border rounded-[8px] px-[28px] py-[14px] h-[48px] placeholder:text-input-border',
+          className
+        )}
+        {...rest}
+      />
+      {error && (
+        <div className="flex items-center mt-[10px] gap-[4px]">
+          <MdErrorOutline size={18} className="text-error" />
+          <p className="text-left text-error text-xs">{error}</p>
+        </div>
+      )}
+    </div>
+  );
+};
