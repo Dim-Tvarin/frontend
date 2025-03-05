@@ -50,7 +50,11 @@ export const Header = () => {
           </li>
           <li>
             <NavLink to="/register" end>
-              <CustomButton type="button" className="w-100 m-auto">
+              <CustomButton
+                type="button"
+                styleType="defaultButton"
+                className="w-100 m-auto"
+              >
                 Увійти
               </CustomButton>
             </NavLink>
@@ -58,7 +62,7 @@ export const Header = () => {
           <li>
             <CustomButton
               type="button"
-              styleType="defaultButton"
+              styleType="redButton"
               className="w-[100px] m-auto ml-[20px]"
               onClick={handleClick}
             >
