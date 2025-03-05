@@ -1,4 +1,3 @@
-import { NavLink } from 'react-router-dom';
 import { InputField } from 'components/InputField';
 import { PasswordField } from 'components/PasswordField';
 import { CustomButton } from 'components/CustomButton';
@@ -29,12 +28,13 @@ const LoginForm: React.FC = () => {
   };
 
   return (
-    <div className=" bg-main-pink-l flex flex-col max-w-[630px] mx-auto">
+    <div className="flex flex-col max-w-[630px] mx-auto">
       <h1 className="mb-[41px] text-[32px] text-black">Авторизація</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
         <InputField
           label="Адреса електронної пошти"
           placeholder="Введіть адресу електронної пошти"
+          className="w-[630px]"
           id="email"
           {...register('email')}
           error={errors.email?.message}
@@ -43,6 +43,7 @@ const LoginForm: React.FC = () => {
         <PasswordField
           label="Пароль"
           placeholder="Введіть надійний пароль"
+          className="w-[630px]"
           id="password"
           {...register('password')}
           error={errors.password?.message}
@@ -56,10 +57,6 @@ const LoginForm: React.FC = () => {
           Увійти
         </CustomButton>
       </form>
-
-      <NavLink to="/" end>
-        Home
-      </NavLink>
     </div>
   );
 };

@@ -1,7 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { NavLink } from 'react-router-dom';
 import { InputField } from 'components/InputField';
 import { PhoneInput } from 'components/PhoneInput';
 import { PasswordField } from 'components/PasswordField';
@@ -45,7 +44,7 @@ const RegistrationForm: React.FC = () => {
   const userTypeValue = watch('userType', '');
 
   return (
-    <div className=" bg-main-pink-l flex flex-col max-w-[630px] mx-auto">
+    <div className=" flex flex-col max-w-[630px] mx-auto">
       <h1 className="mb-[41px] text-[32px] text-black">Реєстрація акаунту</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
         <div className="flex gap-5">
@@ -136,10 +135,6 @@ const RegistrationForm: React.FC = () => {
           Зареєструватися
         </CustomButton>
       </form>
-
-      <NavLink to="/" end>
-        Home
-      </NavLink>
     </div>
   );
 };
