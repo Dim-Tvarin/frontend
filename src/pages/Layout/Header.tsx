@@ -7,7 +7,7 @@ import { CustomButton } from 'components/CustomButton';
 
 export const Header = () => {
   return (
-    <header className='h-[100px] bg-[#f7ebeb] flex items-center container'>
+    <header className='h-100 bg-main-pink-l flex items-center container'>
         <nav className='w-full'>
           <ul className='flex flex-row items-center'>
             <li className='mr-auto'>
@@ -15,28 +15,28 @@ export const Header = () => {
                 <img src={logo} alt="logo" />
               </NavLink>
             </li>
-            <li className='mr-[80px]'>
+            <li className='mr-80'>
               <NavLink to="/find" end>
                 Знайти тваринку
               </NavLink>
             </li>
-            <li className='mr-[80px]'>
+            <li className='mr-80'>
               <NavLink to="/giveaway" end>
                 Віддати тваринку
               </NavLink>
             </li>
-            <li className='mr-[80px]'>
+            <li className='mr-80'>
               <NavLink to="/lookfor" end>
                 Доглянути за тваринкою
               </NavLink>
           </li>
           
-           <li  className='ml-auto mr-[20px]'>
+           <li  className='ml-auto mr-20'>
               <NavLink to="/favorite" end>
               <IoIosSearch size="26px"/>
               </NavLink>
             </li>
-            <li  className='mr-[20px]'>
+            <li  className='mr-20'>
               <NavLink to="/favorite" end>
               <FaRegHeart size="20px"/>
               </NavLink>
@@ -45,7 +45,7 @@ export const Header = () => {
             <NavLink to="/register" end>
               <CustomButton
                 type="button"
-                className="w-[100px] m-auto"
+                className="w-100 m-auto"
               >
                 Увійти
               </CustomButton>
