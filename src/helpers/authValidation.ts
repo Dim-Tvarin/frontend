@@ -9,13 +9,6 @@ export const registrationSchema = z
       .trim()
       .nonempty('Імʼя є обовʼязковим'),
 
-    surname: z
-      .string()
-      .min(3, 'Прізвище повинно містити щонайменше 3 символи')
-      .max(30, 'Прізвище не може перевищувати 30 символів')
-      .trim()
-      .nonempty('Прізвище є обовʼязковим'),
-
     email: z
       .string()
       .email('Невірний формат email')
@@ -46,7 +39,7 @@ export const registrationSchema = z
 
     confirmPassword: z.string().nonempty('Повторення паролю є обовʼязковим'),
 
-    userType: z.enum(['Опікун', 'Усиновлювач', ''], {
+    userType: z.enum(['guardian', 'adopter', ''], {
       errorMap: () => {
         return { message: 'Тип користувача є обовʼязковим' };
       },

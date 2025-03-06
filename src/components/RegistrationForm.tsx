@@ -29,17 +29,8 @@ const RegistrationForm: React.FC = () => {
   });
 
   const onSubmit = (data: FormData) => {
-    dispatch(
-      registerThunk({
-        name: data.name + ' ' + data.surname,
-        phone: data.phone,
-        email: data.email,
-        location: data.location,
-        password: data.password,
-        repeat_password: data.confirmPassword,
-        userType: data.userType,
-      })
-    );
+    dispatch(registerThunk(data));
+    console.log(data);
   };
   const userTypeValue = watch('userType', '');
 
@@ -47,25 +38,14 @@ const RegistrationForm: React.FC = () => {
     <div className=" flex flex-col max-w-[630px] mx-auto">
       <h1 className="mb-[41px] text-[32px] text-black">Реєстрація акаунту</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
-        <div className="flex gap-5">
-          <InputField
-            label="Імʼя"
-            placeholder="Введіть ваше імʼя"
-            className="w-[305px]"
-            id="name"
-            {...register('name')}
-            error={errors.name?.message}
-          />
-          <InputField
-            label="Прізвище"
-            placeholder="Введіть ваше прізвище"
-            className="w-[305px]"
-            id="surname"
-            {...register('surname')}
-            error={errors.surname?.message}
-          />
-        </div>
-
+        <InputField
+          label="Імʼя"
+          placeholder="Введіть ваше імʼя"
+          className="w-[630px]"
+          id="name"
+          {...register('name')}
+          error={errors.name?.message}
+        />
         <InputField
           label="Адреса електронної пошти"
           placeholder="Введіть адресу електронної пошти"
@@ -119,7 +99,7 @@ const RegistrationForm: React.FC = () => {
           value={userTypeValue}
           placeholder="Оберіть тип користувача"
           onChange={value =>
-            setValue('userType', value as 'Опікун' | 'Усиновлювач')
+            setValue('userType', value as 'guardian' | 'adopter')
           }
           error={errors.userType?.message}
         >
@@ -130,7 +110,7 @@ const RegistrationForm: React.FC = () => {
         <CustomButton
           type="submit"
           styleType="defaultButton"
-          disabled={!isValid}
+          // disabled={!isValid}
         >
           Зареєструватися
         </CustomButton>
