@@ -12,56 +12,53 @@ import { zodResolver } from '@hookform/resolvers/zod';
 type FormData = z.infer<typeof loginSchema>;
 
 const LoginForm: React.FC = () => {
-    const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch<AppDispatch>();
 
-    const {
-        register,
-        handleSubmit,
-        formState: { errors, isValid },
-    } = useForm<FormData>({
-        resolver: zodResolver(loginSchema),
-        mode: 'onChange',
-    });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm<FormData>({
+    resolver: zodResolver(loginSchema),
+    mode: 'onChange',
+  });
 
-    const onSubmit = (data: FormData) => {
-        dispatch(loginThunk(data));
-    };
+  const onSubmit = (data: FormData) => {
+    dispatch(loginThunk(data));
+  };
 
-    return (
-        <div className="flex flex-col max-w-[630px] mx-auto">
-            <h1 className="mb-[41px] text-[32px] text-black">Авторизація</h1>
-            <form
-                onSubmit={handleSubmit(onSubmit)}
-                className="flex flex-col gap-8"
-            >
-                <InputField
-                    label="Адреса електронної пошти"
-                    placeholder="Введіть адресу електронної пошти"
-                    className="w-[630px]"
-                    id="email"
-                    {...register('email')}
-                    error={errors.email?.message}
-                />
+  return (
+    <div className="flex flex-col max-w-[630px] mx-auto">
+      <h1 className="mb-[41px] text-[32px] text-black">Авторизація</h1>
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
+        <InputField
+          label="Адреса електронної пошти"
+          placeholder="Введіть адресу електронної пошти"
+          className="w-[630px]"
+          id="email"
+          {...register('email')}
+          error={errors.email?.message}
+        />
 
-                <PasswordField
-                    label="Пароль"
-                    placeholder="Введіть надійний пароль"
-                    className="w-[630px]"
-                    id="password"
-                    {...register('password')}
-                    error={errors.password?.message}
-                />
+        <PasswordField
+          label="Пароль"
+          placeholder="Введіть надійний пароль"
+          className="w-[630px]"
+          id="password"
+          {...register('password')}
+          error={errors.password?.message}
+        />
 
-                <CustomButton
-                    type="submit"
-                    styleType="defaultButton"
-                    disabled={!isValid}
-                >
-                    Увійти
-                </CustomButton>
-            </form>
-        </div>
-    );
+        <CustomButton
+          type="submit"
+          styleType="defaultButton"
+          disabled={!isValid}
+        >
+          Увійти
+        </CustomButton>
+      </form>
+    </div>
+  );
 };
 
 export default LoginForm;
