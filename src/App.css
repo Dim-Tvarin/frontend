@@ -27,7 +27,6 @@
   --color-red-btn: #ef4444;
   --color-red-btn-hov: #dc2626;
   --color-error: #ff564f;
-}
 
   /* Font Size */
   --text-xxs: 14px;
@@ -39,24 +38,23 @@
   --text-xxl: 48px;
 
   /* Spacing for padding, margin, width, ... */
-    --spacing-2: 2px;
-    --spacing-4: 4px;
-    --spacing-8: 8px;
-    --spacing-12: 12px;
-    --spacing-16: 16px;
-    --spacing-20: 20px;
-    --spacing-24: 24px;
-    --spacing-28: 28px;
-    --spacing-32: 32px;
-    --spacing-40: 40px;
-    --spacing-42: 42px;
-    --spacing-48: 48px;
-    --spacing-56: 56px;
-    --spacing-64: 64px;
-    --spacing-72: 72px;
-    --spacing-80: 80px;
-    --spacing-100: 100px;
-
+  --spacing-2: 2px;
+  --spacing-4: 4px;
+  --spacing-8: 8px;
+  --spacing-12: 12px;
+  --spacing-16: 16px;
+  --spacing-20: 20px;
+  --spacing-24: 24px;
+  --spacing-28: 28px;
+  --spacing-32: 32px;
+  --spacing-40: 40px;
+  --spacing-42: 42px;
+  --spacing-48: 48px;
+  --spacing-56: 56px;
+  --spacing-64: 64px;
+  --spacing-72: 72px;
+  --spacing-80: 80px;
+  --spacing-100: 100px;
 }
 
 :root {
@@ -65,7 +63,7 @@
   --third-family: 'Plus Jakarta Sans', sans-serif;
   --font3: 'American Typewriter', sans-serif;
 
-  color-scheme: light dark;
+  //color-scheme: light dark;
   font-family: var(--font-family);
 
   font-synthesis: none;

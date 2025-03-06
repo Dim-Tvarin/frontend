@@ -7,7 +7,7 @@ interface CustomButtonProps extends React.ComponentProps<typeof Button> {
   type?: 'button' | 'submit' | 'reset';
   styleType?: 'defaultButton' | 'redButton';
 }
-
+// Этот файл лишний, его надо удалить
 export const CustomButton = ({
   children,
   styleType,
