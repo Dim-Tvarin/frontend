@@ -37,15 +37,15 @@ export const registrationSchema = z
       )
       .nonempty('Пароль є обовʼязковим'),
 
-    confirmPassword: z.string().nonempty('Повторення паролю є обовʼязковим'),
+    repeat_password: z.string().nonempty('Повторення паролю є обовʼязковим'),
 
-    userType: z.enum(['guardian', 'adopter', ''], {
+    userType: z.enum(['guardian', 'adopter'], {
       errorMap: () => {
         return { message: 'Тип користувача є обовʼязковим' };
       },
     }),
   })
-  .refine(data => data.password === data.confirmPassword, {
+  .refine(data => data.password === data.repeat_password, {
     message: 'Паролі не співпадають',
     path: ['confirmPassword'],
   });

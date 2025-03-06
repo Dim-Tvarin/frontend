@@ -32,7 +32,7 @@ const RegistrationForm: React.FC = () => {
     dispatch(registerThunk(data));
     console.log(data);
   };
-  const userTypeValue = watch('userType', '');
+  const userTypeValue = watch('userType');
 
   return (
     <div className=" flex flex-col max-w-[630px] mx-auto">
@@ -90,12 +90,13 @@ const RegistrationForm: React.FC = () => {
           placeholder="Введіть пароль повторно"
           className="w-[630px]"
           id="confirmPassword"
-          {...register('confirmPassword')}
-          error={errors.confirmPassword?.message}
+          {...register('repeat_password')}
+          error={errors.repeat_password?.message}
         />
 
         <CustomSelect
           label="Тип користувача"
+          {...register('userType')}
           value={userTypeValue}
           placeholder="Оберіть тип користувача"
           onChange={value =>
@@ -110,7 +111,7 @@ const RegistrationForm: React.FC = () => {
         <CustomButton
           type="submit"
           styleType="defaultButton"
-          // disabled={!isValid}
+          disabled={!isValid}
         >
           Зареєструватися
         </CustomButton>

@@ -7,8 +7,8 @@ interface RegisterCredentials {
   email: string;
   password: string;
   location: string;
-  confirmPassword: string;
-  userType: 'guardian' | 'adopter' | '';
+  repeat_password: string;
+  userType: 'guardian' | 'adopter';
 }
 interface LoginCredentials {
   email: string;
@@ -20,14 +20,14 @@ interface UsersRegisterResponse {
     name: string;
     email: string;
     phone: string;
-    userType: 'guardian' | 'adopter' | '';
+    userType: 'guardian' | 'adopter';
   };
 }
 interface UsersLoginResponse {
   user: {
     name: string;
     email: string;
-    userType: 'guardian' | 'adopter' | '';
+    userType: 'guardian' | 'adopter';
     avatarURL: string;
     theme: 'light' | 'dark';
   };
