@@ -47,7 +47,7 @@ export const registrationSchema = z
   })
   .refine(data => data.password === data.repeat_password, {
     message: 'Паролі не співпадають',
-    path: ['confirmPassword'],
+    path: ['repeat_password'],
   });
 
 export const loginSchema = z.object({
@@ -58,7 +58,7 @@ export const loginSchema = z.object({
 
   password: z
     .string()
-    .min(8, 'Пароль має бути щонайменше 8 символів')
+    .min(8, 'Пароль має бути щонайменше 8 символів латиницею')
     .regex(
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#_\\$%\\^&\\*])(?=.{8,128})/,
       {

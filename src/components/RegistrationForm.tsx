@@ -20,14 +20,13 @@ const RegistrationForm: React.FC = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors },
     setValue,
     watch,
   } = useForm<FormData>({
     resolver: zodResolver(registrationSchema),
     mode: 'onChange',
   });
-
   const onSubmit = (data: FormData) => {
     dispatch(registerThunk(data));
     console.log(data);
@@ -89,7 +88,7 @@ const RegistrationForm: React.FC = () => {
           label="Повторіть пароль"
           placeholder="Введіть пароль повторно"
           className="w-[630px]"
-          id="confirmPassword"
+          id="repeat_password"
           {...register('repeat_password')}
           error={errors.repeat_password?.message}
         />
@@ -99,6 +98,7 @@ const RegistrationForm: React.FC = () => {
           {...register('userType')}
           value={userTypeValue}
           placeholder="Оберіть тип користувача"
+          className="w-[250px]"
           onChange={value =>
             setValue('userType', value as 'guardian' | 'adopter')
           }
@@ -111,7 +111,7 @@ const RegistrationForm: React.FC = () => {
         <CustomButton
           type="submit"
           styleType="defaultButton"
-          disabled={!isValid}
+          className="mt-[80px]"
         >
           Зареєструватися
         </CustomButton>

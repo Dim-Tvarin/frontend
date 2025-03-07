@@ -17,7 +17,7 @@ const LoginForm: React.FC = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(loginSchema),
     mode: 'onChange',
@@ -49,11 +49,7 @@ const LoginForm: React.FC = () => {
           error={errors.password?.message}
         />
 
-        <CustomButton
-          type="submit"
-          styleType="defaultButton"
-          disabled={!isValid}
-        >
+        <CustomButton type="submit" styleType="defaultButton">
           Увійти
         </CustomButton>
       </form>
