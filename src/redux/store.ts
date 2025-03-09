@@ -18,7 +18,7 @@ const persistConfig = {
   key: 'users',
   version: 1,
   storage,
-  whitelist: ['token'],
+  whitelist: ['token', 'user', 'isLoggedIn'],
 };
 
 export const store = configureStore({

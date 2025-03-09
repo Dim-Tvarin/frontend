@@ -1,5 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { loginThunk, logoutThunk, registerThunk } from './usersOperations';
+import {
+  loginThunk,
+  logoutThunk,
+  refreshThunk,
+  registerThunk,
+} from './usersOperations';
 
 interface User {
   name: string;
@@ -50,15 +55,19 @@ const slice = createSlice({
     builder
       .addCase(registerThunk.fulfilled, (state, action) => {
         state.user = action.payload.user;
-        //   state.isLoggedIn = true;
+        state.isLoggedIn = true;
       })
       .addCase(loginThunk.fulfilled, (state, action) => {
         state.user = action.payload.user;
         state.token = action.payload.token;
         state.isLoggedIn = true;
       })
-      .addCase(logoutThunk.fulfilled, () => {
-        return initialState;
+      .addCase(logoutThunk.fulfilled, state => {
+        Object.assign(state, initialState);
+      })
+      .addCase(refreshThunk.fulfilled, (state, action) => {
+        state.user = action.payload.user;
+        state.isLoggedIn = true;
       });
   },
 });

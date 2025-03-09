@@ -8,15 +8,18 @@ import { loginSchema } from 'helpers/authValidation';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useNavigate } from 'react-router';
 
 type FormData = z.infer<typeof loginSchema>;
 
 const LoginForm: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(loginSchema),
@@ -25,6 +28,9 @@ const LoginForm: React.FC = () => {
 
   const onSubmit = (data: FormData) => {
     dispatch(loginThunk(data));
+    reset();
+    alert('Ви успішно авторизувались');
+    navigate('/');
   };
 
   return (

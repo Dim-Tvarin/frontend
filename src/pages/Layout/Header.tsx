@@ -3,15 +3,19 @@ import logo from '../../assets/logo.svg';
 import { CustomButton } from 'components/CustomButton';
 import { FaRegHeart } from 'react-icons/fa';
 import { IoIosSearch } from 'react-icons/io';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch } from '../../redux/store';
 import { logoutThunk } from '../../redux/users/usersOperations';
+import { selectIsLoggedIn, selectUserName } from '../../redux/users/usersSlice';
 
 export const Header = () => {
   const dispatch = useDispatch<AppDispatch>();
   const handleClick = () => {
     dispatch(logoutThunk());
+    alert('Ви успішно вийшли');
   };
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const username = useSelector(selectUserName);
 
   return (
     <header className="h-100 bg-main-pink-l flex items-center container">
@@ -49,25 +53,29 @@ export const Header = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/register" end>
-              <CustomButton
-                type="button"
-                styleType="defaultButton"
-                className="w-100 m-auto"
-              >
-                Увійти
-              </CustomButton>
-            </NavLink>
-          </li>
-          <li>
-            <CustomButton
-              type="button"
-              styleType="redButton"
-              className="w-[100px] m-auto ml-[20px]"
-              onClick={handleClick}
-            >
-              Вийти
-            </CustomButton>
+            {isLoggedIn ? (
+              <>
+                <span className="text-black text-s">{username}</span>
+                <CustomButton
+                  type="button"
+                  styleType="redButton"
+                  className="w-[100px] m-auto ml-[20px]"
+                  onClick={handleClick}
+                >
+                  Вийти
+                </CustomButton>
+              </>
+            ) : (
+              <NavLink to="/register" end>
+                <CustomButton
+                  type="button"
+                  styleType="defaultButton"
+                  className="w-100 m-auto"
+                >
+                  Увійти
+                </CustomButton>
+              </NavLink>
+            )}
           </li>
         </ul>
       </nav>
