@@ -11,7 +11,7 @@ export const Home = () => {
             безпритульним тваринкам знайти свій дім
           </p>
           <CustomButton className="w-[236px] bg-default-btn rounded-[20px]">
-            <Link to="/lookfor">Створити оголошення</Link>
+            <Link to="/announcement">Створити оголошення</Link>
           </CustomButton>
         </div>
         <div className="relative h-[557px] w-[631px] bg-main-pink-d rounded-[30px]">
