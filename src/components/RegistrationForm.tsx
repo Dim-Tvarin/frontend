@@ -11,61 +11,48 @@ import { registerThunk } from '../redux/users/usersOperations';
 import { registrationSchema } from 'helpers/authValidation';
 import type { AppDispatch } from '../redux/store';
 import { z } from 'zod';
+import { useNavigate } from 'react-router';
 
 type FormData = z.infer<typeof registrationSchema>;
 
 const RegistrationForm: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors },
     setValue,
     watch,
+    reset,
   } = useForm<FormData>({
     resolver: zodResolver(registrationSchema),
     mode: 'onChange',
   });
-
   const onSubmit = (data: FormData) => {
-    dispatch(
-      registerThunk({
-        name: data.name + ' ' + data.surname,
-        phone: data.phone,
-        email: data.email,
-        location: data.location,
-        password: data.password,
-        repeat_password: data.confirmPassword,
-        userType: data.userType,
-      })
+    dispatch(registerThunk(data));
+    console.log(data);
+    reset();
+    alert(
+      'Акаунт успішно створено! Підтвердіть свій email, ми відправили лист вам на пошту'
     );
+    navigate('/login');
   };
-  const userTypeValue = watch('userType', '');
+  const userTypeValue = watch('userType');
 
   return (
     <div className=" flex flex-col max-w-[630px] mx-auto">
       <h1 className="mb-[41px] text-[32px] text-black">Реєстрація акаунту</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
-        <div className="flex gap-5">
-          <InputField
-            label="Імʼя"
-            placeholder="Введіть ваше імʼя"
-            className="w-[305px]"
-            id="name"
-            {...register('name')}
-            error={errors.name?.message}
-          />
-          <InputField
-            label="Прізвище"
-            placeholder="Введіть ваше прізвище"
-            className="w-[305px]"
-            id="surname"
-            {...register('surname')}
-            error={errors.surname?.message}
-          />
-        </div>
-
+        <InputField
+          label="Імʼя"
+          placeholder="Введіть ваше імʼя"
+          className="w-[630px]"
+          id="name"
+          {...register('name')}
+          error={errors.name?.message}
+        />
         <InputField
           label="Адреса електронної пошти"
           placeholder="Введіть адресу електронної пошти"
@@ -109,17 +96,19 @@ const RegistrationForm: React.FC = () => {
           label="Повторіть пароль"
           placeholder="Введіть пароль повторно"
           className="w-[630px]"
-          id="confirmPassword"
-          {...register('confirmPassword')}
-          error={errors.confirmPassword?.message}
+          id="repeat_password"
+          {...register('repeat_password')}
+          error={errors.repeat_password?.message}
         />
 
         <CustomSelect
           label="Тип користувача"
+          {...register('userType')}
           value={userTypeValue}
           placeholder="Оберіть тип користувача"
+          className="w-[250px]"
           onChange={value =>
-            setValue('userType', value as 'Опікун' | 'Усиновлювач')
+            setValue('userType', value as 'guardian' | 'adopter')
           }
           error={errors.userType?.message}
         >
@@ -130,7 +119,7 @@ const RegistrationForm: React.FC = () => {
         <CustomButton
           type="submit"
           styleType="defaultButton"
-          disabled={!isValid}
+          className="mt-[80px]"
         >
           Зареєструватися
         </CustomButton>

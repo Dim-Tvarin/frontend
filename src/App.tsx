@@ -6,8 +6,16 @@ import { Home } from 'pages/Home';
 import Registration from 'pages/Auth/Registration';
 import Login from 'pages/Auth/Login';
 import Components from 'pages/Components';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { refreshThunk } from './redux/users/usersOperations';
+import type { AppDispatch } from './redux/store';
 
 function App() {
+  const dispatch = useDispatch<AppDispatch>();
+  useEffect(() => {
+    dispatch(refreshThunk());
+  }, [dispatch]);
   return (
     <Routes>
       <Route path="/" element={<Main />}>

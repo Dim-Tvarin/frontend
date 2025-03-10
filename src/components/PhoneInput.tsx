@@ -16,7 +16,7 @@ export const PhoneInput: FC<PhoneInputProps> = ({
   className,
   ...rest
 }) => (
-  <>
+  <div className="w-full">
     <InputField
       label={label}
       id={id}
@@ -29,5 +29,5 @@ export const PhoneInput: FC<PhoneInputProps> = ({
         <p className="text-left text-error text-xs">{error}</p>
       </div>
     )}
-  </>
+  </div>
 );

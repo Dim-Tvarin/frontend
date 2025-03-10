@@ -28,7 +28,7 @@ const CustomSelect: FC<CustomSelectProps> = ({
   error,
 }) => {
   return (
-    <div className="w-full">
+    <div className="w-full [&_button>svg]:size-16 ">
       {label && (
         <label className="block text-left h-[20px] font-medium text-[16px] text-input-label mb-[10px]">
           {label}
@@ -37,13 +37,16 @@ const CustomSelect: FC<CustomSelectProps> = ({
       <Select value={value} onValueChange={onChange}>
         <SelectTrigger
           className={cn(
-            'border border-input-border rounded-[20px] px-[28px] py-[14px] h-[48px] text-input-border',
+            'border border-input-border rounded-[20px] px-[28px] py-[14px] h-[48px] text-input-border flex justify-between',
             className
           )}
         >
-          <SelectValue placeholder={placeholder} />
+          <SelectValue
+            placeholder={placeholder}
+            className="[&_span>svg]:size-16"
+          />
         </SelectTrigger>
-        <SelectContent className="text-input-border rounded-[16px]">
+        <SelectContent className="text-input-border rounded-[16px] [&_span>svg]:size-12">
           {children}
         </SelectContent>
       </Select>

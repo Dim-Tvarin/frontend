@@ -22,7 +22,7 @@ const Registration = () => {
               Зайти в особистий кабінет
             </CustomButton>
           </NavLink>
-          <img src="/public/dog.svg" alt="Dog" className="mx-auto" />
+          <img src="/dog.svg" alt="Dog" className="mx-auto" />
         </div>
       </div>
       <RegistrationForm />
