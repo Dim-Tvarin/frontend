@@ -22,6 +22,7 @@ interface User {
   phone?: string;
   userType: 'guardian' | 'adopter';
   avatarURL?: string;
+  location?: string;
   theme?: 'light' | 'dark';
 }
 
@@ -36,6 +37,12 @@ interface UsersLoginResponse {
 
 interface UsersRefreshResponse {
   user: User;
+}
+
+interface UsersVerificationResponse {
+  user: User;
+  token: string;
+  message: string;
 }
 
 export const registerThunk = createAsyncThunk<
@@ -58,7 +65,7 @@ export const loginThunk = createAsyncThunk<
   LoginCredentials
 >('login', async (credentials, thunkAPI) => {
   try {
-    const { data } = await marketplaceApiUsers.post<UsersLoginResponse>(
+    const { data } = await marketplaceApiUsers.post<UsersVerificationResponse>(
       'login',
       credentials
     );
@@ -100,5 +107,21 @@ export const refreshThunk = createAsyncThunk<
     return data;
   } catch (error: any) {
     return thunkAPI.rejectWithValue(error.message || 'Refresh failed');
+  }
+});
+
+export const verifyUserThunk = createAsyncThunk<
+  UsersVerificationResponse,
+  string
+>('verify', async (verificationToken, thunkAPI) => {
+  try {
+    const { data } = await marketplaceApiUsers.get<UsersVerificationResponse>(
+      `verify/${verificationToken}`
+    );
+
+    setToken(data.token);
+    return data;
+  } catch (error: any) {
+    return thunkAPI.rejectWithValue(error.message || 'Verification failed');
   }
 });

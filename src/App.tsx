@@ -10,6 +10,7 @@ import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { refreshThunk } from './redux/users/usersOperations';
 import type { AppDispatch } from './redux/store';
+import VerifyPage from 'pages/Auth/VerifyPage';
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -24,6 +25,7 @@ function App() {
         <Route path="components" element={<Components />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Registration />} />
+        <Route path="/verify/:verifyToken" element={<VerifyPage />} />
         <Route path="*" element={<Error />} />
       </Route>
     </Routes>
