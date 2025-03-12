@@ -11,13 +11,11 @@ import { registerThunk } from '../redux/users/usersOperations';
 import { registrationSchema } from 'helpers/authValidation';
 import type { AppDispatch } from '../redux/store';
 import { z } from 'zod';
-import { useNavigate } from 'react-router';
 
 type FormData = z.infer<typeof registrationSchema>;
 
 const RegistrationForm: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const navigate = useNavigate();
 
   const {
     register,
@@ -37,7 +35,6 @@ const RegistrationForm: React.FC = () => {
     alert(
       'Акаунт успішно створено! Підтвердіть свій email, ми відправили лист вам на пошту'
     );
-    navigate('/login');
   };
   const userTypeValue = watch('userType');
 

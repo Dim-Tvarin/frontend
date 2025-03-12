@@ -4,6 +4,7 @@ import {
   logoutThunk,
   refreshThunk,
   registerThunk,
+  verifyUserThunk,
 } from './usersOperations';
 
 interface User {
@@ -55,6 +56,11 @@ const slice = createSlice({
     builder
       .addCase(registerThunk.fulfilled, (state, action) => {
         state.user = action.payload.user;
+        state.isLoggedIn = false;
+      })
+      .addCase(verifyUserThunk.fulfilled, (state, action) => {
+        state.user = action.payload.user;
+        state.token = action.payload.token;
         state.isLoggedIn = true;
       })
       .addCase(loginThunk.fulfilled, (state, action) => {
