@@ -1,22 +1,10 @@
 import { CustomButton } from 'components/CustomButton';
-import CustomCheckbox from 'components/CustomCheckbox';
-import { InputField } from 'components/InputField';
 import { Link } from 'react-router-dom';
 
 
 export const Home = () => {
   return (
     <div className="container">
-
-
-       <InputField
-                label="Імʼя"
-                className="w-[413px]"
-                id="name"
-      />
-      <CustomCheckbox id='qwe' label='Собака'/>
-      
-
       <section className="flex flex-row gap-[20px] mt-[60px]">
         <div className="flex flex-col gap-[24px] justify-center w-2/4 items-center">
           <p className="text-xl px-[20px]">
