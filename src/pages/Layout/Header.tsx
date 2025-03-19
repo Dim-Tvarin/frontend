@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import logo from '../../assets/logo.svg';
+import logo from '../../assets/color-logo.svg';
 import { CustomButton } from 'components/CustomButton';
 import { FaRegHeart } from 'react-icons/fa';
 import { IoIosSearch } from 'react-icons/io';
@@ -20,25 +20,26 @@ export const Header = () => {
   return (
     <header className="h-100 bg-main-pink-l flex items-center container">
       <nav className="w-full">
-        <ul className="flex flex-row items-center">
+        <ul className="flex flex-row items-center text-s">
           <li className="mr-auto">
-            <NavLink to="/" end>
-              <img src={logo} alt="logo" />
+            <NavLink className="flex flex-col items-center" to="/" end>
+              <img src={logo} alt="logo" className='w-46 h-46'/>
+              <span className='text-xxs'>Dim Tvaryn</span>
             </NavLink>
           </li>
-          <li className="mr-80">
+          <li className="mr-56">
             <NavLink to="/find" end>
               Знайти тваринку
             </NavLink>
           </li>
-          <li className="mr-80">
+          <li className="mr-56">
             <NavLink to="/giveaway" end>
-              Віддати тваринку
+              Віддати в добрі руки
             </NavLink>
           </li>
-          <li className="mr-80">
+          <li className="mr-56">
             <NavLink to="/lookfor" end>
-              Доглянути за тваринкою
+              Догляд за твариною
             </NavLink>
           </li>
 
