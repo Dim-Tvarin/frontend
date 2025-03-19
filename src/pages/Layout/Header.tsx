@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch } from '../../redux/store';
 import { logoutThunk } from '../../redux/users/usersOperations';
 import { selectIsLoggedIn, selectUserName } from '../../redux/users/usersSlice';
+import CabinetSVG from '../../assets/CabinetSVG';
 
 export const Header = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -72,8 +73,9 @@ export const Header = () => {
                   type="button"
                   styleType="defaultButton"
                   className="w-100 m-auto"
-                >
-                  Увійти
+                  >
+                  <CabinetSVG />
+                  <span>Вхід</span>
                 </CustomButton>
               </NavLink>
             )}
