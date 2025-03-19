@@ -1,14 +1,23 @@
-import React from 'react'
+import announce1 from '../assets/announce1.jpg'
+import announce2 from '../assets/announce2.jpg'
+import announce3 from '../assets/announce3.jpg'
 
  const Announcement = () => {
   return (
     <div className='container flex flex-row'>
-      <div className="flex flex-1/2 mt-64">Додати оголошення</div>
+      <div className="flex flex-1/2 mt-100 text-xl">Додати оголошення</div>
 
 
-      <div className="flex flex-col flex-1/2 mt-64 h-full w-full min-h-[525px] bg-main-pink-d rounded-[30px] gap-24">
-          <div className="h-[330px] w-11/12 bg-main-pink-l rounded-[30px] mt-48 ml-auto"></div>
-          <div className="h-[330px] w-11/12 bg-main-pink-l rounded-[30px] ml-auto mb-8"></div>
+       <div className="w-[630px] bg-orange rounded-[30px] flex flex-col gap-32 py-32 items-end mt-100">
+          <div className="w-[600px] rounded-l-[30px] overflow-hidden">
+              <img src={announce1} alt="хлопець з хаскі"/>
+        </div>
+         <div className="w-[600px] rounded-l-[30px] overflow-hidden">
+              <img src={announce2} alt="хлопець з хаскі"/>
+        </div>
+         <div className="w-[600px] rounded-l-[30px] overflow-hidden">
+              <img src={announce3} alt="хлопець з хаскі"/>
+          </div>
         </div>
     </div>
   )
