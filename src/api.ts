@@ -2,7 +2,7 @@ import axios from 'axios';
 import type { AxiosInstance } from 'axios';
 
 export const marketplaceApiUsers: AxiosInstance = axios.create({
-  baseURL: 'https://marketplace-backend-wrk2.onrender.com/api/users/',
+  baseURL: 'https://marketplace-backend-wrk2.onrender.com/users/',
   headers: {
     'Content-Type': 'application/json',
   },
