@@ -5,6 +5,8 @@ import { MdErrorOutline } from 'react-icons/md';
 
 interface InputFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
+  labelClass?: string;
+  labelSize?: number;
   id: string;
   error?: string;
 }
@@ -14,6 +16,8 @@ export const InputField: FC<InputFieldProps> = ({
   id,
   error,
   className,
+  labelClass,
+  labelSize,
   ...rest
 }) => {
   return (
@@ -21,7 +25,7 @@ export const InputField: FC<InputFieldProps> = ({
       {label && (
         <label
           htmlFor={id}
-          className="block text-left h-[20px] font-medium text-[16px] text-input-label mb-[10px]"
+          className={cn('block text-left h-[20px] font-medium text-input-label mb-[10px]', labelClass, labelSize ? `text-${labelSize}`: 'text-xs' )}
         >
           {label}
         </label>
