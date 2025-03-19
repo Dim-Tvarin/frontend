@@ -1,5 +1,10 @@
 import { CustomButton } from 'components/CustomButton';
+import ResponsiveImage from 'components/ResponsiveImage';
 import { Link } from 'react-router-dom';
+import homeDogMin from '../assets/home-dog1.jpg'
+import homeDogMax from '../assets/home-dog2.png'
+import homeGirlDogMin from '../assets/home-girl&dog1.jpg'
+import homeGirlDogMax from '../assets/home-girl&dog@2.jpg'
 
 
 export const Home = () => {
@@ -14,14 +19,18 @@ export const Home = () => {
             <Link to="/lookfor">Створити оголошення</Link>
           </CustomButton>
         </div>
-        <div className="relative h-[557px] w-[631px] bg-main-pink-d rounded-[30px]">
-          <div className="absolute bottom-0 right-0 h-[507px] w-[581px] bg-main-pink-l rounded-[30px]"></div>
+        <div className="relative h-[500px] w-[630px] bg-orange rounded-[30px] overflow-hidden">
+          <div className="absolute bottom-0 right-0 h-[468px] w-[600px] rounded-[30px]">
+            <ResponsiveImage urlMax={homeDogMax} urlMin={ homeDogMin} alt="піклування про собаку"/>
+          </div>
         </div>
       </section>
 
       <section className="flex flex-row gap-[20px] mt-[134px]">
-        <div className="relative h-[525px] w-[630px] bg-main-pink-d rounded-[30px]">
-          <div className="absolute bottom-0 left-0 h-[475px] w-[580px] bg-main-pink-l rounded-[30px]"></div>
+        <div className="relative h-[500px] w-[630px] bg-orange rounded-[30px] overflow-hidden">
+          <div className="absolute bottom-0 left-0 h-[468px] w-[600px]  rounded-[30px] overflow-hidden">
+             <ResponsiveImage urlMax={homeGirlDogMax} urlMin={ homeGirlDogMin} alt="дівчина грає з собакою"/>
+          </div>
         </div>
         <div className="flex flex-col gap-[24px] justify-start w-2/4 items-start text-start">
           <h3 className="mb-8 text-xl font-semibold">Чому саме ми?</h3>
