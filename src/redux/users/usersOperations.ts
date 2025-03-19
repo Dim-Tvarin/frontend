@@ -56,7 +56,11 @@ export const registerThunk = createAsyncThunk<
     );
     return data;
   } catch (error: any) {
-    return thunkAPI.rejectWithValue(error.message || 'Registration failed');
+    return thunkAPI.rejectWithValue(
+      error.response?.status === 409
+        ? 'Цей email вже зайнятий. Будь ласка, оберіть інший'
+        : error.message || 'Registration failed'
+    );
   }
 });
 

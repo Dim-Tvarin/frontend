@@ -22,7 +22,7 @@ interface UserState {
   token: string | null;
   isLoggedIn: boolean;
   isLoading: boolean;
-  error: boolean;
+  error: string | null;
 }
 
 const initialState: UserState = {
@@ -38,7 +38,7 @@ const initialState: UserState = {
   token: null,
   isLoggedIn: false,
   isLoading: false,
-  error: false,
+  error: null,
 };
 
 const slice = createSlice({
@@ -50,6 +50,7 @@ const slice = createSlice({
     selectUserTheme: state => state.user.theme,
     selectToken: state => state.token,
     selectIsLoggedIn: state => state.isLoggedIn,
+    selectError: state => state.error,
   },
   reducers: {},
   extraReducers: builder => {
@@ -57,6 +58,9 @@ const slice = createSlice({
       .addCase(registerThunk.fulfilled, (state, action) => {
         state.user = action.payload.user;
         state.isLoggedIn = false;
+      })
+      .addCase(registerThunk.rejected, (state, action) => {
+        state.error = action.payload as string;
       })
       .addCase(verifyUserThunk.fulfilled, (state, action) => {
         state.user = action.payload.user;
@@ -85,4 +89,5 @@ export const {
   selectUserTheme,
   selectToken,
   selectIsLoggedIn,
+  selectError,
 } = slice.selectors;

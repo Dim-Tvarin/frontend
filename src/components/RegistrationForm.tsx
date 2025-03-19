@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { InputField } from 'components/InputField';
@@ -11,11 +11,13 @@ import { registerThunk } from '../redux/users/usersOperations';
 import { registrationSchema } from 'helpers/authValidation';
 import type { AppDispatch } from '../redux/store';
 import { z } from 'zod';
+import { selectError } from '../redux/users/usersSlice';
 
 type FormData = z.infer<typeof registrationSchema>;
 
 const RegistrationForm: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const emailError = useSelector(selectError);
 
   const {
     register,
@@ -29,12 +31,13 @@ const RegistrationForm: React.FC = () => {
     mode: 'onChange',
   });
   const onSubmit = (data: FormData) => {
-    dispatch(registerThunk(data));
-    console.log(data);
-    reset();
-    alert(
-      'Акаунт успішно створено! Підтвердіть свій email, ми відправили лист вам на пошту'
-    );
+    const result = dispatch(registerThunk(data));
+    if (registerThunk.fulfilled.match(result)) {
+      alert(
+        'Акаунт успішно створено! Підтвердіть свій email, ми відправили лист вам на пошту'
+      );
+      reset();
+    }
   };
   const userTypeValue = watch('userType');
 
@@ -56,7 +59,7 @@ const RegistrationForm: React.FC = () => {
           className="w-[630px]"
           id="email"
           {...register('email')}
-          error={errors.email?.message}
+          error={emailError || errors.email?.message}
         />
 
         <div className="flex gap-5">
