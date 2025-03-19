@@ -1,8 +1,8 @@
 import { NavLink } from 'react-router-dom';
 import logo from '../../assets/color-logo.svg';
+import search from '../../assets/search.svg';
 import { CustomButton } from 'components/CustomButton';
 import { FaRegHeart } from 'react-icons/fa';
-import { IoIosSearch } from 'react-icons/io';
 import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch } from '../../redux/store';
 import { logoutThunk } from '../../redux/users/usersOperations';
@@ -46,12 +46,12 @@ export const Header = () => {
 
           <li className="ml-auto mr-20">
             <NavLink to="/favorite" end>
-              <IoIosSearch size="26px" />
+              <img src={search} alt='search'/>
             </NavLink>
           </li>
           <li className="mr-20">
             <NavLink to="/favorite" end>
-              <FaRegHeart size="20px" />
+              <FaRegHeart size="30px" />
             </NavLink>
           </li>
           <li>
