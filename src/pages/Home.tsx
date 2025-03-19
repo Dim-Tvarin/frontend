@@ -12,7 +12,7 @@ export const Home = () => {
     <div className="container text-default-btn">
       <section className="flex flex-row gap-[20px] mt-[60px]">
         <div className="flex flex-col gap-[24px] justify-center w-2/4 items-center">
-          <p className="text-xl px-[20px]">
+          <p className="text-xl px-[20px] font-normal">
            Оберіть для себе ідеального домашнього улюбленця, або допоможіть безпритульним тваринам знайти свій дім
           </p>
           <CustomButton className="w-[236px] h-[44px] bg-default-btn rounded-[20px]">
