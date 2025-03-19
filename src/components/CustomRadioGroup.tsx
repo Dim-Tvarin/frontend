@@ -14,14 +14,16 @@ interface RadioProps {
   defaultValue?: string;
   className?: string;
   items: Item[];
+  itemWidth?: string;
 }
 
 
-const CustomRadioGroup: FC<RadioProps> = ({defaultValue, items,className }) => {
+const CustomRadioGroup: FC<RadioProps> = ({defaultValue, items,className, itemWidth }) => {
   return (
     <RadioGroup defaultValue={defaultValue} className={cn("flex gap-20", className)}>
       {items.map(item => (
-        <div className="w-[197px] flex items-center gap-8 rounded-lg p-8 border-1 border-input-border" key={item.value }>
+        <div className={ cn("w-[197px] flex items-center gap-8 rounded-lg p-8 border-1 border-input-border", itemWidth )}
+           key={item.value}>
           <RadioGroupItem value={item.label } id={item.value } className="ring-[1px] w-20 h-20 data-[state=checked]:ring-2 focus:outline-none"/>
           <Label htmlFor={item.value }>{item.label }</Label>
         </div>
