@@ -3,7 +3,6 @@
 @tailwind utilities;
 
 #root {
-  max-width: 1440px;
   margin: 0 auto;
   padding: 0;
   text-align: center;
@@ -13,7 +12,7 @@
 }
 
 @theme {
-  --color-header: #ede9e9;
+  --color-header: #DCD2C8;
   --color-black: #000;
   --color-link: #535bf2;
   --color-main-pink-l: #f7ebeb;

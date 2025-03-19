@@ -19,8 +19,8 @@ export const Header = () => {
   const username = useSelector(selectUserName);
 
   return (
-    <header className="h-100 bg-main-pink-l flex items-center container">
-      <nav className="w-full">
+    <header className="h-100 bg-header flex items-center">
+      <nav className="w-full container">
         <ul className="flex flex-row items-center text-s">
           <li className="mr-auto">
             <NavLink className="flex flex-col items-center" to="/" end>
