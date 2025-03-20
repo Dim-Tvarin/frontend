@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import {
   forgotPasswordThunk,
   loginThunk,
@@ -62,9 +62,6 @@ const slice = createSlice({
         state.user = action.payload.user;
         state.isLoggedIn = false;
       })
-      .addCase(registerThunk.rejected, (state, action) => {
-        state.error = action.payload as string;
-      })
       .addCase(verifyUserThunk.fulfilled, (state, action) => {
         state.user = action.payload.user;
         state.token = action.payload.token;
@@ -82,28 +79,59 @@ const slice = createSlice({
         state.user = action.payload.user;
         state.isLoggedIn = true;
       })
-      .addCase(forgotPasswordThunk.fulfilled, state => {
-        state.isLoading = false;
-      })
-      .addCase(forgotPasswordThunk.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.payload as string;
-      })
       .addCase(verifyResetPasswordThunk.fulfilled, (state, action) => {
-        state.isLoading = false;
         state.token = action.payload.token;
-      })
-      .addCase(verifyResetPasswordThunk.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.payload as string;
       })
       .addCase(resetPasswordThunk.fulfilled, state => {
         state.isLoading = false;
       })
-      .addCase(resetPasswordThunk.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.payload as string;
-      });
+      .addMatcher(
+        isAnyOf(
+          registerThunk.fulfilled,
+          verifyUserThunk.fulfilled,
+          loginThunk.fulfilled,
+          logoutThunk.fulfilled,
+          refreshThunk.fulfilled,
+          forgotPasswordThunk.fulfilled,
+          verifyResetPasswordThunk.fulfilled,
+          resetPasswordThunk.fulfilled
+        ),
+        state => {
+          state.isLoading = false;
+          state.error = null;
+        }
+      )
+      .addMatcher(
+        isAnyOf(
+          registerThunk.pending,
+          verifyUserThunk.pending,
+          loginThunk.pending,
+          logoutThunk.pending,
+          refreshThunk.pending,
+          forgotPasswordThunk.pending,
+          verifyResetPasswordThunk.pending,
+          resetPasswordThunk.pending
+        ),
+        state => {
+          state.isLoading = true;
+          state.error = null;
+        }
+      )
+      .addMatcher(
+        isAnyOf(
+          registerThunk.rejected,
+          verifyUserThunk.rejected,
+          loginThunk.rejected,
+          logoutThunk.rejected,
+          forgotPasswordThunk.rejected,
+          verifyResetPasswordThunk.rejected,
+          resetPasswordThunk.rejected
+        ),
+        (state, action) => {
+          state.isLoading = false;
+          state.error = action.payload as string;
+        }
+      );
   },
 });
 

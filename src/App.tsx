@@ -4,7 +4,6 @@ import Error from 'pages/Error';
 import Main from 'pages/Layout/Main';
 import { Home } from 'pages/Home';
 import Registration from 'pages/Auth/Registration';
-import Login from 'pages/Auth/Login';
 import Components from 'pages/Components';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
@@ -23,7 +22,7 @@ function App() {
         <Route index element={<Home />} />
 
         <Route path="components" element={<Components />} />
-        <Route path="login" element={<Login />} />
+        {/* <Route path="login" element={<Login />} /> */}
         <Route path="register" element={<Registration />} />
         <Route path="verify/:verifyToken" element={<VerifyPage />} />
         <Route path="*" element={<Error />} />

@@ -1,6 +1,6 @@
 import { CustomButton } from './CustomButton';
 import { InputField } from './InputField';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch } from '../redux/store';
 import { loginThunk } from '../redux/users/usersOperations';
 import { loginSchema } from 'helpers/authValidation';
@@ -22,12 +22,14 @@ import {
 import { PasswordField } from './PasswordField';
 import { NavLink } from 'react-router-dom';
 import CabinetSVG from '../assets/CabinetSVG';
+import { selectError } from '../redux/users/usersSlice';
 
 type FormData = z.infer<typeof loginSchema>;
 
 const CustomDialogLogin: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
+  const authError = useSelector(selectError);
 
   const {
     register,
@@ -40,11 +42,14 @@ const CustomDialogLogin: React.FC = () => {
   });
 
   const onSubmit = (data: FormData) => {
-    dispatch(loginThunk(data));
-    reset();
-    alert('Ви успішно авторизувались');
-    navigate('/');
+    const result = dispatch(loginThunk(data));
+    if (loginThunk.fulfilled.match(result)) {
+      alert('Ви успішно авторизувались');
+      reset();
+      navigate('/');
+    }
   };
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -88,7 +93,7 @@ const CustomDialogLogin: React.FC = () => {
             className="w-[340px]"
             id="password"
             {...register('password')}
-            error={errors.password?.message}
+            error={authError || errors.password?.message}
           />
           <DialogFooter>
             <CustomButton

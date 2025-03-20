@@ -82,7 +82,11 @@ export const loginThunk = createAsyncThunk<
     setToken(data.token);
     return data;
   } catch (error: any) {
-    return thunkAPI.rejectWithValue(error.message || 'Login failed');
+    return thunkAPI.rejectWithValue(
+      error.response?.status === 401
+        ? 'Не вірний email або пароль. Будь ласка, спробуйте знов'
+        : error.message || 'Login failed'
+    );
   }
 });
 
