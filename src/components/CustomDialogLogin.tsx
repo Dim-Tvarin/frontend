@@ -8,16 +8,20 @@ import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from 'react-router-dom';
+import CloseSVG from '../assets/CloseSVG';
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogFooter,
   DialogHeader,
+  DialogOverlay,
   DialogTitle,
   DialogTrigger,
 } from './components/ui/dialog';
 import { PasswordField } from './PasswordField';
 import { NavLink } from 'react-router-dom';
+import CabinetSVG from '../assets/CabinetSVG';
 
 type FormData = z.infer<typeof loginSchema>;
 
@@ -44,15 +48,32 @@ const CustomDialogLogin: React.FC = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <CustomButton type="button" styleType="defaultButton">
-          Увійти
+        <CustomButton
+          type="button"
+          styleType="defaultButton"
+          className="w-100 m-auto"
+        >
+          <CabinetSVG />
+          <span>Вхід</span>
         </CustomButton>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogOverlay className="bg-black/70" />
+      <DialogContent
+        className="w-[400px] rounded-[30px] p-30 bg-dialog text-center"
+        onPointerDownOutside={e => e.preventDefault()}
+      >
+        <DialogClose className="absolute top-30 right-30 ">
+          <CloseSVG />
+        </DialogClose>
         <DialogHeader>
-          <DialogTitle>Авторизація</DialogTitle>
+          <DialogTitle className="text-2xl leading-[140%] text-default-btn">
+            Авторизація
+          </DialogTitle>
         </DialogHeader>
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col gap-10 mt-30"
+        >
           <InputField
             label="Електронна пошта"
             placeholder="Введіть адресу електронної пошти"
@@ -70,17 +91,29 @@ const CustomDialogLogin: React.FC = () => {
             error={errors.password?.message}
           />
           <DialogFooter>
-            <CustomButton type="submit" styleType="defaultButton">
+            <CustomButton
+              type="submit"
+              styleType="orangeButton"
+              className="mt-20"
+            >
               Увійти
             </CustomButton>
           </DialogFooter>
         </form>
-        <NavLink to="/register" end>
-          Зареєструватися
-        </NavLink>
-        <NavLink to="/forgot-password" end>
-          Забули пароль?
-        </NavLink>
+        <DialogClose asChild>
+          <NavLink
+            to="/register"
+            end
+            className="mt-20 mb-10px text-[12px] text-link"
+          >
+            Зареєструватися
+          </NavLink>
+        </DialogClose>
+        <DialogClose asChild>
+          <NavLink to="/forgot-password" end className="text-[12px] text-link ">
+            Забули пароль?
+          </NavLink>
+        </DialogClose>
       </DialogContent>
     </Dialog>
   );

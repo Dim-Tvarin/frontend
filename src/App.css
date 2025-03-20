@@ -12,7 +12,7 @@
 }
 
 @theme {
-  --color-header: #DCD2C8;
+  --color-header: #dcd2c8;
   --color-black: #000;
   --color-white: #fff;
   --color-link: #535bf2;
@@ -27,28 +27,33 @@
   --color-red-btn: #ef4444;
   --color-red-btn-hov: #dc2626;
   --color-error: #ff564f;
-  --color-orange: #FF8C42;
+  --color-orange: #ff8c42;
+  --color-btn-orange: #ff7f50;
+  --color-dialog: #ede9e9;
+  --color-link: #4154bb;
 
-  /* Font Size */
+  /* Font Size 
   --text-xxs: 14px;
   --text-xs: 16px;
   --text-s: 18px;
-  --text-m: 24px;
+  --text-m: 20px;
   --text-l: 30px;
   --text-xl: 32px;
   --text-40: 40px;
   --text-xxl: 48px;
-  --text-3xl: 150px;
+  --text-3xl: 150px;*/
 
   /* Spacing for padding, margin, width, ... */
   --spacing-2: 2px;
   --spacing-4: 4px;
   --spacing-8: 8px;
+  --spacing-10: 10px;
   --spacing-12: 12px;
   --spacing-16: 16px;
   --spacing-20: 20px;
   --spacing-24: 24px;
   --spacing-28: 28px;
+  --spacing-30: 30px;
   --spacing-32: 32px;
   --spacing-40: 40px;
   --spacing-42: 42px;
@@ -62,7 +67,7 @@
 }
 
 :root {
-  --main-font: "Literata", serif;
+  --main-font: 'Literata', serif;
   --font-family: 'Inter', sans-serif;
   --second-family: 'SVN-Gilroy', sans-serif;
   --third-family: 'Plus Jakarta Sans', sans-serif;
