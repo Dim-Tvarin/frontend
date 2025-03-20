@@ -14,6 +14,7 @@
 @theme {
   --color-header: #DCD2C8;
   --color-black: #000;
+  --color-white: #fff;
   --color-link: #535bf2;
   --color-main-pink-l: #f7ebeb;
   --color-main-pink-d: #dbd0d0;
@@ -35,7 +36,9 @@
   --text-m: 24px;
   --text-l: 30px;
   --text-xl: 32px;
+  --text-40: 40px;
   --text-xxl: 48px;
+  --text-3xl: 150px;
 
   /* Spacing for padding, margin, width, ... */
   --spacing-2: 2px;
