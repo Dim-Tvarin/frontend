@@ -3,6 +3,8 @@ import announce1 from '../assets/announce1.jpg'
 import announce2 from '../assets/announce2.jpg'
 import announce3 from '../assets/announce3.jpg'
 import { InputField } from 'components/InputField';
+import { CustomButton } from 'components/CustomButton';
+import { z } from 'zod';
 
 const petType = [
   {
@@ -33,6 +35,15 @@ const petSex = [
     label: "Хлопчик",
   }
 ];
+
+const announceSchema = z.object({
+  petType: z.enum(['cat', 'dog', 'bird', 'another']),
+  petSex: z.enum(['boy', 'girl']),
+  age: z.number(),
+  breed: z.string(),
+  petName: z.string(),
+  city: z.string(),
+})
 
  const Announcement = () => {
   return (
@@ -76,6 +87,10 @@ const petSex = [
               labelSize={20}
               />
           </div>
+
+          <CustomButton type="submit" styleType="defaultButton">
+            Створити оголошення
+          </CustomButton>
         </form>
       </div>
 
