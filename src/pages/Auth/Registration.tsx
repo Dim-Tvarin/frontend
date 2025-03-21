@@ -1,28 +1,32 @@
 import { CustomButton } from 'components/CustomButton';
 import RegistrationForm from 'components/RegistrationForm';
+import ResponsiveImage from 'components/ResponsiveImage';
 import { NavLink } from 'react-router-dom';
+import dogWithRaisedPawMin from '../../assets/dog-with-raised-paw.png';
+import dogWithRaisedPawMax from '../../assets/dog-with-raised-paw@2x.png';
 
 const Registration = () => {
   return (
-    <div className="grid grid-cols-2 gap-[20px] items-center p-[80px]">
-      <div className="relative w-[630px] h-[920px] bg-main-pink-d rounded-[30px]">
-        <div className="absolute bottom-0 left-0 w-[580px] h-[870px] bg-main-pink-l rounded-[20px] py-[40px] px-[48px] text-black">
-          <h2 className="text-[32px] leading-[140%] mb-[17px]">
-            Ласкаво просимо
-          </h2>
-          <p className="text-[24px] text-left leading-[140%] tracking-[0.01em] mb-[21px]">
-            Щоб мати можливість швидко написати оголошення, або зберегти анкети
-            тваринок, які вам сподобалися, увійдіть
-          </p>
-          <NavLink to="/login" end>
-            <CustomButton
-              styleType="defaultButton"
-              className="mb-[20px] mt-[0px]"
-            >
-              Зайти в особистий кабінет
-            </CustomButton>
-          </NavLink>
-          <img src="/dog.svg" alt="Dog" className="mx-auto" />
+    <div className="grid grid-cols-2 gap-20 leading-[140%] tracking-[0.01em] p-80 pt-100">
+      <div>
+        <h2 className="text-[32px]  mb-32">Ласкаво просимо</h2>
+        <p className="text-2xl text-left mb-50">
+          Щоб мати можливість швидко написати оголошення, або зберегти анкети
+          тваринок, які вам сподобалися, увійдіть
+        </p>
+        <NavLink to="/login" end>
+          <CustomButton styleType="defaultButton" className="mb-50 mt-0">
+            Зайти в особистий кабінет
+          </CustomButton>
+        </NavLink>{' '}
+        <div className="relative w-[630px] h-[571px] bg-orange rounded-[30px]">
+          <div className="absolute bottom-0 left-0 w-[598px] h-[539px] bg-main-pink-l rounded-[20px] overflow-hidden">
+            <ResponsiveImage
+              urlMax={dogWithRaisedPawMax}
+              urlMin={dogWithRaisedPawMin}
+              alt="собака з піднятою лапою"
+            />
+          </div>
         </div>
       </div>
       <RegistrationForm />

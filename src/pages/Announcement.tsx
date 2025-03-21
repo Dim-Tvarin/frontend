@@ -10,19 +10,19 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 const petType = [
   {
-    value: "Кіт",
+    value: "cat",
     label: "Кіт",
   },
   {
-    value: "Собака",
+    value: "dog",
     label: "Собака",
   },
     {
-    value: "Птах",
+    value: "bird",
     label: "Птах",
   },
   {
-    value: "Інша тварина",
+    value: "another",
     label: "Інша тварина",
   },
 ];
@@ -41,10 +41,10 @@ const petSex = [
 const announceSchema = z.object({
   petType: z.enum(['cat', 'dog', 'bird', 'another']),
   petSex: z.enum(['boy', 'girl']),
-  age: z.number(),
-  breed: z.string(),
-  petName: z.string(),
-  city: z.string(),
+  age: z.string().regex(/^\d+$/).transform(Number),
+  breed: z.string().trim(),
+  petName: z.string().trim(),
+  city: z.string().trim(),
 })
 
 type AnnouncementForm = z.infer<typeof announceSchema>
@@ -52,7 +52,9 @@ type AnnouncementForm = z.infer<typeof announceSchema>
 const Announcement = () => {
   const { register,
     handleSubmit,
-    setValue } = useForm<AnnouncementForm>({
+    setValue,
+    formState: { errors },
+  } = useForm<AnnouncementForm>({
     resolver: zodResolver(announceSchema),
     mode: 'onChange',
   })
@@ -71,15 +73,23 @@ const Announcement = () => {
         <h2 className="text-xl mb-32">Додати оголошення</h2>
 
         <form className='flex flex-col items-start' onSubmit={handleSubmit(onSubmit)}>
-          <p className='text-20 mb-16'>Оберіть вид тварини</p>
-          <CustomRadioGroup items={petType} className="flex-wrap" itemWidth='305' {...register('petType')}
+         <p className='text-20 mb-16'>Оберіть вид тварини</p>
+          <CustomRadioGroup items={petType} className="grid grid-cols-2" itemWidth='305'
+            {...register('petType')}
            onChange={value =>
-            setValue('userType', value as 'guardian' | 'adopter')
+            setValue('petType', value as 'cat'| 'dog' | 'bird' | 'another')
           }
+            error={errors.petType?.message}
           />
           
           <p className='text-20 mt-32 mb-16'>Стать </p>
-          <CustomRadioGroup items={petSex} itemWidth='305' {...register('petSex')}/>
+          <CustomRadioGroup items={petSex} itemWidth='305'
+            {...register('petSex')}
+            onChange={value =>
+              setValue('petSex', value as 'boy'| 'girl')
+            }
+            error={errors.petSex?.message}
+          />
           
           <div className='flex mt-32 gap-16'>
             <InputField
@@ -88,6 +98,7 @@ const Announcement = () => {
               className='w-[305px] h-[40px] mt-16'
               labelSize={20}
               {...register('age')}
+               error={errors.age?.message}
             />
             <InputField
               label="Порода"
@@ -95,6 +106,7 @@ const Announcement = () => {
               className='w-[305px] h-[40px] mt-16'
               labelSize={20}
               {...register('breed')}
+              error={errors.breed?.message}
               />
           </div>
 
@@ -105,13 +117,15 @@ const Announcement = () => {
               className='w-[305px] h-[40px] mt-16'
               labelSize={20}
               {...register('petName')}
+              error={errors.petName?.message}
             />
             <InputField
               label="Місто"
               id="city"
               className='w-[305px] h-[40px] mt-16'
               labelSize={20}
-               {...register('city')}
+              {...register('city')}
+              error={errors.city?.message}
               />
           </div>
 

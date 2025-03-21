@@ -45,6 +45,12 @@ interface UsersVerificationResponse {
   message: string;
 }
 
+interface ResetPasswordCredentials {
+  password: string;
+  repeat_password: string;
+  token: string;
+}
+
 export const registerThunk = createAsyncThunk<
   UsersRegisterResponse,
   RegisterCredentials
@@ -56,7 +62,11 @@ export const registerThunk = createAsyncThunk<
     );
     return data;
   } catch (error: any) {
-    return thunkAPI.rejectWithValue(error.message || 'Registration failed');
+    return thunkAPI.rejectWithValue(
+      error.response?.status === 409
+        ? 'Цей email вже зайнятий. Будь ласка, оберіть інший'
+        : error.message || 'Registration failed'
+    );
   }
 });
 
@@ -72,7 +82,11 @@ export const loginThunk = createAsyncThunk<
     setToken(data.token);
     return data;
   } catch (error: any) {
-    return thunkAPI.rejectWithValue(error.message || 'Login failed');
+    return thunkAPI.rejectWithValue(
+      error.response?.status === 401
+        ? 'Не вірний email або пароль. Будь ласка, спробуйте знов'
+        : error.message || 'Login failed'
+    );
   }
 });
 
@@ -123,5 +137,56 @@ export const verifyUserThunk = createAsyncThunk<
     return data;
   } catch (error: any) {
     return thunkAPI.rejectWithValue(error.message || 'Verification failed');
+  }
+});
+
+export const forgotPasswordThunk = createAsyncThunk<
+  { message: string },
+  string
+>('forgotPassword', async (email, thunkAPI) => {
+  try {
+    const { data } = await marketplaceApiUsers.post<{ message: string }>(
+      'forgot-password',
+      { email }
+    );
+    return data;
+  } catch (error: any) {
+    return thunkAPI.rejectWithValue(
+      error.message || 'Failed to send reset code'
+    );
+  }
+});
+
+export const verifyResetPasswordThunk = createAsyncThunk<
+  UsersVerificationResponse,
+  string
+>('verifyResetPassword', async (verificationToken, thunkAPI) => {
+  try {
+    const { data } = await marketplaceApiUsers.get<UsersVerificationResponse>(
+      `reset-password/${verificationToken}`
+    );
+    setToken(data.token);
+    return data;
+  } catch (error: any) {
+    return thunkAPI.rejectWithValue(
+      error.message || 'Failed to verify reset password'
+    );
+  }
+});
+
+export const resetPasswordThunk = createAsyncThunk<
+  { message: string },
+  ResetPasswordCredentials
+>('resetPassword', async (credentials, thunkAPI) => {
+  try {
+    const { data } = await marketplaceApiUsers.patch<{ message: string }>(
+      'reset-password',
+      credentials
+    );
+    return data;
+  } catch (error: any) {
+    return thunkAPI.rejectWithValue(
+      error.message || 'Failed to reset password'
+    );
   }
 });

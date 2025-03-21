@@ -1,9 +1,12 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import {
+  forgotPasswordThunk,
   loginThunk,
   logoutThunk,
   refreshThunk,
   registerThunk,
+  resetPasswordThunk,
+  verifyResetPasswordThunk,
   verifyUserThunk,
 } from './usersOperations';
 
@@ -22,7 +25,7 @@ interface UserState {
   token: string | null;
   isLoggedIn: boolean;
   isLoading: boolean;
-  error: boolean;
+  error: string | null;
 }
 
 const initialState: UserState = {
@@ -38,7 +41,7 @@ const initialState: UserState = {
   token: null,
   isLoggedIn: false,
   isLoading: false,
-  error: false,
+  error: null,
 };
 
 const slice = createSlice({
@@ -50,6 +53,7 @@ const slice = createSlice({
     selectUserTheme: state => state.user.theme,
     selectToken: state => state.token,
     selectIsLoggedIn: state => state.isLoggedIn,
+    selectError: state => state.error,
   },
   reducers: {},
   extraReducers: builder => {
@@ -74,7 +78,60 @@ const slice = createSlice({
       .addCase(refreshThunk.fulfilled, (state, action) => {
         state.user = action.payload.user;
         state.isLoggedIn = true;
-      });
+      })
+      .addCase(verifyResetPasswordThunk.fulfilled, (state, action) => {
+        state.token = action.payload.token;
+      })
+      .addCase(resetPasswordThunk.fulfilled, state => {
+        state.isLoading = false;
+      })
+      .addMatcher(
+        isAnyOf(
+          registerThunk.fulfilled,
+          verifyUserThunk.fulfilled,
+          loginThunk.fulfilled,
+          logoutThunk.fulfilled,
+          refreshThunk.fulfilled,
+          forgotPasswordThunk.fulfilled,
+          verifyResetPasswordThunk.fulfilled,
+          resetPasswordThunk.fulfilled
+        ),
+        state => {
+          state.isLoading = false;
+          state.error = null;
+        }
+      )
+      .addMatcher(
+        isAnyOf(
+          registerThunk.pending,
+          verifyUserThunk.pending,
+          loginThunk.pending,
+          logoutThunk.pending,
+          refreshThunk.pending,
+          forgotPasswordThunk.pending,
+          verifyResetPasswordThunk.pending,
+          resetPasswordThunk.pending
+        ),
+        state => {
+          state.isLoading = true;
+          state.error = null;
+        }
+      )
+      .addMatcher(
+        isAnyOf(
+          registerThunk.rejected,
+          verifyUserThunk.rejected,
+          loginThunk.rejected,
+          logoutThunk.rejected,
+          forgotPasswordThunk.rejected,
+          verifyResetPasswordThunk.rejected,
+          resetPasswordThunk.rejected
+        ),
+        (state, action) => {
+          state.isLoading = false;
+          state.error = action.payload as string;
+        }
+      );
   },
 });
 
@@ -85,4 +142,5 @@ export const {
   selectUserTheme,
   selectToken,
   selectIsLoggedIn,
+  selectError,
 } = slice.selectors;
