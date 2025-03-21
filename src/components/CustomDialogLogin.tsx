@@ -81,7 +81,7 @@ const CustomDialogLogin: React.FC = () => {
         >
           <InputField
             label="Електронна пошта"
-            placeholder="Введіть адресу електронної пошти"
+            placeholder="user@gmail.com"
             className="w-[340px]"
             id="email"
             {...register('email')}
@@ -89,7 +89,7 @@ const CustomDialogLogin: React.FC = () => {
           />
           <PasswordField
             label="Пароль"
-            placeholder="Введіть надійний пароль"
+            placeholder="**********"
             className="w-[340px]"
             id="password"
             {...register('password')}

@@ -22,7 +22,6 @@ function App() {
         <Route index element={<Home />} />
 
         <Route path="components" element={<Components />} />
-        {/* <Route path="login" element={<Login />} /> */}
         <Route path="register" element={<Registration />} />
         <Route path="verify/:verifyToken" element={<VerifyPage />} />
         <Route path="*" element={<Error />} />

@@ -5,13 +5,12 @@ import { InputField } from 'components/InputField';
 import { PhoneInput } from 'components/PhoneInput';
 import { PasswordField } from 'components/PasswordField';
 import { CustomButton } from 'components/CustomButton';
-import CustomSelect from 'components/CustomSelect';
-import { SelectItem } from 'components/components/ui/select';
 import { registerThunk } from '../redux/users/usersOperations';
 import { registrationSchema } from 'helpers/authValidation';
 import type { AppDispatch } from '../redux/store';
 import { z } from 'zod';
 import { selectError } from '../redux/users/usersSlice';
+import CustomRadioGroup from './CustomRadioGroup';
 
 type FormData = z.infer<typeof registrationSchema>;
 
@@ -30,23 +29,31 @@ const RegistrationForm: React.FC = () => {
     resolver: zodResolver(registrationSchema),
     mode: 'onChange',
   });
-  const onSubmit = (data: FormData) => {
-    const result = dispatch(registerThunk(data));
-    if (registerThunk.fulfilled.match(result)) {
-      alert(
-        'Акаунт успішно створено! Підтвердіть свій email, ми відправили лист вам на пошту'
-      );
-      reset();
+  const onSubmit = async (data: FormData) => {
+    try {
+      const result = await dispatch(registerThunk(data));
+      if (registerThunk.fulfilled.match(result)) {
+        alert(
+          'Акаунт успішно створено! Підтвердіть свій email, ми відправили лист вам на пошту'
+        );
+        reset();
+      }
+    } catch (error) {
+      console.error('Помилка реєстрації:', error);
     }
   };
   const userTypeValue = watch('userType');
+  const userTypeOptions = [
+    { value: 'guardian', label: 'Опікун' },
+    { value: 'adopter', label: 'Усиновлювач' },
+  ];
 
   return (
-    <div className=" flex flex-col max-w-[630px] mx-auto">
+    <div className=" flex flex-col max-w-[630px]">
       <h1 className="mb-[41px] text-[32px] text-black">Реєстрація акаунту</h1>
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-32">
         <InputField
-          label="Імʼя"
+          label="Ім’я або назва організації"
           placeholder="Введіть ваше імʼя"
           className="w-[630px]"
           id="name"
@@ -61,7 +68,6 @@ const RegistrationForm: React.FC = () => {
           {...register('email')}
           error={emailError || errors.email?.message}
         />
-
         <div className="flex gap-5">
           <InputField
             label="Місто"
@@ -79,6 +85,15 @@ const RegistrationForm: React.FC = () => {
             error={errors.phone?.message}
           />
         </div>
+        <CustomRadioGroup
+          groupLabel="Оберіть тип"
+          items={userTypeOptions}
+          defaultValue={userTypeValue}
+          onChange={value =>
+            setValue('userType', value as 'guardian' | 'adopter')
+          }
+          error={errors.userType?.message}
+        />
 
         <PasswordField
           label="Пароль"
@@ -91,7 +106,6 @@ const RegistrationForm: React.FC = () => {
           Пароль повинен містити не менше 8 символів. Для кращого пароля
           використайте букви, великі букви та цифри.
         </PasswordField>
-
         <PasswordField
           label="Повторіть пароль"
           placeholder="Введіть пароль повторно"
@@ -100,27 +114,7 @@ const RegistrationForm: React.FC = () => {
           {...register('repeat_password')}
           error={errors.repeat_password?.message}
         />
-
-        <CustomSelect
-          label="Тип користувача"
-          {...register('userType')}
-          value={userTypeValue}
-          placeholder="Оберіть тип користувача"
-          className="w-[250px]"
-          onChange={value =>
-            setValue('userType', value as 'guardian' | 'adopter')
-          }
-          error={errors.userType?.message}
-        >
-          <SelectItem value="guardian">Опікун</SelectItem>
-          <SelectItem value="adopter">Усиновлювач</SelectItem>
-        </CustomSelect>
-
-        <CustomButton
-          type="submit"
-          styleType="defaultButton"
-          className="mt-[80px]"
-        >
+        <CustomButton type="submit" styleType="defaultButton" className="mt-50">
           Зареєструватися
         </CustomButton>
       </form>
