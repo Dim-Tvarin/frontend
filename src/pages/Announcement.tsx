@@ -7,6 +7,7 @@ import { CustomButton } from 'components/CustomButton';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { TextareaDemo } from 'components/CustomTextarea';
 
 const petType = [
   {
@@ -45,6 +46,7 @@ const announceSchema = z.object({
   breed: z.string().trim(),
   petName: z.string().trim(),
   city: z.string().trim(),
+  text: z.string().trim(),
 })
 
 type AnnouncementForm = z.infer<typeof announceSchema>
@@ -128,6 +130,12 @@ const Announcement = () => {
               error={errors.city?.message}
               />
           </div>
+
+          <TextareaDemo id="text" className='text-left mt-32'
+            placeholder="Опишіть тварину, її характер, історію, забарвлення"
+            label="Текст оголошення"
+            {...register('text')}
+          />
 
           <CustomButton type="submit" styleType="defaultButton">
             Створити оголошення
