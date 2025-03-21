@@ -7,7 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch } from '../../redux/store';
 import { logoutThunk } from '../../redux/users/usersOperations';
 import { selectIsLoggedIn, selectUserName } from '../../redux/users/usersSlice';
-import CabinetSVG from '../../assets/CabinetSVG';
+// import CabinetSVG from '../../assets/CabinetSVG';
+import CustomDialogLogin from 'components/CustomDialogLogin';
 
 export const Header = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -24,8 +25,8 @@ export const Header = () => {
         <ul className="flex flex-row items-center text-s">
           <li className="mr-auto">
             <NavLink className="flex flex-col items-center" to="/" end>
-              <img src={logo} alt="logo" className='w-46 h-46'/>
-              <span className='text-xxs'>Dim Tvaryn</span>
+              <img src={logo} alt="logo" className="w-46 h-46" />
+              <span className="text-xxs">Dim Tvaryn</span>
             </NavLink>
           </li>
           <li className="mr-56">
@@ -46,7 +47,7 @@ export const Header = () => {
 
           <li className="ml-auto mr-20">
             <NavLink to="/favorite" end>
-              <img src={search} alt='search'/>
+              <img src={search} alt="search" />
             </NavLink>
           </li>
           <li className="mr-20">
@@ -68,16 +69,7 @@ export const Header = () => {
                 </CustomButton>
               </>
             ) : (
-              <NavLink to="/register" end>
-                <CustomButton
-                  type="button"
-                  styleType="defaultButton"
-                  className="w-100 m-auto"
-                  >
-                  <CabinetSVG />
-                  <span>Вхід</span>
-                </CustomButton>
-              </NavLink>
+              <CustomDialogLogin />
             )}
           </li>
         </ul>

@@ -54,13 +54,13 @@ export const PasswordField: FC<PasswordFieldProps> = ({
       </div>
       {error && (
         <div className="flex items-center mt-[10px] gap-[4px]">
-          <MdErrorOutline size={18} className="text-error" />
+          <MdErrorOutline size={18} className="text-error flex-shrink-0" />
           <p className="text-left text-error text-xs">{error}</p>
         </div>
       )}
       {children && (
         <p
-          className="flex mt-[10px] text-[12px] text-input-border w-[493px] text-start"
+          className="flex mt-[10px] text-xs text-input-border text-start"
           style={{
             fontFamily: 'var(--font-family)',
             fontWeight: 400,
