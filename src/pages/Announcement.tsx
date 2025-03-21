@@ -5,6 +5,8 @@ import announce3 from '../assets/announce3.jpg'
 import { InputField } from 'components/InputField';
 import { CustomButton } from 'components/CustomButton';
 import { z } from 'zod';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 const petType = [
   {
@@ -45,18 +47,39 @@ const announceSchema = z.object({
   city: z.string(),
 })
 
- const Announcement = () => {
+type AnnouncementForm = z.infer<typeof announceSchema>
+
+const Announcement = () => {
+  const { register,
+    handleSubmit,
+    setValue } = useForm<AnnouncementForm>({
+    resolver: zodResolver(announceSchema),
+    mode: 'onChange',
+  })
+
+  const onSubmit = (data: AnnouncementForm) => {
+    const result = announceSchema.safeParse(data)
+    console.log(data, result);
+    if (result.success) {
+      console.log('11');
+    }
+  }
+
   return (
     <div className='container flex flex-row gap-16'>
       <div className="flex flex-col flex-1/2 mt-100">
         <h2 className="text-xl mb-32">Додати оголошення</h2>
 
-        <form className='flex flex-col items-start'>
+        <form className='flex flex-col items-start' onSubmit={handleSubmit(onSubmit)}>
           <p className='text-20 mb-16'>Оберіть вид тварини</p>
-          <CustomRadioGroup items={petType} className="flex-wrap" itemWidth='305' />
+          <CustomRadioGroup items={petType} className="flex-wrap" itemWidth='305' {...register('petType')}
+           onChange={value =>
+            setValue('userType', value as 'guardian' | 'adopter')
+          }
+          />
           
           <p className='text-20 mt-32 mb-16'>Стать </p>
-          <CustomRadioGroup items={petSex} itemWidth='305' />
+          <CustomRadioGroup items={petSex} itemWidth='305' {...register('petSex')}/>
           
           <div className='flex mt-32 gap-16'>
             <InputField
@@ -64,12 +87,14 @@ const announceSchema = z.object({
               id="age"
               className='w-[305px] h-[40px] mt-16'
               labelSize={20}
+              {...register('age')}
             />
             <InputField
               label="Порода"
               id="breed"
               className='w-[305px] h-[40px] mt-16'
               labelSize={20}
+              {...register('breed')}
               />
           </div>
 
@@ -79,12 +104,14 @@ const announceSchema = z.object({
               id="petName"
               className='w-[305px] h-[40px] mt-16'
               labelSize={20}
+              {...register('petName')}
             />
             <InputField
               label="Місто"
               id="city"
               className='w-[305px] h-[40px] mt-16'
               labelSize={20}
+               {...register('city')}
               />
           </div>
 
