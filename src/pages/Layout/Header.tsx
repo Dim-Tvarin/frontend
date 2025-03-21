@@ -69,16 +69,6 @@ export const Header = () => {
                 </CustomButton>
               </>
             ) : (
-              // <NavLink to="/register" end>
-              //   <CustomButton
-              //     type="button"
-              //     styleType="defaultButton"
-              //     className="w-100 m-auto"
-              //     >
-              //     <CabinetSVG />
-              //     <span>Вхід</span>
-              //   </CustomButton>
-              // </NavLink>
               <CustomDialogLogin />
             )}
           </li>
