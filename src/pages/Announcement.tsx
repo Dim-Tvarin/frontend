@@ -8,8 +8,11 @@ import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { TextareaDemo } from 'components/CustomTextarea';
+import axios from 'axios';
+import {  useSelector } from 'react-redux';
+import { selectToken, selectUserName, selectUserPhone } from '../redux/users/usersSlice';
 
-const petType = [
+const animalType = [
   {
     value: "cat",
     label: "Кіт",
@@ -28,25 +31,33 @@ const petType = [
   },
 ];
 
-const petSex = [
-  {
-    value: "girl",
-    label: "Дівчинка",
-  },
+const gender = [
   {
     value: "boy",
-    label: "Хлопчик",
+    label: "самець",
+  },
+  {
+    value: "girl",
+    label: "самка",
+  },
+   {
+    value: "unknown",
+    label: "невідомо",
   }
 ];
 
 const announceSchema = z.object({
-  petType: z.enum(['cat', 'dog', 'bird', 'another']),
-  petSex: z.enum(['boy', 'girl']),
-  age: z.string().regex(/^\d+$/).transform(Number),
+  animalType: z.enum(['cat', 'dog', 'bird', 'another'], {
+    errorMap: () => {
+        return { message: 'Оберіть вид тварини' };
+      },
+  }),
+  gender: z.enum(['boy', 'girl', 'unknown']).optional(),
+  age: z.coerce.number().transform(Number),
   breed: z.string().trim(),
-  petName: z.string().trim(),
-  city: z.string().trim(),
-  text: z.string().trim(),
+  animalName: z.string().trim(),
+  animalLocation: z.string().min(2, 'Введіть назву населенного пункту').trim(),
+  adText: z.string().trim().optional(),
 })
 
 type AnnouncementForm = z.infer<typeof announceSchema>
@@ -61,11 +72,30 @@ const Announcement = () => {
     mode: 'onChange',
   })
 
-  const onSubmit = (data: AnnouncementForm) => {
+  const token = useSelector(selectToken)
+   const username = useSelector(selectUserName);
+   const userPhone = useSelector(selectUserPhone);
+
+  const onSubmit = async (data: AnnouncementForm) => {
     const result = announceSchema.safeParse(data)
-    console.log(data, result);
+    console.log(result);
     if (result.success) {
-      console.log('11');
+      const createAnnouncement = axios.post('https://marketplace-backend-wrk2.onrender.com/animals',
+        { animal: { ...data, 'ownerName': username, "ownerPhone": userPhone, "animalImages": []  }},
+        { headers: { Authorization: `Bearer ${token}` } })
+        .then(res => console.log('res!!!!', res))
+        .catch(error => {
+          if (error.status === 401) {
+            alert('Щоб залишити оголошення, увійдіть у свій аккаунт')
+          } else {
+            console.error('error', error);
+            alert('Щось пішло не по плану')
+          }
+      })
+      console.log('createAnnouncement', createAnnouncement.then(res => console.log('res', res)));
+      
+    } else {
+      console.error('Щось пішло не по плану', result.error);
     }
   }
 
@@ -76,21 +106,21 @@ const Announcement = () => {
 
         <form className='flex flex-col items-start' onSubmit={handleSubmit(onSubmit)}>
          <p className='text-20 mb-16'>Оберіть вид тварини</p>
-          <CustomRadioGroup items={petType} className="grid grid-cols-2" itemWidth='305'
-            {...register('petType')}
+          <CustomRadioGroup items={animalType} className="grid grid-cols-2" itemWidth='305'
+            {...register('animalType')}
            onChange={value =>
-            setValue('petType', value as 'cat'| 'dog' | 'bird' | 'another')
+            setValue('animalType', value as 'cat'| 'dog' | 'bird' | 'another')
           }
-            error={errors.petType?.message}
+            error={errors.animalType?.message}
           />
           
           <p className='text-20 mt-32 mb-16'>Стать </p>
-          <CustomRadioGroup items={petSex} itemWidth='305'
-            {...register('petSex')}
+          <CustomRadioGroup items={gender} itemWidth='197'
+            {...register('gender')}
             onChange={value =>
-              setValue('petSex', value as 'boy'| 'girl')
+              setValue('gender', value as 'boy'| 'girl')
             }
-            error={errors.petSex?.message}
+            error={errors.animalType?.message}
           />
           
           <div className='flex mt-32 gap-16'>
@@ -115,26 +145,27 @@ const Announcement = () => {
           <div className='flex mt-32 gap-16'>
             <InputField
               label="Ім’я тварини"
-              id="petName"
+              id="animalName"
               className='w-[305px] h-[40px] mt-16'
               labelSize={20}
-              {...register('petName')}
-              error={errors.petName?.message}
+              {...register('animalName')}
+              error={errors.animalName?.message}
             />
             <InputField
               label="Місто"
-              id="city"
+              id="animalLocation"
               className='w-[305px] h-[40px] mt-16'
               labelSize={20}
-              {...register('city')}
-              error={errors.city?.message}
+              {...register('animalLocation')}
+              error={errors.animalLocation?.message}
               />
           </div>
 
-          <TextareaDemo id="text" className='text-left mt-32'
+          <TextareaDemo id="adText" className='text-left mt-32'
             placeholder="Опишіть тварину, її характер, історію, забарвлення"
-            label="Текст оголошення"
-            {...register('text')}
+            label="Опис тварини:"
+            {...register('adText')}
+            error={errors.adText?.message}
           />
 
           <CustomButton type="submit" styleType="defaultButton">
