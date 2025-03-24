@@ -10,7 +10,7 @@ import { useEffect } from 'react';
 import { refreshThunk } from './redux/users/usersOperations';
 import type { AppDispatch } from './redux/store';
 import VerifyPage from 'pages/Auth/VerifyPage';
-import Announcement from 'pages/Announcement';
+import Announcement from 'pages/Announcement/Announcement';
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
