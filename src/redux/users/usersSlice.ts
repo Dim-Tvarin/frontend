@@ -20,7 +20,7 @@ interface User {
   theme?: 'light' | 'dark';
 }
 
-interface UserState {
+export interface UserState {
   user: User;
   token: string | null;
   isLoggedIn: boolean;
