@@ -70,12 +70,13 @@ const DialogResetPassword: React.FC = () => {
         </DialogHeader>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col gap-10 mt-10 text-xs text-input-border"
+          className="flex flex-col text-left gap-10 mt-10 text-xs text-input-border leading-[125%]"
         >
           <PasswordField
             label="Введіть новий пароль"
             placeholder="Пароль"
-            className="w-[340px] mb-30"
+            className="w-[340px] mt-10  mb-30 "
+            labelClassName="text-xs text-input-border"
             id="password"
             {...register('password')}
             error={errors.password?.message}
@@ -83,13 +84,16 @@ const DialogResetPassword: React.FC = () => {
           <PasswordField
             label="Повторіть новий пароль для підтвердження"
             placeholder="Пароль"
-            className="w-[340px]"
+            className="w-[340px] mt-10"
+            labelClassName="text-xs text-input-border"
             id="repeat_password"
             {...register('repeat_password')}
             error={resetCodeError || errors.repeat_password?.message}
           >
-            Пароль повинен містити не менше 8 символів. Для кращого пароля
-            використайте букви, великі букви та цифри.
+            <p className="text-center">
+              Пароль повинен містити не менше 8 символів. Для кращого пароля
+              використайте букви, великі букви та цифри.
+            </p>
           </PasswordField>
           <DialogFooter>
             <CustomButton

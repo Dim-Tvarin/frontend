@@ -71,16 +71,17 @@ const DialogVerifyResetCode: React.FC = () => {
         </DialogHeader>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col gap-10 mt-10 text-xs text-input-border"
+          className="flex flex-col text-left gap-10 mt-10 text-xs text-input-border"
         >
-          <p>
+          <p className="text-center">
             Ми відправили код на вашу електронну пошту. Будь ласка, введіть його
             у поле для відновлення паролю, щоб продовжити
           </p>
           <InputField
             label="Введіть код"
             placeholder="Введіть перевірочний код"
-            className="w-[340px]"
+            className="w-[340px] mt-10"
+            labelClassName="text-xs text-input-border"
             id="code"
             {...register('code')}
             error={verifyResetCodeError || errors.code?.message}

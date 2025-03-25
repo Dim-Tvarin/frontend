@@ -71,12 +71,13 @@ const DialogLogin: React.FC = () => {
         </DialogHeader>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col gap-10 mt-30"
+          className="flex flex-col text-left gap-10 mt-30"
         >
           <InputField
             label="Електронна пошта"
             placeholder="user@gmail.com"
-            className="w-[340px]"
+            className="w-[340px] mt-10"
+            labelClassName="text-xs text-input-border"
             id="email"
             {...register('email')}
             error={errors.email?.message}
@@ -84,7 +85,8 @@ const DialogLogin: React.FC = () => {
           <PasswordField
             label="Пароль"
             placeholder="**********"
-            className="w-[340px]"
+            className="w-[340px] mt-10"
+            labelClassName="text-xs text-input-border"
             id="password"
             {...register('password')}
             error={authError || errors.password?.message}
