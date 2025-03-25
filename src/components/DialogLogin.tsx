@@ -1,33 +1,34 @@
 import { CustomButton } from './CustomButton';
-import { InputField } from './InputField';
+import { InputField } from 'components/InputField';
+import { PasswordField } from 'components/PasswordField';
 import { useDispatch, useSelector } from 'react-redux';
-import type { AppDispatch } from '../redux/store';
+import type { AppDispatch, RootState } from '../redux/store';
 import { loginThunk } from '../redux/users/usersOperations';
 import { loginSchema } from 'helpers/authValidation';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
+import { selectError } from '../redux/users/usersSlice';
 import CloseSVG from '../assets/CloseSVG';
+import { NavLink } from 'react-router-dom';
 import {
   Dialog,
+  DialogOverlay,
   DialogClose,
   DialogContent,
   DialogFooter,
   DialogHeader,
-  DialogOverlay,
   DialogTitle,
-  DialogTrigger,
 } from './components/ui/dialog';
-import { PasswordField } from './PasswordField';
-import { NavLink } from 'react-router-dom';
-import CabinetSVG from '../assets/CabinetSVG';
-import { selectError } from '../redux/users/usersSlice';
-
+import { openDialog, closeDialog } from '../redux/dialogs/dialogSlice';
 type FormData = z.infer<typeof loginSchema>;
 
-const CustomDialogLogin: React.FC = () => {
+const DialogLogin: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const activeDialog = useSelector(
+    (state: RootState) => state.dialog.activeDialog
+  );
   const navigate = useNavigate();
   const authError = useSelector(selectError);
 
@@ -49,23 +50,16 @@ const CustomDialogLogin: React.FC = () => {
       navigate('/');
     }
   };
-
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <CustomButton
-          type="button"
-          styleType="defaultButton"
-          className="w-100 m-auto"
-        >
-          <CabinetSVG />
-          <span>Вхід</span>
-        </CustomButton>
-      </DialogTrigger>
+    <Dialog
+      open={activeDialog === 'login'}
+      onOpenChange={() => dispatch(closeDialog())}
+    >
       <DialogOverlay className="bg-black/70" />
       <DialogContent
         className="w-[400px] rounded-[30px] p-30 bg-dialog text-center"
         onPointerDownOutside={e => e.preventDefault()}
+        aria-labelledby="dialog-content"
       >
         <DialogClose className="absolute top-30 right-30 ">
           <CloseSVG />
@@ -105,22 +99,23 @@ const CustomDialogLogin: React.FC = () => {
             </CustomButton>
           </DialogFooter>
         </form>
-        <DialogClose asChild>
-          <NavLink
-            to="/register"
-            end
-            className="mt-20 mb-10px text-[12px] text-link"
-          >
-            Зареєструватися
-          </NavLink>
-        </DialogClose>
-        <DialogClose asChild>
-          <NavLink to="/forgot-password" end className="text-[12px] text-link ">
-            Забули пароль?
-          </NavLink>
-        </DialogClose>
+        <NavLink
+          onClick={() => dispatch(closeDialog())}
+          to="/register"
+          end
+          className="mt-20 mb-10px text-xs text-link"
+        >
+          Зареєструватися
+        </NavLink>
+
+        <a
+          onClick={() => dispatch(openDialog('forgotPassword'))}
+          className="text-xs text-link "
+        >
+          Забули пароль?
+        </a>
       </DialogContent>
     </Dialog>
   );
 };
-export default CustomDialogLogin;
+export default DialogLogin;
