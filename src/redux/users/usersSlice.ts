@@ -81,6 +81,7 @@ const slice = createSlice({
       })
       .addCase(verifyResetPasswordThunk.fulfilled, (state, action) => {
         state.token = action.payload.token;
+        state.user = action.payload.user;
       })
       .addCase(resetPasswordThunk.fulfilled, state => {
         state.isLoading = false;
