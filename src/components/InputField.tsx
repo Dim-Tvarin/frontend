@@ -7,6 +7,7 @@ interface InputFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   id: string;
   error?: string;
+  labelClassName?: string;
 }
 
 export const InputField: FC<InputFieldProps> = ({
@@ -14,6 +15,7 @@ export const InputField: FC<InputFieldProps> = ({
   id,
   error,
   className,
+  labelClassName,
   ...rest
 }) => {
   return (
@@ -21,7 +23,12 @@ export const InputField: FC<InputFieldProps> = ({
       {label && (
         <label
           htmlFor={id}
-          className="block text-left h-[20px] font-medium text-[16px] text-input-label mb-[10px]"
+          className={
+            (cn(
+              'block text-left h-[20px] font-medium text-[16px] text-input-label mb-[10px]'
+            ),
+            labelClassName)
+          }
         >
           {label}
         </label>
