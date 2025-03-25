@@ -71,7 +71,7 @@ const DialogVerifyResetCode: React.FC = () => {
         </DialogHeader>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col gap-10 mt-30"
+          className="flex flex-col gap-10 mt-10 text-xs text-input-border"
         >
           <p>
             Ми відправили код на вашу електронну пошту. Будь ласка, введіть його

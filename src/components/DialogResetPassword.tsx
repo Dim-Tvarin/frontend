@@ -43,9 +43,9 @@ const DialogResetPassword: React.FC = () => {
   const onSubmit = async (data: FormData) => {
     const result = await dispatch(resetPasswordThunk(data));
     if (resetPasswordThunk.fulfilled.match(result)) {
-      alert('Пароль успішно змінено');
+      alert('Пароль успішно змінено! Увійдіть з новим паролем');
       reset();
-      dispatch(closeDialog());
+      dispatch(openDialog('login'));
     }
   };
 
@@ -70,12 +70,12 @@ const DialogResetPassword: React.FC = () => {
         </DialogHeader>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col gap-10 mt-30"
+          className="flex flex-col gap-10 mt-10 text-xs text-input-border"
         >
           <PasswordField
             label="Введіть новий пароль"
             placeholder="Пароль"
-            className="w-[630px]"
+            className="w-[340px] mb-30"
             id="password"
             {...register('password')}
             error={errors.password?.message}
@@ -83,7 +83,7 @@ const DialogResetPassword: React.FC = () => {
           <PasswordField
             label="Повторіть новий пароль для підтвердження"
             placeholder="Пароль"
-            className="w-[630px]"
+            className="w-[340px]"
             id="repeat_password"
             {...register('repeat_password')}
             error={resetCodeError || errors.repeat_password?.message}
