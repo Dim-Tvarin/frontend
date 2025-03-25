@@ -15,7 +15,6 @@
   --color-header: #dcd2c8;
   --color-black: #000;
   --color-white: #fff;
-  --color-link: #535bf2;
   --color-main-pink-l: #f7ebeb;
   --color-main-pink-d: #dbd0d0;
   --color-main-pink-l: #f7ebeb;
@@ -31,17 +30,7 @@
   --color-btn-orange: #ff7f50;
   --color-dialog: #ede9e9;
   --color-link: #4154bb;
-
-  /* Font Size */
-  --text-xxs: 14px;
-  --text-xs: 16px;
-  --text-s: 18px;
-  --text-m: 24px;
-  --text-l: 30px;
-  --text-xl: 32px;
-  --text-40: 40px;
-  --text-xxl: 48px;
-  --text-3xl: 150px;
+  --color-link-hov: #535bf2;
 
   /* Spacing for padding, margin, width, ... */
   --spacing-0: 0px;
@@ -120,9 +109,11 @@ a {
   text-decoration: none;
   font-weight: 500;
   text-decoration: inherit;
+
   &:hover {
     color: #535bf2;
     transition: all 0.5 ease;
+    cursor: pointer;
   }
 }
 

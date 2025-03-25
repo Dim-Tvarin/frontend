@@ -4,7 +4,7 @@ import { CustomButton } from 'components/CustomButton';
 import { useDispatch } from 'react-redux';
 import type { AppDispatch } from '../redux/store';
 import { loginThunk } from '../redux/users/usersOperations';
-import { loginSchema } from 'helpers/authValidation';
+import { loginSchema } from 'src/validations/authValidation';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';

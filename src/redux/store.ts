@@ -13,6 +13,8 @@ import {
 import storage from 'redux-persist/lib/storage';
 import type { Middleware } from '@reduxjs/toolkit';
 import type { Persistor } from 'redux-persist';
+import { dialogReducer } from './dialogs/dialogSlice';
+import { type UserState } from './users/usersSlice';
 
 const persistConfig = {
   key: 'users',
@@ -23,7 +25,8 @@ const persistConfig = {
 
 export const store = configureStore({
   reducer: {
-    users: persistReducer(persistConfig, usersReducer),
+    users: persistReducer<UserState>(persistConfig, usersReducer),
+    dialog: dialogReducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

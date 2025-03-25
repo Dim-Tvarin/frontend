@@ -9,6 +9,7 @@ interface PasswordFieldProps
   label?: string;
   id: string;
   error?: string;
+  labelClassName?: string;
   children?: React.ReactNode;
 }
 
@@ -17,6 +18,7 @@ export const PasswordField: FC<PasswordFieldProps> = ({
   id,
   error,
   className,
+  labelClassName,
   children,
   ...rest
 }) => {
@@ -26,7 +28,12 @@ export const PasswordField: FC<PasswordFieldProps> = ({
       {label && (
         <label
           htmlFor={id}
-          className="block font-medium text-left h-[20px] text-[16px] leading-[125%] text-input-label mb-[10px]"
+          className={
+            (cn(
+              'block font-medium text-left h-[20px] text-[16px] leading-[125%] text-input-label mb-[10px]'
+            ),
+            labelClassName)
+          }
         >
           {label}
         </label>
