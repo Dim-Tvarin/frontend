@@ -106,12 +106,12 @@ const DialogVerifyResetCode: React.FC = () => {
           Зареєструватись
         </NavLink>
 
-        <a
+        <CustomButton
+          styleType="linkButton"
           onClick={() => dispatch(openDialog('login'))}
-          className="text-xs text-link "
         >
           Увійти
-        </a>
+        </CustomButton>
       </DialogContent>
     </Dialog>
   );

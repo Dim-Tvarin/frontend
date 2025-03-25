@@ -110,12 +110,12 @@ const DialogLogin: React.FC = () => {
           Зареєструватися
         </NavLink>
 
-        <a
+        <CustomButton
+          styleType="linkButton"
           onClick={() => dispatch(openDialog('forgotPassword'))}
-          className="text-xs text-link "
         >
           Забули пароль?
-        </a>
+        </CustomButton>
       </DialogContent>
     </Dialog>
   );

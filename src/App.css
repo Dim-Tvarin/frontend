@@ -15,7 +15,6 @@
   --color-header: #dcd2c8;
   --color-black: #000;
   --color-white: #fff;
-  --color-link: #535bf2;
   --color-main-pink-l: #f7ebeb;
   --color-main-pink-d: #dbd0d0;
   --color-main-pink-l: #f7ebeb;
@@ -31,6 +30,7 @@
   --color-btn-orange: #ff7f50;
   --color-dialog: #ede9e9;
   --color-link: #4154bb;
+  --color-link-hov: #535bf2;
 
   /* Spacing for padding, margin, width, ... */
   --spacing-0: 0px;

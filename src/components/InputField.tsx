@@ -14,8 +14,8 @@ export const InputField: FC<InputFieldProps> = ({
   label,
   id,
   error,
-  className,
   labelClassName,
+  className,
   ...rest
 }) => {
   return (
@@ -25,7 +25,7 @@ export const InputField: FC<InputFieldProps> = ({
           htmlFor={id}
           className={
             (cn(
-              'block text-left h-[20px] font-medium text-[16px] text-input-label mb-[10px]'
+              'block text-left h-20 font-medium text-[16px] text-input-label mb-10'
             ),
             labelClassName)
           }
