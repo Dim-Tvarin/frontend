@@ -2,7 +2,7 @@ import { CustomButton } from './CustomButton';
 import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch, RootState } from '../redux/store';
 import { resetPasswordThunk } from '../redux/users/usersOperations';
-import { resetPasswordSchema } from 'helpers/forgotPasswordValidation';
+import { resetPasswordSchema } from '../validations/forgotPasswordValidation';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';

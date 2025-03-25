@@ -3,7 +3,7 @@ import { InputField } from './InputField';
 import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch, RootState } from '../redux/store';
 import { verifyResetPasswordThunk } from '../redux/users/usersOperations';
-import { verifyResetCodeSchema } from 'helpers/forgotPasswordValidation';
+import { verifyResetCodeSchema } from '../validations/forgotPasswordValidation';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';

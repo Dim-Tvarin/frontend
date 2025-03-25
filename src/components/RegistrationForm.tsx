@@ -6,7 +6,7 @@ import { PhoneInput } from 'components/PhoneInput';
 import { PasswordField } from 'components/PasswordField';
 import { CustomButton } from 'components/CustomButton';
 import { registerThunk } from '../redux/users/usersOperations';
-import { registrationSchema } from 'helpers/authValidation';
+import { registrationSchema } from '../validations/authValidation';
 import type { AppDispatch } from '../redux/store';
 import { z } from 'zod';
 import { selectError } from '../redux/users/usersSlice';

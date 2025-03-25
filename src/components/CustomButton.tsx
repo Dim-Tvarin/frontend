@@ -16,7 +16,7 @@ export const CustomButton = ({
 }: CustomButtonProps) => (
   <Button
     className={cn(
-      'w-full text-white hover:bg-default-btn-hov',
+      'w-full text-white outline-none shadow-none',
       styleType === 'defaultButton' &&
         'rounded-[20px] px-6 py-2.5 w-[236px] h-[44px] mt-[54px] mx-auto bg-default-btn hover:bg-default-btn-hov disabled:bg-disabled',
       styleType === 'redButton' &&

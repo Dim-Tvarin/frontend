@@ -3,7 +3,7 @@ import { InputField } from './InputField';
 import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch, RootState } from '../redux/store';
 import { forgotPasswordThunk } from '../redux/users/usersOperations';
-import { forgotPasswordSchema } from 'helpers/forgotPasswordValidation';
+import { forgotPasswordSchema } from '../validations/forgotPasswordValidation';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -103,7 +103,7 @@ const DialogForgotPassword: React.FC = () => {
         </NavLink>
 
         <CustomButton
-          styleType='linkButton'
+          styleType="linkButton"
           onClick={() => dispatch(openDialog('login'))}
         >
           Увійти

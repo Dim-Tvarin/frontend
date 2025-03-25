@@ -27,7 +27,7 @@
     "baseUrl": "./",
     "paths": {
       "components/*": ["src/components/*"],
-      "helpers/*": ["src/helpers/*"],
+      "validations/*": ["src/validations/*"],
       "pages/*": ["src/pages/*"],
       "hooks/*": ["src/hooks/*"]
     }
