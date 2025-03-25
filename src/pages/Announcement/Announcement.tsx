@@ -5,12 +5,13 @@ import announce3 from '../../assets/announce3.jpg';
 import { InputField } from 'components/InputField';
 import { CustomButton } from 'components/CustomButton';
 import { z } from 'zod';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { TextareaDemo } from 'components/CustomTextarea';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { selectToken } from '../../redux/users/usersSlice';
+import { FilesInput } from 'components/FilesInput';
 
 const animalType = [
   {
@@ -67,10 +68,25 @@ const announceSchema = z.object({
   animalLocation: z.string().min(2, 'Введіть назву населенного пункту').trim(),
   adText: z
     .string()
-    .min(10, 'Текст должен содержать минимум 10 символов')
-    .max(500, 'Текст не должен превышать 500 символов')
-    .nonempty('Поле обязательно')
+    .min(10, 'Текст оголошення повинен мати мінімум 10 символів')
+    .max(500, 'Текст оголошення повинен мати максимум 500 символів')
+    .nonempty("Поле обов'язкове")
     .trim(),
+  images: z.custom<File[]>(v => v instanceof File, {
+    message: 'Додайте як мінімум 1 фото',
+  }),
+  // images: z
+  //   .union([
+  //     z
+  //       .instanceof(File, { message: 'Image is required' })
+  //       .refine(file => !file || file.size !== 0 || file.size <= 5000000, {
+  //         message: 'Max size exceeded',
+  //       }),
+  //     z.string().optional(), // to hold default image
+  //   ])
+  //   .refine(value => value instanceof File || typeof value === 'string', {
+  //     message: 'Image is required',
+  //   }),
 });
 
 type AnnouncementForm = z.infer<typeof announceSchema>;
@@ -80,6 +96,8 @@ const Announcement = () => {
     register,
     handleSubmit,
     setValue,
+    watch,
+    control,
     formState: { errors },
   } = useForm<AnnouncementForm>({
     resolver: zodResolver(announceSchema),
@@ -87,9 +105,11 @@ const Announcement = () => {
   });
 
   const token = useSelector(selectToken);
+  const images = watch('images');
 
-  console.log('errors', errors);
+  console.log('errors', errors, images);
   const onSubmit = async (data: AnnouncementForm) => {
+    console.log('data', data);
     const result = announceSchema.safeParse(data);
     if (result.error) {
       console.error('Щось пішло не по плану', result.error);
@@ -104,7 +124,7 @@ const Announcement = () => {
       })
     );
 
-    const createAnnouncement = axios
+    axios
       .post(
         'https://marketplace-backend-wrk2.onrender.com/animals',
         bodyFormData,
@@ -124,10 +144,6 @@ const Announcement = () => {
           alert('Щось пішло не по плану');
         }
       });
-    console.log(
-      'createAnnouncement',
-      createAnnouncement.then(res => console.log('res', res))
-    );
   };
 
   return (
@@ -136,7 +152,7 @@ const Announcement = () => {
         <h2 className="text-xl mb-32">Додати оголошення</h2>
 
         <form
-          className="flex flex-col items-start"
+          className="flex flex-col items-start text-color-default-btn"
           onSubmit={handleSubmit(onSubmit)}
         >
           <p className="text-20 mb-16">Оберіть вид тварини</p>
@@ -211,6 +227,23 @@ const Announcement = () => {
             label="Опис тварини:"
             {...register('adText')}
             error={errors.adText?.message}
+          />
+
+          <p className="text-20 mb-16 mt-32">
+            Добавте фото тварини та документи
+          </p>
+          <Controller
+            name="images"
+            control={control}
+            render={({ field: { ref, name } }) => (
+              <FilesInput
+                ref={ref}
+                name={name}
+                files={images}
+                // onChange={e => onChange(e.target.files?.[0])}
+                error={errors.images?.message}
+              />
+            )}
           />
 
           <CustomButton type="submit" styleType="defaultButton">

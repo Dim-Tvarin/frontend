@@ -18,9 +18,10 @@
   --color-link: #535bf2;
   --color-main-pink-l: #f7ebeb;
   --color-main-pink-d: #dbd0d0;
-  --color-main-pink-l: #f7ebeb;
   --color-input-border: #99a2a5;
   --color-input-label: #242b33;
+  --color-input-file: #0f172a;
+  --color-border-file: #403f3f;
   --color-default-btn: #042d4a;
   --color-default-btn-hov: #6c7b92;
   --color-disabled: #4b6578;
@@ -31,6 +32,7 @@
   --color-btn-orange: #ff7f50;
   --color-dialog: #ede9e9;
   --color-link: #4154bb;
+  --color-gray: #83818b;
 
   /* Font Size */
   --text-xxs: 14px;
