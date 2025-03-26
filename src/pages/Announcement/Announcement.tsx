@@ -235,7 +235,7 @@ const Announcement = () => {
                 ref={ref}
                 name={name}
                 onChange={onChange}
-                error={errors.images?.message}
+                error={errors.images?.message?.toString()}
               />
             )}
           />

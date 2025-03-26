@@ -31,7 +31,7 @@ export const FilesInput = ({
   };
 
   return (
-    <div className="mt-32">
+    <div className="mt-32 w-full">
       <Input
         type="file"
         ref={ref}
@@ -42,7 +42,7 @@ export const FilesInput = ({
         {...rest}
         className="border-1 border-border-file bg-main-pink-l h-[64px] flex items-center
           justify-center py-10 px-16 file:bg-input-file/50 file:text-white file:px-24 file:py-10 
-          file:rounded-[10px] file-h-[44px] file:mx-10 mb-32"
+          file:rounded-[10px] file:h-[44px] file:mx-10 mb-32"
       />
       {error && (
         <div className="flex items-center mt-[10px] gap-[4px]">
