@@ -7,9 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch } from '../../redux/store';
 import { logoutThunk } from '../../redux/users/usersOperations';
 import { selectIsLoggedIn, selectUserName } from '../../redux/users/usersSlice';
-// import CabinetSVG from '../../assets/CabinetSVG';
-import CustomDialogLogin from 'components/CustomDialogLogin';
-
+import CabinetSVG from '../../assets/CabinetSVG';
+import { openDialog } from '../../redux/dialogs/dialogSlice';
 export const Header = () => {
   const dispatch = useDispatch<AppDispatch>();
   const handleClick = () => {
@@ -69,7 +68,15 @@ export const Header = () => {
                 </CustomButton>
               </>
             ) : (
-              <CustomDialogLogin />
+              <CustomButton
+                onClick={() => dispatch(openDialog('login'))}
+                type="button"
+                styleType="defaultButton"
+                className="w-100 m-auto"
+              >
+                <CabinetSVG />
+                <span>Вхід</span>
+              </CustomButton>
             )}
           </li>
         </ul>

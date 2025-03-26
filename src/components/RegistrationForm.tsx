@@ -6,7 +6,7 @@ import { PhoneInput } from 'components/PhoneInput';
 import { PasswordField } from 'components/PasswordField';
 import { CustomButton } from 'components/CustomButton';
 import { registerThunk } from '../redux/users/usersOperations';
-import { registrationSchema } from 'helpers/authValidation';
+import { registrationSchema } from '../validations/authValidation';
 import type { AppDispatch } from '../redux/store';
 import { z } from 'zod';
 import { selectError } from '../redux/users/usersSlice';
@@ -51,11 +51,14 @@ const RegistrationForm: React.FC = () => {
   return (
     <div className=" flex flex-col max-w-[630px]">
       <h1 className="mb-[41px] text-[32px] text-black">Реєстрація акаунту</h1>
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-32">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col text-left text-xl gap-32"
+      >
         <InputField
           label="Ім’я або назва організації"
           placeholder="Введіть ваше імʼя"
-          className="w-[630px]"
+          className="w-[630px] mt-10"
           id="name"
           {...register('name')}
           error={errors.name?.message}
@@ -63,7 +66,7 @@ const RegistrationForm: React.FC = () => {
         <InputField
           label="Адреса електронної пошти"
           placeholder="Введіть адресу електронної пошти"
-          className="w-[630px]"
+          className="w-[630px]  mt-10"
           id="email"
           {...register('email')}
           error={emailError || errors.email?.message}
@@ -72,7 +75,7 @@ const RegistrationForm: React.FC = () => {
           <InputField
             label="Місто"
             placeholder="Введіть ваше місто"
-            className="w-[305px]"
+            className="w-[305px]  mt-10"
             id="location"
             {...register('location')}
             error={errors.location?.message}
@@ -80,6 +83,7 @@ const RegistrationForm: React.FC = () => {
           <PhoneInput
             label="Номер телефону"
             placeholder="+380"
+            className=" mt-10"
             id="phone"
             {...register('phone')}
             error={errors.phone?.message}
@@ -98,7 +102,7 @@ const RegistrationForm: React.FC = () => {
         <PasswordField
           label="Пароль"
           placeholder="Введіть надійний пароль"
-          className="w-[630px]"
+          className="w-[630px]  mt-10"
           id="password"
           {...register('password')}
           error={errors.password?.message}
@@ -109,7 +113,7 @@ const RegistrationForm: React.FC = () => {
         <PasswordField
           label="Повторіть пароль"
           placeholder="Введіть пароль повторно"
-          className="w-[630px]"
+          className="w-[630px]  mt-10"
           id="repeat_password"
           {...register('repeat_password')}
           error={errors.repeat_password?.message}

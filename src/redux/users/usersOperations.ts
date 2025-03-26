@@ -48,7 +48,6 @@ interface UsersVerificationResponse {
 interface ResetPasswordCredentials {
   password: string;
   repeat_password: string;
-  token: string;
 }
 
 export const registerThunk = createAsyncThunk<
@@ -157,31 +156,46 @@ export const forgotPasswordThunk = createAsyncThunk<
   }
 });
 
-export const verifyResetPasswordThunk = createAsyncThunk<
-  UsersVerificationResponse,
-  string
->('verifyResetPassword', async (verificationToken, thunkAPI) => {
-  try {
-    const { data } = await marketplaceApiUsers.get<UsersVerificationResponse>(
-      `reset-password/${verificationToken}`
-    );
-    setToken(data.token);
-    return data;
-  } catch (error: any) {
-    return thunkAPI.rejectWithValue(
-      error.message || 'Failed to verify reset password'
-    );
+export const verifyResetPasswordThunk = createAsyncThunk(
+  'users/verifyResetPassword',
+  async ({ resetPasswordCode }: { resetPasswordCode: string }, thunkAPI) => {
+    try {
+      const { data } = await marketplaceApiUsers.post('reset-password', {
+        resetPasswordCode,
+      });
+      setToken(data.token);
+      return data;
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(
+        error.response?.status === 400
+          ? 'Не вірний код підтвердження або час дії його минув'
+          : error.message || 'Invalid or expired verification reset code'
+      );
+      return thunkAPI.rejectWithValue(error.response?.data || error.message);
+    }
   }
-});
+);
 
 export const resetPasswordThunk = createAsyncThunk<
   { message: string },
   ResetPasswordCredentials
 >('resetPassword', async (credentials, thunkAPI) => {
+  const token = (thunkAPI.getState() as RootState).users.token;
+
+  if (!token) {
+    return thunkAPI.rejectWithValue('Token does not exist');
+  }
+
+  setToken(token);
   try {
     const { data } = await marketplaceApiUsers.patch<{ message: string }>(
       'reset-password',
-      credentials
+      credentials,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
     return data;
   } catch (error: any) {
