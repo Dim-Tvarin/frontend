@@ -79,12 +79,12 @@ const Announcement = () => {
   };
 
   return (
-    <div className="container flex flex-row gap-16">
+    <div className="container flex flex-row gap-16 text-default-btn">
       <div className="flex flex-col flex-1/2 mt-100">
         <h2 className="text-xl mb-32">Додати оголошення</h2>
 
         <form
-          className="flex flex-col items-start text-color-default-btn"
+          className="flex flex-col items-start"
           onSubmit={handleSubmit(onSubmit)}
         >
           <p className="text-20 mb-16">Оберіть вид тварини</p>
