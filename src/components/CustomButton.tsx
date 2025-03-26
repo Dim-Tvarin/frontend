@@ -6,6 +6,7 @@ interface CustomButtonProps extends React.ComponentProps<typeof Button> {
   children: React.ReactNode;
   className?: string;
   loading?: boolean;
+  disabled?: boolean;
   type?: 'button' | 'submit' | 'reset';
   styleType?: 'defaultButton' | 'redButton' | 'orangeButton' | 'linkButton';
 }
@@ -13,6 +14,7 @@ export const CustomButton = ({
   children,
   styleType,
   className,
+  disabled,
   loading,
   ...props
 }: CustomButtonProps) => (
@@ -29,6 +31,7 @@ export const CustomButton = ({
         'text-xs text-link hover:text-link-hov disabled:text-disabled bg-none',
       className
     )}
+    disabled={disabled}
     {...props}
   >
     {loading ? (

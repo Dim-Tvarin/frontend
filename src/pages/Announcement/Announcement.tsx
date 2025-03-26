@@ -25,7 +25,7 @@ const Announcement = () => {
     watch,
     control,
     reset,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isValid },
   } = useForm<AnnouncementForm>({
     resolver: zodResolver(announceSchema),
     mode: 'onChange',
@@ -42,7 +42,7 @@ const Announcement = () => {
     const bodyFormData = new FormData();
 
     const { images, ...otherData } = data;
-    images.forEach((image: File) => bodyFormData.append('images', image));
+    images?.forEach((image: File) => bodyFormData.append('images', image));
 
     bodyFormData.append(
       'animalData',
@@ -77,7 +77,7 @@ const Announcement = () => {
         }
       });
   };
-  console.log('isSubmitting', isSubmitting);
+  console.log('isSubmitting', isSubmitting, isValid, errors);
   return (
     <div className="container flex flex-row gap-16 text-default-btn">
       <div className="flex flex-col flex-1/2 mt-100">
@@ -178,6 +178,7 @@ const Announcement = () => {
             type="submit"
             styleType="defaultButton"
             loading={isSubmitting}
+            disabled={!isValid}
           >
             Створити оголошення
           </CustomButton>
