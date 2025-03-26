@@ -6,28 +6,28 @@ export const FilesInput = ({
   ref,
   name,
   error,
-  files,
+  onChange,
   ...rest
 }: {
   ref?: Ref<HTMLInputElement>;
   name: string;
-  files: File[];
+  onChange: (images: File[]) => void;
   error?: string;
 }) => {
   const [imageData, setImageData] = useState<File[]>([]);
 
-  console.log('files', files);
-
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
-      console.log('event.target.files', event.target.files, event);
-      const files = Array.from(event.target.files);
-      setImageData([...imageData, ...files]);
+      const file = Array.from(event.target.files);
+      setImageData([...imageData, ...file]);
+      onChange([...imageData, ...file]);
     }
   };
 
   const handleDeleteImage = (index: number) => {
-    setImageData(imageData.filter((_, i) => i !== index));
+    const filteredFiles = imageData.filter((_, i) => i !== index);
+    setImageData(filteredFiles);
+    onChange(filteredFiles);
   };
 
   return (
@@ -37,6 +37,7 @@ export const FilesInput = ({
         ref={ref}
         name={name}
         onChange={handleFileChange}
+        accept="image/*"
         multiple
         {...rest}
         className="border-1 border-border-file bg-main-pink-l h-[64px] flex items-center
@@ -55,9 +56,9 @@ export const FilesInput = ({
             <img
               src={URL.createObjectURL(img)}
               alt={`Uploaded ${index}`}
-              className="w-[54px] h-[54px] rounded-8"
+              className="w-[54px] h-[54px] rounded-[8px]"
             />
-            <div className="text-left">
+            <div className="text-left text-ellipsis whitespace-nowrap overflow-hidden max-w-[200px]">
               <p>{img.name.split('.')[0]}</p>
               <p className="text-gray">
                 {(img.size / (1024 * 1024)).toFixed(2)} МБ

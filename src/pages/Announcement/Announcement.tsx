@@ -72,21 +72,12 @@ const announceSchema = z.object({
     .max(500, 'Текст оголошення повинен мати максимум 500 символів')
     .nonempty("Поле обов'язкове")
     .trim(),
-  images: z.custom<File[]>(v => v instanceof File, {
-    message: 'Додайте як мінімум 1 фото',
-  }),
-  // images: z
-  //   .union([
-  //     z
-  //       .instanceof(File, { message: 'Image is required' })
-  //       .refine(file => !file || file.size !== 0 || file.size <= 5000000, {
-  //         message: 'Max size exceeded',
-  //       }),
-  //     z.string().optional(), // to hold default image
-  //   ])
-  //   .refine(value => value instanceof File || typeof value === 'string', {
-  //     message: 'Image is required',
-  //   }),
+  images: z
+    .any()
+    .refine((file: File[]) => file?.length !== 0, 'Додайте фото')
+    .refine(file => !file || file.size !== 0 || file.size <= 2000000, {
+      message: 'Максимальний розмір файлу не повинен перевищувати 2 МБ',
+    }),
 });
 
 type AnnouncementForm = z.infer<typeof announceSchema>;
@@ -98,6 +89,7 @@ const Announcement = () => {
     setValue,
     watch,
     control,
+    reset,
     formState: { errors },
   } = useForm<AnnouncementForm>({
     resolver: zodResolver(announceSchema),
@@ -105,25 +97,25 @@ const Announcement = () => {
   });
 
   const token = useSelector(selectToken);
-  const images = watch('images');
+  watch('images');
 
-  console.log('errors', errors, images);
   const onSubmit = async (data: AnnouncementForm) => {
-    console.log('data', data);
     const result = announceSchema.safeParse(data);
     if (result.error) {
       console.error('Щось пішло не по плану', result.error);
     }
-
     const bodyFormData = new FormData();
+
+    const { images, ...otherData } = data;
+    images.forEach((image: File) => bodyFormData.append('images', image));
+
     bodyFormData.append(
       'animalData',
       JSON.stringify({
-        ...data,
-        age: `${data.age}`,
+        ...otherData,
+        age: `${otherData.age}`,
       })
     );
-
     axios
       .post(
         'https://marketplace-backend-wrk2.onrender.com/animals',
@@ -135,7 +127,12 @@ const Announcement = () => {
           },
         }
       )
-      .then(res => console.log('res!!!!', res))
+      .then(res => {
+        if (res.status === 200) {
+          alert('Оголошення успышно створене');
+          reset();
+        }
+      })
       .catch(error => {
         if (error.status === 401) {
           alert('Щоб залишити оголошення, увійдіть у свій аккаунт');
@@ -207,7 +204,6 @@ const Announcement = () => {
               labelSize={20}
               {...register('animalName')}
               error={errors.animalName?.message}
-              value="Песто"
             />
             <InputField
               label="Місто"
@@ -216,7 +212,6 @@ const Announcement = () => {
               labelSize={20}
               {...register('animalLocation')}
               error={errors.animalLocation?.message}
-              value="Львів"
             />
           </div>
 
@@ -235,12 +230,11 @@ const Announcement = () => {
           <Controller
             name="images"
             control={control}
-            render={({ field: { ref, name } }) => (
+            render={({ field: { ref, name, onChange } }) => (
               <FilesInput
                 ref={ref}
                 name={name}
-                files={images}
-                // onChange={e => onChange(e.target.files?.[0])}
+                onChange={onChange}
                 error={errors.images?.message}
               />
             )}
