@@ -1,12 +1,11 @@
-import { useSelector } from 'react-redux';
 import { Button } from './components/ui/button';
 import { cn } from './lib/utils';
-import { Oval } from 'react-loader-spinner';
-import { selectLoading } from 'src/redux/users/usersSlice';
+import { Spinner } from './Spinner';
 
 interface CustomButtonProps extends React.ComponentProps<typeof Button> {
   children: React.ReactNode;
   className?: string;
+  loading?: boolean;
   type?: 'button' | 'submit' | 'reset';
   styleType?: 'defaultButton' | 'redButton' | 'orangeButton' | 'linkButton';
 }
@@ -14,9 +13,9 @@ export const CustomButton = ({
   children,
   styleType,
   className,
+  loading,
   ...props
 }: CustomButtonProps) => {
-  const isLoading = useSelector(selectLoading);
   return (
     <Button
       className={cn(
@@ -31,22 +30,10 @@ export const CustomButton = ({
           'text-xs text-link hover:text-link-hov disabled:text-disabled bg-none',
         className
       )}
-      disabled={isLoading}
+      disabled={loading}
       {...props}
     >
-      {isLoading ? (
-        <Oval
-          visible={true}
-          height="25"
-          width="25"
-          color="#FF8C42"
-          ariaLabel="oval-loading"
-          wrapperStyle={{}}
-          wrapperClass=""
-        />
-      ) : (
-        children
-      )}
+      {loading ? <Spinner /> : children}
     </Button>
   );
 };
