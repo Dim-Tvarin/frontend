@@ -13,40 +13,7 @@ import { useSelector } from 'react-redux';
 import { selectToken } from '../../redux/users/usersSlice';
 import { FilesInput } from 'components/FilesInput';
 import { announceSchema } from '../../validations/announceValidation';
-
-const animalType = [
-  {
-    value: 'cat',
-    label: 'Кіт',
-  },
-  {
-    value: 'dog',
-    label: 'Собака',
-  },
-  {
-    value: 'bird',
-    label: 'Птах',
-  },
-  {
-    value: 'another',
-    label: 'Інша тварина',
-  },
-];
-
-const gender = [
-  {
-    value: 'male',
-    label: 'самець',
-  },
-  {
-    value: 'female',
-    label: 'самка',
-  },
-  {
-    value: 'unknown',
-    label: 'невідомо',
-  },
-];
+import { animalType, genderType } from './types';
 
 type AnnouncementForm = z.infer<typeof announceSchema>;
 
@@ -137,7 +104,7 @@ const Announcement = () => {
 
           <p className="text-20 mt-32 mb-16">Стать </p>
           <CustomRadioGroup
-            items={gender}
+            items={genderType}
             itemWidth="197"
             {...register('gender')}
             onChange={value => setValue('gender', value as 'male' | 'female')}
