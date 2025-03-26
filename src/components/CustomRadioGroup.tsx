@@ -12,6 +12,7 @@ type Item = {
 interface RadioProps {
   defaultValue?: string;
   className?: string;
+  itemWidth?: string;
   items: Item[];
   groupLabel?: string;
   onChange: (value: string) => void;
@@ -21,6 +22,7 @@ interface RadioProps {
 const CustomRadioGroup: FC<RadioProps> = ({
   defaultValue,
   items,
+  itemWidth,
   className,
   groupLabel,
   onChange,
@@ -40,7 +42,7 @@ const CustomRadioGroup: FC<RadioProps> = ({
       >
         {items.map(item => (
           <div
-            className="flex items-center gap-8 rounded-lg p-8 border-1 border-input-border w-full h-40"
+            className={cn(" flex items-center gap-8 rounded-lg p-8 border-1 border-input-border h-40", itemWidth ? `w-[${itemWidth}px]` : 'w-full')}
             key={item.value}
           >
             <RadioGroupItem

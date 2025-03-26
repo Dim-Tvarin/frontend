@@ -49,6 +49,7 @@ const slice = createSlice({
   initialState,
   selectors: {
     selectUserName: state => state.user.name,
+    selectUserPhone: state => state.user.phone,
     selectUserType: state => state.user.userType,
     selectUserTheme: state => state.user.theme,
     selectToken: state => state.token,
@@ -139,6 +140,7 @@ const slice = createSlice({
 export const usersReducer = slice.reducer;
 export const {
   selectUserName,
+  selectUserPhone,
   selectUserType,
   selectUserTheme,
   selectToken,

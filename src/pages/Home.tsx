@@ -16,7 +16,7 @@ export const Home = () => {
            Оберіть для себе ідеального домашнього улюбленця, або допоможіть безпритульним тваринам знайти свій дім
           </p>
           <CustomButton className="w-[236px] h-[44px] bg-default-btn rounded-[20px]">
-            <Link to="/lookfor">Створити оголошення</Link>
+            <Link to="/announcement">Створити оголошення</Link>
           </CustomButton>
         </div>
         <div className="relative h-[500px] w-[630px] bg-orange rounded-[30px] overflow-hidden">
