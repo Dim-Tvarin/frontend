@@ -31,7 +31,7 @@ export const FilesInput = ({
   };
 
   return (
-    <div className="mt-32 w-full">
+    <div className="w-full">
       <Input
         type="file"
         ref={ref}

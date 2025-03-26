@@ -20,14 +20,14 @@ export const animalType = [
 export const genderType = [
   {
     value: 'male',
-    label: 'самець',
+    label: 'Самець',
   },
   {
     value: 'female',
-    label: 'самка',
+    label: 'Самка',
   },
   {
     value: 'unknown',
-    label: 'невідомо',
+    label: 'Невідомо',
   },
 ];

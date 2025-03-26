@@ -25,7 +25,7 @@ const Announcement = () => {
     watch,
     control,
     reset,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<AnnouncementForm>({
     resolver: zodResolver(announceSchema),
     mode: 'onChange',
@@ -77,7 +77,7 @@ const Announcement = () => {
         }
       });
   };
-
+  console.log('isSubmitting', isSubmitting);
   return (
     <div className="container flex flex-row gap-16 text-default-btn">
       <div className="flex flex-col flex-1/2 mt-100">
@@ -127,7 +127,6 @@ const Announcement = () => {
               labelSize={20}
               {...register('breed')}
               error={errors.breed?.message}
-              value="невідомо"
             />
           </div>
 
@@ -175,7 +174,11 @@ const Announcement = () => {
             )}
           />
 
-          <CustomButton type="submit" styleType="defaultButton">
+          <CustomButton
+            type="submit"
+            styleType="defaultButton"
+            loading={isSubmitting}
+          >
             Створити оголошення
           </CustomButton>
         </form>
