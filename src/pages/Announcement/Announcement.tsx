@@ -25,7 +25,7 @@ const Announcement = () => {
     watch,
     control,
     reset,
-    formState: { errors, isSubmitting, isValid },
+    formState: { errors },
   } = useForm<AnnouncementForm>({
     resolver: zodResolver(announceSchema),
     mode: 'onChange',
@@ -176,11 +176,7 @@ const Announcement = () => {
             )}
           />
 
-          <CustomButton
-            type="submit"
-            styleType="defaultButton"
-            loading={isSubmitting}
-          >
+          <CustomButton type="submit" styleType="defaultButton">
             Створити оголошення
           </CustomButton>
         </form>

@@ -55,6 +55,7 @@ const slice = createSlice({
     selectToken: state => state.token,
     selectIsLoggedIn: state => state.isLoggedIn,
     selectError: state => state.error,
+    selectLoading: state => state.isLoading,
   },
   reducers: {},
   extraReducers: builder => {
@@ -146,4 +147,5 @@ export const {
   selectToken,
   selectIsLoggedIn,
   selectError,
+  selectLoading,
 } = slice.selectors;
