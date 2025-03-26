@@ -26,9 +26,17 @@ export const announceSchema = z.object({
     .nonempty("Поле обов'язкове")
     .trim(),
   images: z
-    .any()
-    .refine((file: File[]) => file?.length !== 0, 'Додайте фото')
-    .refine(file => !file || file.size !== 0 || file.size <= 2000000, {
-      message: 'Максимальний розмір файлу не повинен перевищувати 2 МБ',
+    .custom<File[]>(
+      files => {
+        console.log('fi', files);
+        return files && files.length > 0;
+      },
+      { message: 'Додайте фото' }
+    )
+    .refine(files => files[0]?.size <= 2 * 1024 * 1024, {
+      message: 'Файл повинен бути менше 5MB',
+    })
+    .refine(files => ['image/png', 'image/jpeg'].includes(files[0]?.type), {
+      message: 'Тільки PNG/JPEG',
     }),
 });

@@ -17,7 +17,7 @@ export const animalType = [
   },
 ];
 
-export const genderType = [
+export const gender = [
   {
     value: 'male',
     label: 'Самець',

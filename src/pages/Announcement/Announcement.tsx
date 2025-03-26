@@ -13,7 +13,7 @@ import { useSelector } from 'react-redux';
 import { selectToken } from '../../redux/users/usersSlice';
 import { FilesInput } from 'components/FilesInput';
 import { announceSchema } from '../../validations/announceValidation';
-import { animalType, genderType } from './types';
+import { animalType, gender } from './types';
 
 type AnnouncementForm = z.infer<typeof announceSchema>;
 
@@ -36,6 +36,7 @@ const Announcement = () => {
 
   const onSubmit = async (data: AnnouncementForm) => {
     const result = announceSchema.safeParse(data);
+
     if (result.error) {
       console.error('Щось пішло не по плану', result.error);
     }
@@ -51,7 +52,8 @@ const Announcement = () => {
         age: `${otherData.age}`,
       })
     );
-    axios
+
+    return axios
       .post(
         'https://marketplace-backend-wrk2.onrender.com/animals',
         bodyFormData,
@@ -77,7 +79,7 @@ const Announcement = () => {
         }
       });
   };
-  console.log('isSubmitting', isSubmitting, isValid, errors);
+
   return (
     <div className="container flex flex-row gap-16 text-default-btn">
       <div className="flex flex-col flex-1/2 mt-100">
@@ -104,7 +106,7 @@ const Announcement = () => {
 
           <p className="text-20 mt-32 mb-16">Стать </p>
           <CustomRadioGroup
-            items={genderType}
+            items={gender}
             itemWidth="197"
             {...register('gender')}
             onChange={value => setValue('gender', value as 'male' | 'female')}
@@ -178,15 +180,14 @@ const Announcement = () => {
             type="submit"
             styleType="defaultButton"
             loading={isSubmitting}
-            disabled={!isValid}
           >
             Створити оголошення
           </CustomButton>
         </form>
       </div>
 
-      <div className="w-[630px] bg-orange rounded-[30px] flex flex-col gap-32 py-32 items-end mt-100">
-        <div className="w-[600px] rounded-l-[30px] overflow-hidden">
+      <div className=" bg-orange rounded-[30px] flex flex-col gap-32 py-32 items-end my-100">
+        <div className="w-[600px] rounded-l-[30px] overflow-hidden ml-30">
           <img src={announce1} alt="хлопець з хаскі" />
         </div>
         <div className="w-[600px] rounded-l-[30px] overflow-hidden">
