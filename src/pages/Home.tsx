@@ -11,7 +11,7 @@ export const Home = () => {
 
   return (
     <div className="container text-default-btn">
-      <section className="flex flex-row gap-[20px] mt-[60px]">
+      <section className="flex flex-row gap-[20px] mt-[100px]">
         <div className="flex flex-col gap-[24px] justify-center w-2/4 items-center">
           <p className="text-xl px-[20px] font-normal">
             Оберіть для себе ідеального домашнього улюбленця, або допоможіть
