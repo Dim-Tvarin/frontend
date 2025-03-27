@@ -89,7 +89,7 @@ const Announcement = () => {
           className="flex flex-col items-start"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <p className="text-20 mb-16">Оберіть вид тварини</p>
+          <p className="text-xl mb-16">Оберіть вид тварини</p>
           <CustomRadioGroup
             items={animalType}
             className="grid grid-cols-2"
@@ -104,7 +104,7 @@ const Announcement = () => {
             error={errors.animalType?.message}
           />
 
-          <p className="text-20 mt-32 mb-16">Стать </p>
+          <p className="text-xl mt-32 mb-16">Стать </p>
           <CustomRadioGroup
             items={gender}
             itemWidth="197"
@@ -118,7 +118,7 @@ const Announcement = () => {
               label="Вік"
               id="age"
               className="w-[305px] h-[40px] mt-16"
-              labelSize={20}
+              labelSize="xl"
               {...register('age')}
               error={errors.age?.message}
             />
@@ -126,7 +126,7 @@ const Announcement = () => {
               label="Порода"
               id="breed"
               className="w-[305px] h-[40px] mt-16"
-              labelSize={20}
+              labelSize="xl"
               {...register('breed')}
               error={errors.breed?.message}
             />
@@ -137,7 +137,7 @@ const Announcement = () => {
               label="Ім’я тварини"
               id="animalName"
               className="w-[305px] h-[40px] mt-16"
-              labelSize={20}
+              labelSize="xl"
               {...register('animalName')}
               error={errors.animalName?.message}
             />
@@ -145,7 +145,7 @@ const Announcement = () => {
               label="Місто"
               id="animalLocation"
               className="w-[305px] h-[40px] mt-16"
-              labelSize={20}
+              labelSize="xl"
               {...register('animalLocation')}
               error={errors.animalLocation?.message}
             />
@@ -159,16 +159,14 @@ const Announcement = () => {
             {...register('adText')}
             error={errors.adText?.message}
           />
-
-          <p className="text-20 mb-16 mt-32">
-            Добавте фото тварини та документи
-          </p>
           <Controller
             name="images"
             control={control}
             render={({ field: { ref, name, onChange } }) => (
               <FilesInput
                 ref={ref}
+                groupLabel="Добавте фото тварини та документи"
+                labelClass="mb-16 mt-32"
                 name={name}
                 onChange={onChange}
                 error={errors.images?.message?.toString()}

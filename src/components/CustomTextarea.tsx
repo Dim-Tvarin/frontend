@@ -1,10 +1,13 @@
 import { MdErrorOutline } from 'react-icons/md';
 import { Textarea } from './components/ui/textarea';
 import { cn } from './lib/utils';
+import { CustomLabel } from './CustomLabel';
 
 export const TextareaDemo = ({
   placeholder,
   label,
+  labelClass,
+  labelSize = 'xl',
   id,
   className,
   error,
@@ -13,18 +16,17 @@ export const TextareaDemo = ({
   id: string;
   placeholder: string;
   label?: string;
+  labelSize?: string;
+  labelClass?: string;
   className?: string;
   error?: string;
 }) => {
   return (
     <div className={cn(className && className, 'w-full')}>
       {label && (
-        <label
-          htmlFor={id}
-          className={cn('font-medium text-input-label', 'text-20')}
-        >
+        <CustomLabel htmlFor={id} labelSize={labelSize} labelClass={labelClass}>
           {label}
-        </label>
+        </CustomLabel>
       )}
       <Textarea
         placeholder={placeholder}

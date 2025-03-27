@@ -2,14 +2,21 @@ import { type Ref, useState } from 'react';
 import { Input } from './components/ui/input';
 import { MdErrorOutline } from 'react-icons/md';
 import { LuDelete } from 'react-icons/lu';
+import { CustomLabel } from './CustomLabel';
 export const FilesInput = ({
   ref,
+  groupLabel,
+  labelClass,
+  labelSize = 'xl',
   name,
   error,
   onChange,
   ...rest
 }: {
   ref?: Ref<HTMLInputElement>;
+  groupLabel?: string;
+  labelClass?: string;
+  labelSize?: string;
   name: string;
   onChange: (images: File[]) => void;
   error?: string;
@@ -32,6 +39,11 @@ export const FilesInput = ({
 
   return (
     <div className="w-full">
+      {groupLabel && (
+        <CustomLabel labelSize={labelSize} labelClass={labelClass}>
+          {groupLabel}
+        </CustomLabel>
+      )}
       <Input
         type="file"
         ref={ref}

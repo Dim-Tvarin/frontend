@@ -77,7 +77,7 @@ const DialogForgotPassword: React.FC = () => {
             label="Електронна пошта"
             placeholder="user@gmail.com"
             className="w-[340px] mt-10"
-            labelClassName="text-xs text-input-border"
+            labelClass="text-input-border"
             id="forgotEmail"
             {...register('forgotEmail')}
             error={emailError || errors.forgotEmail?.message}

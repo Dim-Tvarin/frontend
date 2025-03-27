@@ -53,12 +53,14 @@ const RegistrationForm: React.FC = () => {
       <h1 className="mb-[41px] text-[32px] text-black">Реєстрація акаунту</h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col text-left text-xl gap-32"
+        className="flex flex-col text-left gap-32"
       >
         <InputField
           label="Ім’я або назва організації"
           placeholder="Введіть ваше імʼя"
-          className="w-[630px] mt-10"
+          className="w-[630px] placeholder:text-[16px]"
+          labelClass=" mb-16"
+          labelSize="xl"
           id="name"
           {...register('name')}
           error={errors.name?.message}
@@ -66,7 +68,9 @@ const RegistrationForm: React.FC = () => {
         <InputField
           label="Адреса електронної пошти"
           placeholder="Введіть адресу електронної пошти"
-          className="w-[630px]  mt-10"
+          className="w-[630px] placeholder:text-[16px]"
+          labelClass=" mb-16"
+          labelSize="xl"
           id="email"
           {...register('email')}
           error={emailError || errors.email?.message}
@@ -75,7 +79,9 @@ const RegistrationForm: React.FC = () => {
           <InputField
             label="Місто"
             placeholder="Введіть ваше місто"
-            className="w-[305px]  mt-10"
+            className="w-[305px] placeholder:text-[16px]"
+            labelClass=" mb-16"
+            labelSize="xl"
             id="location"
             {...register('location')}
             error={errors.location?.message}
@@ -83,7 +89,9 @@ const RegistrationForm: React.FC = () => {
           <PhoneInput
             label="Номер телефону"
             placeholder="+380"
-            className=" mt-10"
+            className="placeholder:text-[16px]"
+            labelClass=" mb-16"
+            labelSize="xl"
             id="phone"
             {...register('phone')}
             error={errors.phone?.message}
@@ -91,6 +99,9 @@ const RegistrationForm: React.FC = () => {
         </div>
         <CustomRadioGroup
           groupLabel="Оберіть тип"
+          labelSize="xl"
+          labelClass=" mb-16"
+          className="text-lg"
           items={userTypeOptions}
           defaultValue={userTypeValue}
           onChange={value =>
@@ -102,7 +113,9 @@ const RegistrationForm: React.FC = () => {
         <PasswordField
           label="Пароль"
           placeholder="Введіть надійний пароль"
-          className="w-[630px]  mt-10"
+          className="w-[630px] placeholder:text-[16px]"
+          labelClass="leading-[125%] mb-16"
+          labelSize="xl"
           id="password"
           {...register('password')}
           error={errors.password?.message}
@@ -113,7 +126,9 @@ const RegistrationForm: React.FC = () => {
         <PasswordField
           label="Повторіть пароль"
           placeholder="Введіть пароль повторно"
-          className="w-[630px]  mt-10"
+          className="w-[630px] placeholder:text-[16px]"
+          labelClass="leading-[125%] mb-16"
+          labelSize="xl"
           id="repeat_password"
           {...register('repeat_password')}
           error={errors.repeat_password?.message}

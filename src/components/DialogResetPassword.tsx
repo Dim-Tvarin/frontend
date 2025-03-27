@@ -70,13 +70,13 @@ const DialogResetPassword: React.FC = () => {
         </DialogHeader>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col text-left gap-10 mt-10 text-xs text-input-border leading-[125%]"
+          className="flex flex-col text-left gap-10 mt-10"
         >
           <PasswordField
             label="Введіть новий пароль"
             placeholder="Пароль"
-            className="w-[340px] mt-10  mb-30 "
-            labelClassName="text-xs text-input-border"
+            className="w-[340px] mt-10"
+            labelClass="text-input-border"
             id="password"
             {...register('password')}
             error={errors.password?.message}
@@ -85,7 +85,7 @@ const DialogResetPassword: React.FC = () => {
             label="Повторіть новий пароль для підтвердження"
             placeholder="Пароль"
             className="w-[340px] mt-10"
-            labelClassName="text-xs text-input-border"
+            labelClass="text-input-border mt-30"
             id="repeat_password"
             {...register('repeat_password')}
             error={resetCodeError || errors.repeat_password?.message}

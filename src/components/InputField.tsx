@@ -2,39 +2,31 @@ import type { FC } from 'react';
 import { Input } from './components/ui/input';
 import { cn } from './lib/utils';
 import { MdErrorOutline } from 'react-icons/md';
+import { CustomLabel } from './CustomLabel';
 
 interface InputFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
-  labelClass?: string;
-  labelSize?: number;
   id: string;
   error?: string;
-  labelClassName?: string;
+  labelSize?: string;
+  labelClass?: string;
 }
 
 export const InputField: FC<InputFieldProps> = ({
-  label,
   id,
-  error,
-  labelClassName,
+  label,
   className,
   labelClass,
-  labelSize,
+  labelSize = 'xs',
+  error,
   ...rest
 }) => {
   return (
     <div className="w-full ">
       {label && (
-        <label
-          htmlFor={id}
-          className={cn(
-            'block text-left h-20 font-medium text-input-label mb-10',
-            labelClass,
-            labelSize ? `text-${labelSize}` : 'text-xs'
-          )}
-        >
+        <CustomLabel htmlFor={id} labelSize={labelSize} labelClass={labelClass}>
           {label}
-        </label>
+        </CustomLabel>
       )}
       <Input
         id={id}

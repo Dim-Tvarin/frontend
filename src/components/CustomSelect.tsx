@@ -7,9 +7,12 @@ import {
 } from './components/ui/select';
 import { cn } from 'components/lib/utils';
 import { MdErrorOutline } from 'react-icons/md';
+import { CustomLabel } from './CustomLabel';
 
 interface CustomSelectProps {
   label: string;
+  labelSize?: string;
+  labelClass?: string;
   value: string;
   onChange: (value: string) => void;
   children: ReactNode;
@@ -20,6 +23,8 @@ interface CustomSelectProps {
 
 const CustomSelect: FC<CustomSelectProps> = ({
   label,
+  labelClass,
+  labelSize = '[16px]',
   className,
   value,
   onChange,
@@ -30,9 +35,9 @@ const CustomSelect: FC<CustomSelectProps> = ({
   return (
     <div className="w-full [&_button>svg]:size-16 ">
       {label && (
-        <label className="block text-left h-[20px] font-medium text-[16px] text-input-label mb-[10px]">
+        <CustomLabel labelSize={labelSize} labelClass={labelClass}>
           {label}
-        </label>
+        </CustomLabel>
       )}
       <Select value={value} onValueChange={onChange}>
         <SelectTrigger

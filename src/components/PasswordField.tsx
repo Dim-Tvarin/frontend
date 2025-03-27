@@ -3,13 +3,15 @@ import { Input } from './components/ui/input';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { MdErrorOutline } from 'react-icons/md';
 import { cn } from './lib/utils';
+import { CustomLabel } from './CustomLabel';
 
 interface PasswordFieldProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
+  labelClass?: string;
+  labelSize?: string;
   id: string;
   error?: string;
-  labelClassName?: string;
   children?: React.ReactNode;
 }
 
@@ -18,7 +20,8 @@ export const PasswordField: FC<PasswordFieldProps> = ({
   id,
   error,
   className,
-  labelClassName,
+  labelClass,
+  labelSize = '[16px]',
   children,
   ...rest
 }) => {
@@ -26,17 +29,9 @@ export const PasswordField: FC<PasswordFieldProps> = ({
   return (
     <div className="relative w-full">
       {label && (
-        <label
-          htmlFor={id}
-          className={
-            (cn(
-              'block font-medium text-left h-[20px] text-[16px] leading-[125%] text-input-label mb-[10px]'
-            ),
-            labelClassName)
-          }
-        >
+        <CustomLabel htmlFor={id} labelSize={labelSize} labelClass={labelClass}>
           {label}
-        </label>
+        </CustomLabel>
       )}
       <div className="relative">
         <Input
@@ -69,7 +64,6 @@ export const PasswordField: FC<PasswordFieldProps> = ({
         <p
           className="flex mt-[10px] text-xs text-input-border text-start"
           style={{
-            fontFamily: 'var(--font-family)',
             fontWeight: 400,
             lineHeight: '150%',
           }}

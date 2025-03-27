@@ -3,6 +3,7 @@ import { Label } from './components/ui/label';
 import { RadioGroup, RadioGroupItem } from './components/ui/radio-group';
 import { cn } from './lib/utils';
 import { MdErrorOutline } from 'react-icons/md';
+import { CustomLabel } from './CustomLabel';
 
 type Item = {
   value: string;
@@ -15,6 +16,8 @@ interface RadioProps {
   itemWidth?: string;
   items: Item[];
   groupLabel?: string;
+  labelSize?: string;
+  labelClass?: string;
   onChange: (value: string) => void;
   error?: string;
 }
@@ -25,15 +28,17 @@ const CustomRadioGroup: FC<RadioProps> = ({
   itemWidth,
   className,
   groupLabel,
+  labelClass,
+  labelSize = '[16px]',
   onChange,
   error,
 }) => {
   return (
     <div className="flex flex-col">
       {groupLabel && (
-        <label className="block text-left h-[20px] font-medium text-[16px] text-input-label mb-[10px]">
+        <CustomLabel labelSize={labelSize} labelClass={labelClass}>
           {groupLabel}
-        </label>
+        </CustomLabel>
       )}
       <RadioGroup
         defaultValue={defaultValue}
@@ -42,7 +47,10 @@ const CustomRadioGroup: FC<RadioProps> = ({
       >
         {items.map(item => (
           <div
-            className={cn(" flex items-center gap-8 rounded-lg p-8 border-1 border-input-border h-40", itemWidth ? `w-[${itemWidth}px]` : 'w-full')}
+            className={cn(
+              ' flex items-center gap-8 rounded-lg p-8 border-1 border-input-border h-40',
+              itemWidth ? `w-[${itemWidth}px]` : 'w-full'
+            )}
             key={item.value}
           >
             <RadioGroupItem
@@ -50,7 +58,9 @@ const CustomRadioGroup: FC<RadioProps> = ({
               id={item.value}
               className="ring-[1px] w-20 h-20 data-[state=checked]:ring-2 focus:outline-none"
             />
-            <Label htmlFor={item.value}>{item.label}</Label>
+            <Label htmlFor={item.value} className="text-lg">
+              {item.label}
+            </Label>
           </div>
         ))}
       </RadioGroup>
