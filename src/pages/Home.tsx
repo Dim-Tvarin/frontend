@@ -46,7 +46,7 @@ export const Home = () => {
       </section>
 
       <section className="flex flex-row gap-[20px] mt-[100px] mb-[100px]">
-        <div className="relative h-[500px] w-[630px] bg-orange rounded-[30px] overflow-hidden">
+        <div className="relative h-[500px] w-[630px] bg-orange rounded-[30px] overflow-hidden z-10">
           <div className="absolute bottom-0 left-0 h-[468px] w-[600px]  rounded-[30px] overflow-hidden">
             <ResponsiveImage
               urlMax={homeGirlDogMax}
