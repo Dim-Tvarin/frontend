@@ -42,12 +42,13 @@ const DialogLogin: React.FC = () => {
     mode: 'onChange',
   });
 
-  const onSubmit = (data: FormData) => {
-    const result = dispatch(loginThunk(data));
+  const onSubmit = async (data: FormData) => {
+    const result = await dispatch(loginThunk(data));
     if (loginThunk.fulfilled.match(result)) {
       alert('Ви успішно авторизувались');
       reset();
       navigate('/');
+      dispatch(closeDialog());
     }
   };
   return (
@@ -77,7 +78,7 @@ const DialogLogin: React.FC = () => {
             label="Електронна пошта"
             placeholder="user@gmail.com"
             className="w-[340px] mt-10"
-            labelClassName="text-xs text-input-border"
+            labelClass="text-input-border"
             id="email"
             {...register('email')}
             error={errors.email?.message}
@@ -86,7 +87,7 @@ const DialogLogin: React.FC = () => {
             label="Пароль"
             placeholder="**********"
             className="w-[340px] mt-10"
-            labelClassName="text-xs text-input-border"
+            labelClass="text-input-border"
             id="password"
             {...register('password')}
             error={authError || errors.password?.message}
