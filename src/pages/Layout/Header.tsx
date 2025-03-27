@@ -30,7 +30,7 @@ export const Header = () => {
           </li>
           <li className="mr-56">
             <NavLink to="/find" end>
-              Знайти тваринку
+              Знайти тварину
             </NavLink>
           </li>
           <li className="mr-56">
