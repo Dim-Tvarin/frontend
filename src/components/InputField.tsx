@@ -1,8 +1,8 @@
 import type { FC } from 'react';
 import { Input } from './components/ui/input';
 import { cn } from './lib/utils';
-import { MdErrorOutline } from 'react-icons/md';
 import { CustomLabel } from './CustomLabel';
+import FormError from './FormError';
 
 interface InputFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -32,16 +32,12 @@ export const InputField: FC<InputFieldProps> = ({
         id={id}
         className={cn(
           'border border-input-border rounded-[8px] px-[28px] py-[14px] h-[48px] placeholder:text-input-border',
+          { 'border-error-input text-error-input': error },
           className
         )}
         {...rest}
       />
-      {error && (
-        <div className="flex items-center mt-[10px] gap-[4px]">
-          <MdErrorOutline size={18} className="text-error" />
-          <p className="text-left text-error text-xs">{error}</p>
-        </div>
-      )}
+      {error && <FormError error={error} />}
     </div>
   );
 };

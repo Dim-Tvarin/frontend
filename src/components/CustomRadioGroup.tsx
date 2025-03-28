@@ -2,8 +2,8 @@ import type { FC } from 'react';
 import { Label } from './components/ui/label';
 import { RadioGroup, RadioGroupItem } from './components/ui/radio-group';
 import { cn } from './lib/utils';
-import { MdErrorOutline } from 'react-icons/md';
 import { CustomLabel } from './CustomLabel';
+import FormError from './FormError';
 
 type Item = {
   value: string;
@@ -49,7 +49,8 @@ const CustomRadioGroup: FC<RadioProps> = ({
           <div
             className={cn(
               ' flex items-center gap-8 rounded-lg p-8 border-1 border-input-border h-40',
-              itemWidth ? `w-[${itemWidth}px]` : 'w-full'
+              itemWidth ? `w-[${itemWidth}px]` : 'w-full',
+              { 'border-error-input text-error-input': error }
             )}
             key={item.value}
           >
@@ -64,12 +65,7 @@ const CustomRadioGroup: FC<RadioProps> = ({
           </div>
         ))}
       </RadioGroup>
-      {error && (
-        <div className="flex items-center mt-[10px] gap-[4px]">
-          <MdErrorOutline size={18} className="text-error" />
-          <p className="text-left text-error text-xs">{error}</p>
-        </div>
-      )}
+      {error && <FormError error={error} />}
     </div>
   );
 };

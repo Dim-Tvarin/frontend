@@ -1,9 +1,9 @@
 import { useState, type FC } from 'react';
 import { Input } from './components/ui/input';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { MdErrorOutline } from 'react-icons/md';
 import { cn } from './lib/utils';
 import { CustomLabel } from './CustomLabel';
+import FormError from './FormError';
 
 interface PasswordFieldProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -38,7 +38,8 @@ export const PasswordField: FC<PasswordFieldProps> = ({
           type={visible ? 'text' : 'password'}
           id={id}
           className={cn(
-            'border border-[#99a2a5] rounded-[8px] px-[28px] py-[14px] h-[48px] placeholder:text-input-border',
+            'border border-input-border rounded-[8px] px-[28px] py-[14px] h-[48px] placeholder:text-input-border',
+            { 'border-error-input text-error-input': error },
             className
           )}
           {...rest}
@@ -51,23 +52,19 @@ export const PasswordField: FC<PasswordFieldProps> = ({
           tabIndex={-1}
           aria-label={visible ? 'Сховати пароль' : 'Показати пароль'}
         >
-          {visible ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
+          {visible ? (
+            <FaEyeSlash
+              size={24}
+              className={cn({ 'text-error-input': error })}
+            />
+          ) : (
+            <FaEye size={24} className={cn({ 'text-error-input': error })} />
+          )}
         </button>
       </div>
-      {error && (
-        <div className="flex items-center mt-[10px] gap-[4px]">
-          <MdErrorOutline size={18} className="text-error flex-shrink-0" />
-          <p className="text-left text-error text-xs">{error}</p>
-        </div>
-      )}
+      {error && <FormError error={error} />}
       {children && (
-        <p
-          className="flex mt-[10px] text-xs text-input-border text-start"
-          style={{
-            fontWeight: 400,
-            lineHeight: '150%',
-          }}
-        >
+        <p className="flex mt-[10px] text-xs text-input-border text-start font-normal leading-[150%]">
           {children}
         </p>
       )}

@@ -6,8 +6,8 @@ import {
   SelectValue,
 } from './components/ui/select';
 import { cn } from 'components/lib/utils';
-import { MdErrorOutline } from 'react-icons/md';
 import { CustomLabel } from './CustomLabel';
+import FormError from './FormError';
 
 interface CustomSelectProps {
   label: string;
@@ -43,6 +43,7 @@ const CustomSelect: FC<CustomSelectProps> = ({
         <SelectTrigger
           className={cn(
             'border border-input-border rounded-[20px] px-[28px] py-[14px] h-[48px] text-input-border flex justify-between',
+            { 'border-error-input text-error-input': error },
             className
           )}
         >
@@ -55,12 +56,7 @@ const CustomSelect: FC<CustomSelectProps> = ({
           {children}
         </SelectContent>
       </Select>
-      {error && (
-        <div className="flex items-center mt-[10px] gap-[4px]">
-          <MdErrorOutline size={18} className="text-error" />
-          <p className="text-left text-error text-xs">{error}</p>
-        </div>
-      )}
+      {error && <FormError error={error} />}
     </div>
   );
 };
