@@ -69,7 +69,7 @@
   --font3: 'American Typewriter', sans-serif;
 
   //color-scheme: light dark;
-  font-family: var(--main-font);
+  font-family: 'Literata', serif;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -83,6 +83,7 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  font-family: 'Literata', serif;
 }
 
 button {
