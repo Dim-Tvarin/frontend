@@ -15,6 +15,7 @@ import { FilesInput } from 'components/FilesInput';
 import { announceSchema } from '../../validations/announceValidation';
 import { animalType, gender } from './types';
 import track from '../../../public/track.png';
+import { MdErrorOutline } from 'react-icons/md';
 
 type AnnouncementForm = z.infer<typeof announceSchema>;
 
@@ -31,12 +32,12 @@ const Announcement = () => {
     resolver: zodResolver(announceSchema),
     mode: 'onChange',
   });
-
+console.log('errors', errors);
   const token = useSelector(selectToken);
   watch('images');
 
   const onSubmit = async (data: AnnouncementForm) => {
-
+console.log('data', data);
     const result = announceSchema.safeParse(data);
 
     if (result.error) {
@@ -53,7 +54,7 @@ const Announcement = () => {
       JSON.stringify({
         ...otherData,
         gender: genderData,
-        age: `${otherData.age}`,
+        age: otherData.age
       })
     );
     return axios
@@ -120,24 +121,48 @@ const Announcement = () => {
             {...register('gender')}
             onChange={value => setValue('gender', value as 'male' | 'female')}
           />
+         
+          <div className="flex mt-32">
+            <div className='grid grid-cols-[150px_150px] gap-[10px] mr-16'>
+              <InputField
+                label='Вік *'
+                  id="age"
+                  placeholder='місяців'
+                  className="w-[150px] h-[40px] mt-16 mr-10"
+                  labelSize={20}
+                  {...register('age.months')}
+              />
+             
+              <InputField
+                label=' '
+                  id="age"
+                  placeholder='років'
+                  className="w-[150px] h-[40px] mt-16"
+                  labelSize={20}
+                  {...register('age.years')}
+              />
+              {errors.age?.months?.message ?
+                (<div className="flex items-center mt-[10px] gap-[4px]">
+                        <MdErrorOutline size={18} className="text-error" />
+                        <p className="text-left text-error text-xs">{errors.age?.months?.message}</p>
+                </div>) : ''}
+              {errors.age?.years?.message ? 
+                (<div className="flex items-center mt-[10px] gap-[4px]">
+                        <MdErrorOutline size={18} className="text-error" />
+                        <p className="text-left text-error text-xs">{errors.age?.years?.message}</p>
+                </div>) : ''}
+              
+            </div>
 
-          <div className="flex mt-32 gap-16">
-            <InputField
-              label="Вік *"
-              id="age"
-              className="w-[305px] h-[40px] mt-16"
-              labelSize={20}
-              {...register('age')}
-              error={errors.age?.message}
-            />
-            <InputField
-              label="Порода *"
-              id="breed"
-              className="w-[305px] h-[40px] mt-16"
-              labelSize={20}
-              {...register('breed')}
-              error={errors.breed?.message}
-            />
+              <InputField
+                label='Порода *'
+                id="breed"
+                className="w-[305px] h-[40px] mt-16"
+                labelSize={20}
+                {...register('breed')}
+                error={errors.breed?.message}
+                />
+          
           </div>
 
           <div className="flex mt-32 gap-16">
