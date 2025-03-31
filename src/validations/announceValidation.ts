@@ -20,7 +20,7 @@ export const announceSchema = z.object({
     .nonempty('Введіть назву породи або "НЕВІДОМО"')
     .max(30, 'Порода не може перевищувати 30 символів')
     .trim(),
-  animalName: z.string().nonempty("Введіть ім'я тварини").trim(),
+  animalName: z.string().min(2, "Мінімум 2 символи").max(50, 'Максимум 50 символів').nonempty("Введіть ім'я тварини").trim(),
   animalLocation: z.string().min(2, 'Введіть назву населенного пункту').trim(),
   adText: z
     .string()
@@ -31,7 +31,6 @@ export const announceSchema = z.object({
   images: z
     .custom<File[]>(
       files => {
-       // console.log('fi', files);
         return files && files.length > 0;
       },
       { message: 'Додайте фото' }
