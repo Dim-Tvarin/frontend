@@ -14,6 +14,7 @@ import { selectToken } from '../../redux/users/usersSlice';
 import { FilesInput } from 'components/FilesInput';
 import { announceSchema } from '../../validations/announceValidation';
 import { animalType, gender } from './types';
+import track from '../../../public/track.png';
 
 type AnnouncementForm = z.infer<typeof announceSchema>;
 
@@ -81,7 +82,13 @@ const Announcement = () => {
   };
 
   return (
-    <div className="container flex flex-row gap-16 text-default-btn">
+    <div className="container flex flex-row gap-16 text-default-btn relative z-10">
+   
+      <div className="absolute z-1  left-[80px] top-[4px]">
+          <img src={track} alt="track" className='w-[180px]'/>
+      </div>
+      
+
       <div className="flex flex-col flex-1/2 mt-100">
         <h2 className="text-xl mb-32">Додати оголошення</h2>
 
@@ -89,7 +96,7 @@ const Announcement = () => {
           className="flex flex-col items-start"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <p className="text-20 mb-16">Оберіть вид тварини</p>
+          <p className="text-20 mb-16 z-10">Оберіть вид тварини</p>
           <CustomRadioGroup
             items={animalType}
             className="grid grid-cols-2"
@@ -192,6 +199,10 @@ const Announcement = () => {
         <div className="w-[600px] rounded-l-[30px] overflow-hidden">
           <img src={announce3} alt="хлопець з хаскі" />
         </div>
+      </div>
+
+        <div className="absolute z-1  left-[39%] bottom-[85px] rotate-[57deg]">
+          <img src={track} alt="track" className='w-[180px]'/>
       </div>
     </div>
   );
