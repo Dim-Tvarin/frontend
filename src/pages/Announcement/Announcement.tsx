@@ -36,6 +36,7 @@ const Announcement = () => {
   watch('images');
 
   const onSubmit = async (data: AnnouncementForm) => {
+
     const result = announceSchema.safeParse(data);
 
     if (result.error) {
@@ -45,15 +46,16 @@ const Announcement = () => {
 
     const { images, ...otherData } = data;
     images?.forEach((image: File) => bodyFormData.append('images', image));
+    const genderData = otherData.gender ? otherData.gender : 'unknown'
 
     bodyFormData.append(
       'animalData',
       JSON.stringify({
         ...otherData,
+        gender: genderData,
         age: `${otherData.age}`,
       })
     );
-
     return axios
       .post(
         'https://marketplace-backend-wrk2.onrender.com/animals',
@@ -84,19 +86,19 @@ const Announcement = () => {
   return (
     <div className="container flex flex-row gap-16 text-default-btn relative z-10">
    
-      <div className="absolute z-1  left-[80px] top-[4px]">
+      <div className="absolute z-1  left-[84px] top-[27px]">
           <img src={track} alt="track" className='w-[180px]'/>
       </div>
       
 
       <div className="flex flex-col flex-1/2 mt-100">
-        <h2 className="text-xl mb-32">Додати оголошення</h2>
+        <h2 className="text-[32px] mb-32 z-10">Додати оголошення</h2>
 
         <form
           className="flex flex-col items-start"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <p className="text-20 mb-16 z-10">Оберіть вид тварини</p>
+          <p className="text-20 mb-16 z-10">Оберіть вид тварини *</p>
           <CustomRadioGroup
             items={animalType}
             className="grid grid-cols-2"
@@ -114,15 +116,14 @@ const Announcement = () => {
           <p className="text-20 mt-32 mb-16">Стать </p>
           <CustomRadioGroup
             items={gender}
-            itemWidth="197"
+            itemWidth="305"
             {...register('gender')}
             onChange={value => setValue('gender', value as 'male' | 'female')}
-            error={errors.animalType?.message}
           />
 
           <div className="flex mt-32 gap-16">
             <InputField
-              label="Вік"
+              label="Вік *"
               id="age"
               className="w-[305px] h-[40px] mt-16"
               labelSize={20}
@@ -130,7 +131,7 @@ const Announcement = () => {
               error={errors.age?.message}
             />
             <InputField
-              label="Порода"
+              label="Порода *"
               id="breed"
               className="w-[305px] h-[40px] mt-16"
               labelSize={20}
@@ -141,7 +142,7 @@ const Announcement = () => {
 
           <div className="flex mt-32 gap-16">
             <InputField
-              label="Ім’я тварини"
+              label="Ім’я тварини *"
               id="animalName"
               className="w-[305px] h-[40px] mt-16"
               labelSize={20}
@@ -149,7 +150,7 @@ const Announcement = () => {
               error={errors.animalName?.message}
             />
             <InputField
-              label="Місто"
+              label="Місто *"
               id="animalLocation"
               className="w-[305px] h-[40px] mt-16"
               labelSize={20}
@@ -162,13 +163,13 @@ const Announcement = () => {
             id="adText"
             className="text-left mt-32"
             placeholder="Опишіть тварину, її характер, історію, забарвлення"
-            label="Опис тварини:"
+            label="Опис тварини: *"
             {...register('adText')}
             error={errors.adText?.message}
           />
 
           <p className="text-20 mb-16 mt-32">
-            Добавте фото тварини та документи
+            Добавте фото тварини та документи *
           </p>
           <Controller
             name="images"

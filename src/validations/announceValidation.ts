@@ -6,7 +6,7 @@ export const announceSchema = z.object({
       return { message: 'Оберіть вид тварини' };
     },
   }),
-  gender: z.enum(['male', 'female', 'unknown']),
+  gender: z.enum(['male', 'female']).optional(),
   age: z.coerce
     .string()
     .regex(/^\d+$/, 'Введіть ціле число')
