@@ -29,7 +29,7 @@ export const FilesInput = ({
     setImageData(filteredFiles);
     onChange(filteredFiles);
   };
-
+  
   return (
     <div className="w-full">
       <Input
@@ -37,6 +37,7 @@ export const FilesInput = ({
         ref={ref}
         name={name}
         onChange={handleFileChange}
+        disabled={imageData.length > 3 ? true : false}
         accept="image/*"
         multiple
         {...rest}
