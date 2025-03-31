@@ -32,12 +32,12 @@ const Announcement = () => {
     resolver: zodResolver(announceSchema),
     mode: 'onChange',
   });
-console.log('errors', errors);
+
   const token = useSelector(selectToken);
   watch('images');
 
   const onSubmit = async (data: AnnouncementForm) => {
-console.log('data', data);
+
     const result = announceSchema.safeParse(data);
 
     if (result.error) {
@@ -100,20 +100,21 @@ console.log('data', data);
           onSubmit={handleSubmit(onSubmit)}
         >
           <p className="text-20 mb-16 z-10">Оберіть вид тварини *</p>
-          <CustomRadioGroup
-            items={animalType}
-            className="grid grid-cols-2"
-            itemWidth="305"
-            {...register('animalType')}
-            onChange={value =>
-              setValue(
-                'animalType',
-                value as 'cat' | 'dog' | 'bird' | 'another'
-              )
-            }
-            error={errors.animalType?.message}
-          />
 
+        <Controller
+          name="animalType"
+          control={control}
+          render={({ field }) => (
+            <CustomRadioGroup
+              items={animalType}
+              className="grid grid-cols-2"
+              itemWidth="305"
+              onChange={val => field.onChange(val)}
+              error={errors.animalType?.message}
+            />
+          )}
+        />
+          
           <p className="text-20 mt-32 mb-16">Стать </p>
           <CustomRadioGroup
             items={gender}
@@ -125,9 +126,9 @@ console.log('data', data);
           <div className="flex mt-32">
             <div className='grid grid-cols-[150px_150px] gap-[10px] mr-16'>
               <InputField
-                label='Вік *'
-                  id="age"
-                  placeholder='місяців'
+                label='Вік'
+                  id="months"
+                  placeholder='0 місяців'
                   className="w-[150px] h-[40px] mt-16 mr-10"
                   labelSize={20}
                   {...register('age.months')}
@@ -135,8 +136,8 @@ console.log('data', data);
              
               <InputField
                 label=' '
-                  id="age"
-                  placeholder='років'
+                  id="years"
+                  placeholder='0 років'
                   className="w-[150px] h-[40px] mt-16"
                   labelSize={20}
                   {...register('age.years')}
