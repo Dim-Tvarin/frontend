@@ -1,4 +1,3 @@
-import CustomRadioGroup from 'components/CustomRadioGroup';
 import announce1 from '../../assets/announce1.jpg';
 import announce2 from '../../assets/announce2.jpg';
 import announce3 from '../../assets/announce3.jpg';
@@ -16,6 +15,8 @@ import { announceSchema } from '../../validations/announceValidation';
 import { animalType, gender } from './types';
 import track from '../../../public/track.png';
 import { MdErrorOutline } from 'react-icons/md';
+import { CitySelect } from 'components/CitySelect';
+import CustomRadioGroup from 'components/CustomRadioGroup';
 
 type AnnouncementForm = z.infer<typeof announceSchema>;
 
@@ -166,7 +167,7 @@ const Announcement = () => {
           
           </div>
 
-          <div className="flex mt-32 gap-16">
+          <div className="grid grid-cols-[305px_305px] mt-32 gap-16">
             <InputField
               label="Ім’я тварини *"
               id="animalName"
@@ -175,14 +176,14 @@ const Announcement = () => {
               {...register('animalName')}
               error={errors.animalName?.message}
             />
-            <InputField
-              label="Місто *"
-              id="animalLocation"
-              className="w-[305px] h-[40px] mt-16"
-              labelSize={20}
-              {...register('animalLocation')}
-              error={errors.animalLocation?.message}
-            />
+            <div>
+            <p className="text-20 mb-[13px] text-left">Місто * </p>
+             <Controller
+              name="animalLocation"
+              control={control}
+              render={({ field }) => <CitySelect onChange={field.onChange} className="w-[305px] h-[40px]"/>}
+              />
+            </div>
           </div>
 
           <TextareaDemo
