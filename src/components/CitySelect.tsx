@@ -18,7 +18,7 @@ export function CitySelect({ onChange, className }: { onChange: (city: string) =
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button variant="outline" className={`${className} w-[305px] justify-between border-input-border`}>
-          {selectedCity || "Оберіть місто"}
+          {selectedCity || "Оберіть населенний пункт"}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[305px] p-0 border-1 border-input-border">

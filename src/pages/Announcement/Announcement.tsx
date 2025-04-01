@@ -17,6 +17,8 @@ import track from '../../../public/track.png';
 import { MdErrorOutline } from 'react-icons/md';
 import { CitySelect } from 'components/CitySelect';
 import CustomRadioGroup from 'components/CustomRadioGroup';
+import { Spinner } from 'components/Spinner';
+import { useState } from 'react';
 
 type AnnouncementForm = z.infer<typeof announceSchema>;
 
@@ -33,6 +35,7 @@ const Announcement = () => {
     resolver: zodResolver(announceSchema),
     mode: 'onChange',
   });
+  const [isLoading, setIsLoading] = useState(false)
 
   const token = useSelector(selectToken);
   watch('images');
@@ -58,6 +61,7 @@ const Announcement = () => {
         age: otherData.age
       })
     );
+    setIsLoading(true)
     return axios
       .post(
         'https://marketplace-backend-wrk2.onrender.com/animals',
@@ -73,9 +77,11 @@ const Announcement = () => {
         if (res.status === 200) {
           alert('Оголошення успышно створене');
           reset();
+          setIsLoading(false)
         }
       })
       .catch(error => {
+        setIsLoading(false)
         if (error.status === 401) {
           alert('Щоб залишити оголошення, увійдіть у свій аккаунт');
         } else {
@@ -211,8 +217,8 @@ const Announcement = () => {
             )}
           />
 
-          <CustomButton type="submit" styleType="defaultButton">
-            Створити оголошення
+          <CustomButton type="submit" styleType="defaultButton" disabled={isLoading}>
+            {isLoading ? <Spinner /> : 'Створити оголошення'}
           </CustomButton>
         </form>
       </div>
