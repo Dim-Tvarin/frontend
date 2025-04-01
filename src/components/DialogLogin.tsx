@@ -85,12 +85,13 @@ const DialogLogin: React.FC = () => {
           />
           <PasswordField
             label="Пароль"
-            placeholder="**********"
+            placeholder="********"
             className="w-[340px] mt-10"
             labelClass="text-input-border"
             id="password"
             {...register('password')}
             error={authError || errors.password?.message}
+            hideToggle
           />
           <DialogFooter>
             <CustomButton

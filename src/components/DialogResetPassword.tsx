@@ -80,6 +80,7 @@ const DialogResetPassword: React.FC = () => {
             id="password"
             {...register('password')}
             error={errors.password?.message}
+            hideToggle
           />
           <PasswordField
             label="Повторіть новий пароль для підтвердження"
@@ -89,6 +90,7 @@ const DialogResetPassword: React.FC = () => {
             id="repeat_password"
             {...register('repeat_password')}
             error={resetCodeError || errors.repeat_password?.message}
+            hideToggle
           >
             <p className="text-center">
               Пароль повинен містити не менше 8 символів. Для кращого пароля
