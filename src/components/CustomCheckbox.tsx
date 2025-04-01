@@ -36,7 +36,7 @@ const CustomCheckbox: FC<CheckboxProps> = ({
         disabled={disabled}
         className={cn(
           'w-24 h-24 rounded-full',
-          { 'border-error-input text-error-input': error },
+          { 'border-error-input': error },
           className
         )}
       />

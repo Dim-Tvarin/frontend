@@ -32,7 +32,7 @@ export const InputField: FC<InputFieldProps> = ({
         id={id}
         className={cn(
           'border border-input-border rounded-[8px] px-[28px] py-[14px] h-[48px] placeholder:text-input-border',
-          { 'border-error-input text-error-input': error },
+          { 'border-error-input': error },
           className
         )}
         {...rest}

@@ -54,11 +54,10 @@ export const FilesInput = ({
         multiple
         {...rest}
         className={cn(
-          'border-1 border-border-file bg-main-pink-l h-[64px] flex items-center justify-center py-10 px-16 file:bg-input-file/50 file:text-white file:px-24 file:py-10 file:rounded-[10px] file:h-[44px] file:mx-10 mb-32',
-          { 'border-error-input text-error-input': error }
+          'border-1 border-border-file bg-main-pink-l h-[64px] flex items-center justify-center py-10 px-16 file:bg-input-file/50 file:text-white file:px-24 file:py-10 file:rounded-[10px] file:h-[44px] file:mx-10 ',
+          { 'border-error-input': error }
         )}
       />
-      {error && <FormError error={error} />}
       <div className="grid grid-cols-2 gap-16">
         {imageData.map((img, index) => (
           <div key={index} className="flex gap-8 w-[305px]">
@@ -82,6 +81,7 @@ export const FilesInput = ({
           </div>
         ))}
       </div>
+      {error && <FormError error={error} />}
     </div>
   );
 };

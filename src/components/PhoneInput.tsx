@@ -29,11 +29,7 @@ export const PhoneInput: FC<PhoneInputProps> = ({
     )}
     <InputField
       id={id}
-      className={cn(
-        'pl-12',
-        { 'border-error-input text-error-input': error },
-        className
-      )}
+      className={cn('pl-12', { 'border-error-input': error }, className)}
       {...rest}
     />
     {error && <FormError error={error} />}

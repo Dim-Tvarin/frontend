@@ -12,6 +12,7 @@ interface PasswordFieldProps
   labelSize?: string;
   id: string;
   error?: string;
+  hideToggle?: boolean;
   children?: React.ReactNode;
 }
 
@@ -22,10 +23,11 @@ export const PasswordField: FC<PasswordFieldProps> = ({
   className,
   labelClass,
   labelSize = '[16px]',
+  hideToggle = false,
   children,
   ...rest
 }) => {
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(hideToggle);
   return (
     <div className="relative w-full">
       {label && (
@@ -39,28 +41,30 @@ export const PasswordField: FC<PasswordFieldProps> = ({
           id={id}
           className={cn(
             'border border-input-border rounded-[8px] px-[28px] py-[14px] h-[48px] placeholder:text-input-border',
-            { 'border-error-input text-error-input': error },
+            { 'border-error-input': error },
             className
           )}
           {...rest}
         />
 
-        <button
-          type="button"
-          className="absolute inset-y-0 right-0 flex items-center p-[14px] text-gray-500 hover:border-transparent focus:outline-0 focus-visible:outline-0"
-          onClick={() => setVisible(!visible)}
-          tabIndex={-1}
-          aria-label={visible ? 'Сховати пароль' : 'Показати пароль'}
-        >
-          {visible ? (
-            <FaEyeSlash
-              size={24}
-              className={cn({ 'text-error-input': error })}
-            />
-          ) : (
-            <FaEye size={24} className={cn({ 'text-error-input': error })} />
-          )}
-        </button>
+        {!hideToggle && (
+          <button
+            type="button"
+            className="absolute inset-y-0 right-0 flex items-center p-[14px] text-gray-500 hover:border-transparent focus:outline-0 focus-visible:outline-0"
+            onClick={() => setVisible(!visible)}
+            tabIndex={-1}
+            aria-label={visible ? 'Сховати пароль' : 'Показати пароль'}
+          >
+            {visible ? (
+              <FaEyeSlash
+                size={24}
+                className={cn({ 'text-error-input': error })}
+              />
+            ) : (
+              <FaEye size={24} className={cn({ 'text-error-input': error })} />
+            )}
+          </button>
+        )}
       </div>
       {error && <FormError error={error} />}
       {children && (

@@ -43,7 +43,7 @@ const CustomSelect: FC<CustomSelectProps> = ({
         <SelectTrigger
           className={cn(
             'border border-input-border rounded-[20px] px-[28px] py-[14px] h-[48px] text-input-border flex justify-between',
-            { 'border-error-input text-error-input': error },
+            { 'border-error-input': error },
             className
           )}
         >

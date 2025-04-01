@@ -50,7 +50,7 @@ const CustomRadioGroup: FC<RadioProps> = ({
             className={cn(
               ' flex items-center gap-8 rounded-lg p-8 border-1 border-input-border h-40',
               itemWidth ? `w-[${itemWidth}px]` : 'w-full',
-              { 'border-error-input text-error-input': error }
+              { 'border-error-input': error }
             )}
             key={item.value}
           >
