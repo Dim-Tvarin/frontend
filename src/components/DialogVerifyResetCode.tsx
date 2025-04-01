@@ -2,13 +2,20 @@ import { CustomButton } from './CustomButton';
 import { InputField } from './InputField';
 import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch, RootState } from '../redux/store';
-import { verifyResetPasswordThunk } from '../redux/users/usersOperations';
+import {
+  forgotPasswordThunk,
+  verifyResetPasswordThunk,
+} from '../redux/users/usersOperations';
 import { verifyResetCodeSchema } from '../validations/forgotPasswordValidation';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { NavLink } from 'react-router-dom';
-import { selectError } from '../redux/users/usersSlice';
+import {
+  selectError,
+  selectLoading,
+  selectUserEmail,
+} from '../redux/users/usersSlice';
 import CloseSVG from '../assets/CloseSVG';
 import {
   Dialog,
@@ -20,6 +27,8 @@ import {
   DialogTitle,
 } from './components/ui/dialog';
 import { openDialog, closeDialog } from '../redux/dialogs/dialogSlice';
+import { useEffect, useState } from 'react';
+import { Spinner } from './Spinner';
 
 type FormData = z.infer<typeof verifyResetCodeSchema>;
 
@@ -29,6 +38,36 @@ const DialogVerifyResetCode: React.FC = () => {
     (state: RootState) => state.dialog.activeDialog
   );
   const verifyResetCodeError = useSelector(selectError);
+  const userEmail = useSelector(selectUserEmail);
+  const [timer, setTimer] = useState(30);
+  const [canResend, setCanResend] = useState(false);
+  const isLoading = useSelector(selectLoading);
+
+  useEffect(() => {
+    if (timer > 0) {
+      const interval = setInterval(() => {
+        setTimer(prev => {
+          if (prev === 1) {
+            setCanResend(true);
+            clearInterval(interval);
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+      return () => clearInterval(interval);
+    }
+  }, [timer, canResend]);
+
+  const handleResendCode = async () => {
+    if (!canResend || !userEmail) return;
+    setCanResend(false);
+    const result = await dispatch(forgotPasswordThunk(userEmail));
+    if (forgotPasswordThunk.fulfilled.match(result)) {
+      alert('Код повторно надіслано на вашу пошту');
+      setTimer(30);
+    }
+  };
 
   const {
     register,
@@ -86,11 +125,27 @@ const DialogVerifyResetCode: React.FC = () => {
             {...register('code')}
             error={verifyResetCodeError || errors.code?.message}
           />
+          <p className="mt-[-5px] text-xs text-center text-input-border">
+            {!canResend && timer !== 0 ? (
+              `Не отримали код? Надіслати повторно через 0:${timer < 10 ? '0' + timer : timer}`
+            ) : (
+              <CustomButton
+                type="button"
+                styleType="linkButton"
+                className="mt-[-5px]"
+                onClick={handleResendCode}
+                disabled={isLoading}
+              >
+                {isLoading ? <Spinner /> : 'Надіслати повідомлення ще раз'}
+              </CustomButton>
+            )}
+          </p>
           <DialogFooter>
             <CustomButton
               type="submit"
               styleType="orangeButton"
               className="mt-20"
+              disabled={isLoading}
             >
               Підтвердити
             </CustomButton>

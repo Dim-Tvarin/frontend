@@ -87,7 +87,7 @@ const DialogLogin: React.FC = () => {
             label="Пароль"
             placeholder="********"
             className="w-[340px] mt-10"
-            labelClass="text-input-border"
+            labelClass="text-xs text-input-border"
             id="password"
             {...register('password')}
             error={authError || errors.password?.message}
