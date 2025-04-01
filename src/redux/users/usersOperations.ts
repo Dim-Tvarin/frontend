@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { clearToken, marketplaceApiUsers, setToken } from '../../api';
 import type { RootState } from '../store';
+import { AxiosError } from 'axios';
 
 interface RegisterCredentials {
   name: string;
@@ -28,6 +29,10 @@ interface User {
 
 interface UsersRegisterResponse {
   user: User;
+}
+
+interface ErrorResponse {
+  message?: string;
 }
 
 interface UsersLoginResponse {
@@ -60,11 +65,20 @@ export const registerThunk = createAsyncThunk<
       credentials
     );
     return data;
-  } catch (error: any) {
+  } catch (err) {
+    const error = err as AxiosError<ErrorResponse>;
+
+    const errorMessages: Record<number, string> = {
+      400: 'Некоректні дані. Перевірте введену інформацію',
+      404: 'Сервер не знайдено. Спробуйте пізніше',
+      409: 'Цей email вже зайнятий. Будь ласка, оберіть інший',
+      500: 'Помилка сервера. Спробуйте пізніше',
+    };
+
     return thunkAPI.rejectWithValue(
-      error.response?.status === 409
-        ? 'Цей email вже зайнятий. Будь ласка, оберіть інший'
-        : error.message || 'Registration failed'
+      error.response?.status
+        ? errorMessages[error.response.status]
+        : 'Register failed'
     );
   }
 });
@@ -80,11 +94,21 @@ export const loginThunk = createAsyncThunk<
     );
     setToken(data.token);
     return data;
-  } catch (error: any) {
+  } catch (err) {
+    const error = err as AxiosError<ErrorResponse>;
+
+    const errorMessages: Record<number, string> = {
+      400: 'Невірний формат даних для входу',
+      401: 'Невірний імейл або пароль',
+      403: 'Користувач не верифікований. Перевірте імейл',
+      404: 'Користувача не знайдено. Зареєструйтесь',
+      500: 'Помилка сервера. Спробуйте пізніше',
+    };
+
     return thunkAPI.rejectWithValue(
-      error.response?.status === 401
-        ? 'Не вірний email або пароль. Будь ласка, спробуйте знов'
-        : error.message || 'Login failed'
+      error.response?.status
+        ? errorMessages[error.response.status]
+        : 'Login failed'
     );
   }
 });
@@ -95,8 +119,20 @@ export const logoutThunk = createAsyncThunk<void, void>(
     try {
       await marketplaceApiUsers.post('logout');
       clearToken();
-    } catch (error: any) {
-      return thunkAPI.rejectWithValue(error.message || 'Logout failed');
+    } catch (err) {
+      const error = err as AxiosError<ErrorResponse>;
+
+      const errorMessages: Record<number, string> = {
+        401: 'Невірний токен',
+        404: 'Користувача не знайдено',
+        500: 'Помилка сервера. Спробуйте пізніше',
+      };
+
+      return thunkAPI.rejectWithValue(
+        error.response?.status
+          ? errorMessages[error.response.status]
+          : 'Logout failed'
+      );
     }
   }
 );
@@ -111,15 +147,26 @@ export const refreshThunk = createAsyncThunk<
   if (!token) {
     return thunkAPI.rejectWithValue('Token does not exist');
   }
-
   setToken(token);
 
   try {
     const { data } =
       await marketplaceApiUsers.get<UsersRefreshResponse>('current');
     return data;
-  } catch (error: any) {
-    return thunkAPI.rejectWithValue(error.message || 'Refresh failed');
+  } catch (err) {
+    const error = err as AxiosError<ErrorResponse>;
+
+    const errorMessages: Record<number, string> = {
+      401: 'Невірний токен. Будь ласка, увійдіть знову',
+      404: 'Користувача не знайдено',
+      500: 'Помилка сервера. Спробуйте пізніше',
+    };
+
+    return thunkAPI.rejectWithValue(
+      error.response?.status
+        ? errorMessages[error.response.status]
+        : 'Refresh failed'
+    );
   }
 });
 
@@ -134,8 +181,20 @@ export const verifyUserThunk = createAsyncThunk<
 
     setToken(data.token);
     return data;
-  } catch (error: any) {
-    return thunkAPI.rejectWithValue(error.message || 'Verification failed');
+  } catch (err) {
+    const error = err as AxiosError<ErrorResponse>;
+
+    const errorMessages: Record<number, string> = {
+      400: 'Невірний чи недійсний токен, або токен не передано',
+      404: 'Користувача не знайдено',
+      500: 'Помилка сервера. Спробуйте пізніше',
+    };
+
+    return thunkAPI.rejectWithValue(
+      error.response?.status
+        ? errorMessages[error.response.status]
+        : 'Verification failed'
+    );
   }
 });
 
@@ -149,9 +208,20 @@ export const forgotPasswordThunk = createAsyncThunk<
       { email }
     );
     return data;
-  } catch (error: any) {
+  } catch (err) {
+    const error = err as AxiosError<ErrorResponse>;
+
+    const errorMessages: Record<number, string> = {
+      400: 'Введено неправильний формат імейлу',
+      404: 'Цей імейл не зареєстрований у нашій системі',
+      409: 'Ваш акаунт вже підтверджено',
+      500: 'Помилка сервера. Спробуйте пізніше',
+    };
+
     return thunkAPI.rejectWithValue(
-      error.message || 'Failed to send reset code'
+      error.response?.status
+        ? errorMessages[error.response.status]
+        : 'Verification failed'
     );
   }
 });
@@ -165,13 +235,19 @@ export const verifyResetPasswordThunk = createAsyncThunk(
       });
       setToken(data.token);
       return data;
-    } catch (error: any) {
+    } catch (err) {
+      const error = err as AxiosError<ErrorResponse>;
+
+      const errorMessages: Record<number, string> = {
+        400: 'Не вірний код підтвердження або час дії його минув',
+        500: 'Помилка сервера. Спробуйте пізніше',
+      };
+
       return thunkAPI.rejectWithValue(
-        error.response?.status === 400
-          ? 'Не вірний код підтвердження або час дії його минув'
-          : error.message || 'Invalid or expired verification reset code'
+        error.response?.status
+          ? errorMessages[error.response.status]
+          : 'Invalid or expired verification reset code'
       );
-      return thunkAPI.rejectWithValue(error.response?.data || error.message);
     }
   }
 );
@@ -198,9 +274,19 @@ export const resetPasswordThunk = createAsyncThunk<
       }
     );
     return data;
-  } catch (error: any) {
+  } catch (err) {
+    const error = err as AxiosError<ErrorResponse>;
+
+    const errorMessages: Record<number, string> = {
+      400: 'Введено неправильний формат паролю',
+      404: 'Користувача не знайдено',
+      500: 'Помилка сервера. Спробуйте пізніше',
+    };
+
     return thunkAPI.rejectWithValue(
-      error.message || 'Failed to reset password'
+      error.response?.status
+        ? errorMessages[error.response.status]
+        : 'Failed to reset password'
     );
   }
 });
