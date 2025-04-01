@@ -1,15 +1,23 @@
 import { type Ref, useState } from 'react';
 import { Input } from './components/ui/input';
-import { MdErrorOutline } from 'react-icons/md';
 import { LuDelete } from 'react-icons/lu';
+import { CustomLabel } from './CustomLabel';
+import FormError from './FormError';
+import { cn } from './lib/utils';
 export const FilesInput = ({
   ref,
+  groupLabel,
+  labelClass,
+  labelSize = 'xl',
   name,
   error,
   onChange,
   ...rest
 }: {
   ref?: Ref<HTMLInputElement>;
+  groupLabel?: string;
+  labelClass?: string;
+  labelSize?: string;
   name: string;
   onChange: (images: File[]) => void;
   error?: string;
@@ -32,6 +40,11 @@ export const FilesInput = ({
 
   return (
     <div className="w-full">
+      {groupLabel && (
+        <CustomLabel labelSize={labelSize} labelClass={labelClass}>
+          {groupLabel}
+        </CustomLabel>
+      )}
       <Input
         type="file"
         ref={ref}
@@ -40,16 +53,11 @@ export const FilesInput = ({
         accept="image/*"
         multiple
         {...rest}
-        className="border-1 border-border-file bg-main-pink-l h-[64px] flex items-center
-          justify-center py-10 px-16 file:bg-input-file/50 file:text-white file:px-24 file:py-10 
-          file:rounded-[10px] file:h-[44px] file:mx-10 mb-32"
+        className={cn(
+          'border-1 border-border-file bg-main-pink-l h-[64px] flex items-center justify-center py-10 px-16 file:bg-input-file/50 file:text-white file:px-24 file:py-10 file:rounded-[10px] file:h-[44px] file:mx-10 ',
+          { 'border-error-input': error }
+        )}
       />
-      {error && (
-        <div className="flex items-center mt-[10px] gap-[4px]">
-          <MdErrorOutline size={18} className="text-error" />
-          <p className="text-left text-error text-xs">{error}</p>
-        </div>
-      )}
       <div className="grid grid-cols-2 gap-16">
         {imageData.map((img, index) => (
           <div key={index} className="flex gap-8 w-[305px]">
@@ -73,6 +81,7 @@ export const FilesInput = ({
           </div>
         ))}
       </div>
+      {error && <FormError error={error} />}
     </div>
   );
 };

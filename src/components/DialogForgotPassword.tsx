@@ -8,7 +8,7 @@ import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { NavLink } from 'react-router-dom';
-import { selectError } from '../redux/users/usersSlice';
+import { selectError, setUserEmail } from '../redux/users/usersSlice';
 import CloseSVG from '../assets/CloseSVG';
 import {
   Dialog,
@@ -41,6 +41,7 @@ const DialogForgotPassword: React.FC = () => {
   });
 
   const onSubmit = async (data: FormData) => {
+    dispatch(setUserEmail(data.forgotEmail));
     const result = await dispatch(forgotPasswordThunk(data.forgotEmail));
 
     if (forgotPasswordThunk.fulfilled.match(result)) {
@@ -77,11 +78,12 @@ const DialogForgotPassword: React.FC = () => {
             label="Електронна пошта"
             placeholder="user@gmail.com"
             className="w-[340px] mt-10"
-            labelClassName="text-xs text-input-border"
+            labelClass="text-input-border"
             id="forgotEmail"
             {...register('forgotEmail')}
             error={emailError || errors.forgotEmail?.message}
           />
+
           <DialogFooter>
             <CustomButton
               type="submit"
