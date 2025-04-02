@@ -193,7 +193,7 @@ const Announcement = () => {
           </div>
 
           <TextareaDemo
-            id="adText"
+            id="announvementText"
             className="text-left mt-32"
             placeholder="Опишіть тварину, її характер, історію, забарвлення"
             label="Опис тварини: *"
