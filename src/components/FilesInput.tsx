@@ -33,9 +33,6 @@ export const FilesInput = ({
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
        onDrop(Array.from(event.target.files));
-    //   const file = Array.from(event.target.files);
-    //   setImageData([...imageData, ...file]);
-    //   onChange([...imageData, ...file]);
      }
   };
 
