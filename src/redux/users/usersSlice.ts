@@ -1,4 +1,4 @@
-import { createSlice, isAnyOf } from '@reduxjs/toolkit';
+import { createSlice, isAnyOf, type PayloadAction } from '@reduxjs/toolkit';
 import {
   forgotPasswordThunk,
   loginThunk,
@@ -49,6 +49,7 @@ const slice = createSlice({
   initialState,
   selectors: {
     selectUserName: state => state.user.name,
+    selectUserEmail: state => state.user.email,
     selectUserPhone: state => state.user.phone,
     selectUserType: state => state.user.userType,
     selectUserTheme: state => state.user.theme,
@@ -57,7 +58,11 @@ const slice = createSlice({
     selectError: state => state.error,
     selectLoading: state => state.isLoading,
   },
-  reducers: {},
+  reducers: {
+    setUserEmail: (state, action: PayloadAction<string>) => {
+      state.user.email = action.payload;
+    },
+  },
   extraReducers: builder => {
     builder
       .addCase(registerThunk.fulfilled, (state, action) => {
@@ -139,8 +144,10 @@ const slice = createSlice({
 });
 
 export const usersReducer = slice.reducer;
+export const { setUserEmail } = slice.actions;
 export const {
   selectUserName,
+  selectUserEmail,
   selectUserPhone,
   selectUserType,
   selectUserTheme,

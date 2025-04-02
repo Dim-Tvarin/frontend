@@ -28,6 +28,8 @@
   --color-red-btn: #ef4444;
   --color-red-btn-hov: #dc2626;
   --color-error: #ff564f;
+  --color-error-input: #eb5050;
+
   --color-orange: #ff8c42;
   --color-btn-orange: #ff7f50;
   --color-dialog: #ede9e9;
@@ -39,6 +41,7 @@
   --spacing-0: 0px;
   --spacing-2: 2px;
   --spacing-4: 4px;
+  --spacing-5: 5px;
   --spacing-8: 8px;
   --spacing-10: 10px;
   --spacing-12: 12px;

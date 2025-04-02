@@ -1,16 +1,23 @@
 import { type Ref,  useState } from 'react';
 import { Input } from './components/ui/input';
-import { MdErrorOutline } from 'react-icons/md';
 import { LuDelete } from 'react-icons/lu';
+import { CustomLabel } from './CustomLabel';
+import FormError from './FormError';
 import { useDropzone } from 'react-dropzone';
 export const FilesInput = ({
   ref,
+  groupLabel,
+  labelClass,
+  labelSize = 'xl',
   name,
   error,
   onChange,
   ...rest
 }: {
   ref?: Ref<HTMLInputElement>;
+  groupLabel?: string;
+  labelClass?: string;
+  labelSize?: string;
   name: string;
   onChange: (images: File[]) => void;
   error?: string;
@@ -51,6 +58,11 @@ export const FilesInput = ({
 
   return (
     <div className="w-full">
+       {groupLabel && (
+        <CustomLabel labelSize={labelSize} labelClass={labelClass}>
+          {groupLabel}
+        </CustomLabel>
+      )}
        <div
         {...getRootProps()}
         className={`border-2 border-dashed border--border-drag p-6 rounded-lg text-center cursor-pointer bg-main-pink-l
@@ -80,12 +92,6 @@ export const FilesInput = ({
 
       </div>
     
-      {error && (
-        <div className="flex items-center mt-[10px] gap-[4px]">
-          <MdErrorOutline size={18} className="text-error" />
-          <p className="text-left text-error text-xs">{error}</p>
-        </div>
-      )}
       <div className="grid grid-cols-2 gap-16 mt-32">
         {imageData.map((img, index) => (
           <div key={index} className="flex gap-8 w-[305px]">
@@ -109,6 +115,7 @@ export const FilesInput = ({
           </div>
         ))}
       </div>
+      {error && <FormError error={error} />}
     </div>
   );
 };

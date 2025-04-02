@@ -137,7 +137,7 @@ const Announcement = () => {
                   id="months"
                   placeholder='0 місяців'
                   className="w-[150px] h-[40px] mt-16 mr-10"
-                  labelSize={20}
+                  labelSize='xl'
                   {...register('age.months')}
               />
              
@@ -146,7 +146,7 @@ const Announcement = () => {
                   id="years"
                   placeholder='0 років'
                   className="w-[150px] h-[40px] mt-16"
-                  labelSize={20}
+                  labelSize='xl'
                   {...register('age.years')}
               />
               {errors.age?.months?.message ?
@@ -166,7 +166,7 @@ const Announcement = () => {
                 label='Порода *'
                 id="breed"
                 className="w-[305px] h-[40px] mt-16"
-                labelSize={20}
+                labelSize='xl'
                 {...register('breed')}
                 error={errors.breed?.message}
                 />
@@ -178,7 +178,7 @@ const Announcement = () => {
               label="Ім’я тварини *"
               id="animalName"
               className="w-[305px] h-[40px] mt-16"
-              labelSize={20}
+              labelSize="xl"
               {...register('animalName')}
               error={errors.animalName?.message}
             />
@@ -201,15 +201,14 @@ const Announcement = () => {
             error={errors.adText?.message}
           />
 
-          <p className="text-20 mb-16 mt-32">
-            Добавте фото тварини та документи *
-          </p>
           <Controller
             name="images"
             control={control}
             render={({ field: { ref, name, onChange } }) => (
               <FilesInput
                 ref={ref}
+                groupLabel="Добавте фото тварини та документи *"
+                labelClass="mb-16 mt-32"
                 name={name}
                 onChange={onChange}
                 error={errors.images?.message?.toString()}
