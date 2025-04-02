@@ -9,7 +9,7 @@ import track from '../../public/track.png';
 
 export const Home = () => {
   const navigate = useNavigate();
-
+console.warn('week-9');
   return (
     <div className="container text-default-btn relative">
       <section className="flex flex-row gap-[20px] mt-[100px]">
