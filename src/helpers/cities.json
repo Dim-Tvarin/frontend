@@ -1,4 +1,4 @@
-export const cities =[
+[
     {
         "idArea": "0100000000",
         "idCity": "",
