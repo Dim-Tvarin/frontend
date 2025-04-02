@@ -1,9 +1,9 @@
-import { type Ref, useState } from 'react';
+import { type Ref,  useState } from 'react';
 import { Input } from './components/ui/input';
 import { LuDelete } from 'react-icons/lu';
 import { CustomLabel } from './CustomLabel';
 import FormError from './FormError';
-import { cn } from './lib/utils';
+import { useDropzone } from 'react-dropzone';
 export const FilesInput = ({
   ref,
   groupLabel,
@@ -24,12 +24,16 @@ export const FilesInput = ({
 }) => {
   const [imageData, setImageData] = useState<File[]>([]);
 
+  const onDrop = (acceptedFiles: File[]) => {
+    const newFiles = [...imageData, ...acceptedFiles].slice(0, 4); 
+    setImageData(newFiles);
+    onChange(newFiles);
+  };
+
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
-      const file = Array.from(event.target.files);
-      setImageData([...imageData, ...file]);
-      onChange([...imageData, ...file]);
-    }
+       onDrop(Array.from(event.target.files));
+     }
   };
 
   const handleDeleteImage = (index: number) => {
@@ -37,28 +41,55 @@ export const FilesInput = ({
     setImageData(filteredFiles);
     onChange(filteredFiles);
   };
+  
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    accept: {
+      'image/jpeg': [],
+      'image/png': [],
+      'image/gif': []
+    },
+    multiple: true,
+    maxFiles: 4,
+  });
 
   return (
     <div className="w-full">
-      {groupLabel && (
+       {groupLabel && (
         <CustomLabel labelSize={labelSize} labelClass={labelClass}>
           {groupLabel}
         </CustomLabel>
       )}
-      <Input
-        type="file"
-        ref={ref}
-        name={name}
-        onChange={handleFileChange}
-        accept="image/*"
-        multiple
-        {...rest}
-        className={cn(
-          'border-1 border-border-file bg-main-pink-l h-[64px] flex items-center justify-center py-10 px-16 file:bg-input-file/50 file:text-white file:px-24 file:py-10 file:rounded-[10px] file:h-[44px] file:mx-10 ',
-          { 'border-error-input': error }
-        )}
-      />
-      <div className="grid grid-cols-2 gap-16">
+       <div
+        {...getRootProps()}
+        className={`border-2 border-dashed border--border-drag p-6 rounded-lg text-center cursor-pointer bg-main-pink-l
+        ${isDragActive ? "border-blue-500 bg-blue-100" : "border-gray-300"}`}
+      >
+        <Input
+          type="file"
+          ref={ref}
+          name={name}
+          onChange={handleFileChange}
+          disabled={imageData.length > 3 ? true : false}
+          accept="image/*"
+          multiple
+          {...getInputProps()}
+          {...rest}
+        /> 
+        <div className='flex items-center flex-col'>
+        <p className='text-default-btn text-lg mb-16'>
+          {isDragActive ? "Отпустите файл сюда..." : "Перетягніть файл сюди або "}
+        </p>
+        <div className='w-[382px] h-[64px] border-2 border-border-file bg-main-pink-l flex items-center gap-[19px]
+          py-10 px-16 rounded-[8px]'>
+            <div className='bg-input-file/50 text-white px-24 py-10 rounded-[10px]'>Вибрати файл</div>
+            <p className='text-border-file'>Файл не вибрано</p>
+        </div>
+        </div>
+
+      </div>
+    
+      <div className="grid grid-cols-2 gap-16 mt-32">
         {imageData.map((img, index) => (
           <div key={index} className="flex gap-8 w-[305px]">
             <img
