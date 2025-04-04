@@ -11,10 +11,10 @@ import {
   REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import type { Middleware } from '@reduxjs/toolkit';
 import type { Persistor } from 'redux-persist';
 import { dialogReducer } from './dialogs/dialogSlice';
 import { type UserState } from './users/usersSlice';
+import { animalsApi } from './animals/animalsApi';
 
 const persistConfig = {
   key: 'users',
@@ -27,13 +27,14 @@ export const store = configureStore({
   reducer: {
     users: persistReducer<UserState>(persistConfig, usersReducer),
     dialog: dialogReducer,
+    [animalsApi.reducerPath]: animalsApi.reducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat([] as Middleware[]),
+    }).concat([animalsApi.middleware]),
 });
 
 export const persistor: Persistor = persistStore(store);

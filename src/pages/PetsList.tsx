@@ -1,8 +1,14 @@
 import { FiFilter } from "react-icons/fi";
 import { CustomButton } from "components/CustomButton";
+import { useGetAnimalsQuery } from "src/redux/animals/animalsApi";
 
 
 const PetsList = () => {
+
+  const { data, error, isLoading } = useGetAnimalsQuery('')
+
+  console.log(data, error, isLoading)
+
   return (
     <div className="container">
       <div className="flex justify-between mt-100 mb-50">
