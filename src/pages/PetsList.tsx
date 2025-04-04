@@ -5,7 +5,7 @@ import { useGetAnimalsQuery } from "src/redux/animals/animalsApi";
 
 const PetsList = () => {
 
-  const { data, error, isLoading } = useGetAnimalsQuery('')
+  const { data, error, isLoading } = useGetAnimalsQuery({})
 
   console.log(data, error, isLoading)
 

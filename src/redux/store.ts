@@ -14,7 +14,7 @@ import storage from 'redux-persist/lib/storage';
 import type { Persistor } from 'redux-persist';
 import { dialogReducer } from './dialogs/dialogSlice';
 import { type UserState } from './users/usersSlice';
-import { animalsApi } from './animals/animalsApi';
+import { animalsApi } from './animals/animalsApi.ts';
 
 const persistConfig = {
   key: 'users',
