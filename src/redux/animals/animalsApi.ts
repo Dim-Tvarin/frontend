@@ -27,7 +27,7 @@ export const animalsApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: 'https://marketplace-backend-wrk2.onrender.com/' }),
   endpoints: (build) => ({
     getAnimals: build.query<AnimalsResponse, {page?: string; limit?: string;}>({
-      query: ({page = '1', limit = '4'}) => `animals?page=${page}&limit=${limit}`,
+      query: ({page = '1', limit = '10'}) => `animals?page=${page}&limit=${limit}`,
     }),
   }),
 })
