@@ -11,6 +11,7 @@ import { refreshThunk } from './redux/users/usersOperations';
 import type { AppDispatch } from './redux/store';
 import VerifyPage from 'pages/Auth/VerifyPage';
 import Announcement from 'pages/Announcement/Announcement';
+import PetsList from 'pages/PetsList';
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -24,6 +25,7 @@ function App() {
 
         <Route path="components" element={<Components />} />
         <Route path="announcement" element={<Announcement />} />
+        <Route path="allpets" element={<PetsList />} />
         <Route path="register" element={<Registration />} />
         <Route path="verify/:verifyToken" element={<VerifyPage />} />
         <Route path="*" element={<Error />} />
