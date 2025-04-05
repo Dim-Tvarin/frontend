@@ -1,8 +1,12 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
+export type animalAge = {
+  months: number;
+  years: number;
+}
 interface AnimalType {
       "id": string;
-      "age": string;
+      "age": animalAge;
       "animalName": string;
       "animalType": 'cat' |'dog' | 'bird' |'another';
       "breed": string;
