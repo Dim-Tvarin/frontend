@@ -24,7 +24,7 @@ const PetsList = () => {
         </CustomButton>
       </div>
       <div className="grid grid-cols-4 gap-20">
-        {data?.animals.map(item => <AnimalCard key={item.id} name={item.animalName} gender={item.gender} age={item.age} photoSrc={item.animalImages[0]}/>)}
+        {data?.animals.map(item => <AnimalCard key={item.id} id={item.id} name={item.animalName} gender={item.gender} age={item.age} photoSrc={item.animalImages[0]}/>)}
       </div>
     </div>
   );
