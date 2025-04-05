@@ -5,16 +5,22 @@ import AnimalCard from "components/AnimalCard";
 import { PetsListSkeleton } from "components/sceletons/PetsListSkeleton";
 import Pagination from "components/Pagination";
 import { useState } from "react";
+import { useNavigate } from "react-router";
 
 const limit = 8
 
 const PetsList = () => {
   const [page, setPage] = useState(1)
-
+  const navigate = useNavigate();
   const { data, error, isLoading } = useGetAnimalsQuery({page, limit})
 
-const totalPages = data &&  Math.ceil(data?.total / limit)
-  console.log(data, error, isLoading)
+  const totalPages = data &&  Math.ceil(data?.total / limit)
+
+  if (error) {
+    alert('Щось пішло не по плану')
+    navigate('/')
+  }
+
   return (
     <div className="container">
       <div className="flex justify-between mt-100 mb-50">
