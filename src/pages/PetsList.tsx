@@ -3,11 +3,17 @@ import { CustomButton } from "components/CustomButton";
 import { useGetAnimalsQuery } from "src/redux/animals/animalsApi";
 import AnimalCard from "components/AnimalCard";
 import { PetsListSkeleton } from "components/sceletons/PetsListSkeleton";
+import Pagination from "components/Pagination";
+import { useState } from "react";
 
+const limit = 8
 
 const PetsList = () => {
-  const { data, error, isLoading } = useGetAnimalsQuery({})
+  const [page, setPage] = useState(1)
 
+  const { data, error, isLoading } = useGetAnimalsQuery({page, limit})
+
+const totalPages = data &&  Math.ceil(data?.total / limit)
   console.log(data, error, isLoading)
   return (
     <div className="container">
@@ -25,7 +31,7 @@ const PetsList = () => {
       {isLoading ? (
         <PetsListSkeleton />
       ) : (
-        <div className="grid grid-cols-4 gap-20">
+        <div className="grid grid-cols-4 gap-20 mb-50 wrap">
           {data?.animals.map(item => (
             <AnimalCard
               key={item.id}
@@ -38,6 +44,8 @@ const PetsList = () => {
           ))}
         </div>
       )}
+      {!isLoading && data && totalPages && totalPages > 1 &&
+      <Pagination onPageChange={setPage} currentPage={page} totalPages={totalPages} className="mb-100"/>}
     </div>
   );
 }
