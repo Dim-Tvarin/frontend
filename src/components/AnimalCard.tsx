@@ -20,12 +20,10 @@ const AnimalCard = ({id, name, gender, age, photoSrc}: {id: string; name: string
       <div className="bg-main-pink-l/80 relative rounded-t-4xl z-10 w-full px-32 py-12">
         <div className="text-left">
           <h2 className="text-lg font-medium">{name}</h2>
-          <div className="text-lg font-medium flex">
-            <p>{genderMapping[gender]}, </p> 
-            <p>
-              {age.years ?  getYearDeclension(age.years) : ''} 
-            </p>
-            <p>{age.months ?  ` ${age.months} міс.` : ''} </p>
+          <div className="text-lg font-medium flex gap-1">
+            <span>{genderMapping[gender]}</span> 
+            {!!age.years &&  (<span>{getYearDeclension(age.years)} </span>)} 
+            {!!age.months &&  (<span>{`${age.months} міс.`}</span>)} 
           </div>
           <div className="absolute right-[18px] top-[14px]"><HartSVG /></div>
         </div>
