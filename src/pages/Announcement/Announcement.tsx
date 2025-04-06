@@ -133,20 +133,19 @@ const Announcement = () => {
             <div className='grid grid-cols-[150px_150px] gap-[10px] mr-16'>
               <InputField
                 label='Вік'
-                  id="months"
-                  placeholder='0 місяців'
-                  className="w-[150px] h-[40px] mt-16 mr-10"
-                  labelSize='xl'
-                  {...register('age.months')}
-              />
-             
-              <InputField
-                label=' '
                   id="years"
                   placeholder='0 років'
                   className="w-[150px] h-[40px] mt-16"
                   labelSize='xl'
                   {...register('age.years')}
+              />
+              <InputField
+                label=' '
+                  id="months"
+                  placeholder='0 місяців'
+                  className="w-[150px] h-[40px] mt-16 mr-10"
+                  labelSize='xl'
+                  {...register('age.months')}
               />
               {errors.age?.months?.message ?
                 (<div className="flex items-center mt-[10px] gap-[4px]">

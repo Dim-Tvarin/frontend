@@ -4,6 +4,7 @@ import { LuDelete } from 'react-icons/lu';
 import { CustomLabel } from './CustomLabel';
 import FormError from './FormError';
 import { useDropzone } from 'react-dropzone';
+import { cn } from './lib/utils';
 export const FilesInput = ({
   ref,
   groupLabel,
@@ -85,7 +86,8 @@ export const FilesInput = ({
         </p>
         <div className='w-[382px] h-[64px] border-2 border-border-file bg-main-pink-l flex items-center gap-[19px]
           py-10 px-16 rounded-[8px]'>
-            <div className='bg-input-file/50 text-white px-24 py-10 rounded-[10px]'>Вибрати файл</div>
+            <div className={cn('bg-input-file/50 text-white px-24 py-10 rounded-[10px]', 
+              { 'bg-input-file/20 cursor-default' : imageData.length > 3})}>Вибрати файл</div>
             <p className='text-border-file'>Файл не вибрано</p>
         </div>
         </div>
@@ -105,6 +107,7 @@ export const FilesInput = ({
               <p className="text-gray">
                 {(img.size / (1024 * 1024)).toFixed(2)} МБ
               </p>
+
             </div>
             <button
               onClick={() => handleDeleteImage(index)}
