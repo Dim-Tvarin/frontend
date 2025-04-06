@@ -4,17 +4,19 @@ import { Check } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@radix-ui/react-popover";
 import { Button } from "./components/ui/button";
 import { Command, CommandInput, CommandItem, CommandList } from "./components/ui/command";
+import FormError from "./FormError";
 
 const cities = [
   "Київ", "Харків", "Одеса", "Дніпро", "Львів", "Запоріжжя", "Вінниця", "Миколаїв", "Полтава", "Черкаси",
   "Чернівці", "Тернопіль", "Івано-Франківськ", "Суми", "Рівне", "Луцьк", "Ужгород", "Хмельницький", "Житомир", "Чернігів"
 ];
 
-export function CitySelect({ onChange, className }: { onChange: (city: string) => void; className?: string; }) {
+export function CitySelect({ onChange, className, error }: { onChange: (city: string) => void; className?: string; error?: string;}) {
   const [open, setOpen] = useState(false);
   const [selectedCity, setSelectedCity] = useState("");
 
   return (
+    <>
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button variant="outline" className={`${className} w-[305px] justify-between border-input-border`}>
@@ -42,5 +44,7 @@ export function CitySelect({ onChange, className }: { onChange: (city: string) =
         </Command>
       </PopoverContent>
     </Popover>
+     {error && <FormError error={error} />}
+    </>
   );
 }

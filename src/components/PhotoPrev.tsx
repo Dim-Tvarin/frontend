@@ -33,7 +33,6 @@ useEffect(() => {
             <div className="space-y-5 transition-all duration-300">
               <Progress value={progress} className="w-[100%]"/>
             </div>
-            {/* <Progress value={60} className='bg-orange h-[3px] mt-20 w-full'/> bg-[#D9D9D9] h-[3px] */}
           </div>
           <button
             onClick={() => ondelete(index)}

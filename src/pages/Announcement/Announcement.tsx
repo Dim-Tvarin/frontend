@@ -185,7 +185,7 @@ const Announcement = () => {
              <Controller
               name="animalLocation"
               control={control}
-              render={({ field }) => <CitySelect onChange={field.onChange} className="w-[305px] h-[40px]"/>}
+              render={({ field }) => <CitySelect onChange={field.onChange} className="w-[305px] h-[40px]" error={errors?.animalLocation?.message}/>}
               />
             </div>
           </div>
