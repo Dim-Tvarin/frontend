@@ -28,13 +28,29 @@ interface AnimalsResponse {
 
 export const animalsApi = createApi({
   reducerPath: 'animalsApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://marketplace-backend-wrk2.onrender.com/' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://marketplace-backend-wrk2.onrender.com/',
+    prepareHeaders: (headers, { getState }) => {
+      const token = (getState() as any).auth?.token;
+      if (token) {
+        headers.set('Authorization', `Bearer ${token}`);
+      }
+      return headers;
+    },
+   }),
+ 
   endpoints: (build) => ({
     getAnimals: build.query<AnimalsResponse, {page?: number; limit?: number;}>({
       query: ({page = 1, limit = 10}) => `animals?page=${page}&limit=${limit}`,
+    }),
+    createAnimal: build.mutation<any, FormData>({
+      query: (formData) => ({
+        url: '/animals',
+        method: 'POST',
+        body: formData,
+      }),
     }),
   }),
 })
 
 
-export const { useGetAnimalsQuery } = animalsApi
+export const { useGetAnimalsQuery, useCreateAnimalMutation  } = animalsApi
