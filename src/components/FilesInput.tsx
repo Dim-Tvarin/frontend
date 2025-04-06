@@ -1,4 +1,4 @@
-import { type Ref,  useState } from 'react';
+import { type Ref,  useEffect,  useState } from 'react';
 import { Input } from './components/ui/input';
 import { CustomLabel } from './CustomLabel';
 import FormError from './FormError';
@@ -14,6 +14,7 @@ export const FilesInput = ({
   name,
   error,
   onChange,
+  value,
   ...rest
 }: {
   ref?: Ref<HTMLInputElement>;
@@ -22,9 +23,17 @@ export const FilesInput = ({
   labelSize?: string;
   name: string;
   onChange: (images: File[]) => void;
+  value: File[],
   error?: string;
 }) => {
-  const [imageData, setImageData] = useState<File[]>([]);
+
+  const [imageData, setImageData] = useState<File[]>(value || []);
+
+  useEffect(()=> {
+    if (value.length !== imageData.length) {
+      setImageData(value);
+    }
+  }, [value])
 
   const onDrop = (acceptedFiles: File[]) => {
     const newFiles = [...imageData, ...acceptedFiles].slice(0, 4); 
@@ -36,9 +45,6 @@ export const FilesInput = ({
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
        onDrop(Array.from(event.target.files));
-    //   const file = Array.from(event.target.files);
-    //   setImageData([...imageData, ...file]);
-    //   onChange([...imageData, ...file]);
      }
   };
 

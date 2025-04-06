@@ -27,12 +27,17 @@ const Announcement = () => {
   const {
     register,
     handleSubmit,
-    setValue,
     watch,
     control,
     reset,
     formState: { errors },
   } = useForm<AnnouncementForm>({
+    // defaultValues: {
+    //   adText: "Гарна добра тваринка. Добра до незнайомих людей, будет гарним другом для вас",
+    //   images: [],
+    //   animalType: undefined,
+    //   gender: undefined
+    // },
     resolver: zodResolver(announceSchema),
     mode: 'onChange',
   });
@@ -40,6 +45,9 @@ const Announcement = () => {
 
   const token = useSelector(selectToken);
   watch('images');
+  const animalTypeValue = watch('animalType');
+  const genderValue = watch('gender');
+
 
   const onSubmit = async (data: AnnouncementForm) => {
     const result = announceSchema.safeParse(data);
@@ -110,24 +118,41 @@ const Announcement = () => {
         <Controller
           name="animalType"
           control={control}
-          render={({ field }) => (
+          render={({ field: {onChange, name, onBlur, ref, value} }) => (
             <CustomRadioGroup
+              defaultValue={animalTypeValue}
               items={animalType}
               className="grid grid-cols-2"
               itemWidth="305"
-              onChange={val => field.onChange(val)}
               error={errors.animalType?.message}
+              name={name}
+              ref={ref}
+              value={value}
+              onBlur={onBlur}
+              onChange={onChange}
             />
           )}
         />
           
           <p className="text-20 mt-32 mb-16">Стать </p>
-          <CustomRadioGroup
-            items={gender}
-            itemWidth="305"
-            {...register('gender')}
-            onChange={value => setValue('gender', value as 'male' | 'female')}
-          />
+          <Controller
+          name="gender"
+          control={control}
+          render={({ field: {onChange, name, onBlur, ref, value} }) => (
+            <CustomRadioGroup
+              defaultValue={genderValue}
+              items={gender}
+              className="grid grid-cols-2"
+              itemWidth="305"
+              error={errors.gender?.message}
+              name={name}
+              ref={ref}
+              value={value}
+              onBlur={onBlur}
+              onChange={onChange}
+            />
+          )}
+        />
          
           <div className="flex mt-32">
             <div className='grid grid-cols-[150px_150px] gap-[10px] mr-16'>
@@ -202,7 +227,8 @@ const Announcement = () => {
           <Controller
             name="images"
             control={control}
-            render={({ field: { ref, name, onChange } }) => (
+            defaultValue={[]}
+            render={({ field: { ref, name, onChange, value} }) => (
               <FilesInput
                 ref={ref}
                 groupLabel="Добавте фото тварини та документи *"
@@ -210,6 +236,7 @@ const Announcement = () => {
                 name={name}
                 onChange={onChange}
                 error={errors.images?.message?.toString()}
+                value={value}
               />
             )}
           />
