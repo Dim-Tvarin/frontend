@@ -42,9 +42,7 @@ const Announcement = () => {
   watch('images');
 
   const onSubmit = async (data: AnnouncementForm) => {
-
     const result = announceSchema.safeParse(data);
-
     if (result.error) {
       console.error('Щось пішло не по плану', result.error);
     }
@@ -75,7 +73,7 @@ const Announcement = () => {
         }
       )
       .then(res => {
-        if (res.status === 200) {
+        if (res.status === 201) {
           alert('Оголошення успышно створене');
           reset();
           setIsLoading(false)
