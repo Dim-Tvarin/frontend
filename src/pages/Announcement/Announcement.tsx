@@ -15,6 +15,7 @@ import { announceSchema } from '../../validations/announceValidation';
 import { animalType, gender } from './types';
 import track from '../../../public/track.png';
 import { MdErrorOutline } from 'react-icons/md';
+import { LuCirclePlus } from "react-icons/lu";
 import { CitySelect } from 'components/CitySelect';
 import CustomRadioGroup from 'components/CustomRadioGroup';
 import { Spinner } from 'components/Spinner';
@@ -216,8 +217,11 @@ const Announcement = () => {
             )}
           />
 
-          <CustomButton type="submit" styleType="defaultButton" disabled={isLoading}>
-            {isLoading ? <Spinner /> : 'Створити оголошення'}
+          <CustomButton type="submit" styleType="defaultButton" disabled={isLoading} className='flex gap-10'>
+            {isLoading ? <Spinner /> : 
+            <LuCirclePlus size={20} />
+            }
+            Створити оголошення
           </CustomButton>
         </form>
       </div>
