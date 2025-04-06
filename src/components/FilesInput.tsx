@@ -1,10 +1,11 @@
 import { type Ref,  useState } from 'react';
 import { Input } from './components/ui/input';
-import { LuDelete } from 'react-icons/lu';
 import { CustomLabel } from './CustomLabel';
 import FormError from './FormError';
 import { useDropzone } from 'react-dropzone';
 import { cn } from './lib/utils';
+import PhotoPrev from './PhotoPrev';
+
 export const FilesInput = ({
   ref,
   groupLabel,
@@ -31,6 +32,7 @@ export const FilesInput = ({
     onChange(newFiles);
   };
 
+ 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
        onDrop(Array.from(event.target.files));
@@ -91,31 +93,10 @@ export const FilesInput = ({
             <p className='text-border-file'>Файл не вибрано</p>
         </div>
         </div>
-
       </div>
-    
       <div className="grid grid-cols-2 gap-16 mt-32">
         {imageData.map((img, index) => (
-          <div key={index} className="flex gap-8 w-[305px]">
-            <img
-              src={URL.createObjectURL(img)}
-              alt={`Uploaded ${index}`}
-              className="w-[54px] h-[54px] rounded-[8px]"
-            />
-            <div className="text-left text-ellipsis whitespace-nowrap overflow-hidden max-w-[200px]">
-              <p>{img.name.split('.')[0]}</p>
-              <p className="text-gray">
-                {(img.size / (1024 * 1024)).toFixed(2)} МБ
-              </p>
-
-            </div>
-            <button
-              onClick={() => handleDeleteImage(index)}
-              className="ml-auto"
-            >
-              <LuDelete size={24} color="#83818B" />
-            </button>
-          </div>
+          <PhotoPrev image={img} index={index} ondelete={handleDeleteImage} key={index}/>
         ))}
       </div>
       {error && <FormError error={error} />}
