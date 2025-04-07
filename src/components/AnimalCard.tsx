@@ -4,7 +4,6 @@ import { CustomButton } from "./CustomButton";
 import type { animalAge } from "src/redux/animals/animalsApi";
 import { getYearDeclension } from "src/helpers/getYearDeclension";
 import { useNavigate } from "react-router";
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleId } from "src/redux/animals/favoriteAnimalsSlice";
 import type { AppDispatch, RootState } from "src/redux/store";
@@ -18,12 +17,10 @@ const genderMapping: Record<string, string> = {
 const AnimalCard = ({id, name, gender, age, photoSrc, favorite}:
   {id: string; name: string; gender: string; age: animalAge; photoSrc: string; favorite?: boolean}) => {
   const favIds = useSelector((state: RootState) => state.favoriteAnimals.ids);
-  const [isFavorite, setIsFavorite] = useState(favorite || favIds.includes(id))
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   
   const handleAddFavorite = () => {
-    setIsFavorite((prev: boolean) => !prev)
     dispatch(toggleId(id)); 
   }
 
@@ -38,7 +35,7 @@ const AnimalCard = ({id, name, gender, age, photoSrc, favorite}:
             {!!age.years &&  (<span>{getYearDeclension(age.years)} </span>)} 
             {!!age.months &&  (<span>{`${age.months} міс.`}</span>)} 
           </div>
-          <div className="absolute right-[18px] top-[14px] cursor-pointer" onClick={handleAddFavorite}><HartSVG hartFill={ isFavorite } /></div>
+          <div className="absolute right-[18px] top-[14px] cursor-pointer" onClick={handleAddFavorite}><HartSVG hartFill={ favorite || favIds.includes(id) } /></div>
         </div>
         <CustomButton
           type="button"
