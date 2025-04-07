@@ -6,6 +6,8 @@ import homeDogMax from '../assets/home-dog2.png';
 import homeGirlDogMin from '../assets/home-girl&dog1.jpg';
 import homeGirlDogMax from '../assets/home-girl&dog@2.jpg';
 import track from '../../public/track.png';
+import { LuCirclePlus } from "react-icons/lu";
+import AnimalsCarousel from 'components/AnimalsCarousel';
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -25,6 +27,7 @@ export const Home = () => {
             className="w-[236px] h-[44px] bg-default-btn rounded-[20px] z-10"
             onClick={() => navigate('/announcement')}
           >
+            <LuCirclePlus size={20} />
             Створити оголошення
           </CustomButton>
           <div className="absolute z-1 top-[335px] left-[390px] rotate-[57deg]">
@@ -70,13 +73,20 @@ export const Home = () => {
           </p>
         </div>
       </section>
-      <section>
+      <section className='mb-100 flex flex-col justify-center items-center'>
         <div className="absolute z-1 top-[1043px] left-[990px] rotate-[57deg]">
           <img src={track} className="w-[300px] h-[320px]" alt="track" />
         </div>
         <h3 className="relative mb-[50px] text-5xl font-semibold z-10">
           Тварини які шукають дім
         </h3>
+        <AnimalsCarousel />
+         <CustomButton
+            className="w-[236px] h-[44px] bg-default-btn rounded-[20px] z-10 flex gap-10 mt-50"
+            onClick={() => navigate('/allpets')}
+          >
+            Переглянути всіх
+          </CustomButton>
       </section>
     </div>
   );
