@@ -1,5 +1,4 @@
 import { CustomButton } from './CustomButton';
-import { InputField } from './InputField';
 import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch, RootState } from '../redux/store';
 import {
@@ -29,6 +28,7 @@ import {
 import { openDialog, closeDialog } from '../redux/dialogs/dialogSlice';
 import { useEffect, useState } from 'react';
 import { Spinner } from './Spinner';
+import { CodeInput } from './CodeInput';
 
 type FormData = z.infer<typeof verifyResetCodeSchema>;
 
@@ -112,27 +112,23 @@ const DialogVerifyResetCode: React.FC = () => {
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col text-left gap-10 mt-10"
         >
-          <p className="text-center  text-xs text-input-border leading-[125%]">
+          <p className="text-center mb-24 text-xs text-input-border leading-[125%]">
             Ми відправили код на вашу електронну пошту. Будь ласка, введіть його
             у поле для відновлення паролю, щоб продовжити
           </p>
-          <InputField
-            label="Введіть код"
-            placeholder="Введіть перевірочний код"
+          <CodeInput 
             labelClass="text-input-border"
-            className="w-[340px] mt-10"
+            length={6}
             id="code"
             {...register('code')}
-            error={verifyResetCodeError || errors.code?.message}
-          />
-          <p className="mt-[-5px] text-xs text-center text-input-border">
+            error={verifyResetCodeError || errors.code?.message}/>
+          <p className="mt-20 text-xs text-center text-input-border">
             {!canResend && timer !== 0 ? (
               `Не отримали код? Надіслати повторно через 0:${timer < 10 ? '0' + timer : timer}`
             ) : (
               <CustomButton
                 type="button"
                 styleType="linkButton"
-                className="mt-[-5px]"
                 onClick={handleResendCode}
                 disabled={isLoading}
               >
@@ -144,7 +140,7 @@ const DialogVerifyResetCode: React.FC = () => {
             <CustomButton
               type="submit"
               styleType="orangeButton"
-              className="mt-20"
+              className="mt-22"
               disabled={isLoading}
             >
               Підтвердити
