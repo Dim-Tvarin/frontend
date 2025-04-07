@@ -4,7 +4,10 @@ import { CustomButton } from "./CustomButton";
 import type { animalAge } from "src/redux/animals/animalsApi";
 import { getYearDeclension } from "src/helpers/getYearDeclension";
 import { useNavigate } from "react-router";
-
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleId } from "src/redux/animals/favoriteAnimalsSlice";
+import type { AppDispatch, RootState } from "src/redux/store";
 
 const genderMapping: Record<string, string> = {
   'male': "Хлопчик",
@@ -12,8 +15,18 @@ const genderMapping: Record<string, string> = {
   'unknown': "Невідомо"
 }
 
-const AnimalCard = ({id, name, gender, age, photoSrc}: {id: string; name: string; gender: string; age: animalAge; photoSrc: string;}) => {
-   const navigate = useNavigate();
+const AnimalCard = ({id, name, gender, age, photoSrc, favorite}:
+  {id: string; name: string; gender: string; age: animalAge; photoSrc: string; favorite?: boolean}) => {
+  const favIds = useSelector((state: RootState) => state.favoriteAnimals.ids);
+  const [isFavorite, setIsFavorite] = useState(favorite || favIds.includes(id))
+  const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
+  
+  const handleAddFavorite = () => {
+    setIsFavorite((prev: boolean) => !prev)
+    dispatch(toggleId(id)); 
+  }
+
   return (
     <div className="relative w-[305px] h-[400px] border-2 border-orange rounded-4xl max-w-sm bg-white overflow-hidden flex items-end">
       <img src={photoSrc} alt={name} className="absolute inset-0 w-full h-full object-cover z-1" />
@@ -25,7 +38,7 @@ const AnimalCard = ({id, name, gender, age, photoSrc}: {id: string; name: string
             {!!age.years &&  (<span>{getYearDeclension(age.years)} </span>)} 
             {!!age.months &&  (<span>{`${age.months} міс.`}</span>)} 
           </div>
-          <div className="absolute right-[18px] top-[14px]"><HartSVG /></div>
+          <div className="absolute right-[18px] top-[14px] cursor-pointer" onClick={handleAddFavorite}><HartSVG hartFill={ isFavorite } /></div>
         </div>
         <CustomButton
           type="button"
