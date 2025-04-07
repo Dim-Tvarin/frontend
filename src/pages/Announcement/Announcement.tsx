@@ -1,6 +1,6 @@
-import announce1 from '../../assets/announce1.jpg';
 import announce2 from '../../assets/announce2.jpg';
 import announce3 from '../../assets/announce3.jpg';
+import announce4 from '../../assets/announce4.jpg';
 import { InputField } from 'components/InputField';
 import { CustomButton } from 'components/CustomButton';
 import { z } from 'zod';
@@ -87,7 +87,7 @@ const Announcement = () => {
           className="flex flex-col items-start"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <p className="text-20 mb-16 z-10">Оберіть вид тварини *</p>
+          <p className="text-xl mb-16 z-10">Оберіть вид тварини *</p>
 
           <Controller
             name="animalType"
@@ -108,7 +108,7 @@ const Announcement = () => {
             )}
           />
 
-          <p className="text-20 mt-32 mb-16">Стать </p>
+          <p className="text-xl mt-32 mb-16">Стать </p>
           <Controller
             name="gender"
             control={control}
@@ -157,7 +157,7 @@ const Announcement = () => {
               label="Порода *"
               id="breed"
               className="w-[305px] h-[40px] mt-16"
-              labelSize="xl"
+              labelSize="lg"
               {...register('breed')}
               error={errors.breed?.message}
             />
@@ -173,7 +173,7 @@ const Announcement = () => {
               error={errors.animalName?.message}
             />
             <div>
-              <p className="text-20 mb-[13px] text-left">Місто * </p>
+              <p className="text-xl mb-[13px] text-left">Місто * </p>
               <Controller
                 name="animalLocation"
                 control={control}
@@ -228,13 +228,13 @@ const Announcement = () => {
 
       <div className=" bg-orange rounded-[30px] flex flex-col gap-32 py-32 items-end my-100">
         <div className="w-[600px] rounded-l-[30px] overflow-hidden ml-30">
-          <img src={announce1} alt="хлопець з хаскі" />
+          <img src={announce4} alt="хлопець з лабродором" />
         </div>
         <div className="w-[600px] rounded-l-[30px] overflow-hidden">
-          <img src={announce2} alt="хлопець з хаскі" />
+          <img src={announce2} alt="дівчина з собакою" />
         </div>
         <div className="w-[600px] rounded-l-[30px] overflow-hidden">
-          <img src={announce3} alt="хлопець з хаскі" />
+          <img src={announce3} alt="дівчина з котом" />
         </div>
       </div>
 
