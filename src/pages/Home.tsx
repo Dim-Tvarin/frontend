@@ -8,9 +8,20 @@ import homeGirlDogMax from '../assets/home-girl&dog@2.jpg';
 import track from '../../public/track.png';
 import { LuCirclePlus } from "react-icons/lu";
 import AnimalsCarousel from 'components/AnimalsCarousel';
+import { useSelector } from 'react-redux';
+import { selectIsLoggedIn } from 'src/redux/users/usersSlice';
 
 export const Home = () => {
   const navigate = useNavigate();
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+
+  const handleNavigateAnnouncement = () => {
+    if (isLoggedIn) {
+      navigate('/announcement')
+    } else {
+      navigate('/register')
+    }
+  }
   console.log('week-10');
   return (
     <div className="container text-default-btn relative">
@@ -25,7 +36,7 @@ export const Home = () => {
           </p>
           <CustomButton
             className="w-[236px] h-[44px] bg-default-btn rounded-[20px] z-10"
-            onClick={() => navigate('/announcement')}
+            onClick={handleNavigateAnnouncement}
           >
             <LuCirclePlus size={20} />
             Створити оголошення
