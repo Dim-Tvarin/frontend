@@ -14,12 +14,12 @@ import { FilesInput } from 'components/FilesInput';
 import { announceSchema } from '../../validations/announceValidation';
 import { animalType, gender } from './types';
 import track from '../../../public/track.png';
-import { MdErrorOutline } from 'react-icons/md';
 import { LuCirclePlus } from "react-icons/lu";
 import { CitySelect } from 'components/CitySelect';
 import CustomRadioGroup from 'components/CustomRadioGroup';
 import { Spinner } from 'components/Spinner';
 import { useState } from 'react';
+import FormError from 'components/FormError';
 
 type AnnouncementForm = z.infer<typeof announceSchema>;
 
@@ -32,12 +32,6 @@ const Announcement = () => {
     reset,
     formState: { errors },
   } = useForm<AnnouncementForm>({
-    // defaultValues: {
-    //   adText: "Гарна добра тваринка. Добра до незнайомих людей, будет гарним другом для вас",
-    //   images: [],
-    //   animalType: undefined,
-    //   gender: undefined
-    // },
     resolver: zodResolver(announceSchema),
     mode: 'onChange',
   });
@@ -172,19 +166,11 @@ const Announcement = () => {
                   labelSize='xl'
                   {...register('age.months')}
               />
-              {errors.age?.months?.message ?
-                (<div className="flex items-center mt-[10px] gap-[4px]">
-                        <MdErrorOutline size={18} className="text-error" />
-                        <p className="text-left text-error text-xs">{errors.age?.months?.message}</p>
-                </div>) : ''}
-              {errors.age?.years?.message ? 
-                (<div className="flex items-center mt-[10px] gap-[4px]">
-                        <MdErrorOutline size={18} className="text-error" />
-                        <p className="text-left text-error text-xs">{errors.age?.years?.message}</p>
-                </div>) : ''}
-              
+              {errors.age?.months?.message &&
+                <FormError error={errors.age?.months?.message} />}
+              {errors.age?.years?.message &&
+                <FormError error={errors.age?.years?.message} />}
             </div>
-
               <InputField
                 label='Порода *'
                 id="breed"
