@@ -6,9 +6,22 @@ import homeDogMax from '../assets/home-dog2.png';
 import homeGirlDogMin from '../assets/home-girl&dog1.jpg';
 import homeGirlDogMax from '../assets/home-girl&dog@2.jpg';
 import track from '../../public/track.png';
+import { LuCirclePlus } from "react-icons/lu";
+import AnimalsCarousel from 'components/AnimalsCarousel';
+import { useSelector } from 'react-redux';
+import { selectIsLoggedIn } from 'src/redux/users/usersSlice';
 
 export const Home = () => {
   const navigate = useNavigate();
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+
+  const handleNavigateAnnouncement = () => {
+    if (isLoggedIn) {
+      navigate('/announcement')
+    } else {
+      navigate('/register')
+    }
+  }
   console.log('week-10');
   return (
     <div className="container text-default-btn relative">
@@ -23,8 +36,9 @@ export const Home = () => {
           </p>
           <CustomButton
             className="w-[236px] h-[44px] bg-default-btn rounded-[20px] z-10"
-            onClick={() => navigate('/announcement')}
+            onClick={handleNavigateAnnouncement}
           >
+            <LuCirclePlus size={20} />
             Створити оголошення
           </CustomButton>
           <div className="absolute z-1 top-[335px] left-[390px] rotate-[57deg]">
@@ -70,13 +84,23 @@ export const Home = () => {
           </p>
         </div>
       </section>
-      <section>
-        <div className="absolute z-1 top-[1043px] left-[990px] rotate-[57deg]">
+      <section className='mb-100 flex flex-col justify-center items-center'>
+        <div className="absolute z-1 top-[120px] right-[108px] rotate-[57deg]">
           <img src={track} className="w-[300px] h-[320px]" alt="track" />
         </div>
         <h3 className="relative mb-[50px] text-5xl font-semibold z-10">
           Тварини які шукають дім
         </h3>
+        <AnimalsCarousel />
+         <CustomButton
+            className="w-[236px] h-[44px] bg-default-btn rounded-[20px] z-10 flex gap-10 mt-50"
+            onClick={() => navigate('/allpets')}
+          >
+            Переглянути всіх
+          </CustomButton>
+          <div className="absolute z-1 -bottom-[130px] left-[10px]">
+          <img src={track} className="w-[245px] h-[245px]" alt="track" />
+        </div>
       </section>
     </div>
   );

@@ -6,12 +6,12 @@ import insta from '../../../public/assets/instagram.svg';
 
 const Footer = () => {
   return (
-    <footer className=" bg-header flex flex-col items-center justify-center gap-[19px] pb-20">
-      <NavLink className="flex flex-col items-center mt-20" to="/" end>
+    <footer className=" bg-header flex items-center justify-center py-16 relative">
+      <NavLink className="flex flex-col items-center " to="/" end>
         <img src={logo} alt="logo" className="w-46 h-46" />
         <span className="text-xxs">Dim Tvaryn</span>
       </NavLink>
-      <div className="flex gap-[20px]">
+      <div className="flex gap-[20px] absolute right-200">
         <Link to="/">
           <LiaFacebook size={24} />
         </Link>
