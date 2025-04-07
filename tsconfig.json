@@ -29,7 +29,8 @@
       "components/*": ["src/components/*"],
       "validations/*": ["src/validations/*"],
       "pages/*": ["src/pages/*"],
-      "hooks/*": ["src/hooks/*"]
+      "hooks/*": ["src/hooks/*"],
+      "src/*": ["src/*"],
     }
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"]
