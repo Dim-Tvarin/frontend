@@ -5,20 +5,20 @@ export type animalAge = {
   years: number;
 }
 interface AnimalType {
-      "id": string;
-      "age": animalAge;
-      "animalName": string;
-      "animalType": 'cat' |'dog' | 'bird' |'another';
-      "breed": string;
-      "gender": "female" | "male" | 'unknown';
-      "animalLocation": string;
-      "adText": string;
-      "status":  string;
-      "favorite": boolean;
-      "owner":  string;
-      "createdAt":  string;
-      "updatedAt": string;
-      "animalImages": string[];
+  id: string;
+  age: animalAge;
+  animalName: string;
+  animalType: 'cat' | 'dog' | 'bird' | 'another';
+  breed: string;
+  gender: 'female' | 'male' | 'unknown';
+  animalLocation: string;
+  adText: string;
+  status: string;
+  favorite: boolean;
+  owner: string;
+  createdAt: string;
+  updatedAt: string;
+  animalImages: string[];
 }
 
 interface AnimalsResponse {
