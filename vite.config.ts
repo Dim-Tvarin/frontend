@@ -12,6 +12,7 @@ export default defineConfig({
       helpers: '/src/helpers',
       pages: '/src/pages',
       hooks: '/src/hooks',
+      src: '/src',
     },
   },
 });
