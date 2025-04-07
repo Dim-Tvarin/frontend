@@ -32,12 +32,6 @@ const Announcement = () => {
     reset,
     formState: { errors },
   } = useForm<AnnouncementForm>({
-    // defaultValues: {
-    //   adText: "Гарна добра тваринка. Добра до незнайомих людей, будет гарним другом для вас",
-    //   images: [],
-    //   animalType: undefined,
-    //   gender: undefined
-    // },
     resolver: zodResolver(announceSchema),
     mode: 'onChange',
   });
