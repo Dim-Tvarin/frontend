@@ -34,7 +34,7 @@ const Announcement = () => {
     mode: 'onChange',
   });
   const [createAnimal, { isLoading }] = useCreateAnimalMutation();
-console.log('isLoading', isLoading);
+
   watch('images');
   const animalTypeValue = watch('animalType');
   const genderValue = watch('gender');
@@ -61,7 +61,7 @@ console.log('isLoading', isLoading);
     );
 
      try {
-      const res = await createAnimal(bodyFormData).unwrap();
+      await createAnimal(bodyFormData).unwrap();
       alert('Оголошення успішно створене');
       reset();
     } catch (error) {
@@ -72,124 +72,93 @@ console.log('isLoading', isLoading);
         alert('Щось пішло не по плану');
       }
     }
-
-    // return axios
-    //   .post(
-    //     'https://marketplace-backend-wrk2.onrender.com/animals',
-    //     bodyFormData,
-    //     {
-    //       headers: {
-    //         Authorization: `Bearer ${token}`,
-    //         'Content-Type': 'multipart/form-data',
-    //       },
-    //     }
-    //   )
-    //   .then(res => {
-    //     if (res.status === 200) {
-    //       alert('Оголошення успышно створене');
-    //       reset();
-    //       setIsLoading(false)
-    //     }
-    //   })
-    //   .catch(error => {
-    //     setIsLoading(false)
-    //     if (error.status === 401) {
-    //       alert('Щоб залишити оголошення, увійдіть у свій аккаунт');
-    //     } else {
-    //       console.error('error', error);
-    //       alert('Щось пішло не по плану');
-    //     }
-    //   });
   };
 
   return (
     <div className="container flex flex-row gap-16 text-default-btn relative z-10">
-   
       <div className="absolute z-1  left-[84px] top-[27px]">
-          <img src={track} alt="track" className='w-[180px]'/>
+        <img src={track} alt="track" className="w-[180px]" />
       </div>
-      
-
       <div className="flex flex-col flex-1/2 mt-100">
         <h2 className="text-[32px] mb-32 z-10">Додати оголошення</h2>
-
         <form
           className="flex flex-col items-start"
           onSubmit={handleSubmit(onSubmit)}
         >
           <p className="text-20 mb-16 z-10">Оберіть вид тварини *</p>
 
-        <Controller
-          name="animalType"
-          control={control}
-          render={({ field: {onChange, name, onBlur, ref, value} }) => (
-            <CustomRadioGroup
-              defaultValue={animalTypeValue}
-              items={animalType}
-              className="grid grid-cols-2"
-              itemWidth="305"
-              error={errors.animalType?.message}
-              name={name}
-              ref={ref}
-              value={value}
-              onBlur={onBlur}
-              onChange={onChange}
-            />
-          )}
-        />
-          
+          <Controller
+            name="animalType"
+            control={control}
+            render={({ field: { onChange, name, onBlur, ref, value } }) => (
+              <CustomRadioGroup
+                defaultValue={animalTypeValue}
+                items={animalType}
+                className="grid grid-cols-2"
+                itemWidth="305"
+                error={errors.animalType?.message}
+                name={name}
+                ref={ref}
+                value={value}
+                onBlur={onBlur}
+                onChange={onChange}
+              />
+            )}
+          />
+
           <p className="text-20 mt-32 mb-16">Стать </p>
           <Controller
-          name="gender"
-          control={control}
-          render={({ field: {onChange, name, onBlur, ref, value} }) => (
-            <CustomRadioGroup
-              defaultValue={genderValue}
-              items={gender}
-              className="grid grid-cols-2"
-              itemWidth="305"
-              error={errors.gender?.message}
-              name={name}
-              ref={ref}
-              value={value}
-              onBlur={onBlur}
-              onChange={onChange}
-            />
-          )}
-        />
-         
+            name="gender"
+            control={control}
+            render={({ field: { onChange, name, onBlur, ref, value } }) => (
+              <CustomRadioGroup
+                defaultValue={genderValue}
+                items={gender}
+                className="grid grid-cols-2"
+                itemWidth="305"
+                error={errors.gender?.message}
+                name={name}
+                ref={ref}
+                value={value}
+                onBlur={onBlur}
+                onChange={onChange}
+              />
+            )}
+          />
+
           <div className="flex mt-32">
-            <div className='grid grid-cols-[150px_150px] gap-[10px] mr-16'>
+            <div className="grid grid-cols-[150px_150px] gap-[10px] mr-16">
               <InputField
-                label='Вік'
-                  id="years"
-                  placeholder='0 років'
-                  className="w-[150px] h-[40px] mt-16"
-                  labelSize='xl'
-                  {...register('age.years')}
+                label="Вік"
+                id="years"
+                placeholder="0 років"
+                className="w-[150px] h-[40px] mt-16"
+                labelSize="xl"
+                {...register('age.years')}
               />
               <InputField
-                label=' '
-                  id="months"
-                  placeholder='0 місяців'
-                  className="w-[150px] h-[40px] mt-16 mr-10"
-                  labelSize='xl'
-                  {...register('age.months')}
+                label=" "
+                id="months"
+                placeholder="0 місяців"
+                className="w-[150px] h-[40px] mt-16 mr-10"
+                labelSize="xl"
+                {...register('age.months')}
               />
-              {errors.age?.months?.message &&
-                <FormError error={errors.age?.months?.message} />}
-              {errors.age?.years?.message &&
-                <FormError error={errors.age?.years?.message} />}
+              {errors.age?.months?.message && (
+                <FormError error={errors.age?.months?.message} />
+              )}
+              {errors.age?.years?.message && (
+                <FormError error={errors.age?.years?.message} />
+              )}
             </div>
-              <InputField
-                label='Порода *'
-                id="breed"
-                className="w-[305px] h-[40px] mt-16"
-                labelSize='xl'
-                {...register('breed')}
-                error={errors.breed?.message}
-                />
-          
+            <InputField
+              label="Порода *"
+              id="breed"
+              className="w-[305px] h-[40px] mt-16"
+              labelSize="xl"
+              {...register('breed')}
+              error={errors.breed?.message}
+            />
           </div>
 
           <div className="grid grid-cols-[305px_305px] mt-32 gap-16">
@@ -202,11 +171,17 @@ console.log('isLoading', isLoading);
               error={errors.animalName?.message}
             />
             <div>
-            <p className="text-20 mb-[13px] text-left">Місто * </p>
-             <Controller
-              name="animalLocation"
-              control={control}
-              render={({ field }) => <CitySelect onChange={field.onChange} className="w-[305px] h-[40px]" error={errors?.animalLocation?.message}/>}
+              <p className="text-20 mb-[13px] text-left">Місто * </p>
+              <Controller
+                name="animalLocation"
+                control={control}
+                render={({ field }) => (
+                  <CitySelect
+                    onChange={field.onChange}
+                    className="w-[305px] h-[40px]"
+                    error={errors?.animalLocation?.message}
+                  />
+                )}
               />
             </div>
           </div>
@@ -224,7 +199,7 @@ console.log('isLoading', isLoading);
             name="images"
             control={control}
             defaultValue={[]}
-            render={({ field: { ref, name, onChange, value} }) => (
+            render={({ field: { ref, name, onChange, value } }) => (
               <FilesInput
                 ref={ref}
                 groupLabel="Добавте фото тварини та документи *"
@@ -237,10 +212,13 @@ console.log('isLoading', isLoading);
             )}
           />
 
-          <CustomButton type="submit" styleType="defaultButton" disabled={isLoading} className='flex gap-10'>
-            {isLoading ? <Spinner /> : 
-            <LuCirclePlus size={20} />
-            }
+          <CustomButton
+            type="submit"
+            styleType="defaultButton"
+            disabled={isLoading}
+            className="flex gap-10"
+          >
+            {isLoading ? <Spinner /> : <LuCirclePlus size={20} />}
             Створити оголошення
           </CustomButton>
         </form>
@@ -258,8 +236,8 @@ console.log('isLoading', isLoading);
         </div>
       </div>
 
-        <div className="absolute z-1  left-[39%] bottom-[85px] rotate-[57deg]">
-          <img src={track} alt="track" className='w-[180px]'/>
+      <div className="absolute z-1  left-[39%] bottom-[85px] rotate-[57deg]">
+        <img src={track} alt="track" className="w-[180px]" />
       </div>
     </div>
   );

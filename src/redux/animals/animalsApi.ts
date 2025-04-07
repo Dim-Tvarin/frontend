@@ -30,7 +30,7 @@ export const animalsApi = createApi({
   reducerPath: 'animalsApi',
   baseQuery: fetchBaseQuery({ baseUrl: 'https://marketplace-backend-wrk2.onrender.com/',
     prepareHeaders: (headers, { getState }) => {
-      const token = (getState() as any).auth?.token;
+      const token = (getState() as any).users?.token;
       if (token) {
         headers.set('Authorization', `Bearer ${token}`);
       }
