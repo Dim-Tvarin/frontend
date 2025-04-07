@@ -85,7 +85,7 @@ export const Home = () => {
         </div>
       </section>
       <section className='mb-100 flex flex-col justify-center items-center'>
-        <div className="absolute z-1 top-[1043px] left-[990px] rotate-[57deg]">
+        <div className="absolute z-1 top-[120px] right-[108px] rotate-[57deg]">
           <img src={track} className="w-[300px] h-[320px]" alt="track" />
         </div>
         <h3 className="relative mb-[50px] text-5xl font-semibold z-10">
@@ -98,6 +98,9 @@ export const Home = () => {
           >
             Переглянути всіх
           </CustomButton>
+          <div className="absolute z-1 -bottom-[130px] left-[10px]">
+          <img src={track} className="w-[245px] h-[245px]" alt="track" />
+        </div>
       </section>
     </div>
   );
