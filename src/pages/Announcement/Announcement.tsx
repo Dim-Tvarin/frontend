@@ -67,7 +67,9 @@ const Announcement = () => {
     } catch (error) {
       if (error?.status === 401) {
         alert('Щоб залишити оголошення, увійдіть у свій аккаунт');
-      } else {
+      } if (error?.status === 500) {
+        alert('Ой, щось сервер притомився, спробуйте пізніше');
+      }else {
         console.error('error', error);
         alert('Щось пішло не по плану');
       }
