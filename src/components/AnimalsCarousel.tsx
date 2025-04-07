@@ -1,18 +1,19 @@
 import AnimalCard from "./AnimalCard";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "./components/ui/carousel";
 import { useGetAnimalsQuery } from "src/redux/animals/animalsApi";
-
-
-
-
+import { CarouselSceleton } from "components/sceletons/CarouselSceleton"
 
 const AnimalsCarousel = () => {
   const { data, isLoading } = useGetAnimalsQuery({page: 1, limit: 8})
 
+  if ( isLoading ) { return <CarouselSceleton />}
+
+
   return (
     <Carousel
       opts={{
-        align: "start", loop: true,
+        align: 'start',
+        loop: true,
       }}
       className="w-full z-10"
     >
@@ -28,17 +29,13 @@ const AnimalsCarousel = () => {
               photoSrc={item.animalImages[0]}
               favorite={item.favorite}
             />
-            </CarouselItem>
-          ))}
-      
-         
-          
-      
+          </CarouselItem>
+        ))}
       </CarouselContent>
       <CarouselPrevious />
       <CarouselNext />
     </Carousel>
-  )
+  );
 }
 
 export default AnimalsCarousel;
