@@ -11,12 +11,13 @@ import { FilesInput } from 'components/FilesInput';
 import { announceSchema } from '../../validations/announceValidation';
 import { animalType, gender } from './types';
 import track from '../../../public/track.png';
-import { MdErrorOutline } from 'react-icons/md';
+import { LuCirclePlus } from "react-icons/lu";
 import { CitySelect } from 'components/CitySelect';
 import CustomRadioGroup from 'components/CustomRadioGroup';
 import { Spinner } from 'components/Spinner';
 import { useCreateAnimalMutation } from 'src/redux/animals/animalsApi';
 
+import FormError from 'components/FormError';
 
 type AnnouncementForm = z.infer<typeof announceSchema>;
 
@@ -24,7 +25,6 @@ const Announcement = () => {
   const {
     register,
     handleSubmit,
-    setValue,
     watch,
     control,
     reset,
@@ -36,11 +36,12 @@ const Announcement = () => {
   const [createAnimal, { isLoading }] = useCreateAnimalMutation();
 console.log('isLoading', isLoading);
   watch('images');
+  const animalTypeValue = watch('animalType');
+  const genderValue = watch('gender');
+
 
   const onSubmit = async (data: AnnouncementForm) => {
-
     const result = announceSchema.safeParse(data);
-
     if (result.error) {
       console.error('Щось пішло не по плану', result.error);
     }
@@ -121,57 +122,65 @@ console.log('isLoading', isLoading);
         <Controller
           name="animalType"
           control={control}
-          render={({ field }) => (
+          render={({ field: {onChange, name, onBlur, ref, value} }) => (
             <CustomRadioGroup
+              defaultValue={animalTypeValue}
               items={animalType}
               className="grid grid-cols-2"
               itemWidth="305"
-              onChange={val => field.onChange(val)}
               error={errors.animalType?.message}
+              name={name}
+              ref={ref}
+              value={value}
+              onBlur={onBlur}
+              onChange={onChange}
             />
           )}
         />
           
           <p className="text-20 mt-32 mb-16">Стать </p>
-          <CustomRadioGroup
-            items={gender}
-            itemWidth="305"
-            {...register('gender')}
-            onChange={value => setValue('gender', value as 'male' | 'female')}
-          />
+          <Controller
+          name="gender"
+          control={control}
+          render={({ field: {onChange, name, onBlur, ref, value} }) => (
+            <CustomRadioGroup
+              defaultValue={genderValue}
+              items={gender}
+              className="grid grid-cols-2"
+              itemWidth="305"
+              error={errors.gender?.message}
+              name={name}
+              ref={ref}
+              value={value}
+              onBlur={onBlur}
+              onChange={onChange}
+            />
+          )}
+        />
          
           <div className="flex mt-32">
             <div className='grid grid-cols-[150px_150px] gap-[10px] mr-16'>
               <InputField
                 label='Вік'
-                  id="months"
-                  placeholder='0 місяців'
-                  className="w-[150px] h-[40px] mt-16 mr-10"
-                  labelSize='xl'
-                  {...register('age.months')}
-              />
-             
-              <InputField
-                label=' '
                   id="years"
                   placeholder='0 років'
                   className="w-[150px] h-[40px] mt-16"
                   labelSize='xl'
                   {...register('age.years')}
               />
-              {errors.age?.months?.message ?
-                (<div className="flex items-center mt-[10px] gap-[4px]">
-                        <MdErrorOutline size={18} className="text-error" />
-                        <p className="text-left text-error text-xs">{errors.age?.months?.message}</p>
-                </div>) : ''}
-              {errors.age?.years?.message ? 
-                (<div className="flex items-center mt-[10px] gap-[4px]">
-                        <MdErrorOutline size={18} className="text-error" />
-                        <p className="text-left text-error text-xs">{errors.age?.years?.message}</p>
-                </div>) : ''}
-              
+              <InputField
+                label=' '
+                  id="months"
+                  placeholder='0 місяців'
+                  className="w-[150px] h-[40px] mt-16 mr-10"
+                  labelSize='xl'
+                  {...register('age.months')}
+              />
+              {errors.age?.months?.message &&
+                <FormError error={errors.age?.months?.message} />}
+              {errors.age?.years?.message &&
+                <FormError error={errors.age?.years?.message} />}
             </div>
-
               <InputField
                 label='Порода *'
                 id="breed"
@@ -197,7 +206,7 @@ console.log('isLoading', isLoading);
              <Controller
               name="animalLocation"
               control={control}
-              render={({ field }) => <CitySelect onChange={field.onChange} className="w-[305px] h-[40px]"/>}
+              render={({ field }) => <CitySelect onChange={field.onChange} className="w-[305px] h-[40px]" error={errors?.animalLocation?.message}/>}
               />
             </div>
           </div>
@@ -214,7 +223,8 @@ console.log('isLoading', isLoading);
           <Controller
             name="images"
             control={control}
-            render={({ field: { ref, name, onChange } }) => (
+            defaultValue={[]}
+            render={({ field: { ref, name, onChange, value} }) => (
               <FilesInput
                 ref={ref}
                 groupLabel="Добавте фото тварини та документи *"
@@ -222,12 +232,16 @@ console.log('isLoading', isLoading);
                 name={name}
                 onChange={onChange}
                 error={errors.images?.message?.toString()}
+                value={value}
               />
             )}
           />
 
-          <CustomButton type="submit" styleType="defaultButton" disabled={isLoading}>
-            {isLoading ? <Spinner /> : 'Створити оголошення'}
+          <CustomButton type="submit" styleType="defaultButton" disabled={isLoading} className='flex gap-10'>
+            {isLoading ? <Spinner /> : 
+            <LuCirclePlus size={20} />
+            }
+            Створити оголошення
           </CustomButton>
         </form>
       </div>

@@ -35,7 +35,7 @@ export const announceSchema = z.object({
       },
       { message: 'Додайте фото' }
     )
-    .refine(files => files[0]?.size <= 2 * 1024 * 1024, {
+    .refine(files => files[0]?.size <= 5 * 1024 * 1024, {
       message: 'Файл повинен бути менше 5MB',
     })
     .refine(files => ['image/png', 'image/jpeg'].includes(files[0]?.type), {
