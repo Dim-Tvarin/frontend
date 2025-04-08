@@ -37,7 +37,7 @@ export const PasswordField: FC<PasswordFieldProps> = ({
       )}
       <div className="relative">
         <Input
-          type={visible ? 'text' : 'password'}
+          type={visible && !hideToggle ? 'text' : 'password'}
           id={id}
           className={cn(
             'border border-input-border rounded-[8px] px-[28px] py-[14px] h-[48px] placeholder:text-input-border',

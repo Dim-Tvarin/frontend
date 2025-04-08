@@ -2,7 +2,11 @@ import type { FC } from 'react';
 import { cn } from './lib/utils';
 import { CustomLabel } from './CustomLabel';
 import FormError from './FormError';
-import { InputOTP, InputOTPGroup, InputOTPSlot } from './components/ui/input-otp';
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSlot,
+} from './components/ui/input-otp';
 
 interface CodeInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -20,7 +24,7 @@ export const CodeInput: FC<CodeInputProps> = ({
   labelClass,
   labelSize = 'xs',
   error,
-  length = 6
+  length = 6,
 }) => {
   return (
     <div className="w-full">
@@ -29,26 +33,24 @@ export const CodeInput: FC<CodeInputProps> = ({
           {label}
         </CustomLabel>
       )}
-     
-        <InputOTP maxLength={length}>
-          <InputOTPGroup className='flex gap-10'>
-            {[...Array(length)].map((_, i) => (
-              <InputOTPSlot
-                key={i}
-                index={i}
-                className={cn(
-                  'border border-input-border rounded-[8px] w-50 h-50 placeholder:text-input-border',
-                  { 'border-error-input': error },
-                  className
-                )}
-              />
-            ))}
-          </InputOTPGroup>
-        </InputOTP>
- 
+
+      <InputOTP maxLength={length} type="password">
+        <InputOTPGroup className="flex gap-10">
+          {[...Array(length)].map((_, i) => (
+            <InputOTPSlot
+              key={i}
+              index={i}
+              className={cn(
+                'border border-input-border rounded-[8px] w-50 h-50 placeholder:text-input-border',
+                { 'border-error-input': error },
+                className
+              )}
+            />
+          ))}
+        </InputOTPGroup>
+      </InputOTP>
+
       {error && <FormError error={error} />}
     </div>
   );
 };
-
-
