@@ -41,11 +41,11 @@ export const CodeInput: FC<CodeInputProps> = ({
               key={i}
               index={i}
               className={cn(
-                'border border-input-border rounded-[8px] w-50 h-50 placeholder:text-input-border',
+                'border border-input-border rounded-[8px] w-50 h-50 placeholder:text-input-border otp-hidden',
                 { 'border-error-input': error },
                 className
               )}
-            />
+            ></InputOTPSlot>
           ))}
         </InputOTPGroup>
       </InputOTP>

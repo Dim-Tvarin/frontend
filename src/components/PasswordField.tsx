@@ -40,7 +40,7 @@ export const PasswordField: FC<PasswordFieldProps> = ({
           type={visible && !hideToggle ? 'text' : 'password'}
           id={id}
           className={cn(
-            'border border-input-border rounded-[8px] px-[28px] py-[14px] h-[48px] placeholder:text-input-border',
+            'border border-input-border rounded-[8px] px-[20px] py-[14px] h-[48px] placeholder:text-input-border',
             { 'border-error-input': error },
             className
           )}
@@ -68,7 +68,7 @@ export const PasswordField: FC<PasswordFieldProps> = ({
       </div>
       {error && <FormError error={error} />}
       {children && (
-        <p className="flex mt-[10px] text-xs text-input-border text-start font-normal leading-[150%]">
+        <p className="flex mt-[10px] text-sm text-input-border text-start font-normal leading-[150%]">
           {children}
         </p>
       )}
