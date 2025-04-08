@@ -8,6 +8,7 @@ import { getYearDeclension } from "src/helpers/getYearDeclension";
 import { useGetAnimalByIdQuery } from "src/redux/animals/animalsApi";
 import { selectUserName } from "src/redux/users/usersSlice";
 import tracks4 from '../assets/tracks4.png'
+import ImageCarousel from "components/ImageCarousel";
 
 const PetPage = () => {
  const navigate = useNavigate();
@@ -35,9 +36,11 @@ const PetPage = () => {
   return (
     <div className="relative flex gap-20 text-default-btn mt-100">
       <div className="absolute z-1 -top-[85px] right-[8px]">
-          <img src={tracks4} className="w-[270px] h-[515px]" alt="track" />
-        </div>
-      <div className="w-1/2">Pic</div>
+        <img src={tracks4} className="w-[270px] h-[515px]" alt="track" />
+      </div>
+      <div className="w-1/2">
+        {animal && <ImageCarousel images={animal?.animalImages} />}
+      </div>
 
       <div className="w-1/2 flex flex-col text-left z-10">
         <h2 className="text-medium text-5xl mb-16">{animal?.animalName}</h2>
@@ -74,7 +77,7 @@ const PetPage = () => {
           <p className="font-bold">Контакта особа:</p>
           <p className="text-medium">{username}</p>
           <p className="font-bold">Тел:</p>
-          <PhoneReveal phone="+380987654321" className="-ml-[10px]"/>
+          <PhoneReveal phone="+380987654321" className="-ml-[10px]" />
         </div>
         <CustomButton
           className="w-[236px] h-[44px] bg-default-btn rounded-[20px] self-center"
