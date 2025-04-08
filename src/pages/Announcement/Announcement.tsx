@@ -218,7 +218,7 @@ const Announcement = () => {
             type="submit"
             styleType="defaultButton"
             disabled={isLoading}
-            className="flex gap-10"
+            className="flex gap-10 z-10"
           >
             {isLoading ? <Spinner /> : <LuCirclePlus size={20} />}
             Створити оголошення
