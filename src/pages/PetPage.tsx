@@ -66,7 +66,7 @@ const PetPage = () => {
           </div>
           <p className="font-bold">Порода:</p>
           <p className="text-xl text-base">{animal?.breed}</p>
-          <p className="font-bold">Де:</p>
+          <p className="font-bold">Де знаходиться:</p>
           <p className="text-xl text-base">{animal?.animalLocation}</p>
           <p className="font-bold">Розмір:</p>
           <p className="text-xl text-base text-error">добавить в базу данные</p>
