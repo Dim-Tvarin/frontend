@@ -11,8 +11,8 @@ type Item = {
 };
 
 interface RadioProps {
-  ref: React.Ref<HTMLDivElement>;
-  name: string;
+  ref?: React.Ref<HTMLDivElement>;
+  name?: string;
   value?: string;
   defaultValue?: string;
   className?: string;
@@ -22,7 +22,7 @@ interface RadioProps {
   labelSize?: string;
   labelClass?: string;
   onChange: (value: string) => void;
-  onBlur: () => void;
+  onBlur?: () => void;
   error?: string;
 }
 
