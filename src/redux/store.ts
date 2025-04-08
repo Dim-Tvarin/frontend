@@ -15,14 +15,16 @@ import type { Persistor } from 'redux-persist';
 import { dialogReducer } from './dialogs/dialogSlice';
 import { type UserState } from './users/usersSlice';
 import { animalsApi } from './animals/animalsApi.ts';
-import { favoriteAnimalsReducer, type FavoriteAnimalsState } from './animals/favoriteAnimalsSlice.ts';
-
+import {
+  favoriteAnimalsReducer,
+  type FavoriteAnimalsState,
+} from './animals/favoriteAnimalsSlice.ts';
 
 const persistConfig = {
   key: 'users',
   version: 1,
   storage,
-  whitelist: ['token', 'user', 'isLoggedIn',],
+  // whitelist: ['token', 'user', 'isLoggedIn',],
 };
 
 const persistConfigFavoriteAnimals = {
@@ -36,7 +38,10 @@ export const store = configureStore({
     users: persistReducer<UserState>(persistConfig, usersReducer),
     dialog: dialogReducer,
     [animalsApi.reducerPath]: animalsApi.reducer,
-    favoriteAnimals: persistReducer<FavoriteAnimalsState>(persistConfigFavoriteAnimals, favoriteAnimalsReducer),
+    favoriteAnimals: persistReducer<FavoriteAnimalsState>(
+      persistConfigFavoriteAnimals,
+      favoriteAnimalsReducer
+    ),
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
