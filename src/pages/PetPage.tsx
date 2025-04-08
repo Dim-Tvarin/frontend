@@ -1,6 +1,7 @@
 import { genderMapping } from "components/AnimalCard";
 import { CustomButton } from "components/CustomButton";
 import { PhoneReveal } from "components/PhoneReveal";
+import PetPageSceleton from "components/sceletons/PetPageSceleton";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
 import { getYearDeclension } from "src/helpers/getYearDeclension";
@@ -21,7 +22,7 @@ const PetPage = () => {
   const { data, error, isLoading } = useGetAnimalByIdQuery(id)
 
   if (isLoading ) {
-    return null
+    return <PetPageSceleton />
   } 
   const { animal } = data || {}
 
