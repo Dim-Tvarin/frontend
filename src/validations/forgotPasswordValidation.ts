@@ -4,6 +4,7 @@ export const forgotPasswordSchema = z.object({
   forgotEmail: z
     .string()
     .email('Невірний формат email')
+    .max(50, 'Email не може перевищувати 50 символів')
     .nonempty('Email є обовʼязковим'),
 });
 
@@ -19,7 +20,7 @@ export const resetPasswordSchema = z
   .object({
     password: z
       .string()
-      .min(8, 'Пароль має бути щонайменше 8 символів')
+      .min(8, 'Пароль має бути щонайменше 8 символів латиницею')
       .max(30, 'Пароль має бути не більше 30 символів')
       .regex(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#_\\$%\\^&\\*])(?=.{8,128})/,
@@ -30,7 +31,11 @@ export const resetPasswordSchema = z
       )
       .nonempty('Пароль є обовʼязковим'),
 
-    repeat_password: z.string().nonempty('Повторення паролю є обовʼязковим'),
+    repeat_password: z
+      .string()
+      .nonempty('Повторення паролю є обовʼязковим')
+      .min(8, 'Пароль має бути щонайменше 8 символів латиницею')
+      .max(30, 'Пароль має бути не більше 30 символів'),
   })
   .refine(data => data.password === data.repeat_password, {
     message: 'Паролі не співпадають',

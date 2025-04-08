@@ -1,5 +1,4 @@
 import { CustomButton } from './CustomButton';
-import { InputField } from './InputField';
 import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch, RootState } from '../redux/store';
 import {
@@ -29,6 +28,7 @@ import {
 import { openDialog, closeDialog } from '../redux/dialogs/dialogSlice';
 import { useEffect, useState } from 'react';
 import { Spinner } from './Spinner';
+import { InputField } from './InputField';
 
 type FormData = z.infer<typeof verifyResetCodeSchema>;
 
@@ -96,43 +96,44 @@ const DialogVerifyResetCode: React.FC = () => {
     >
       <DialogOverlay className="bg-black/70" />
       <DialogContent
-        className="w-[400px] rounded-[30px] p-30 bg-dialog text-center"
+        className="w-[413px] min-h-[432px] rounded-[30px] p-32 bg-dialog text-center gap-0"
         onPointerDownOutside={e => e.preventDefault()}
         aria-describedby="Забули пароль?"
       >
-        <DialogClose className="absolute top-30 right-30 ">
-          <CloseSVG />
+        <DialogClose className="absolute top-24 right-24 ">
+          <CloseSVG size="32" />
         </DialogClose>
         <DialogHeader>
-          <DialogTitle className="text-2xl leading-[140%] text-default-btn">
+          <DialogTitle className="text-2xl leading-[140%] text-default-btn mb-30">
             Забули пароль?
           </DialogTitle>
         </DialogHeader>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col text-left gap-10 mt-10"
+          className="flex flex-col text-left"
         >
-          <p className="text-center  text-xs text-input-border leading-[125%]">
+          <p className="text-center mb-24 text-sm text-input-border leading-[125%]">
             Ми відправили код на вашу електронну пошту. Будь ласка, введіть його
             у поле для відновлення паролю, щоб продовжити
           </p>
           <InputField
             label="Введіть код"
             placeholder="Введіть перевірочний код"
-            labelClass="text-input-border"
-            className="w-[340px] mt-10"
+            labelSize="xl"
+            labelClass="text-input-border mb-16"
+            className="text-[18px] mt-10"
             id="code"
             {...register('code')}
             error={verifyResetCodeError || errors.code?.message}
           />
-          <p className="mt-[-5px] text-xs text-center text-input-border">
+          <p className="mt-20 text-sm text-center text-input-border">
             {!canResend && timer !== 0 ? (
               `Не отримали код? Надіслати повторно через 0:${timer < 10 ? '0' + timer : timer}`
             ) : (
               <CustomButton
                 type="button"
                 styleType="linkButton"
-                className="mt-[-5px]"
+                className="text-sm "
                 onClick={handleResendCode}
                 disabled={isLoading}
               >
@@ -143,8 +144,8 @@ const DialogVerifyResetCode: React.FC = () => {
           <DialogFooter>
             <CustomButton
               type="submit"
-              styleType="orangeButton"
-              className="mt-20"
+              styleType="defaultButton"
+              className="mt-32 w-[196px] h-[44px] text-base"
               disabled={isLoading}
             >
               Підтвердити
@@ -156,13 +157,14 @@ const DialogVerifyResetCode: React.FC = () => {
           onClick={() => dispatch(closeDialog())}
           to="/register"
           end
-          className="mt-20 mb-10px text-xs text-link"
+          className="mt-16 text-link"
         >
           Зареєструватись
         </NavLink>
 
         <CustomButton
           styleType="linkButton"
+          className="mt-10 text-base"
           onClick={() => dispatch(openDialog('login'))}
         >
           Увійти
@@ -171,4 +173,5 @@ const DialogVerifyResetCode: React.FC = () => {
     </Dialog>
   );
 };
+
 export default DialogVerifyResetCode;
