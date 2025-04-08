@@ -6,7 +6,7 @@ export const PhoneReveal = ({ phone, className }: { phone: string; className?: s
   const maskedPhone = phone.replace(/(\+380)(\d{2})\d{5}\d{2}/, '$1ХХХХХХХ')
 
   return (
-    <div className={`${className} flex items-center gap-60`}>
+    <div className={`${className} flex items-center gap-50`}>
       <span className="text-xl font-medium">
         {isRevealed ? phone : maskedPhone}
       </span>

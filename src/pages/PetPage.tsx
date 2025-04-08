@@ -7,6 +7,7 @@ import { useNavigate, useParams } from "react-router";
 import { getYearDeclension } from "src/helpers/getYearDeclension";
 import { useGetAnimalByIdQuery } from "src/redux/animals/animalsApi";
 import { selectUserName } from "src/redux/users/usersSlice";
+import tracks4 from '../assets/tracks4.png'
 
 const PetPage = () => {
  const navigate = useNavigate();
@@ -14,7 +15,7 @@ const PetPage = () => {
  const username = useSelector(selectUserName);
 
 
-  if (!id) {
+  if (!id ) {
     alert("Щось пішло не так")
     navigate('/allpets')
     return
@@ -24,13 +25,21 @@ const PetPage = () => {
   if (isLoading ) {
     return <PetPageSceleton />
   } 
+ if (error) {
+    alert('Щось пішло не так');
+    navigate('/allpets')
+    return
+  } 
   const { animal } = data || {}
 
-  console.log('', id, data, error);
   return (
-    <div className="flex gap-20 text-default-btn mt-100">
+    <div className="relative flex gap-20 text-default-btn mt-100">
+      <div className="absolute z-1 -top-[85px] right-[8px]">
+          <img src={tracks4} className="w-[270px] h-[515px]" alt="track" />
+        </div>
       <div className="w-1/2">Pic</div>
-      <div className="w-1/2 flex flex-col  text-left">
+
+      <div className="w-1/2 flex flex-col text-left z-10">
         <h2 className="text-medium text-5xl mb-16">{animal?.animalName}</h2>
         <div className="grid grid-cols-2 gap-x-auto gap-y-16 text-xl mb-32">
           <p className="font-bold">Статус:</p>
