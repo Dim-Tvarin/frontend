@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleId } from "src/redux/animals/favoriteAnimalsSlice";
 import type { AppDispatch, RootState } from "src/redux/store";
 
-const genderMapping: Record<string, string> = {
+export const genderMapping: Record<string, string> = {
   'male': "Хлопчик",
   'female': 'Дівчинка',
   'unknown': "Невідомо"

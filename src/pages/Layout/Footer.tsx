@@ -11,7 +11,7 @@ const Footer = () => {
         <img src={logo} alt="logo" className="w-46 h-46" />
         <span className="text-xxs">Dim Tvaryn</span>
       </NavLink>
-      <div className="flex gap-[20px] absolute right-200">
+      <div className="flex gap-[20px] absolute right-1/8">
         <Link to="/">
           <LiaFacebook size={24} />
         </Link>

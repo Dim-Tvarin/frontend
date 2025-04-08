@@ -54,7 +54,7 @@ export const Home = () => {
             />
           </div>
         </div>
-        <div className="absolute z-1  rotate-[167deg] right-[10px] top-[480px]">
+        <div className="absolute z-1  rotate-[67deg] right-[10px] top-[480px]">
           <img src={track} alt="track" />
         </div>
       </section>
@@ -85,7 +85,7 @@ export const Home = () => {
         </div>
       </section>
       <section className='mb-100 flex flex-col justify-center items-center'>
-        <div className="absolute z-1 top-[120px] right-[108px] rotate-[57deg]">
+        <div className="absolute z-1 top-[1020px] right-[108px] rotate-[57deg]">
           <img src={track} className="w-[300px] h-[320px]" alt="track" />
         </div>
         <h3 className="relative mb-[50px] text-5xl font-semibold z-10">

@@ -26,6 +26,10 @@ interface AnimalsResponse {
   animals: AnimalType[];
 }
 
+interface AnimalById {
+  animal: AnimalType;
+}
+
 export const animalsApi = createApi({
   reducerPath: 'animalsApi',
   baseQuery: fetchBaseQuery({ baseUrl: 'https://marketplace-backend-wrk2.onrender.com/',
@@ -49,8 +53,12 @@ export const animalsApi = createApi({
         body: formData,
       }),
     }),
+    getAnimalById: build.query<AnimalById, string>({
+      query: (id) => `animals/${id}`,
+    }),
+
   }),
 })
 
 
-export const { useGetAnimalsQuery, useCreateAnimalMutation  } = animalsApi
+export const { useGetAnimalsQuery, useCreateAnimalMutation, useGetAnimalByIdQuery  } = animalsApi
