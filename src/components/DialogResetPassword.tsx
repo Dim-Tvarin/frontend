@@ -96,10 +96,8 @@ const DialogResetPassword: React.FC = () => {
             hideToggle
             autoComplete="new-password"
           >
-            <p className="text-sm">
-              Пароль повинен містити не менше 8 символів. Для кращого пароля
-              використайте маленькі та великі букви, а також цифри.
-            </p>
+            Пароль повинен містити не менше 8 символів. Для кращого пароля
+            використайте маленькі та великі букви, а також цифри.
           </PasswordField>
           <DialogFooter>
             <CustomButton

@@ -28,7 +28,7 @@ import {
 import { openDialog, closeDialog } from '../redux/dialogs/dialogSlice';
 import { useEffect, useState } from 'react';
 import { Spinner } from './Spinner';
-import { CodeInput } from './CodeInput';
+import { InputField } from './InputField';
 
 type FormData = z.infer<typeof verifyResetCodeSchema>;
 
@@ -116,10 +116,12 @@ const DialogVerifyResetCode: React.FC = () => {
             Ми відправили код на вашу електронну пошту. Будь ласка, введіть його
             у поле для відновлення паролю, щоб продовжити
           </p>
-          <CodeInput
-            labelClass="text-input-border"
-            className="text-xl"
-            length={6}
+          <InputField
+            label="Введіть код"
+            placeholder="Введіть перевірочний код"
+            labelSize="xl"
+            labelClass="text-input-border mb-16"
+            className="text-[18px] mt-10"
             id="code"
             {...register('code')}
             error={verifyResetCodeError || errors.code?.message}
