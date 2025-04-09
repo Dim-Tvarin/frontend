@@ -58,27 +58,28 @@ const DialogLogin: React.FC = () => {
     >
       <DialogOverlay className="bg-black/70" />
       <DialogContent
-        className="w-[400px] rounded-[30px] p-30 bg-dialog text-center"
+        className="w-[413px] h-[463px] rounded-[30px] p-32 bg-dialog text-center gap-0"
         onPointerDownOutside={e => e.preventDefault()}
         aria-labelledby="dialog-content"
       >
-        <DialogClose className="absolute top-30 right-30 ">
-          <CloseSVG />
+        <DialogClose className="absolute top-24 right-24 ">
+          <CloseSVG size="32" />
         </DialogClose>
         <DialogHeader>
-          <DialogTitle className="text-2xl leading-[140%] text-default-btn">
+          <DialogTitle className="text-2xl leading-[140%] text-default-btn mb-30">
             Авторизація
           </DialogTitle>
         </DialogHeader>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col text-left gap-10 mt-30"
+          className="flex flex-col text-left m-0"
         >
           <InputField
             label="Електронна пошта"
             placeholder="user@gmail.com"
-            className="w-[340px] mt-10"
-            labelClass="text-input-border"
+            className="text-[18px] mb-16"
+            labelSize="xl"
+            labelClass="text-input-border mb-16"
             id="email"
             {...register('email')}
             error={errors.email?.message}
@@ -86,8 +87,9 @@ const DialogLogin: React.FC = () => {
           <PasswordField
             label="Пароль"
             placeholder="********"
-            className="w-[340px] mt-10"
-            labelClass="text-xs text-input-border"
+            className="text-[18px]"
+            labelSize="xl"
+            labelClass="text-input-border mb-16"
             id="password"
             {...register('password')}
             error={authError || errors.password?.message}
@@ -96,8 +98,8 @@ const DialogLogin: React.FC = () => {
           <DialogFooter>
             <CustomButton
               type="submit"
-              styleType="orangeButton"
-              className="mt-20"
+              styleType="defaultButton"
+              className="mt-32 w-[196px] h-[44px] text-base"
             >
               Увійти
             </CustomButton>
@@ -107,13 +109,14 @@ const DialogLogin: React.FC = () => {
           onClick={() => dispatch(closeDialog())}
           to="/register"
           end
-          className="mt-20 mb-10px text-xs text-link"
+          className="mt-16 text-base text-link hover:text-orange"
         >
           Зареєструватися
         </NavLink>
 
         <CustomButton
           styleType="linkButton"
+          className="mt-10 text-base"
           onClick={() => dispatch(openDialog('forgotPassword'))}
         >
           Забули пароль?

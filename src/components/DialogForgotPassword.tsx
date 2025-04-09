@@ -58,27 +58,28 @@ const DialogForgotPassword: React.FC = () => {
     >
       <DialogOverlay className="bg-black/70" />
       <DialogContent
-        className="w-[400px] rounded-[30px] p-30 bg-dialog text-center"
+        className="w-[413px] h-[363px] rounded-[30px] p-32 bg-dialog text-center gap-0"
         onPointerDownOutside={e => e.preventDefault()}
         aria-describedby="Забули пароль?"
       >
-        <DialogClose className="absolute top-30 right-30 ">
-          <CloseSVG />
+        <DialogClose className="absolute top-24 right-24 ">
+          <CloseSVG size="32" />
         </DialogClose>
         <DialogHeader>
-          <DialogTitle className="text-2xl leading-[140%] text-default-btn">
+          <DialogTitle className="text-2xl leading-[140%] text-default-btn mb-30">
             Забули пароль?
           </DialogTitle>
         </DialogHeader>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col text-left gap-10 mt-30"
+          className="flex flex-col text-left"
         >
           <InputField
             label="Електронна пошта"
             placeholder="user@gmail.com"
-            className="w-[340px] mt-10"
-            labelClass="text-input-border"
+            className="text-[18px]"
+            labelSize="xl"
+            labelClass="text-input-border mb-16"
             id="forgotEmail"
             {...register('forgotEmail')}
             error={emailError || errors.forgotEmail?.message}
@@ -87,8 +88,8 @@ const DialogForgotPassword: React.FC = () => {
           <DialogFooter>
             <CustomButton
               type="submit"
-              styleType="orangeButton"
-              className="mt-20"
+              styleType="defaultButton"
+              className="mt-32 w-[196px] h-[44px] text-base"
             >
               Підтвердити
             </CustomButton>
@@ -99,13 +100,14 @@ const DialogForgotPassword: React.FC = () => {
           onClick={() => dispatch(closeDialog())}
           to="/register"
           end
-          className="mt-20 mb-10px text-xs text-link"
+          className="mt-16 text-link"
         >
           Зареєструватись
         </NavLink>
 
         <CustomButton
           styleType="linkButton"
+          className="mt-10 text-base"
           onClick={() => dispatch(openDialog('login'))}
         >
           Увійти

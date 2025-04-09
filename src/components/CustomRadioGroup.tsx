@@ -11,6 +11,9 @@ type Item = {
 };
 
 interface RadioProps {
+  ref?: React.Ref<HTMLDivElement>;
+  name?: string;
+  value?: string;
   defaultValue?: string;
   className?: string;
   itemWidth?: string;
@@ -19,10 +22,14 @@ interface RadioProps {
   labelSize?: string;
   labelClass?: string;
   onChange: (value: string) => void;
+  onBlur?: () => void;
   error?: string;
 }
 
 const CustomRadioGroup: FC<RadioProps> = ({
+  ref,
+  name,
+  value,
   defaultValue,
   items,
   itemWidth,
@@ -31,6 +38,7 @@ const CustomRadioGroup: FC<RadioProps> = ({
   labelClass,
   labelSize = '[16px]',
   onChange,
+  onBlur,
   error,
 }) => {
   return (
@@ -41,8 +49,12 @@ const CustomRadioGroup: FC<RadioProps> = ({
         </CustomLabel>
       )}
       <RadioGroup
+        ref={ref}
+        name={name}
+        value={value}
         defaultValue={defaultValue}
         className={cn('flex gap-20', className)}
+        onBlur={onBlur}
         onValueChange={onChange}
       >
         {items.map(item => (
@@ -55,6 +67,7 @@ const CustomRadioGroup: FC<RadioProps> = ({
             key={item.value}
           >
             <RadioGroupItem
+              checked={item.value === value}
               value={item.value}
               id={item.value}
               className="ring-[1px] w-20 h-20 data-[state=checked]:ring-2 focus:outline-none"

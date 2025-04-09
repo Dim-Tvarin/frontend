@@ -26,6 +26,9 @@ export const announceSchema = z.object({
     .string()
     .min(50, 'Текст оголошення повинен мати мінімум 50 символів')
     .max(500, 'Текст оголошення повинен мати максимум 500 символів')
+    .regex(
+    /^(?!.* {2,})[a-zA-Zа-яА-ЯёЁіІїЇєЄ0-9.,!?()\-:;'"]+(\s[a-zA-Zа-яА-ЯёЁіІїЇєЄ0-9.,!?()\-:;'"]+)*$/,
+    'Невалідний текст. Допустимі букви, цифри, пробіли, апострофи та розділові знаки.')
     .nonempty("Поле обов'язкове")
     .trim(),
   images: z
@@ -35,7 +38,7 @@ export const announceSchema = z.object({
       },
       { message: 'Додайте фото' }
     )
-    .refine(files => files[0]?.size <= 2 * 1024 * 1024, {
+    .refine(files => files[0]?.size <= 5 * 1024 * 1024, {
       message: 'Файл повинен бути менше 5MB',
     })
     .refine(files => ['image/png', 'image/jpeg'].includes(files[0]?.type), {

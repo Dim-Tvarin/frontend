@@ -45,7 +45,7 @@ const RegistrationForm: React.FC = () => {
   const userTypeValue = watch('userType');
   const userTypeOptions = [
     { value: 'guardian', label: 'Опікун' },
-    { value: 'adopter', label: 'Усиновлювач' },
+    { value: 'adopter', label: 'Майбутній господар' },
   ];
 
   return (
@@ -58,8 +58,8 @@ const RegistrationForm: React.FC = () => {
         <InputField
           label="Ім’я або назва організації"
           placeholder="Введіть ваше імʼя"
-          className="w-[630px] placeholder:text-[16px]"
-          labelClass=" mb-16"
+          className="w-[630px] text-[18px]"
+          labelClass="mb-16"
           labelSize="xl"
           id="name"
           {...register('name')}
@@ -68,7 +68,7 @@ const RegistrationForm: React.FC = () => {
         <InputField
           label="Адреса електронної пошти"
           placeholder="Введіть адресу електронної пошти"
-          className="w-[630px] placeholder:text-[16px]"
+          className="w-[630px] text-[18px]"
           labelClass=" mb-16"
           labelSize="xl"
           id="email"
@@ -79,7 +79,7 @@ const RegistrationForm: React.FC = () => {
           <InputField
             label="Місто"
             placeholder="Введіть ваше місто"
-            className="w-[305px] placeholder:text-[16px]"
+            className="w-[305px] text-[18px]"
             labelClass=" mb-16"
             labelSize="xl"
             id="location"
@@ -89,7 +89,7 @@ const RegistrationForm: React.FC = () => {
           <PhoneInput
             label="Номер телефону"
             placeholder="+380"
-            className="placeholder:text-[16px]"
+            className="text-[18px]"
             labelClass=" mb-16"
             labelSize="xl"
             id="phone"
@@ -98,12 +98,12 @@ const RegistrationForm: React.FC = () => {
           />
         </div>
         <CustomRadioGroup
-          groupLabel="Оберіть тип"
+          groupLabel="Оберіть хто Ви"
           labelSize="xl"
-          labelClass=" mb-16"
+          labelClass="mb-16"
           className="text-lg"
           items={userTypeOptions}
-          defaultValue={userTypeValue}
+          value={userTypeValue}
           onChange={value =>
             setValue('userType', value as 'guardian' | 'adopter')
           }
@@ -113,7 +113,7 @@ const RegistrationForm: React.FC = () => {
         <PasswordField
           label="Пароль"
           placeholder="Введіть надійний пароль"
-          className="w-[630px] placeholder:text-[16px]"
+          className="w-[630px] text-[18px]"
           labelClass="leading-[125%] mb-16"
           labelSize="xl"
           id="password"
@@ -126,14 +126,18 @@ const RegistrationForm: React.FC = () => {
         <PasswordField
           label="Повторіть пароль"
           placeholder="Введіть пароль повторно"
-          className="w-[630px] placeholder:text-[16px]"
+          className="w-[630px] text-[18px]"
           labelClass="leading-[125%] mb-16"
           labelSize="xl"
           id="repeat_password"
           {...register('repeat_password')}
           error={errors.repeat_password?.message}
         />
-        <CustomButton type="submit" styleType="defaultButton" className="mt-50">
+        <CustomButton
+          type="submit"
+          styleType="defaultButton"
+          className="mt-50 text-[16px]"
+        >
           Зареєструватися
         </CustomButton>
       </form>

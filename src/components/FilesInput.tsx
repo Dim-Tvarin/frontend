@@ -1,9 +1,11 @@
-import { type Ref,  useState } from 'react';
+import { type Ref,  useEffect,  useState } from 'react';
 import { Input } from './components/ui/input';
-import { LuDelete } from 'react-icons/lu';
 import { CustomLabel } from './CustomLabel';
 import FormError from './FormError';
 import { useDropzone } from 'react-dropzone';
+import { cn } from './lib/utils';
+import PhotoPrev from './PhotoPrev';
+
 export const FilesInput = ({
   ref,
   groupLabel,
@@ -12,6 +14,7 @@ export const FilesInput = ({
   name,
   error,
   onChange,
+  value,
   ...rest
 }: {
   ref?: Ref<HTMLInputElement>;
@@ -20,9 +23,17 @@ export const FilesInput = ({
   labelSize?: string;
   name: string;
   onChange: (images: File[]) => void;
+  value: File[],
   error?: string;
 }) => {
-  const [imageData, setImageData] = useState<File[]>([]);
+
+  const [imageData, setImageData] = useState<File[]>(value || []);
+
+  useEffect(()=> {
+    if (value.length !== imageData.length) {
+      setImageData(value);
+    }
+  }, [value])
 
   const onDrop = (acceptedFiles: File[]) => {
     const newFiles = [...imageData, ...acceptedFiles].slice(0, 4); 
@@ -30,6 +41,7 @@ export const FilesInput = ({
     onChange(newFiles);
   };
 
+ 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
        onDrop(Array.from(event.target.files));
@@ -82,34 +94,15 @@ export const FilesInput = ({
         </p>
         <div className='w-[382px] h-[64px] border-2 border-border-file bg-main-pink-l flex items-center gap-[19px]
           py-10 px-16 rounded-[8px]'>
-            <div className='bg-input-file/50 text-white px-24 py-10 rounded-[10px]'>Вибрати файл</div>
+            <div className={cn('bg-input-file/50 text-white px-24 py-10 rounded-[10px]', 
+              { 'bg-input-file/20 cursor-default' : imageData.length > 3})}>Вибрати файл</div>
             <p className='text-border-file'>Файл не вибрано</p>
         </div>
         </div>
-
       </div>
-    
       <div className="grid grid-cols-2 gap-16 mt-32">
         {imageData.map((img, index) => (
-          <div key={index} className="flex gap-8 w-[305px]">
-            <img
-              src={URL.createObjectURL(img)}
-              alt={`Uploaded ${index}`}
-              className="w-[54px] h-[54px] rounded-[8px]"
-            />
-            <div className="text-left text-ellipsis whitespace-nowrap overflow-hidden max-w-[200px]">
-              <p>{img.name.split('.')[0]}</p>
-              <p className="text-gray">
-                {(img.size / (1024 * 1024)).toFixed(2)} МБ
-              </p>
-            </div>
-            <button
-              onClick={() => handleDeleteImage(index)}
-              className="ml-auto"
-            >
-              <LuDelete size={24} color="#83818B" />
-            </button>
-          </div>
+          <PhotoPrev image={img} index={index} ondelete={handleDeleteImage} key={index}/>
         ))}
       </div>
       {error && <FormError error={error} />}
