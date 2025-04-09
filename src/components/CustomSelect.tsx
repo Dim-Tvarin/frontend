@@ -10,7 +10,7 @@ import { CustomLabel } from './CustomLabel';
 import FormError from './FormError';
 
 interface CustomSelectProps {
-  label: string;
+  label?: string;
   labelSize?: string;
   labelClass?: string;
   value: string;

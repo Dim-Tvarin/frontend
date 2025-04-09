@@ -10,7 +10,8 @@ import { useNavigate } from "react-router";
 const limit = 8
 
 const PetsList = () => {
-  const [page, setPage] = useState(1)
+  const [page, setPage] = useState(1);
+  const [openFilters, setOpenFilters] = useState(false)
   const navigate = useNavigate();
   const { data, error, isLoading } = useGetAnimalsQuery({page, limit})
 
@@ -23,21 +24,34 @@ const PetsList = () => {
 
   return (
     <div className="container">
-      <div className="flex justify-between mt-100 mb-50">
-        <h1 className="text-[32px]">Всі тварини</h1>
+      <div className=" relative flex justify-center mt-100 mb-50">
         <CustomButton
           type="button"
           styleType="defaultButton"
-          className="w-[129px] m-0"
+          className="w-[129px] m-0 absolute top-0 left-0"
+          onClick={() => setOpenFilters((prev) => !prev)}
         >
           <FiFilter size={18} />
           <span className="text-lg">Фільтр</span>
         </CustomButton>
+        <h1 className="text-[32px]">Всі тварини</h1>
       </div>
       {isLoading ? (
         <PetsListSkeleton />
       ) : (
-        <div className="grid grid-cols-4 gap-20 mb-50 wrap">
+        <div className="flex gap-20">
+        {openFilters && (<div className="w-1/4">
+          
+
+        <CustomButton
+          type="button"
+          styleType="defaultButton"
+          className="m-0"
+        >
+          Застосувати фільтр
+        </CustomButton>
+        </div>)}
+        <div className={`grid gap-20 mb-50 wrap ${openFilters ? 'grid-cols-3 w-3/4' : 'grid-cols-4'}`}>
           {data?.animals.map(item => (
             <AnimalCard
               key={item.id}
@@ -50,6 +64,8 @@ const PetsList = () => {
             />
           ))}
         </div>
+        </div>
+        
       )}
       {!isLoading && data && totalPages && totalPages > 1 &&
       <Pagination onPageChange={setPage} currentPage={page} totalPages={totalPages} className="mb-100"/>}
