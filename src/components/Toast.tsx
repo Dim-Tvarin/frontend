@@ -9,7 +9,7 @@ type StatusType = 'success' | 'error' | 'info'
 
 interface CustomToastOptions {
   title: string
-  description: string
+  description?: string
   status?: StatusType
 }
 
@@ -41,7 +41,7 @@ export function showToast({ title, description, status = 'info' }: CustomToastOp
       </div>
       <div className="flex-1 text-left">
         <p className="text-xs font-medium text-default-btn">{title}</p>
-        <p className="text-default-btn text-xs font-normal">{description}</p>
+        {description && <p className="text-default-btn text-xs font-normal">{description}</p>}
       </div>
       <button
         onClick={() => toast.dismiss(t)}
