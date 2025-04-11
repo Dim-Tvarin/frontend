@@ -18,6 +18,7 @@ import { Spinner } from 'components/Spinner';
 import { useCreateAnimalMutation } from 'src/redux/animals/animalsApi';
 
 import FormError from 'components/FormError';
+import { showToast } from 'components/Toast';
 
 type AnnouncementForm = z.infer<typeof announceSchema>;
 
@@ -62,16 +63,38 @@ const Announcement = () => {
 
      try {
       await createAnimal(bodyFormData).unwrap();
-      alert('Оголошення успішно створене');
+      showToast({
+        title: 'Оголошення успішно створене',
+        status: 'success',
+      })
+
       reset();
     } catch (error: any) {
+       if (error?.status === 400) {
+         showToast({
+           title: 'Невірний формат даних',
+           description: `Виправте помилку ${error.message}`,
+           status: 'error',
+         });
+       }
       if (error?.status === 401) {
-        alert('Щоб залишити оголошення, увійдіть у свій аккаунт');
+        showToast({
+          title: 'Щоб залишити оголошення, увійдіть у свій аккаунт',
+          status: 'error',
+        })
       } if (error?.status === 500) {
-        alert('Ой, щось сервер притомився, спробуйте пізніше');
+        showToast({
+          title: 'Виникла помилка сервера',
+          description: 'Спробуйте ще раз пізніше',
+          status: 'error',
+        })
       }else {
         console.error('error', error);
-        alert('Щось пішло не по плану');
+        showToast({
+          title: 'Щось пішло не по плану',
+          status: 'error',
+        });
+
       }
     }
   };

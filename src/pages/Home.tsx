@@ -11,13 +11,16 @@ import AnimalsCarousel from 'components/AnimalsCarousel';
 import { useSelector } from 'react-redux';
 import { selectIsLoggedIn } from 'src/redux/users/usersSlice';
 
+
+
 export const Home = () => {
   const navigate = useNavigate();
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
   const handleNavigateAnnouncement = () => {
     if (isLoggedIn) {
-      navigate('/announcement')
+     // navigate('/announcement')
+
     } else {
       navigate('/register')
     }
