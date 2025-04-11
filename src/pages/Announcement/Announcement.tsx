@@ -19,6 +19,10 @@ import { Spinner } from 'components/Spinner';
 import { useCreateAnimalMutation } from 'src/redux/animals/animalsApi';
 
 import FormError from 'components/FormError';
+import { useSelector } from 'react-redux';
+import { selectIsLoggedIn } from 'src/redux/users/usersSlice';
+import { useNavigate } from 'react-router';
+// import { showToast } from 'components/Toast';
 
 type AnnouncementForm = z.infer<typeof announceSchema>;
 
@@ -39,7 +43,17 @@ const Announcement = () => {
   watch('images');
   const animalTypeValue = watch('animalType');
   const genderValue = watch('gender');
+  const navigate = useNavigate();
 
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+  if (!isLoggedIn) {
+    // showToast({
+    //   title: 'Звурніть увагу!',
+    //   description: 'Щоб додати оголошення ви повинні бути залогіненими',
+    //   status: 'info',
+    // })
+    setTimeout(() => navigate('/register') , 2000)
+  }
 
   const onSubmit = async (data: AnnouncementForm) => {
     const result = announceSchema.safeParse(data);

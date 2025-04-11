@@ -112,6 +112,7 @@ export const FilesInput = ({
               { 'bg-input-file/50 cursor-default' : imageData.length > 3})}>Вибрати файл</div>
             <p className='text-border-file'>Файл не вибрано</p>
         </div>
+        <p className='text-input-border text-sm mt-8'>Загрузити можна максимум 4 фото</p>
         </div>
       </div>
       <div className="grid grid-cols-2 gap-16 mt-32">
