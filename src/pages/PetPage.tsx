@@ -46,7 +46,7 @@ const PetPage = () => {
         <h2 className="text-medium text-5xl mb-16">{animal?.animalName}</h2>
         <div className="grid grid-cols-2 gap-x-auto gap-y-16 text-xl mb-32">
           <p className="font-bold">Статус:</p>
-          <p className="text-xl text-base text-error">{animal?.status}</p>
+          <p className="text-xl text-base">{animal?.status === "active" ? 'шукає господаря' : 'в надійних руках'}</p>
           <p className="font-bold">Вид:</p>
           <p className="text-xl text-base">{animal?.animalType}</p>
           <p className="font-bold">Стать:</p>
