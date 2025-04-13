@@ -5,6 +5,7 @@ import FormError from './FormError';
 import { useDropzone } from 'react-dropzone';
 import { cn } from './lib/utils';
 import PhotoPrev from './PhotoPrev';
+import { showToast } from './Toast';
 //import { showToast } from 'components/Toast';
 
 export const FilesInput = ({
@@ -67,11 +68,11 @@ export const FilesInput = ({
     onDropRejected: (fileRejections) => {
       fileRejections.forEach(({ file, errors }) => {
         errors.forEach((e) => {
-          // showToast({
-          //   title: 'Помилка завантаження файлу',
-          //   description: 'Недопустимий формат або розмір файлу',
-          //   status: 'error',
-          // });
+          showToast({
+            title: 'Помилка завантаження файлу',
+            description: 'Недопустимий формат або розмір файлу',
+            status: 'error',
+          });
         })
       })
     },

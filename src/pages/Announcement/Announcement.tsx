@@ -22,7 +22,7 @@ import FormError from 'components/FormError';
 import { useSelector } from 'react-redux';
 import { selectIsLoggedIn } from 'src/redux/users/usersSlice';
 import { useNavigate } from 'react-router';
-// import { showToast } from 'components/Toast';
+import { showToast } from 'components/Toast';
 
 type AnnouncementForm = z.infer<typeof announceSchema>;
 
@@ -47,11 +47,11 @@ const Announcement = () => {
 
   const isLoggedIn = useSelector(selectIsLoggedIn);
   if (!isLoggedIn) {
-    // showToast({
-    //   title: 'Звурніть увагу!',
-    //   description: 'Щоб додати оголошення ви повинні бути залогіненими',
-    //   status: 'info',
-    // })
+    showToast({
+      title: 'Звурніть увагу!',
+      description: 'Щоб додати оголошення ви повинні бути залогіненими',
+      status: 'info',
+    })
     setTimeout(() => navigate('/register') , 2000)
   }
 
@@ -77,16 +77,38 @@ const Announcement = () => {
 
      try {
       await createAnimal(bodyFormData).unwrap();
-      alert('Оголошення успішно створене');
+      showToast({
+        title: 'Оголошення успішно створене',
+        status: 'success',
+      })
+
       reset();
     } catch (error: any) {
+       if (error?.status === 400) {
+         showToast({
+           title: 'Невірний формат даних',
+           description: `Виправте помилку ${error.message}`,
+           status: 'error',
+         });
+       }
       if (error?.status === 401) {
-        alert('Щоб залишити оголошення, увійдіть у свій аккаунт');
+        showToast({
+          title: 'Щоб залишити оголошення, увійдіть у свій аккаунт',
+          status: 'error',
+        })
       } if (error?.status === 500) {
-        alert('Ой, щось сервер притомився, спробуйте пізніше');
+        showToast({
+          title: 'Виникла помилка сервера',
+          description: 'Спробуйте ще раз пізніше',
+          status: 'error',
+        })
       }else {
         console.error('error', error);
-        alert('Щось пішло не по плану');
+        showToast({
+          title: 'Щось пішло не по плану',
+          status: 'error',
+        });
+
       }
     }
   };
