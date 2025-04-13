@@ -289,7 +289,7 @@ const Announcement = () => {
         </div>
       </div>
 
-      <div className="absolute z-1  left-[39%] bottom-[85px] rotate-[57deg]">
+      <div className="absolute z-1  left-[43%] -bottom-[16px] rotate-[57deg]">
         <img src={track} alt="track" className="w-[180px]" />
       </div>
     </div>
