@@ -6,6 +6,7 @@ import { PetsListSkeleton } from "components/sceletons/PetsListSkeleton";
 import Pagination from "components/Pagination";
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import { showToast } from "components/Toast";
 
 const limit = 8
 
@@ -18,7 +19,11 @@ const PetsList = () => {
   const totalPages = data &&  Math.ceil(data?.total / limit)
 
   if (error) {
-    alert('Щось пішло не по плану')
+    showToast({
+      title: 'Щось пішло не по плану',
+      description: 'Спробуйте ще раз пізніше',
+      status: 'error',
+    })
     navigate('/')
   }
 
