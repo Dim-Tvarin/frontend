@@ -64,7 +64,7 @@ const Announcement = () => {
       await createAnimal(bodyFormData).unwrap();
       alert('Оголошення успішно створене');
       reset();
-    } catch (error) {
+    } catch (error: any) {
       if (error?.status === 401) {
         alert('Щоб залишити оголошення, увійдіть у свій аккаунт');
       } if (error?.status === 500) {

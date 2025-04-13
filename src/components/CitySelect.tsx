@@ -25,7 +25,7 @@ export function CitySelect({ onChange, className, error }: { onChange: (city: st
       </PopoverTrigger>
       <PopoverContent className="w-[305px] p-0 border-1 border-input-border">
         <Command>
-          <CommandInput placeholder="Поиск города..." className="rounded-[8px]"/>
+          <CommandInput placeholder="Пошук міста..." className="rounded-[8px]"/>
           <CommandList className="bg-white border-1 border-input-border">
             {cities.map((city) => (
               <CommandItem

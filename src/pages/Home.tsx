@@ -22,7 +22,7 @@ export const Home = () => {
       navigate('/register')
     }
   }
-  console.log('week-10');
+  
   return (
     <div className="container text-default-btn relative">
       <section className="flex flex-row gap-[20px] mt-[100px]">

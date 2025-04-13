@@ -21,7 +21,7 @@ export const Header = () => {
   return (
     <header className="h-100 bg-header flex items-center">
       <nav className="container">
-        <ul className="flex flex-row items-center text-s">
+        <ul className="flex flex-row items-center text-lg">
           <li className="mr-auto">
             <NavLink className="flex flex-col items-center" to="/" end>
               <img src={logo} alt="logo" className="w-46 h-46" />
