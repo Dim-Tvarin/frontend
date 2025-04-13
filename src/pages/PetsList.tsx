@@ -7,12 +7,18 @@ import Pagination from "components/Pagination";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { showToast } from "components/Toast";
+import FilterItem from "components/FilterItem";
+import { age, animalType, gender, size } from "./Announcement/types";
 
-const limit = 8
+const limit = 12
 
 const PetsList = () => {
   const [page, setPage] = useState(1);
   const [openFilters, setOpenFilters] = useState(false)
+  const [animType, setAnimalType] = useState('')
+  const [animGender, setGender] = useState('')
+  const [animAge, setAge] = useState('')
+  const [animSize, setSize] = useState('')
   const navigate = useNavigate();
   const { data, error, isLoading } = useGetAnimalsQuery({page, limit})
 
@@ -45,8 +51,31 @@ const PetsList = () => {
         <PetsListSkeleton />
       ) : (
         <div className="flex gap-20">
-        {openFilters && (<div className="w-1/4">
-          
+        {openFilters && (<div className="w-1/4 flex flex-col gap-32">
+          <FilterItem 
+            value={animType}
+            label="Вид тварини"
+            items={animalType}
+            onChange={setAnimalType}
+          />
+          <FilterItem 
+            value={animGender}
+            label="Стать"
+            items={gender}
+            onChange={setGender}
+          />
+          <FilterItem 
+            value={animAge}
+            label="Вік"
+            items={age}
+            onChange={setAge}
+          />
+          <FilterItem 
+            value={animSize}
+            label="Розмір"
+            items={size}
+            onChange={setSize}
+          />
 
         <CustomButton
           type="button"

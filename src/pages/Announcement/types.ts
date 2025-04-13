@@ -27,3 +27,37 @@ export const gender = [
     label: 'Дівчинка',
   }
 ];
+
+export const age = [
+  {
+    value: '<1',
+    label: 'до 1 року',
+  },
+  {
+    value: '1-3',
+    label: '1-3 роки',
+  },
+   {
+    value: '3-5',
+    label: '3-5 років',
+  },
+   {
+    value: '>5',
+    label: 'Старше 5 років',
+  },
+];
+
+export const size = [
+  {
+    value: 'small',
+    label: 'маленький',
+  },
+  {
+    value: 'medium',
+    label: 'середній',
+  },
+    {
+    value: 'big',
+    label: 'великий',
+  }
+];
