@@ -5,15 +5,21 @@ import { Popover, PopoverContent, PopoverTrigger } from "@radix-ui/react-popover
 import { Button } from "./components/ui/button";
 import { Command, CommandInput, CommandItem, CommandList } from "./components/ui/command";
 import FormError from "./FormError";
+import { useGetCitiesQuery } from "src/redux/animals/addInfoApi";
+
 
 const cities = [
   "Київ", "Харків", "Одеса", "Дніпро", "Львів", "Запоріжжя", "Вінниця", "Миколаїв", "Полтава", "Черкаси",
   "Чернівці", "Тернопіль", "Івано-Франківськ", "Суми", "Рівне", "Луцьк", "Ужгород", "Хмельницький", "Житомир", "Чернігів"
 ];
 
-export function CitySelect({ onChange, className, error }: { onChange: (city: string) => void; className?: string; error?: string;}) {
+export function CitySelect({ onChange, className, errorMess }: { onChange: (city: string) => void; className?: string; errorMess?: string;}) {
   const [open, setOpen] = useState(false);
   const [selectedCity, setSelectedCity] = useState("");
+
+  const {data, isLoading, error} = useGetCitiesQuery()
+
+  console.log('data', data, isLoading, error);
 
   return (
     <>
@@ -45,7 +51,7 @@ export function CitySelect({ onChange, className, error }: { onChange: (city: st
         </Command>
       </PopoverContent>
     </Popover>
-     {error && <FormError error={error} />}
+     {errorMess && <FormError error={errorMess} />}
     </>
   );
 }
