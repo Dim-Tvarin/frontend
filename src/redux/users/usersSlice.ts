@@ -62,6 +62,9 @@ const slice = createSlice({
     setUserEmail: (state, action: PayloadAction<string>) => {
       state.user.email = action.payload;
     },
+    clearError: state => {
+      state.error = null;
+    },
   },
   extraReducers: builder => {
     builder
@@ -144,7 +147,7 @@ const slice = createSlice({
 });
 
 export const usersReducer = slice.reducer;
-export const { setUserEmail } = slice.actions;
+export const { setUserEmail, clearError } = slice.actions;
 export const {
   selectUserName,
   selectUserEmail,
