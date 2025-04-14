@@ -9,6 +9,7 @@ import { useGetAnimalByIdQuery } from "src/redux/animals/animalsApi";
 import { selectUserName } from "src/redux/users/usersSlice";
 import tracks4 from '../assets/tracks4.png'
 import ImageCarousel from "components/ImageCarousel";
+import { showToast } from "components/Toast";
 
 const PetPage = () => {
  const navigate = useNavigate();
@@ -17,8 +18,13 @@ const PetPage = () => {
 
 
   if (!id ) {
-    alert("Щось пішло не так")
-    navigate('/allpets')
+    showToast({
+      title: 'Щось пішло не по плану',
+      description: 'Ця тварина не буда знайдена',
+      status: 'error',
+    })
+    setTimeout(() => navigate('/allpets'), 1000)
+    
     return
   } 
   const { data, error, isLoading } = useGetAnimalByIdQuery(id)
@@ -27,8 +33,12 @@ const PetPage = () => {
     return <PetPageSceleton />
   } 
  if (error) {
-    alert('Щось пішло не так');
-    navigate('/allpets')
+    showToast({
+      title: 'Щось пішло не по плану',
+      description: 'Виникла помілка при завантаженні даних',
+      status: 'error',
+    })
+    setTimeout(() => navigate('/allpets'), 1000)
     return
   } 
   const { animal } = data || {}
@@ -46,7 +56,7 @@ const PetPage = () => {
         <h2 className="text-medium text-5xl mb-16">{animal?.animalName}</h2>
         <div className="grid grid-cols-2 gap-x-auto gap-y-16 text-xl mb-32">
           <p className="font-bold">Статус:</p>
-          <p className="text-xl text-base text-error">{animal?.status}</p>
+          <p className="text-xl text-base">{animal?.status === "active" ? 'шукає господаря' : 'в надійних руках'}</p>
           <p className="font-bold">Вид:</p>
           <p className="text-xl text-base">{animal?.animalType}</p>
           <p className="font-bold">Стать:</p>
