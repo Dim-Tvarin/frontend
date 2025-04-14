@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-export interface CityType {
+interface CityType {
   _id: string;
   name: string;
 }
@@ -10,10 +10,13 @@ export const addInfoApi = createApi({
     reducerPath: 'addInfoApi',
     endpoints: (build) => ({
       getCities: build.query<CityType[], void>({
-      query: () => `references/cities`,
-    }),
+        query: () => `references/cities`,
+      }),
+      getAnimaltraits: build.query({
+        query: () => '/references/animal-traits'
+      })
   })
 
 })
 
-export const { useGetCitiesQuery } = addInfoApi
+export const { useGetCitiesQuery, useGetAnimaltraitsQuery } = addInfoApi

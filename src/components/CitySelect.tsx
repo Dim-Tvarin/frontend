@@ -4,10 +4,13 @@ import { Popover, PopoverContent, PopoverTrigger } from "@radix-ui/react-popover
 import { Button } from "./components/ui/button";
 import { Command, CommandInput, CommandItem, CommandList } from "./components/ui/command";
 import FormError from "./FormError";
-import { useGetCitiesQuery, type CityType } from "src/redux/animals/addInfoApi";
+import { useGetCitiesQuery } from "src/redux/animals/addInfoApi";
 import { useDebounce } from "@uidotdev/usehooks";
 
-
+interface CityType {
+  _id: string;
+  name: string;
+}
 
 const getFilteredCities = (data: CityType[], searchVal: string): CityType[] => {
   const search = searchVal.toLocaleLowerCase()
@@ -15,7 +18,8 @@ const getFilteredCities = (data: CityType[], searchVal: string): CityType[] => {
 }
 
 
-const defaultCities: CityType[] =[{_id: "67f7daf6405f8609b0a0eb1f", name: "Київ"}, {_id:"67f7daf6405f8609b0a12d2a",  name: "Харків"},
+const defaultCities: CityType[] = [
+ {_id: "67f7daf6405f8609b0a0eb1f", name: "Київ"}, {_id:"67f7daf6405f8609b0a12d2a",  name: "Харків"},
  {_id:"67f7daf6405f8609b0a10b3a",  name: "Одеса"},{_id:"67f7daf6405f8609b0a0c8c1",  name: "Дніпро"},
  {_id:"67f7daf6405f8609b0a0fc90",  name: "Львів"},{_id:"67f7daf6405f8609b0a0e1b9",  name: "Запоріжжя"},
  {_id:"67f7daf6405f8609b0a0baeb",  name: "Вінниця"},{_id:"67f7daf6405f8609b0a106b2",  name: "Миколаїв"},
@@ -58,10 +62,10 @@ export function CitySelect({ onChange, className, errorMess }: { onChange: (city
       <PopoverContent className="w-[305px] p-0  border-1 border-input-border rounded-t-lg ">
         <Command>
           <CommandInput placeholder="Пошук міста..." onValueChange={(val)=> setSearchValue(val)} />
-          <CommandList className="bg-white border-1 border-input-border rounded-b-lg">
+          <CommandList className="border-1 border-input-border bg-white rounded-b-lg ">
             { filteredData.map((city) => (
               <CommandItem
-                className="text-lg text-default-btn px-16 text-left"
+                className="text-lg text-default-btn px-16 text-left "
                 key={city._id}
                 value={city.name}
                 onSelect={() => {
