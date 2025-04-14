@@ -1,25 +1,44 @@
 import { useState } from "react";
-
 import { Check } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@radix-ui/react-popover";
 import { Button } from "./components/ui/button";
 import { Command, CommandInput, CommandItem, CommandList } from "./components/ui/command";
 import FormError from "./FormError";
-import { useGetCitiesQuery } from "src/redux/animals/addInfoApi";
+import { useGetCitiesQuery, type CityType } from "src/redux/animals/addInfoApi";
 
 
-const cities = [
-  "Київ", "Харків", "Одеса", "Дніпро", "Львів", "Запоріжжя", "Вінниця", "Миколаїв", "Полтава", "Черкаси",
-  "Чернівці", "Тернопіль", "Івано-Франківськ", "Суми", "Рівне", "Луцьк", "Ужгород", "Хмельницький", "Житомир", "Чернігів"
-];
 
-export function CitySelect({ onChange, className, errorMess }: { onChange: (city: string) => void; className?: string; errorMess?: string;}) {
+const getFilteredCities = (data: CityType[], searchVal: string): CityType[] => {
+  const search = searchVal.toLocaleLowerCase()
+  return  data.filter(i => i.name.toLowerCase().startsWith(search))
+}
+
+
+const defaultCities: CityType[] =[{_id: "67f7daf6405f8609b0a0eb1f", name: "Київ"}, {_id:"67f7daf6405f8609b0a12d2a",  name: "Харків"},
+ {_id:"67f7daf6405f8609b0a10b3a",  name: "Одеса"},{_id:"67f7daf6405f8609b0a0c8c1",  name: "Дніпро"},
+ {_id:"67f7daf6405f8609b0a0fc90",  name: "Львів"},{_id:"67f7daf6405f8609b0a0e1b9",  name: "Запоріжжя"},
+ {_id:"67f7daf6405f8609b0a0baeb",  name: "Вінниця"},{_id:"67f7daf6405f8609b0a106b2",  name: "Миколаїв"},
+ {_id:"67f7daf6405f8609b0a1119b",  name: "Полтава"},{_id:"67f7daf7405f8609b0a1408b",  name: "Черкаси"},
+ {_id:"67f7daf7405f8609b0a145ba",  name: "Чернівці"},{_id:"67f7daf6405f8609b0a1272a",  name: "Тернопіль"},
+ {_id:"67f7daf6405f8609b0a0e64e",  name: "Івано-Франківськ"},{_id:"67f7daf6405f8609b0a11ffb",  name: "Суми"},
+ {_id:"67f7daf6405f8609b0a11abc",  name: "Рівне"},{_id:"67f7daf6405f8609b0a0c36f",  name: "Луцьк"},
+ {_id:"67f7daf6405f8609b0a0de11",  name: "Ужгород"},{_id:"67f7daf7405f8609b0a1396a",  name: "Хмельницький"},
+ {_id:"67f7daf6405f8609b0a0d5e4",  name: "Житомир"},{_id:"67f7daf7405f8609b0a14823",  name: "Чернігів"},
+]
+
+export function CitySelect({ onChange, className, errorMess }: { onChange: (city: CityType) => void; className?: string; errorMess?: string;}) {
   const [open, setOpen] = useState(false);
   const [selectedCity, setSelectedCity] = useState("");
+  const [searchValue, setSearchValue] = useState("");
 
-  const {data, isLoading, error} = useGetCitiesQuery()
+  const {data, isLoading} = useGetCitiesQuery()
 
-  console.log('data', data, isLoading, error);
+  let cities = []
+  if(!isLoading && data && data?.length > 0 && searchValue.length>2) {
+    cities = getFilteredCities(data, searchValue)
+  } else {
+    cities = defaultCities
+  }
 
   return (
     <>
@@ -31,22 +50,22 @@ export function CitySelect({ onChange, className, errorMess }: { onChange: (city
       </PopoverTrigger>
       <PopoverContent className="w-[305px] p-0  border-1 border-input-border rounded-t-lg ">
         <Command>
-          <CommandInput placeholder="Пошук міста..." />
+          <CommandInput placeholder="Пошук міста..." onValueChange={(val)=> setSearchValue(val)} />
           <CommandList className="bg-white border-1 border-input-border rounded-b-lg">
-            {cities.map((city) => (
+            { cities.map((city) => (
               <CommandItem
                 className="text-lg text-default-btn px-16"
-                key={city}
-                value={city}
+                key={city._id}
+                value={city.name}
                 onSelect={() => {
-                  setSelectedCity(city);
+                  setSelectedCity(city.name);
                   onChange?.(city);
                   setOpen(false);
                 }}
               >
-                {city} {selectedCity === city && <Check className="ml-auto w-10 h-4" />}
+                {city.name} {selectedCity === city.name && <Check className="ml-auto w-10 h-4" />}
               </CommandItem>
-            ))}
+            )) }
           </CommandList>
         </Command>
       </PopoverContent>

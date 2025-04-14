@@ -196,7 +196,7 @@ const Announcement = () => {
               error={errors.animalName?.message}
             />
             <div>
-              <p className="text-xl mb-[13px] text-left">Місто * </p>
+              <p className="text-xl mb-8 text-left">Місто * </p>
               <Controller
                 name="animalLocation"
                 control={control}

@@ -1,9 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-interface CityType {
+export interface CityType {
   _id: string;
-  idArea: string;
-  idCity: string;
   name: string;
 }
 
