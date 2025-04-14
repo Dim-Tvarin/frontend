@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Check } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@radix-ui/react-popover";
 import { Button } from "./components/ui/button";
 import { Command, CommandInput, CommandItem, CommandList } from "./components/ui/command";
 import FormError from "./FormError";
 import { useGetCitiesQuery, type CityType } from "src/redux/animals/addInfoApi";
+import { useDebounce } from "@uidotdev/usehooks";
 
 
 
@@ -30,15 +31,21 @@ export function CitySelect({ onChange, className, errorMess }: { onChange: (city
   const [open, setOpen] = useState(false);
   const [selectedCity, setSelectedCity] = useState("");
   const [searchValue, setSearchValue] = useState("");
+  const [filteredData, setFilteredData] = useState<CityType[]>([]);
+  const debouncedSearch = useDebounce(searchValue, 300);
 
   const {data, isLoading} = useGetCitiesQuery()
 
-  let cities = []
-  if(!isLoading && data && data?.length > 0 && searchValue.length>2) {
-    cities = getFilteredCities(data, searchValue)
-  } else {
-    cities = defaultCities
-  }
+  useEffect(()=> {
+      let cities: CityType[] = []
+      if (!isLoading && data && data?.length > 0 && searchValue.length > 2) {
+        cities = getFilteredCities(data, searchValue)
+      } else {
+        cities = defaultCities
+      }
+      setFilteredData(cities)
+  }, [debouncedSearch, data, isLoading])
+ 
 
   return (
     <>
@@ -52,9 +59,9 @@ export function CitySelect({ onChange, className, errorMess }: { onChange: (city
         <Command>
           <CommandInput placeholder="Пошук міста..." onValueChange={(val)=> setSearchValue(val)} />
           <CommandList className="bg-white border-1 border-input-border rounded-b-lg">
-            { cities.map((city) => (
+            { filteredData.map((city) => (
               <CommandItem
-                className="text-lg text-default-btn px-16"
+                className="text-lg text-default-btn px-16 text-left"
                 key={city._id}
                 value={city.name}
                 onSelect={() => {
