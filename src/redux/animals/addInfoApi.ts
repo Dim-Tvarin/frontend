@@ -5,6 +5,22 @@ interface CityType {
   name: string;
 }
 
+export interface AnimalTrait {
+  breed: string;
+  size: string;
+  weight: string;
+  coat: string;
+  _id: string;
+}
+
+export interface TraitsRequest {
+  cats: AnimalTrait[];
+  dogs: AnimalTrait[];
+  birds: AnimalTrait[];
+  other: string;
+}
+
+
 export const addInfoApi = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: 'https://marketplace-backend-wrk2.onrender.com/'}),
     reducerPath: 'addInfoApi',
@@ -12,7 +28,7 @@ export const addInfoApi = createApi({
       getCities: build.query<CityType[], void>({
         query: () => `references/cities`,
       }),
-      getAnimaltraits: build.query({
+      getAnimaltraits: build.query<TraitsRequest, void>({
         query: () => '/references/animal-traits'
       })
   })

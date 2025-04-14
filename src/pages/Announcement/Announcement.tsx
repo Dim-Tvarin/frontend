@@ -23,6 +23,7 @@ import { useSelector } from 'react-redux';
 import { selectIsLoggedIn } from 'src/redux/users/usersSlice';
 import { useNavigate } from 'react-router';
 import { showToast } from 'components/Toast';
+import BreedSelect from 'components/BreedSelect';
 
 type AnnouncementForm = z.infer<typeof announceSchema>;
 
@@ -190,14 +191,21 @@ const Announcement = () => {
                 <FormError error={errors.age?.years?.message} />
               )}
             </div>
-            <InputField
-              label="Порода *"
-              id="breed"
-              className="w-[305px] h-[40px] mt-16"
-              labelSize="lg"
-              {...register('breed')}
-              error={errors.breed?.message}
-            />
+            <div>
+              <p className="text-xl mb-8 text-left">Порода * </p>
+              <Controller
+                name="breed"
+                control={control}
+                render={({ field }) => (
+                  <BreedSelect
+                    onChange={field.onChange}
+                    className="w-[305px] h-[40px]"
+                    type={animalTypeValue}
+                    errorMess={errors?.breed?.message}
+                  />
+                )}
+              />
+            </div>
           </div>
 
           <div className="grid grid-cols-[305px_305px] mt-32 gap-16">
@@ -218,7 +226,7 @@ const Announcement = () => {
                   <CitySelect
                     onChange={field.onChange}
                     className="w-[305px] h-[40px]"
-                    error={errors?.animalLocation?.message}
+                    errorMess={errors?.animalLocation?.message}
                   />
                 )}
               />

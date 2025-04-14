@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Check } from "lucide-react";
+import { BsCheckLg } from "react-icons/bs";
 import { Popover, PopoverContent, PopoverTrigger } from "@radix-ui/react-popover";
 import { Button } from "./components/ui/button";
 import { Command, CommandInput, CommandItem, CommandList } from "./components/ui/command";
@@ -74,7 +74,7 @@ export function CitySelect({ onChange, className, errorMess }: { onChange: (city
                   setOpen(false);
                 }}
               >
-                {city.name} {selectedCity === city.name && <Check className="ml-auto w-10 h-4" />}
+                {city.name} {selectedCity === city.name && <BsCheckLg />}
               </CommandItem>
             )) }
           </CommandList>

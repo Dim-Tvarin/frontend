@@ -1,18 +1,18 @@
 export const animalType = [
   {
-    value: 'cat',
+    value: 'cats',
     label: 'Кіт',
   },
   {
-    value: 'dog',
+    value: 'dogs',
     label: 'Собака',
   },
   {
-    value: 'bird',
+    value: 'birds',
     label: 'Птах',
   },
   {
-    value: 'another',
+    value: 'other',
     label: 'Інша тварина',
   },
 ];
@@ -61,3 +61,11 @@ export const size = [
     label: 'великий',
   }
 ];
+
+
+export enum AnimalTypeEnum {
+  cats = "cats",
+  dogs = "dogs",
+  birds = "birds",
+  other = "other",
+}
