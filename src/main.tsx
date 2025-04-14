@@ -17,7 +17,7 @@ createRoot(document.getElementById('root')!).render(
           <Toaster
             richColors
             position="top-right"
-            duration={1000}
+            duration={5000}
             offset={{
               top: 110,
               right: 10,
