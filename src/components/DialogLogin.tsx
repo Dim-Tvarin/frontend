@@ -23,6 +23,7 @@ import {
 } from './components/ui/dialog';
 import { openDialog, closeDialog } from '../redux/dialogs/dialogSlice';
 import { useEffect } from 'react';
+import { showToast } from './Toast';
 type FormData = z.infer<typeof loginSchema>;
 
 const DialogLogin: React.FC = () => {
@@ -49,7 +50,11 @@ const DialogLogin: React.FC = () => {
   const onSubmit = async (data: FormData) => {
     const result = await dispatch(loginThunk(data));
     if (loginThunk.fulfilled.match(result)) {
-      alert('Ви успішно авторизувались');
+      showToast({
+        title: 'Успіх',
+        description: 'Ви успішно авторизувались',
+        status: 'success',
+      });
       reset();
       navigate('/');
       dispatch(closeDialog());

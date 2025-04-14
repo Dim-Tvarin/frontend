@@ -20,6 +20,7 @@ import {
 } from './components/ui/dialog';
 import { openDialog, closeDialog } from '../redux/dialogs/dialogSlice';
 import { PasswordField } from './PasswordField';
+import { showToast } from './Toast';
 
 type FormData = z.infer<typeof resetPasswordSchema>;
 
@@ -43,7 +44,11 @@ const DialogResetPassword: React.FC = () => {
   const onSubmit = async (data: FormData) => {
     const result = await dispatch(resetPasswordThunk(data));
     if (resetPasswordThunk.fulfilled.match(result)) {
-      alert('Пароль успішно змінено! Увійдіть з новим паролем');
+      showToast({
+        title: 'Успіх',
+        description: 'Пароль успішно змінено! Увійдіть з новим паролем',
+        status: 'success',
+      });
       reset();
       dispatch(openDialog('login'));
     }

@@ -12,6 +12,7 @@ import { z } from 'zod';
 import { clearError, selectError } from '../redux/users/usersSlice';
 import CustomRadioGroup from './CustomRadioGroup';
 import { useEffect } from 'react';
+import { showToast } from './Toast';
 
 type FormData = z.infer<typeof registrationSchema>;
 
@@ -37,9 +38,12 @@ const RegistrationForm: React.FC = () => {
     try {
       const result = await dispatch(registerThunk(data));
       if (registerThunk.fulfilled.match(result)) {
-        alert(
-          'Акаунт успішно створено! Підтвердіть свій email, ми відправили лист вам на пошту'
-        );
+        showToast({
+          title: 'Успіх',
+          description:
+            'Акаунт успішно створено! Підтвердіть свій email, ми відправили лист вам на пошту',
+          status: 'success',
+        });
         reset();
       }
     } catch (error) {

@@ -20,6 +20,7 @@ import {
   DialogTitle,
 } from './components/ui/dialog';
 import { openDialog, closeDialog } from '../redux/dialogs/dialogSlice';
+import { showToast } from './Toast';
 
 type FormData = z.infer<typeof forgotPasswordSchema>;
 
@@ -45,7 +46,11 @@ const DialogForgotPassword: React.FC = () => {
     const result = await dispatch(forgotPasswordThunk(data.forgotEmail));
 
     if (forgotPasswordThunk.fulfilled.match(result)) {
-      alert('Код підтвердження успішно надіслано, будь ласка перевірте пошту');
+      showToast({
+        title: 'Успіх',
+        description: 'Код підтвердження надіслано, будь ласка перевірте пошту',
+        status: 'success',
+      });
       dispatch(openDialog('verifyResetCode'));
       reset();
     }

@@ -29,6 +29,7 @@ import { openDialog, closeDialog } from '../redux/dialogs/dialogSlice';
 import { useEffect, useState } from 'react';
 import { Spinner } from './Spinner';
 import { CodeInput } from './CodeInput';
+import { showToast } from './Toast';
 
 type FormData = z.infer<typeof verifyResetCodeSchema>;
 
@@ -64,7 +65,11 @@ const DialogVerifyResetCode: React.FC = () => {
     setCanResend(false);
     const result = await dispatch(forgotPasswordThunk(userEmail));
     if (forgotPasswordThunk.fulfilled.match(result)) {
-      alert('Код повторно надіслано на вашу пошту');
+      showToast({
+        title: 'Інформація',
+        description: 'Код повторно надіслано на вашу пошту',
+        status: 'info',
+      });
       setTimer(30);
     }
   };
