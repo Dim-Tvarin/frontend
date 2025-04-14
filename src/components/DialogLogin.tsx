@@ -97,7 +97,6 @@ const DialogLogin: React.FC = () => {
             id="password"
             {...register('password')}
             error={authError || errors.password?.message}
-            hideToggle
           />
           <DialogFooter>
             <CustomButton

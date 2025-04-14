@@ -81,7 +81,6 @@ const DialogResetPassword: React.FC = () => {
             id="password"
             {...register('password')}
             error={errors.password?.message}
-            hideToggle
             autoComplete="new-password"
           />
           <PasswordField
@@ -93,7 +92,6 @@ const DialogResetPassword: React.FC = () => {
             id="repeat_password"
             {...register('repeat_password')}
             error={resetCodeError || errors.repeat_password?.message}
-            hideToggle
             autoComplete="new-password"
           >
             Пароль повинен містити не менше 8 символів. Для кращого пароля
