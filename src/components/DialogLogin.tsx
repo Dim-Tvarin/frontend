@@ -9,7 +9,7 @@ import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from 'react-router';
-import { selectError } from '../redux/users/usersSlice';
+import { clearError, selectError } from '../redux/users/usersSlice';
 import CloseSVG from '../assets/CloseSVG';
 import { NavLink } from 'react-router-dom';
 import {
@@ -22,10 +22,14 @@ import {
   DialogTitle,
 } from './components/ui/dialog';
 import { openDialog, closeDialog } from '../redux/dialogs/dialogSlice';
+import { useEffect } from 'react';
 type FormData = z.infer<typeof loginSchema>;
 
 const DialogLogin: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
+  useEffect(() => {
+    dispatch(clearError());
+  }, [dispatch]);
   const activeDialog = useSelector(
     (state: RootState) => state.dialog.activeDialog
   );

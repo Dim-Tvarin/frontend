@@ -9,14 +9,18 @@ import { registerThunk } from '../redux/users/usersOperations';
 import { registrationSchema } from '../validations/authValidation';
 import type { AppDispatch } from '../redux/store';
 import { z } from 'zod';
-import { selectError } from '../redux/users/usersSlice';
+import { clearError, selectError } from '../redux/users/usersSlice';
 import CustomRadioGroup from './CustomRadioGroup';
+import { useEffect } from 'react';
 
 type FormData = z.infer<typeof registrationSchema>;
 
 const RegistrationForm: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const emailError = useSelector(selectError);
+  useEffect(() => {
+    dispatch(clearError());
+  }, [dispatch]);
 
   const {
     register,
