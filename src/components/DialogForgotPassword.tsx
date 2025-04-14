@@ -58,7 +58,7 @@ const DialogForgotPassword: React.FC = () => {
     >
       <DialogOverlay className="bg-black/70" />
       <DialogContent
-        className="w-[413px] h-[363px] rounded-[30px] p-32 bg-dialog text-center gap-0"
+        className="w-[413px] min-h-[363px] rounded-[30px] p-32 bg-dialog text-center gap-0"
         onPointerDownOutside={e => e.preventDefault()}
         aria-describedby="Забули пароль?"
       >
