@@ -27,7 +27,7 @@ const defaultCities: CityType[] =[{_id: "67f7daf6405f8609b0a0eb1f", name: "Ки�
  {_id:"67f7daf6405f8609b0a0d5e4",  name: "Житомир"},{_id:"67f7daf7405f8609b0a14823",  name: "Чернігів"},
 ]
 
-export function CitySelect({ onChange, className, errorMess }: { onChange: (city: CityType) => void; className?: string; errorMess?: string;}) {
+export function CitySelect({ onChange, className, errorMess }: { onChange: (city: string) => void; className?: string; errorMess?: string;}) {
   const [open, setOpen] = useState(false);
   const [selectedCity, setSelectedCity] = useState("");
   const [searchValue, setSearchValue] = useState("");
@@ -66,7 +66,7 @@ export function CitySelect({ onChange, className, errorMess }: { onChange: (city
                 value={city.name}
                 onSelect={() => {
                   setSelectedCity(city.name);
-                  onChange?.(city);
+                  onChange?.(city._id);
                   setOpen(false);
                 }}
               >
