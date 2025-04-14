@@ -1,27 +1,15 @@
-import { useEffect, useState } from "react";
-import { Progress } from "./components/ui/progress";
+import { useMemo } from "react";
 import { LuDelete } from 'react-icons/lu';
+import PhotoProgress from "./PhotoProgress";
 
 
 const PhotoPrev = ({image, index, ondelete} : {image: File; index: number; ondelete: (index: number)=> void}) => {
-   const [progress, setProgress] = useState(10);
-
-useEffect(() => {
-    const timer = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
-          return 100;
-        }
-        return prev + 10;
-      });
-    }, 100);
-    return () => clearTimeout(timer)
-  }, [])
+  const imgSrc = useMemo(() => URL.createObjectURL(image), [image])
 
   return (
     <div className="flex gap-8 w-[305px]">
           <img
-            src={URL.createObjectURL(image)}
+            src={imgSrc}
             alt={`Uploaded ${index}`}
             className="w-[54px] h-[54px] rounded-[8px]"
           />
@@ -30,9 +18,7 @@ useEffect(() => {
             <p className="text-gray">
               {(image.size / (1024 * 1024)).toFixed(2)} МБ
             </p>
-            <div className="space-y-5 transition-all duration-300">
-              <Progress value={progress} className="w-[100%]"/>
-            </div>
+            <PhotoProgress />
           </div>
           <button
             onClick={() => ondelete(index)}

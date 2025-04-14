@@ -12,12 +12,16 @@ import { announceSchema } from '../../validations/announceValidation';
 import { animalType, gender } from './types';
 import track from '../../../public/track.png';
 import { LuCirclePlus } from "react-icons/lu";
+import { LuGlobe } from "react-icons/lu";
 import { CitySelect } from 'components/CitySelect';
 import CustomRadioGroup from 'components/CustomRadioGroup';
 import { Spinner } from 'components/Spinner';
 import { useCreateAnimalMutation } from 'src/redux/animals/animalsApi';
 
 import FormError from 'components/FormError';
+import { useSelector } from 'react-redux';
+import { selectIsLoggedIn } from 'src/redux/users/usersSlice';
+import { useNavigate } from 'react-router';
 import { showToast } from 'components/Toast';
 
 type AnnouncementForm = z.infer<typeof announceSchema>;
@@ -39,7 +43,17 @@ const Announcement = () => {
   watch('images');
   const animalTypeValue = watch('animalType');
   const genderValue = watch('gender');
+  const navigate = useNavigate();
 
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+  if (!isLoggedIn) {
+    showToast({
+      title: 'Звурніть увагу!',
+      description: 'Щоб додати оголошення ви повинні бути залогіненими',
+      status: 'info',
+    })
+    setTimeout(() => navigate('/register') , 2000)
+  }
 
   const onSubmit = async (data: AnnouncementForm) => {
     const result = announceSchema.safeParse(data);
@@ -219,6 +233,20 @@ const Announcement = () => {
             {...register('adText')}
             error={errors.adText?.message}
           />
+          <div className='mt-32  relative'>
+            <LuGlobe size={24} className='absolute left-0 top-46'/>
+            <InputField
+              label="Додаткове посилання"
+              id="link"
+              placeholder='https://...'
+              className="w-[calc(100%-32px)] h-[40px] mt-16 ml-32"
+              labelSize="xl"
+             // {...register('link')}
+             // error={errors.link?.message}
+            />
+            <p className='text-input-border text-left text-xs mt-10 ml-32'> Це може бути сторінка тварини на сайті притулку, публікація у соцмережах або відео.
+            Максимальна довжина: 255 символів.</p>
+          </div>
 
           <Controller
             name="images"
@@ -241,7 +269,7 @@ const Announcement = () => {
             type="submit"
             styleType="defaultButton"
             disabled={isLoading}
-            className="flex gap-10 z-10"
+            className="flex gap-8 z-10 w-[259px]"
           >
             {isLoading ? <Spinner /> : <LuCirclePlus size={20} />}
             Створити оголошення
@@ -261,7 +289,7 @@ const Announcement = () => {
         </div>
       </div>
 
-      <div className="absolute z-1  left-[39%] bottom-[85px] rotate-[57deg]">
+      <div className="absolute z-1  left-[43%] -bottom-[16px] rotate-[57deg]">
         <img src={track} alt="track" className="w-[180px]" />
       </div>
     </div>
