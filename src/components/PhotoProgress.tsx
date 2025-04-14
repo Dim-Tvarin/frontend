@@ -12,7 +12,7 @@ const PhotoProgress = () => {
         return prev + 10;
       });
     }, 100);
-    return () => clearTimeout(timer)
+    return () => clearInterval(timer)
   }, [])
   return (
     <div className="space-y-5 transition-all duration-300">
