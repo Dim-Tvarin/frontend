@@ -7,7 +7,12 @@ interface CustomButtonProps extends React.ComponentProps<typeof Button> {
   className?: string;
   loading?: boolean;
   type?: 'button' | 'submit' | 'reset';
-  styleType?: 'defaultButton' | 'redButton' | 'orangeButton' | 'linkButton';
+  styleType?:
+    | 'defaultButton'
+    | 'redButton'
+    | 'orangeButton'
+    | 'linkButton'
+    | 'whiteButton';
 }
 export const CustomButton = ({
   children,
@@ -28,6 +33,8 @@ export const CustomButton = ({
           'rounded-[20px] px-10 py-24 w-[230px] h-[45px] mt-[54px] mx-auto bg-btn-orange hover:bg-orange disabled:bg-disabled',
         styleType === 'linkButton' &&
           'text-link hover:text-orange disabled:text-disabled bg-none p-0',
+        styleType === 'whiteButton' &&
+          'rounded-[20px] px-6 py-2.5 w-[236px] h-[44px] mx-auto border-2 text-default-btn bg-white border-default-btn hover:border-orange disabled:bg-disabled',
         className
       )}
       disabled={loading}

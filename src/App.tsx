@@ -13,6 +13,7 @@ import VerifyPage from 'pages/Auth/VerifyPage';
 import Announcement from 'pages/Announcement/Announcement';
 import PetsList from 'pages/PetsList';
 import PetPage from 'pages/PetPage';
+import ProfilePage from 'pages/ProfilePage';
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -29,6 +30,7 @@ function App() {
         <Route path="announcement" element={<Announcement />} />
         <Route path="allpets" element={<PetsList />} />
         <Route path="allpets/:id" element={<PetPage />} />
+        <Route path="profile" element={<ProfilePage />} />
         <Route path="register" element={<Registration />} />
         <Route path="verify/:verifyToken" element={<VerifyPage />} />
         <Route path="*" element={<Error />} />
