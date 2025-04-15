@@ -239,7 +239,7 @@ export const verifyResetPasswordThunk = createAsyncThunk(
       const error = err as AxiosError<ErrorResponse>;
 
       const errorMessages: Record<number, string> = {
-        400: 'Не вірний код підтвердження або час дії його минув',
+        400: 'Код неправильний, спробуйте ще раз',
         500: 'Помилка сервера. Спробуйте пізніше',
       };
 
