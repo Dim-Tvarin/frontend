@@ -120,7 +120,7 @@ const BreedSelect = ({type, onChange, className, errorMess}:
                       value={breed.breed}
                       onSelect={() => {
                         setSelectedBreed(breed.breed);
-                        onChange?.(breed._id);
+                        onChange?.(breed.breed);
                         setOpen(false);
                       }}
                     >

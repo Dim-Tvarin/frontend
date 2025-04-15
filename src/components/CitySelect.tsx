@@ -70,7 +70,7 @@ export function CitySelect({ onChange, className, errorMess }: { onChange: (city
                 value={city.name}
                 onSelect={() => {
                   setSelectedCity(city.name);
-                  onChange?.(city._id);
+                  onChange?.(city.name);
                   setOpen(false);
                 }}
               >

@@ -11,22 +11,37 @@ import FilterItem from "components/FilterItem";
 import { age, animalType, AnimalTypeEnum, gender, size } from "./Announcement/types";
 import BreedSelect from "components/BreedSelect";
 import { CitySelect } from "components/CitySelect";
+import { Controller, useForm } from "react-hook-form";
 
 const limit = 12
+
+interface FilterFormValues {
+  animalType: AnimalTypeEnum | undefined;
+  gender: string;
+  breed: string;
+  location: string;
+  age: string;
+  size: string;
+}
 
 const PetsList = () => {
   const [page, setPage] = useState(1);
   const [openFilters, setOpenFilters] = useState(false)
-  const [animType, setAnimalType] = useState<AnimalTypeEnum | undefined>(undefined)
-  const [animGender, setGender] = useState('')
-  const [breed, setBreed] = useState('')
-  const [city, setCity] = useState('')
-  const [animAge, setAge] = useState('')
-  const [animSize, setSize] = useState('')
   const navigate = useNavigate();
   const { data, error, isLoading } = useGetAnimalsQuery({page, limit})
+  const { control, handleSubmit, watch } = useForm<FilterFormValues>({
+    defaultValues: {
+      animalType: undefined,
+      gender: '',
+      breed: '',
+      location: '',
+      age: '',
+      size: '',
+    },
+  });
 
-  const totalPages = data &&  Math.ceil(data?.total / limit)
+  const selectedAnimalType = watch('animalType') ;
+  const totalPages = data && Math.ceil(data?.total / limit);
 
   if (error) {
     showToast({
@@ -36,7 +51,12 @@ const PetsList = () => {
     })
     navigate('/')
   }
-console.log('', animType, animGender, breed, city, animAge, animSize);
+
+  const onSubmit = (data: FilterFormValues) => {
+    console.log('Фильтр:', data);
+  };
+
+
   return (
     <div className="container">
       <div className=" relative flex justify-center mt-100 mb-50">
@@ -44,7 +64,7 @@ console.log('', animType, animGender, breed, city, animAge, animSize);
           type="button"
           styleType="defaultButton"
           className="w-[129px] m-0 absolute top-0 left-0"
-          onClick={() => setOpenFilters((prev) => !prev)}
+          onClick={() => setOpenFilters(prev => !prev)}
         >
           <FiFilter size={18} />
           <span className="text-lg">Фільтр</span>
@@ -55,68 +75,89 @@ console.log('', animType, animGender, breed, city, animAge, animSize);
         <PetsListSkeleton />
       ) : (
         <div className="flex gap-20">
-        {openFilters && (<div className="w-1/4 flex flex-col gap-32">
-          <FilterItem 
-            value={animType}
-            label="Вид тварини"
-            items={animalType}
-            onChange={setAnimalType}
-          />
-          <FilterItem 
-            value={animGender}
-            label="Стать"
-            items={gender}
-            onChange={setGender}
-          />
-          <BreedSelect
-            onChange={setBreed}
-            className="w-[305px] h-[40px]"
-            type={animType}
-          />
-          <CitySelect
-            onChange={setCity}
-            className="w-[305px] h-[40px]"
+          {openFilters && (
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="w-1/4 flex flex-col gap-32 transition-all duration-500"
+            >
+              <Controller
+                name="animalType"
+                control={control}
+                render={({ field }) => (
+                  <FilterItem {...field} label="Вид тварини" items={animalType} />
+                )}
+              />
+             <Controller
+                name="gender"
+                control={control}
+                render={({ field }) => (
+                  <FilterItem {...field} label="Стать" items={gender} />
+                )}
+              />
+             <Controller
+                name="breed"
+                control={control}
+                render={({ field }) => (
+                  <BreedSelect {...field} className="w-[305px] h-[40px]" type={selectedAnimalType} />
+                )}
+              />
+              <Controller
+                name="location"
+                control={control}
+                render={({ field }) => (
+                  <CitySelect {...field} className="w-[305px] h-[40px]" />
+                )}
+              />
+              <Controller
+                name="age"
+                control={control}
+                render={({ field }) => (
+                  <FilterItem {...field} label="Вік" items={age} />
+                )}
+              />
            
-          />
-          <FilterItem 
-            value={animAge}
-            label="Вік"
-            items={age}
-            onChange={setAge}
-          />
-          <FilterItem 
-            value={animSize}
-            label="Розмір"
-            items={size}
-            onChange={setSize}
-          />
+              <Controller
+                name="size"
+                control={control}
+                render={({ field }) => (
+                  <FilterItem {...field} label="Розмір" items={size} />
+                )}
+              />
 
-        <CustomButton
-          type="button"
-          styleType="defaultButton"
-          className="m-0"
-        >
-          Застосувати фільтр
-        </CustomButton>
-        </div>)}
-        <div className={`grid gap-20 mb-50 wrap ${openFilters ? 'grid-cols-3 w-3/4' : 'grid-cols-4'}`}>
-          {data?.animals.map(item => (
-            <AnimalCard
-              key={item.id}
-              id={item.id}
-              name={item.animalName}
-              gender={item.gender}
-              age={item.age}
-              photoSrc={item.animalImages[0]}
-              favorite={item.favorite}
-            />
-          ))}
+              <CustomButton
+                type="submit"
+                styleType="defaultButton"
+                className="m-0"
+              >
+                Застосувати фільтр
+              </CustomButton>
+            </form>
+          )}
+          <div
+            className={`grid gap-20 mb-50 wrap transition-all duration-500 ${openFilters ? 'grid-cols-3 w-3/4' : 'grid-cols-4'}`}
+          >
+            {data?.animals.map(item => (
+              <AnimalCard
+                key={item.id}
+                id={item.id}
+                name={item.animalName}
+                gender={item.gender}
+                age={item.age}
+                photoSrc={item.animalImages[0]}
+                favorite={item.favorite}
+              />
+            ))}
+          </div>
         </div>
-        </div>
-        
       )}
-      {!isLoading && data && totalPages && totalPages > 1 &&
-      <Pagination onPageChange={setPage} currentPage={page} totalPages={totalPages} className="mb-100"/>}
+      {!isLoading && data && totalPages && totalPages > 1 && (
+        <Pagination
+          onPageChange={setPage}
+          currentPage={page}
+          totalPages={totalPages}
+          className="mb-100"
+        />
+      )}
     </div>
   );
 }

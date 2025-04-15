@@ -30,42 +30,44 @@ export const gender = [
 
 export const age = [
   {
-    value: '<1',
+    value: 'до 1 року',
     label: 'до 1 року',
   },
   {
-    value: '1-3',
+    value: '1-3 роки',
     label: '1-3 роки',
   },
    {
-    value: '3-5',
+    value: '3-5 років',
     label: '3-5 років',
   },
    {
-    value: '>5',
+    value: 'Старше 5 років',
     label: 'Старше 5 років',
   },
 ];
 
 export const size = [
   {
-    value: 'small',
+    value: 'маленький',
     label: 'маленький',
   },
   {
-    value: 'medium',
+    value: 'середній',
     label: 'середній',
   },
     {
-    value: 'big',
+    value: 'великий',
     label: 'великий',
   }
 ];
 
 
-export enum AnimalTypeEnum {
-  cats = "cats",
-  dogs = "dogs",
-  birds = "birds",
-  other = "other",
-}
+export const AnimalTypeEnum = {
+  cats: "cats",
+  dogs: "dogs",
+  birds: "birds",
+  other: "other",
+} as const
+
+export type AnimalTypeEnum = (typeof AnimalTypeEnum)[keyof typeof AnimalTypeEnum]
