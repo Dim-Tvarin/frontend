@@ -241,7 +241,7 @@ const Announcement = () => {
             {...register('adText')}
             error={errors.adText?.message}
           />
-          <div className='mt-32  relative'>
+          <div className='mt-32  relative z-1'>
             <LuGlobe size={24} className='absolute left-0 top-46'/>
             <InputField
               label="Додаткове посилання"

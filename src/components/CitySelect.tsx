@@ -59,7 +59,7 @@ export function CitySelect({ onChange, className, errorMess }: { onChange: (city
           {selectedCity || "Оберіть населенний пункт"}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[305px] p-0  border-1 border-input-border rounded-t-lg ">
+      <PopoverContent className="w-[305px] p-0  border-1 border-input-border rounded-t-lg z-10">
         <Command>
           <CommandInput placeholder="Пошук міста..." onValueChange={(val)=> setSearchValue(val)} />
           <CommandList className="border-1 border-input-border bg-white rounded-b-lg ">

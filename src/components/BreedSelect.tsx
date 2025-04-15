@@ -44,17 +44,13 @@ const defaultBreeds = {
   birds: [
     { _id: '67fb8ea44b0d6673ac919d90', breed: 'Невідомо' },
     { _id: '67fb8ea44b0d6673ac919d68', breed: 'Хвилястий папуга' },
-
     { _id: '67fb8ea44b0d6673ac919d6a', breed: 'Ара' },
     { _id: '67fb8ea44b0d6673ac919d6d', breed: 'Канарейка' },
     { _id: '67fb8ea44b0d6673ac919d6e', breed: 'Нерозлучник' },
     { _id: '67fb8ea44b0d6673ac919d74', breed: 'Амазонський папуга' },
     { _id: '67fb8ea44b0d6673ac919d7d', breed: 'Какаду білоголовий' },
     { _id: '67fb8ea44b0d6673ac919d83', breed: 'Півень (декоративний)' },
-    {
-      _id: '67fb8ea44b0d6673ac919d86',
-      breed: 'Голуб звичайний (поштова порода)',
-    },
+    {_id: '67fb8ea44b0d6673ac919d86',  breed: 'Голуб звичайний (поштова порода)',},
     { _id: '67fb8ea44b0d6673ac919d8a', breed: 'Лебідь-шипун' },
   ],
 };
@@ -84,6 +80,7 @@ const BreedSelect = ({type, onChange, className, errorMess}:
           animalBreed = defaultBreeds[type] 
         }
         setFilteredBreed(animalBreed)
+        console.log('animalBreed', animalBreed);
     }, [debouncedSearch, data, isLoading, type])
 
     if(  type === 'other' ) {
@@ -92,24 +89,25 @@ const BreedSelect = ({type, onChange, className, errorMess}:
           id="animBeed"
           placeholder="Введіть породу"
           className="w-[305px] h-[40px]"
-          onChange={val => setSearchValue(val)}
+          onChange={(e) => setSelectedBreed(e.target.value)}
         />
       );
     }
 
-console.log('searchValue', searchValue);
+console.log('selectedBreed', selectedBreed);
   return (
     <>
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
             variant="outline"
+            disabled={ type === undefined}
             className={`${className} w-[305px] justify-between border-input-border px-16 text-lg text-medium`}
           >
             {selectedBreed || 'Оберіть породу'}
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-[305px] p-0  border-1 border-input-border rounded-t-lg ">
+        <PopoverContent className="w-[305px] p-0  border-1 border-input-border rounded-t-lg z-10">
           <Command>
             <CommandInput
               placeholder="Пошук ..."
