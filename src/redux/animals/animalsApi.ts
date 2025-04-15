@@ -14,6 +14,7 @@ interface AnimalType {
   animalLocation: string;
   adText: string;
   status: string;
+  size?: string;
   favorite: boolean;
   owner: string;
   createdAt: string;

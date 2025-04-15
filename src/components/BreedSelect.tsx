@@ -80,7 +80,6 @@ const BreedSelect = ({type, onChange, className, errorMess}:
           animalBreed = defaultBreeds[type] 
         }
         setFilteredBreed(animalBreed)
-        console.log('animalBreed', animalBreed);
     }, [debouncedSearch, data, isLoading, type])
 
     if(  type === 'other' ) {
@@ -94,7 +93,6 @@ const BreedSelect = ({type, onChange, className, errorMess}:
       );
     }
 
-console.log('selectedBreed', selectedBreed);
   return (
     <>
       <Popover open={open} onOpenChange={setOpen}>

@@ -67,7 +67,7 @@ const PetPage = () => {
           <div className="flex gap-5">
             {!!animal?.age.years && (
               <p className="text-xl text-base">
-                {getYearDeclension(animal?.age.years)}{' '}
+                {getYearDeclension(animal?.age.years)}
               </p>
             )}
             {!!animal?.age.months && (
@@ -79,7 +79,7 @@ const PetPage = () => {
           <p className="font-bold">Де знаходиться:</p>
           <p className="text-xl text-base">{animal?.animalLocation}</p>
           <p className="font-bold">Розмір:</p>
-          <p className="text-xl text-base text-error">добавить в базу данные</p>
+          <p className="text-xl text-base">{animal?.size ? animal?.size : '-'}</p>
         </div>
         <p className="font-bold text-xl mb-16">Опис:</p>
         <p className="text-xl text-medium mb-32">{animal?.adText}</p>
