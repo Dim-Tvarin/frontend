@@ -20,6 +20,7 @@ import {
 } from './components/ui/dialog';
 import { openDialog, closeDialog } from '../redux/dialogs/dialogSlice';
 import { PasswordField } from './PasswordField';
+import { showToast } from './Toast';
 
 type FormData = z.infer<typeof resetPasswordSchema>;
 
@@ -43,7 +44,11 @@ const DialogResetPassword: React.FC = () => {
   const onSubmit = async (data: FormData) => {
     const result = await dispatch(resetPasswordThunk(data));
     if (resetPasswordThunk.fulfilled.match(result)) {
-      alert('Пароль успішно змінено! Увійдіть з новим паролем');
+      showToast({
+        title: 'Успіх',
+        description: 'Пароль успішно змінено! Увійдіть з новим паролем',
+        status: 'success',
+      });
       reset();
       dispatch(openDialog('login'));
     }
@@ -56,7 +61,7 @@ const DialogResetPassword: React.FC = () => {
     >
       <DialogOverlay className="bg-black/70" />
       <DialogContent
-        className="w-[413px] h-[532px] rounded-[30px] p-32 bg-dialog text-center gap-0"
+        className="w-[413px] min-h-[532px] rounded-[30px] p-32 bg-dialog text-center gap-0"
         onPointerDownOutside={e => e.preventDefault()}
         aria-describedby="Забули пароль?"
       >
@@ -81,7 +86,6 @@ const DialogResetPassword: React.FC = () => {
             id="password"
             {...register('password')}
             error={errors.password?.message}
-            hideToggle
             autoComplete="new-password"
           />
           <PasswordField
@@ -93,7 +97,6 @@ const DialogResetPassword: React.FC = () => {
             id="repeat_password"
             {...register('repeat_password')}
             error={resetCodeError || errors.repeat_password?.message}
-            hideToggle
             autoComplete="new-password"
           >
             Пароль повинен містити не менше 8 символів. Для кращого пароля
