@@ -2,11 +2,9 @@ import { genderMapping } from "components/AnimalCard";
 import { CustomButton } from "components/CustomButton";
 import { PhoneReveal } from "components/PhoneReveal";
 import PetPageSceleton from "components/sceletons/PetPageSceleton";
-import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
 import { getYearDeclension } from "src/helpers/getYearDeclension";
 import { useGetAnimalByIdQuery } from "src/redux/animals/animalsApi";
-import { selectUserName } from "src/redux/users/usersSlice";
 import tracks4 from '../assets/tracks4.png'
 import ImageCarousel from "components/ImageCarousel";
 import { showToast } from "components/Toast";
@@ -14,8 +12,6 @@ import { showToast } from "components/Toast";
 const PetPage = () => {
  const navigate = useNavigate();
  const {id} = useParams<{ id: string }>()
- const username = useSelector(selectUserName);
-
 
   if (!id ) {
     showToast({
@@ -41,7 +37,7 @@ const PetPage = () => {
     setTimeout(() => navigate('/allpets'), 1000)
     return
   } 
-  const { animal } = data || {}
+  const { animal, ownerName, ownerPhone } = data || {}
 
   return (
     <div className="relative flex gap-20 text-default-btn mt-100">
@@ -73,6 +69,7 @@ const PetPage = () => {
             {!!animal?.age.months && (
               <p className="text-xl text-base">{` ${animal?.age.months} міс.`}</p>
             )}
+            {!animal?.age.months && !animal?.age.years && <p className="text-xl text-base">0</p>}
           </div>
           <p className="font-bold">Порода:</p>
           <p className="text-xl text-base">{animal?.breed}</p>
@@ -85,9 +82,9 @@ const PetPage = () => {
         <p className="text-xl text-medium mb-32">{animal?.adText}</p>
         <div className="grid grid-cols-2 gap-y-16 text-xl mb-50">
           <p className="font-bold">Контакта особа:</p>
-          <p className="text-medium">{username}</p>
+          <p className="text-medium">{ownerName}</p>
           <p className="font-bold">Тел:</p>
-          <PhoneReveal phone="+380987654321" className="-ml-[10px]" />
+          <PhoneReveal phone={ownerPhone || "+380987654321"} className="-ml-[10px]" />
         </div>
         <CustomButton
           className="w-[236px] h-[44px] bg-default-btn rounded-[20px] self-center"

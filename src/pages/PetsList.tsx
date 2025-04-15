@@ -8,15 +8,19 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 import { showToast } from "components/Toast";
 import FilterItem from "components/FilterItem";
-import { age, animalType, gender, size } from "./Announcement/types";
+import { age, animalType, AnimalTypeEnum, gender, size } from "./Announcement/types";
+import BreedSelect from "components/BreedSelect";
+import { CitySelect } from "components/CitySelect";
 
 const limit = 12
 
 const PetsList = () => {
   const [page, setPage] = useState(1);
   const [openFilters, setOpenFilters] = useState(false)
-  const [animType, setAnimalType] = useState('')
+  const [animType, setAnimalType] = useState<AnimalTypeEnum | undefined>(undefined)
   const [animGender, setGender] = useState('')
+  const [breed, setBreed] = useState('')
+  const [city, setCity] = useState('')
   const [animAge, setAge] = useState('')
   const [animSize, setSize] = useState('')
   const navigate = useNavigate();
@@ -32,7 +36,7 @@ const PetsList = () => {
     })
     navigate('/')
   }
-
+console.log('', animType, animGender, breed, city, animAge, animSize);
   return (
     <div className="container">
       <div className=" relative flex justify-center mt-100 mb-50">
@@ -63,6 +67,16 @@ const PetsList = () => {
             label="Стать"
             items={gender}
             onChange={setGender}
+          />
+          <BreedSelect
+            onChange={setBreed}
+            className="w-[305px] h-[40px]"
+            type={animType}
+          />
+          <CitySelect
+            onChange={setCity}
+            className="w-[305px] h-[40px]"
+           
           />
           <FilterItem 
             value={animAge}

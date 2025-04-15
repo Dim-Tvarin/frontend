@@ -29,6 +29,8 @@ interface AnimalsResponse {
 
 interface AnimalById {
   animal: AnimalType;
+  ownerName: string;
+  ownerPhone: string;
 }
 
 export const animalsApi = createApi({

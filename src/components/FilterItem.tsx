@@ -23,7 +23,7 @@ const FilterItem = ({ label,
         <Button
           variant="outline"
           role="combobox"
-          className="w-full justify-between border-1 border-input-border px-16 text-lg text-medium rounded-lg text-default-btn"
+          className="w-full max-w-[305px] justify-between border-1 border-input-border px-16 text-lg text-medium rounded-lg text-default-btn"
         >
           {items.find(i => i.value === value)?.label || label}
           <FaChevronDown color="#042D4A" />
