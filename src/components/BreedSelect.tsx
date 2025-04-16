@@ -99,8 +99,8 @@ const BreedSelect = ({type, onChange, className, errorMess}:
         <PopoverTrigger asChild>
           <Button
             variant="outline"
-            disabled={ type === undefined}
-            className={`${className} w-[305px] justify-between border-input-border px-16 text-lg text-medium`}
+            disabled={type === undefined}
+            className={`${className} w-[305px] justify-between border-input-border px-16 text-lg text-medium text-default-btn`}
           >
             {selectedBreed || 'Оберіть породу'}
           </Button>
@@ -111,26 +111,25 @@ const BreedSelect = ({type, onChange, className, errorMess}:
               placeholder="Пошук ..."
               onValueChange={val => setSearchValue(val)}
             />
-              <CommandList className="border-1 border-input-border bg-white rounded-b-lg ">
-                {filteredBreed.map(
-                  (breed: Pick<AnimalTrait, '_id' | 'breed'>) => (
-                    <CommandItem
-                      className="text-lg text-default-btn px-16 text-left "
-                      key={breed._id}
-                      value={breed.breed}
-                      onSelect={() => {
-                        setSelectedBreed(breed.breed);
-                        onChange?.(breed.breed);
-                        setOpen(false);
-                      }}
-                    >
-                      {breed.breed}
-                      {selectedBreed === breed.breed && <BsCheckLg />}
-                    </CommandItem>
-                  )
-                )}
-              </CommandList>
-            
+            <CommandList className="border-1 border-input-border bg-white rounded-b-lg ">
+              {filteredBreed.map(
+                (breed: Pick<AnimalTrait, '_id' | 'breed'>) => (
+                  <CommandItem
+                    className="text-lg text-default-btn px-16 text-left "
+                    key={breed._id}
+                    value={breed.breed}
+                    onSelect={() => {
+                      setSelectedBreed(breed.breed);
+                      onChange?.(breed.breed);
+                      setOpen(false);
+                    }}
+                  >
+                    {breed.breed}
+                    {selectedBreed === breed.breed && <BsCheckLg />}
+                  </CommandItem>
+                )
+              )}
+            </CommandList>
           </Command>
         </PopoverContent>
       </Popover>

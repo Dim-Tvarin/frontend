@@ -1,6 +1,6 @@
 import { FiFilter } from "react-icons/fi";
 import { CustomButton } from "components/CustomButton";
-import { useGetAnimalsQuery } from "src/redux/animals/animalsApi";
+import { useGetFilteredAnimalsQuery } from "src/redux/animals/animalsApi";
 import AnimalCard from "components/AnimalCard";
 import { PetsListSkeleton } from "components/sceletons/PetsListSkeleton";
 import Pagination from "components/Pagination";
@@ -24,11 +24,19 @@ interface FilterFormValues {
   size: string;
 }
 
+const mapAnimalType = {
+  cats: "Котики",
+  dogs: "Собаки",
+  birds: 'Пташки',
+  other: "Інші тварини"
+}
+
 const PetsList = () => {
   const [page, setPage] = useState(1);
   const [openFilters, setOpenFilters] = useState(false)
+  const [filtersParams, setFiltersParams] = useState<Partial<FilterFormValues>>({})
   const navigate = useNavigate();
-  const { data, error, isLoading } = useGetAnimalsQuery({page, limit})
+  const { data, error, isLoading } = useGetFilteredAnimalsQuery({page, limit, ...filtersParams})
   const { control, handleSubmit, watch } = useForm<FilterFormValues>({
     defaultValues: {
       animalType: undefined,
@@ -42,6 +50,7 @@ const PetsList = () => {
 
   const selectedAnimalType = watch('animalType') ;
   const totalPages = data && Math.ceil(data?.total / limit);
+  const title = filtersParams && filtersParams?.animalType ? mapAnimalType[filtersParams?.animalType] : 'Всі тварини'
 
   if (error) {
     showToast({
@@ -52,10 +61,9 @@ const PetsList = () => {
     navigate('/')
   }
 
-  const onSubmit = (data: FilterFormValues) => {
-    console.log('Фильтр:', data);
+  const onSubmit = (formData: FilterFormValues) => {
+    setFiltersParams(formData)
   };
-
 
   return (
     <div className="container">
@@ -69,7 +77,7 @@ const PetsList = () => {
           <FiFilter size={18} />
           <span className="text-lg">Фільтр</span>
         </CustomButton>
-        <h1 className="text-[32px]">Всі тварини</h1>
+        <h1 className="text-[32px]">{title}</h1>
       </div>
       {isLoading ? (
         <PetsListSkeleton />
@@ -84,21 +92,29 @@ const PetsList = () => {
                 name="animalType"
                 control={control}
                 render={({ field }) => (
-                  <FilterItem {...field} label="Вид тварини" items={animalType} />
+                  <FilterItem
+                    {...field}
+                    label="Вид тварини"
+                    items={animalType}
+                  />
                 )}
               />
-             <Controller
+              <Controller
                 name="gender"
                 control={control}
                 render={({ field }) => (
                   <FilterItem {...field} label="Стать" items={gender} />
                 )}
               />
-             <Controller
+              <Controller
                 name="breed"
                 control={control}
                 render={({ field }) => (
-                  <BreedSelect {...field} className="w-[305px] h-[40px]" type={selectedAnimalType} />
+                  <BreedSelect
+                    {...field}
+                    className="w-[305px] h-[40px]"
+                    type={selectedAnimalType}
+                  />
                 )}
               />
               <Controller
@@ -115,7 +131,7 @@ const PetsList = () => {
                   <FilterItem {...field} label="Вік" items={age} />
                 )}
               />
-           
+
               <Controller
                 name="size"
                 control={control}
@@ -133,24 +149,30 @@ const PetsList = () => {
               </CustomButton>
             </form>
           )}
-          <div
-            className={`grid gap-20 mb-50 wrap transition-all duration-500 ${openFilters ? 'grid-cols-3 w-3/4' : 'grid-cols-4'}`}
-          >
-            {data?.animals.map(item => (
-              <AnimalCard
-                key={item.id}
-                id={item.id}
-                name={item.animalName}
-                gender={item.gender}
-                age={item.age}
-                photoSrc={item.animalImages[0]}
-                favorite={item.favorite}
-              />
-            ))}
-          </div>
+          {data?.total === 0 ? (
+            <p className="text-lg text-center text-default-btn w-full">
+              По вашому запиту нічого не знайдено
+            </p>
+          ) : (
+            <div
+              className={`grid gap-20 mb-50 wrap transition-all duration-500 ${openFilters ? 'grid-cols-3 w-3/4' : 'grid-cols-4'}`}
+            >
+              {data?.animals.map(item => (
+                <AnimalCard
+                  key={item.id}
+                  id={item.id}
+                  name={item.animalName}
+                  gender={item.gender}
+                  age={item.age}
+                  photoSrc={item.animalImages[0]}
+                  favorite={item.favorite}
+                />
+              ))}
+            </div>
+          )}
         </div>
       )}
-      {!isLoading && data && totalPages && totalPages > 1 && (
+      {!isLoading && data && !!totalPages && totalPages > 1 && (
         <Pagination
           onPageChange={setPage}
           currentPage={page}

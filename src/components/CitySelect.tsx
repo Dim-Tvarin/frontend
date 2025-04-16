@@ -53,35 +53,41 @@ export function CitySelect({ onChange, className, errorMess }: { onChange: (city
 
   return (
     <>
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <Button variant="outline" className={`${className} w-[305px] justify-between border-input-border px-16 text-lg text-medium`}>
-          {selectedCity || "Оберіть населенний пункт"}
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-[305px] p-0  border-1 border-input-border rounded-t-lg z-10">
-        <Command>
-          <CommandInput placeholder="Пошук міста..." onValueChange={(val)=> setSearchValue(val)} />
-          <CommandList className="border-1 border-input-border bg-white rounded-b-lg ">
-            { filteredData.map((city) => (
-              <CommandItem
-                className="text-lg text-default-btn px-16 text-left "
-                key={city._id}
-                value={city.name}
-                onSelect={() => {
-                  setSelectedCity(city.name);
-                  onChange?.(city.name);
-                  setOpen(false);
-                }}
-              >
-                {city.name} {selectedCity === city.name && <BsCheckLg />}
-              </CommandItem>
-            )) }
-          </CommandList>
-        </Command>
-      </PopoverContent>
-    </Popover>
-     {errorMess && <FormError error={errorMess} />}
+      <Popover open={open} onOpenChange={setOpen}>
+        <PopoverTrigger asChild>
+          <Button
+            variant="outline"
+            className={`${className} w-[305px] justify-between border-input-border px-16 text-lg text-medium text-default-btn`}
+          >
+            {selectedCity || 'Оберіть населенний пункт'}
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-[305px] p-0  border-1 border-input-border rounded-t-lg z-10">
+          <Command>
+            <CommandInput
+              placeholder="Пошук міста..."
+              onValueChange={val => setSearchValue(val)}
+            />
+            <CommandList className="border-1 border-input-border bg-white rounded-b-lg ">
+              {filteredData.map(city => (
+                <CommandItem
+                  className="text-lg text-default-btn px-16 text-left "
+                  key={city._id}
+                  value={city.name}
+                  onSelect={() => {
+                    setSelectedCity(city.name);
+                    onChange?.(city.name);
+                    setOpen(false);
+                  }}
+                >
+                  {city.name} {selectedCity === city.name && <BsCheckLg />}
+                </CommandItem>
+              ))}
+            </CommandList>
+          </Command>
+        </PopoverContent>
+      </Popover>
+      {errorMess && <FormError error={errorMess} />}
     </>
   );
 }
