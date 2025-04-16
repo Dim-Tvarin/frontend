@@ -11,13 +11,16 @@ import AnimalsCarousel from 'components/AnimalsCarousel';
 import { useSelector } from 'react-redux';
 import { selectIsLoggedIn } from 'src/redux/users/usersSlice';
 
+
+
 export const Home = () => {
   const navigate = useNavigate();
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
   const handleNavigateAnnouncement = () => {
     if (isLoggedIn) {
-      navigate('/announcement')
+     // navigate('/announcement')
+
     } else {
       navigate('/register')
     }
@@ -35,7 +38,7 @@ export const Home = () => {
             безпритульним тваринам знайти свій дім
           </p>
           <CustomButton
-            className="w-[236px] h-[44px] bg-default-btn rounded-[20px] z-10"
+            className="w-[236px] h-[44px] bg-default-btn rounded-[20px] z-10 flex gap-8"
             onClick={handleNavigateAnnouncement}
           >
             <LuCirclePlus size={20} />

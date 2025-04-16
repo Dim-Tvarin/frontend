@@ -19,6 +19,7 @@ import {
   favoriteAnimalsReducer,
   type FavoriteAnimalsState,
 } from './animals/favoriteAnimalsSlice.ts';
+import { addInfoApi } from './animals/addInfoApi.ts';
 
 const persistConfig = {
   key: 'users',
@@ -42,13 +43,14 @@ export const store = configureStore({
       persistConfigFavoriteAnimals,
       favoriteAnimalsReducer
     ),
+    [addInfoApi.reducerPath]: addInfoApi.reducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat([animalsApi.middleware]),
+    }).concat([animalsApi.middleware, addInfoApi.middleware]),
 });
 
 export const persistor: Persistor = persistStore(store);

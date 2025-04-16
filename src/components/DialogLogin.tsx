@@ -9,7 +9,7 @@ import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from 'react-router';
-import { selectError } from '../redux/users/usersSlice';
+import { clearError, selectError } from '../redux/users/usersSlice';
 import CloseSVG from '../assets/CloseSVG';
 import { NavLink } from 'react-router-dom';
 import {
@@ -22,10 +22,15 @@ import {
   DialogTitle,
 } from './components/ui/dialog';
 import { openDialog, closeDialog } from '../redux/dialogs/dialogSlice';
+import { useEffect } from 'react';
+import { showToast } from './Toast';
 type FormData = z.infer<typeof loginSchema>;
 
 const DialogLogin: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
+  useEffect(() => {
+    dispatch(clearError());
+  }, [dispatch]);
   const activeDialog = useSelector(
     (state: RootState) => state.dialog.activeDialog
   );
@@ -45,7 +50,11 @@ const DialogLogin: React.FC = () => {
   const onSubmit = async (data: FormData) => {
     const result = await dispatch(loginThunk(data));
     if (loginThunk.fulfilled.match(result)) {
-      alert('Ви успішно авторизувались');
+      showToast({
+        title: 'Успіх',
+        description: 'Ви успішно авторизувались',
+        status: 'success',
+      });
       reset();
       navigate('/');
       dispatch(closeDialog());
@@ -58,7 +67,7 @@ const DialogLogin: React.FC = () => {
     >
       <DialogOverlay className="bg-black/70" />
       <DialogContent
-        className="w-[413px] h-[463px] rounded-[30px] p-32 bg-dialog text-center gap-0"
+        className="w-[413px] min-h-[463px] rounded-[30px] p-32 bg-dialog text-center gap-0"
         onPointerDownOutside={e => e.preventDefault()}
         aria-labelledby="dialog-content"
       >
@@ -93,7 +102,6 @@ const DialogLogin: React.FC = () => {
             id="password"
             {...register('password')}
             error={authError || errors.password?.message}
-            hideToggle
           />
           <DialogFooter>
             <CustomButton

@@ -28,7 +28,8 @@ import {
 import { openDialog, closeDialog } from '../redux/dialogs/dialogSlice';
 import { useEffect, useState } from 'react';
 import { Spinner } from './Spinner';
-import { InputField } from './InputField';
+import { CodeInput } from './CodeInput';
+import { showToast } from './Toast';
 
 type FormData = z.infer<typeof verifyResetCodeSchema>;
 
@@ -64,15 +65,19 @@ const DialogVerifyResetCode: React.FC = () => {
     setCanResend(false);
     const result = await dispatch(forgotPasswordThunk(userEmail));
     if (forgotPasswordThunk.fulfilled.match(result)) {
-      alert('Код повторно надіслано на вашу пошту');
+      showToast({
+        title: 'Інформація',
+        description: 'Код повторно надіслано на вашу пошту',
+        status: 'info',
+      });
       setTimer(30);
     }
   };
 
   const {
-    register,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(verifyResetCodeSchema),
@@ -116,14 +121,8 @@ const DialogVerifyResetCode: React.FC = () => {
             Ми відправили код на вашу електронну пошту. Будь ласка, введіть його
             у поле для відновлення паролю, щоб продовжити
           </p>
-          <InputField
-            label="Введіть код"
-            placeholder="Введіть перевірочний код"
-            labelSize="xl"
-            labelClass="text-input-border mb-16"
-            className="text-[18px] mt-10"
-            id="code"
-            {...register('code')}
+          <CodeInput
+            onChange={value => setValue('code', value)}
             error={verifyResetCodeError || errors.code?.message}
           />
           <p className="mt-20 text-sm text-center text-input-border">

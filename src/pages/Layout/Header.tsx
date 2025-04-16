@@ -9,11 +9,17 @@ import { logoutThunk } from '../../redux/users/usersOperations';
 import { selectIsLoggedIn, selectUserName } from '../../redux/users/usersSlice';
 import CabinetSVG from '../../assets/CabinetSVG';
 import { openDialog } from '../../redux/dialogs/dialogSlice';
+import { showToast } from 'components/Toast';
+
 export const Header = () => {
   const dispatch = useDispatch<AppDispatch>();
   const handleClick = () => {
     dispatch(logoutThunk());
-    alert('Ви успішно вийшли');
+    showToast({
+      title: 'Ви успішно вийшли',
+      status: 'success',
+    })
+
   };
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const username = useSelector(selectUserName);
