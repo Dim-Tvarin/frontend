@@ -13,6 +13,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch } from 'src/redux/store';
 import { logoutThunk } from 'src/redux/users/usersOperations';
 import { showToast } from 'components/Toast';
+import { LuCirclePlus } from 'react-icons/lu';
+import { FiFilter } from 'react-icons/fi';
+import { PetsListSkeleton } from 'components/sceletons/PetsListSkeleton';
+import AnimalCard from 'components/AnimalCard';
+import { useGetMyAnimalsQuery } from 'src/redux/animals/animalsApi';
+import { useEffect } from 'react';
 
 const ProfilePage = () => {
   const user = useSelector(selectUser);
@@ -24,6 +30,19 @@ const ProfilePage = () => {
       status: 'success',
     });
   };
+  const { data, isLoading, error } = useGetMyAnimalsQuery({
+    page: 1,
+    limit: 9,
+  });
+  useEffect(() => {
+    if (error) {
+      showToast({
+        title: 'Щось пішло не по плану',
+        description: 'Виникла помилка при завантаженні даних',
+        status: 'error',
+      });
+    }
+  }, [error]);
   return (
     <Tabs
       defaultValue="main-info"
@@ -37,6 +56,7 @@ const ProfilePage = () => {
           className="w-[285px] h-[77px] text-lg m-0 data-[state=active]:shadow-none"
         >
           <CustomButton
+            asChild
             styleType="defaultButton"
             className="w-[285px] h-[77px] text-lg m-0 border-none"
           >
@@ -50,6 +70,7 @@ const ProfilePage = () => {
           className="w-[285px] h-[77px] text-lg m-0 data-[state=active]:shadow-none"
         >
           <CustomButton
+            asChild
             styleType="whiteButton"
             className="w-[285px] h-[77px] text-lg"
           >
@@ -97,7 +118,39 @@ const ProfilePage = () => {
         </div>
       </TabsContent>
       <TabsContent value="my-adverts" data-orientation="vertical">
-        оголошення
+        <CustomButton
+          type="submit"
+          styleType="defaultButton"
+          className="flex gap-8 w-[238px] text-base m-0"
+        >
+          <LuCirclePlus size={24} />
+          Додати оголошення
+        </CustomButton>
+        <CustomButton
+          type="button"
+          styleType="defaultButton"
+          className="flex gap-[6px] w-[108px] h-[45px] m-0 text-base"
+        >
+          <FiFilter className="w-25 h-[29px]" />
+          Фільтр
+        </CustomButton>
+        {isLoading ? (
+          <PetsListSkeleton className="grid-cols-3" />
+        ) : (
+          <div className="grid grid-cols-3 gap-20 mb-50 wrap">
+            {data?.animals.map(item => (
+              <AnimalCard
+                key={item.id}
+                id={item.id}
+                name={item.animalName}
+                gender={item.gender}
+                age={item.age}
+                photoSrc={item.animalImages[0]}
+                favorite={item.favorite}
+              />
+            ))}
+          </div>
+        )}
       </TabsContent>
     </Tabs>
   );
