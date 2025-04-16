@@ -12,7 +12,6 @@ import { announceSchema } from '../../validations/announceValidation';
 import { animalType, gender } from './types';
 import track from '../../../public/track.png';
 import { LuCirclePlus } from "react-icons/lu";
-import { LuGlobe } from "react-icons/lu";
 import { CitySelect } from 'components/CitySelect';
 import CustomRadioGroup from 'components/CustomRadioGroup';
 import { Spinner } from 'components/Spinner';
@@ -241,7 +240,7 @@ const Announcement = () => {
             {...register('adText')}
             error={errors.adText?.message}
           />
-          <div className='mt-32  relative z-1'>
+          {/* <div className='mt-32  relative z-1'>
             <LuGlobe size={24} className='absolute left-0 top-46'/>
             <InputField
               label="Додаткове посилання"
@@ -249,12 +248,12 @@ const Announcement = () => {
               placeholder='https://...'
               className="w-[calc(100%-32px)] h-[40px] mt-16 ml-32"
               labelSize="xl"
-             // {...register('link')}
-             // error={errors.link?.message}
+              {...register('link')}
+              error={errors.link?.message}
             />
             <p className='text-input-border text-left text-xs mt-10 ml-32'> Це може бути сторінка тварини на сайті притулку, публікація у соцмережах або відео.
             Максимальна довжина: 255 символів.</p>
-          </div>
+          </div> */}
 
           <Controller
             name="images"
