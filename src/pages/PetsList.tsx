@@ -36,7 +36,7 @@ const PetsList = () => {
   const [openFilters, setOpenFilters] = useState(false)
   const [filtersParams, setFiltersParams] = useState<Partial<FilterFormValues>>({})
   const navigate = useNavigate();
-  const { data, isLoading, error } = useGetFilteredAnimalsQuery({page, limit, ...filtersParams})
+  const { data, isLoading, isFetching, error } = useGetFilteredAnimalsQuery({page, limit, ...filtersParams})
   const { control, handleSubmit, watch } = useForm<FilterFormValues>({
     defaultValues: {
       animalType: undefined,
@@ -151,7 +151,7 @@ const PetsList = () => {
                 type="submit"
                 styleType="defaultButton"
                 className="m-0"
-                loading={isLoading}
+                loading={isLoading || isFetching}
               >
                 Застосувати фільтр
               </CustomButton>
