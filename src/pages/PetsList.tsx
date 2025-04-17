@@ -1,6 +1,6 @@
 import { FiFilter } from "react-icons/fi";
 import { CustomButton } from "components/CustomButton";
-import { useGetFilteredAnimalsQuery } from "src/redux/animals/animalsApi";
+import { useGetFilteredAnimalsQuery, type SortOrder } from "src/redux/animals/animalsApi";
 import AnimalCard from "components/AnimalCard";
 import { PetsListSkeleton } from "components/sceletons/PetsListSkeleton";
 import Pagination from "components/Pagination";
@@ -37,6 +37,7 @@ const PetsList = () => {
   const [openSorting, setOpenSorting] = useState(false)
   const [filtersParams, setFiltersParams] = useState<Partial<FilterFormValues>>({})
   const [isFilterApplied, setIsFilterApplied] = useState(false);
+  const [sorting, setSorting] = useState<SortOrder>('newest');
   const navigate = useNavigate();
   const { data, isLoading, isFetching, error } = useGetFilteredAnimalsQuery({page, limit, ...filtersParams},{ skip: !filtersParams } )
   const { control, handleSubmit, watch } = useForm<FilterFormValues>({
@@ -68,7 +69,8 @@ const PetsList = () => {
     setIsFilterApplied(true) }, [isFetching, filtersParams, isLoading])
 
   const onSubmit = (formData: FilterFormValues) => {
-    setFiltersParams(formData);
+    const filters = {...formData, sortByDate: sorting}
+    setFiltersParams(filters);
   };
 
   return (
@@ -91,14 +93,22 @@ const PetsList = () => {
             </p>
           )}
         </div>
+        <div className="absolute top-0 right-0">
         <CustomButton
           type="button"
           styleType="whiteButton"
-          className="w-[217px] m-0 absolute top-0 right-0 text-base text-medium"
+          className="w-[217px] m-0 text-base text-medium"
           onClick={() => setOpenSorting(prev => !prev)}
         >
           Сортування за датою
-        </CustomButton>
+        </CustomButton> 
+        {openSorting && 
+          <div className="bg-header/50 border-1 border-default-btn raunded-10">
+            <button onClick={() => setSorting('newest')}>Останні оголошення</button>
+            <button onClick={() => setSorting('oldest')}>Давні оголошення </button>
+          </div>
+        }
+        </div>
       </div>
       {isLoading ? (
         <PetsListSkeleton />

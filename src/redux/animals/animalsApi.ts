@@ -40,6 +40,8 @@ interface AnimalById {
   ownerPhone: string;
 }
 
+export type SortOrder = 'newest' | 'oldest';
+
 export const animalsApi = createApi({
   reducerPath: 'animalsApi',
   baseQuery: fetchBaseQuery({
@@ -71,6 +73,7 @@ export const animalsApi = createApi({
         location?: string;
         age?: string;
         size?: string;
+        sortByDate?: SortOrder;
       }
     >({
       query: ({ page = 1, limit = 12, ...params }) => {
