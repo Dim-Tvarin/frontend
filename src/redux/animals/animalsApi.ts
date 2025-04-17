@@ -82,6 +82,7 @@ export const animalsApi = createApi({
         );
         const queryString = new URLSearchParams(filteredParams).toString();
         const url = `animals/filter?page=${page}&limit=${limit}&${queryString}`;
+        console.log('url', url);
         return url
       }
         

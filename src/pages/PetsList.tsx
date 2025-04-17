@@ -22,6 +22,7 @@ interface FilterFormValues {
   location: string;
   age: string;
   size: string;
+  sortByDate?: "newest" | 'oldest';
 }
 
 const mapAnimalType = {
@@ -73,6 +74,17 @@ const PetsList = () => {
     setFiltersParams(filters);
   };
 
+  const handleAscSorting = () => {
+    setSorting('newest'); 
+    setFiltersParams({sortByDate:'newest'})
+    setOpenSorting(false)
+  }
+    const handleDescSorting = () => {
+    setSorting('oldest'); 
+    setFiltersParams({sortByDate:'oldest'})
+    setOpenSorting(false)
+  }
+
   return (
     <div className="container">
       <div className=" relative flex justify-center mt-100 mb-50">
@@ -89,25 +101,31 @@ const PetsList = () => {
           <h1 className="text-[32px]">{title}</h1>
           {isFilterApplied && data && (
             <p className="text-lg text-center text-default-btn w-full">
-              { data.total === 0 ? 'По вашому запиту нічого не знайдено' : `По вашому запиту знайдено ${data.total} тварини`}
+              {data.total === 0
+                ? 'По вашому запиту нічого не знайдено'
+                : `По вашому запиту знайдено ${data.total} тварини`}
             </p>
           )}
         </div>
-        <div className="absolute top-0 right-0">
-        <CustomButton
-          type="button"
-          styleType="whiteButton"
-          className="w-[217px] m-0 text-base text-medium"
-          onClick={() => setOpenSorting(prev => !prev)}
-        >
-          Сортування за датою
-        </CustomButton> 
-        {openSorting && 
-          <div className="bg-header/50 border-1 border-default-btn raunded-10">
-            <button onClick={() => setSorting('newest')}>Останні оголошення</button>
-            <button onClick={() => setSorting('oldest')}>Давні оголошення </button>
-          </div>
-        }
+        <div className="absolute top-0 right-0  z-10">
+          <CustomButton
+            type="button"
+            styleType="whiteButton"
+            className="w-[217px] m-0 text-base text-medium text-default-btn"
+            onClick={() => setOpenSorting(prev => !prev)}
+          >
+            Сортування за датою
+          </CustomButton>
+          {openSorting && (
+            <div className="bg-header border-1 border-default-btn rounded-xl flex flex-col gap-4 px-16 py-10">
+              <button onClick={handleAscSorting} className="text-default-btn text-left focus:outline-none">
+                Останні оголошення
+              </button>
+              <button onClick={handleDescSorting} className="text-default-btn text-left focus:outline-none">
+                Давні оголошення
+              </button>
+            </div>
+          )}
         </div>
       </div>
       {isLoading ? (
