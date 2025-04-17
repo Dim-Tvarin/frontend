@@ -48,6 +48,7 @@ const slice = createSlice({
   name: 'users',
   initialState,
   selectors: {
+    selectUser: state => state.user,
     selectUserName: state => state.user.name,
     selectUserEmail: state => state.user.email,
     selectUserPhone: state => state.user.phone,
@@ -149,6 +150,7 @@ const slice = createSlice({
 export const usersReducer = slice.reducer;
 export const { setUserEmail, clearError } = slice.actions;
 export const {
+  selectUser,
   selectUserName,
   selectUserEmail,
   selectUserPhone,

@@ -1,47 +1,46 @@
-import { genderMapping } from "components/AnimalCard";
-import { CustomButton } from "components/CustomButton";
-import { PhoneReveal } from "components/PhoneReveal";
-import PetPageSceleton from "components/sceletons/PetPageSceleton";
-import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router";
-import { getYearDeclension } from "src/helpers/getYearDeclension";
-import { useGetAnimalByIdQuery } from "src/redux/animals/animalsApi";
-import { selectUserName } from "src/redux/users/usersSlice";
-import tracks4 from '../assets/tracks4.png'
-import ImageCarousel from "components/ImageCarousel";
-import { showToast } from "components/Toast";
+import { genderMapping } from 'components/AnimalCard';
+import { CustomButton } from 'components/CustomButton';
+import { PhoneReveal } from 'components/PhoneReveal';
+import PetPageSceleton from 'components/sceletons/PetPageSceleton';
+import { useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router';
+import { getYearDeclension } from 'src/helpers/getYearDeclension';
+import { useGetAnimalByIdQuery } from 'src/redux/animals/animalsApi';
+import { selectUserName } from 'src/redux/users/usersSlice';
+import tracks4 from '../assets/tracks4.png';
+import ImageCarousel from 'components/ImageCarousel';
+import { showToast } from 'components/Toast';
 
 const PetPage = () => {
- const navigate = useNavigate();
- const {id} = useParams<{ id: string }>()
- const username = useSelector(selectUserName);
+  const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>();
+  const username = useSelector(selectUserName);
 
-
-  if (!id ) {
+  if (!id) {
     showToast({
       title: 'Щось пішло не по плану',
       description: 'Ця тварина не буда знайдена',
       status: 'error',
-    })
-    setTimeout(() => navigate('/allpets'), 1000)
-    
-    return
-  } 
-  const { data, error, isLoading } = useGetAnimalByIdQuery(id)
+    });
+    setTimeout(() => navigate('/allpets'), 1000);
 
-  if (isLoading ) {
-    return <PetPageSceleton />
-  } 
- if (error) {
+    return;
+  }
+  const { data, error, isLoading } = useGetAnimalByIdQuery(id);
+
+  if (isLoading) {
+    return <PetPageSceleton />;
+  }
+  if (error) {
     showToast({
       title: 'Щось пішло не по плану',
-      description: 'Виникла помілка при завантаженні даних',
+      description: 'Виникла помилка при завантаженні даних',
       status: 'error',
-    })
-    setTimeout(() => navigate('/allpets'), 1000)
-    return
-  } 
-  const { animal } = data || {}
+    });
+    setTimeout(() => navigate('/allpets'), 1000);
+    return;
+  }
+  const { animal } = data || {};
 
   return (
     <div className="relative flex gap-20 text-default-btn mt-100">
@@ -56,7 +55,11 @@ const PetPage = () => {
         <h2 className="text-medium text-5xl mb-16">{animal?.animalName}</h2>
         <div className="grid grid-cols-2 gap-x-auto gap-y-16 text-xl mb-32">
           <p className="font-bold">Статус:</p>
-          <p className="text-xl text-base">{animal?.status === "active" ? 'шукає господаря' : 'в надійних руках'}</p>
+          <p className="text-xl text-base">
+            {animal?.status === 'active'
+              ? 'шукає господаря'
+              : 'в надійних руках'}
+          </p>
           <p className="font-bold">Вид:</p>
           <p className="text-xl text-base">{animal?.animalType}</p>
           <p className="font-bold">Стать:</p>
@@ -98,6 +101,6 @@ const PetPage = () => {
       </div>
     </div>
   );
-}
+};
 
 export default PetPage;

@@ -1,28 +1,25 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import logo from '../../assets/color-logo.svg';
 import search from '../../assets/search.svg';
 import { CustomButton } from 'components/CustomButton';
 import { FaRegHeart } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch } from '../../redux/store';
-import { logoutThunk } from '../../redux/users/usersOperations';
-import { selectIsLoggedIn, selectUserName } from '../../redux/users/usersSlice';
+import { selectIsLoggedIn, selectUser } from '../../redux/users/usersSlice';
 import CabinetSVG from '../../assets/CabinetSVG';
 import { openDialog } from '../../redux/dialogs/dialogSlice';
-import { showToast } from 'components/Toast';
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from 'components/components/ui/avatar';
+import fallbackIcon from '../../assets/avatar-icon.png';
 
 export const Header = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
-  const handleClick = () => {
-    dispatch(logoutThunk());
-    showToast({
-      title: 'Ви успішно вийшли',
-      status: 'success',
-    })
-
-  };
   const isLoggedIn = useSelector(selectIsLoggedIn);
-  const username = useSelector(selectUserName);
+  const user = useSelector(selectUser);
 
   return (
     <header className="h-100 bg-header flex items-center">
@@ -62,17 +59,27 @@ export const Header = () => {
           </li>
           <li>
             {isLoggedIn ? (
-              <>
-                <span className="text-black text-s">{username}</span>
-                <CustomButton
-                  type="button"
-                  styleType="redButton"
-                  className="w-[100px] m-auto ml-[20px]"
-                  onClick={handleClick}
+              <div className="max-h-[54px]">
+                <Avatar
+                  className="size-9 text-[10px] p-0"
+                  onClick={() => navigate('/profile')}
                 >
-                  Вийти
-                </CustomButton>
-              </>
+                  <AvatarImage
+                    src={user.avatarURL}
+                    alt={`Аватар ${user.name}`}
+                  />
+                  <AvatarFallback>
+                    <img
+                      src={fallbackIcon}
+                      alt={`Аватар ${user.name}`}
+                      className="w-full h-full object-cover rounded-full m-0 p-0"
+                    />
+                  </AvatarFallback>
+                </Avatar>
+                <span className="text-[10px] leading-[140%] tracking-[0.01em] m-0">
+                  {user.name}
+                </span>
+              </div>
             ) : (
               <CustomButton
                 onClick={() => dispatch(openDialog('login'))}
