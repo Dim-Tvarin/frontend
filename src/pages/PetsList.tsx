@@ -13,7 +13,7 @@ import BreedSelect from "components/BreedSelect";
 import { CitySelect } from "components/CitySelect";
 import { Controller, useForm } from "react-hook-form";
 
-const limit = 12
+const limit = 4
 
 interface FilterFormValues {
   animalType: AnimalTypeEnum | undefined;
@@ -36,7 +36,7 @@ const PetsList = () => {
   const [openFilters, setOpenFilters] = useState(false)
   const [filtersParams, setFiltersParams] = useState<Partial<FilterFormValues>>({})
   const navigate = useNavigate();
-  const { data, error, isLoading } = useGetFilteredAnimalsQuery({page, limit, ...filtersParams})
+  const { data, isLoading, isFetching, error } = useGetFilteredAnimalsQuery({page, limit, ...filtersParams})
   const { control, handleSubmit, watch } = useForm<FilterFormValues>({
     defaultValues: {
       animalType: undefined,
@@ -77,7 +77,14 @@ const PetsList = () => {
           <FiFilter size={18} />
           <span className="text-lg">Фільтр</span>
         </CustomButton>
-        <h1 className="text-[32px]">{title}</h1>
+        <div className="flex flex-col">
+          <h1 className="text-[32px]">{title}</h1>
+          {data && (
+            <p className="text-lg text-center text-default-btn w-full">
+              {data.total === 0 ? 'По вашому запиту нічого не знайдено' : `По вашому запиту знайдено ${data.total} тварини`}
+            </p>
+          )}
+        </div>
       </div>
       {isLoading ? (
         <PetsListSkeleton />
@@ -144,32 +151,28 @@ const PetsList = () => {
                 type="submit"
                 styleType="defaultButton"
                 className="m-0"
+                loading={isLoading || isFetching}
               >
                 Застосувати фільтр
               </CustomButton>
             </form>
           )}
-          {data?.total === 0 ? (
-            <p className="text-lg text-center text-default-btn w-full">
-              По вашому запиту нічого не знайдено
-            </p>
-          ) : (
-            <div
-              className={`grid gap-20 mb-50 wrap transition-all duration-500 ${openFilters ? 'grid-cols-3 w-3/4' : 'grid-cols-4'}`}
-            >
-              {data?.animals.map(item => (
-                <AnimalCard
-                  key={item.id}
-                  id={item.id}
-                  name={item.animalName}
-                  gender={item.gender}
-                  age={item.age}
-                  photoSrc={item.animalImages[0]}
-                  favorite={item.favorite}
-                />
-              ))}
-            </div>
-          )}
+
+          <div
+            className={`grid gap-20 mb-50 wrap transition-all duration-500 ${openFilters ? 'grid-cols-3 w-3/4' : 'grid-cols-4'}`}
+          >
+            {data?.animals.map(item => (
+              <AnimalCard
+                key={item.id}
+                id={item.id}
+                name={item.animalName}
+                gender={item.gender}
+                age={item.age}
+                photoSrc={item.animalImages[0]}
+                favorite={item.favorite}
+              />
+            ))}
+          </div>
         </div>
       )}
       {!isLoading && data && !!totalPages && totalPages > 1 && (

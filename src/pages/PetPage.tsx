@@ -1,5 +1,4 @@
 import { genderMapping } from "components/AnimalCard";
-import { CustomButton } from "components/CustomButton";
 import { PhoneReveal } from "components/PhoneReveal";
 import PetPageSceleton from "components/sceletons/PetPageSceleton";
 import { useNavigate, useParams } from "react-router";
@@ -73,14 +72,18 @@ const PetPage = () => {
             {!!animal?.age.months && (
               <p className="text-xl text-base">{` ${animal?.age.months} міс.`}</p>
             )}
-            {!animal?.age.months && !animal?.age.years && <p className="text-xl text-base">0</p>}
+            {!animal?.age.months && !animal?.age.years && (
+              <p className="text-xl text-base">0</p>
+            )}
           </div>
           <p className="font-bold">Порода:</p>
           <p className="text-xl text-base">{animal?.breed}</p>
           <p className="font-bold">Де знаходиться:</p>
           <p className="text-xl text-base">{animal?.animalLocation}</p>
           <p className="font-bold">Розмір:</p>
-          <p className="text-xl text-base">{animal?.size ? animal?.size : '-'}</p>
+          <p className="text-xl text-base">
+            {animal?.size ? animal?.size : '-'}
+          </p>
         </div>
         <p className="font-bold text-xl mb-16">Опис:</p>
         <p className="text-xl text-medium mb-32">{animal?.adText}</p>
@@ -88,14 +91,16 @@ const PetPage = () => {
           <p className="font-bold">Контакта особа:</p>
           <p className="text-medium">{ownerName}</p>
           <p className="font-bold">Тел:</p>
-          <PhoneReveal phone={ownerPhone || "+380987654321"} className="-ml-[10px]" />
+          <PhoneReveal
+            phone={ownerPhone || '+380987654321'}
+            className="-ml-[10px]"
+          />
         </div>
-        <CustomButton
-          className="w-[236px] h-[44px] bg-default-btn rounded-[20px] self-center"
-          onClick={() => navigate('/')}
-        >
-          Забрати тварину
-        </CustomButton>
+        <a
+          href={`tel:${ownerPhone}`}
+          className="w-[236px] h-[44px] bg-default-btn rounded-[20px] text-white self-center grid place-content-center text-base">
+          Зв’язатися з господарем
+        </a>
       </div>
     </div>
   );
