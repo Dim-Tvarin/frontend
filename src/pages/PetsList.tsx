@@ -4,7 +4,7 @@ import { useGetFilteredAnimalsQuery } from "src/redux/animals/animalsApi";
 import AnimalCard from "components/AnimalCard";
 import { PetsListSkeleton } from "components/sceletons/PetsListSkeleton";
 import Pagination from "components/Pagination";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { showToast } from "components/Toast";
 import FilterItem from "components/FilterItem";
@@ -35,8 +35,9 @@ const PetsList = () => {
   const [page, setPage] = useState(1);
   const [openFilters, setOpenFilters] = useState(false)
   const [filtersParams, setFiltersParams] = useState<Partial<FilterFormValues>>({})
+  const [isFilterApplied, setIsFilterApplied] = useState(false);
   const navigate = useNavigate();
-  const { data, isLoading, isFetching, error } = useGetFilteredAnimalsQuery({page, limit, ...filtersParams})
+  const { data, isLoading, isFetching, error } = useGetFilteredAnimalsQuery({page, limit, ...filtersParams},{ skip: !filtersParams } )
   const { control, handleSubmit, watch } = useForm<FilterFormValues>({
     defaultValues: {
       animalType: undefined,
@@ -47,10 +48,10 @@ const PetsList = () => {
       size: '',
     },
   });
-
   const selectedAnimalType = watch('animalType') ;
   const totalPages = data && Math.ceil(data?.total / limit);
   const title = filtersParams && filtersParams?.animalType ? mapAnimalType[filtersParams?.animalType] : 'Всі тварини'
+
 
   if (error) {
     showToast({
@@ -61,10 +62,14 @@ const PetsList = () => {
     navigate('/')
   }
 
-  const onSubmit = (formData: FilterFormValues) => {
-    setFiltersParams(formData)
-  };
+  useEffect(()=> {
+    if (Object.keys(filtersParams).length > 0 && !isLoading && !isFetching)
+    setIsFilterApplied(true) }, [isFetching, filtersParams, isLoading])
 
+  const onSubmit = (formData: FilterFormValues) => {
+    setFiltersParams(formData);
+  };
+  console.log('isFetching', isFetching, filtersParams);
   return (
     <div className="container">
       <div className=" relative flex justify-center mt-100 mb-50">
@@ -79,9 +84,9 @@ const PetsList = () => {
         </CustomButton>
         <div className="flex flex-col">
           <h1 className="text-[32px]">{title}</h1>
-          {data && (
+          {isFilterApplied && data && (
             <p className="text-lg text-center text-default-btn w-full">
-              {data.total === 0 ? 'По вашому запиту нічого не знайдено' : `По вашому запиту знайдено ${data.total} тварини`}
+              { data.total === 0 ? 'По вашому запиту нічого не знайдено' : `По вашому запиту знайдено ${data.total} тварини`}
             </p>
           )}
         </div>
