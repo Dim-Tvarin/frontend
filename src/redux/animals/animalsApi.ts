@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { type RootState } from '../store';
+import type { RootState } from '../store';
 
 export type animalAge = {
   months: number;
@@ -22,9 +22,14 @@ interface AnimalType {
   animalImages: string[];
 }
 
-interface AnimalsResponse {
+export interface AnimalsResponse {
   total: number;
   animals: AnimalType[];
+}
+
+interface MyAnimalsResponse {
+  total: number;
+  animals: AnimalType[] | [];
 }
 
 interface AnimalById {
@@ -62,7 +67,7 @@ export const animalsApi = createApi({
       query: id => `animals/${id}`,
     }),
     getMyAnimals: build.query<
-      AnimalsResponse,
+      MyAnimalsResponse,
       { page?: number; limit?: number }
     >({
       query: ({ page = 1, limit = 9 }) =>

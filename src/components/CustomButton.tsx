@@ -6,7 +6,6 @@ interface CustomButtonProps extends React.ComponentProps<typeof Button> {
   children: React.ReactNode;
   className?: string;
   loading?: boolean;
-  asChild?: boolean;
   type?: 'button' | 'submit' | 'reset';
   styleType?:
     | 'defaultButton'
@@ -20,12 +19,10 @@ export const CustomButton = ({
   styleType,
   className,
   loading,
-  asChild,
   ...props
 }: CustomButtonProps) => {
-  const Component = asChild ? 'span' : 'button';
   return (
-    <Component
+    <Button
       className={cn(
         'w-full text-white outline-none shadow-none',
         styleType === 'defaultButton' &&
@@ -44,6 +41,6 @@ export const CustomButton = ({
       {...props}
     >
       {loading ? <Spinner /> : children}
-    </Component>
+    </Button>
   );
 };

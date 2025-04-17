@@ -17,8 +17,11 @@ import { LuCirclePlus } from 'react-icons/lu';
 import { FiFilter } from 'react-icons/fi';
 import { PetsListSkeleton } from 'components/sceletons/PetsListSkeleton';
 import AnimalCard from 'components/AnimalCard';
-import { useGetMyAnimalsQuery } from 'src/redux/animals/animalsApi';
 import { useEffect } from 'react';
+import {
+  useGetMyAnimalsQuery,
+  type AnimalsResponse,
+} from 'src/redux/animals/animalsApi';
 
 const ProfilePage = () => {
   const user = useSelector(selectUser);
@@ -33,7 +36,12 @@ const ProfilePage = () => {
   const { data, isLoading, error } = useGetMyAnimalsQuery({
     page: 1,
     limit: 9,
-  });
+  }) as {
+    data: AnimalsResponse;
+    isLoading: boolean;
+    error: any;
+  };
+
   useEffect(() => {
     if (error) {
       showToast({
@@ -55,27 +63,19 @@ const ProfilePage = () => {
           aria-orientation="vertical"
           className="w-[285px] h-[77px] text-lg m-0 data-[state=active]:shadow-none"
         >
-          <CustomButton
-            asChild
-            styleType="defaultButton"
-            className="w-[285px] h-[77px] text-lg m-0 border-none"
-          >
+          <div className="text-white outline-none shadow-none rounded-[20px] py-[26px] m-auto bg-default-btn hover:bg-orange hover:border-default-btn hover:border-2 hover:text-default-btn disabled:bg-disabled w-[285px] h-[77px] text-lg border-none data-[state=active]:outline-none">
             Основна інформація
-          </CustomButton>
+          </div>
         </TabsTrigger>
 
         <TabsTrigger
           value="my-adverts"
           aria-orientation="vertical"
-          className="w-[285px] h-[77px] text-lg m-0 data-[state=active]:shadow-none"
+          className="w-[285px] h-[77px] text-lg m-0 data-[state=active]:shadow-none data-[state=active]:outline-none"
         >
-          <CustomButton
-            asChild
-            styleType="whiteButton"
-            className="w-[285px] h-[77px] text-lg"
-          >
+          <div className="outline-none shadow-none rounded-[20px] py-[26px] m-auto border-2 text-default-btn bg-white border-default-btn hover:border-orange disabled:bg-disabled w-[285px] h-[77px] text-lg">
             Мої оголошення
-          </CustomButton>
+          </div>
         </TabsTrigger>
       </TabsList>
       <TabsContent value="main-info" data-orientation="vertical">
@@ -117,39 +117,54 @@ const ProfilePage = () => {
           </div>
         </div>
       </TabsContent>
-      <TabsContent value="my-adverts" data-orientation="vertical">
-        <CustomButton
-          type="submit"
-          styleType="defaultButton"
-          className="flex gap-8 w-[238px] text-base m-0"
-        >
-          <LuCirclePlus size={24} />
-          Додати оголошення
-        </CustomButton>
-        <CustomButton
-          type="button"
-          styleType="defaultButton"
-          className="flex gap-[6px] w-[108px] h-[45px] m-0 text-base"
-        >
-          <FiFilter className="w-25 h-[29px]" />
-          Фільтр
-        </CustomButton>
-        {isLoading ? (
-          <PetsListSkeleton className="grid-cols-3" />
+      <TabsContent
+        value="my-adverts"
+        data-orientation="vertical"
+        className="flex flex-col gap-[44px]"
+      >
+        <div className="flex flex-row align-center justify-between">
+          <CustomButton
+            type="submit"
+            styleType="defaultButton"
+            className="flex gap-8 w-[238px] text-base m-0"
+          >
+            <LuCirclePlus size={24} />
+            Додати оголошення
+          </CustomButton>
+          <CustomButton
+            type="button"
+            styleType="defaultButton"
+            className="flex gap-[6px] w-[108px] h-[45px] m-0 text-base"
+          >
+            <FiFilter className="w-25 h-[29px]" />
+            Фільтр
+          </CustomButton>
+        </div>
+        {data?.animals.length === 0 ? (
+          <p className="text-center text-lg text-gray-500 mt-10">
+            У вас поки немає оголошень.
+          </p>
         ) : (
-          <div className="grid grid-cols-3 gap-20 mb-50 wrap">
-            {data?.animals.map(item => (
-              <AnimalCard
-                key={item.id}
-                id={item.id}
-                name={item.animalName}
-                gender={item.gender}
-                age={item.age}
-                photoSrc={item.animalImages[0]}
-                favorite={item.favorite}
+          <>
+            {isLoading && !data?.animals && (
+              <PetsListSkeleton
+                className="grid-cols-3"
+                length={data?.animals.length}
               />
-            ))}
-          </div>
+            )}
+            <div className="grid grid-cols-3 gap-20 mb-50 wrap">
+              {data?.animals.map(item => (
+                <AnimalCard
+                  key={item.id}
+                  id={item.id}
+                  name={item.animalName}
+                  gender={item.gender}
+                  age={item.age}
+                  photoSrc={item.animalImages[0]}
+                />
+              ))}
+            </div>
+          </>
         )}
       </TabsContent>
     </Tabs>
