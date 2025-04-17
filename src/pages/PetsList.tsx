@@ -34,6 +34,7 @@ const mapAnimalType = {
 const PetsList = () => {
   const [page, setPage] = useState(1);
   const [openFilters, setOpenFilters] = useState(false)
+  const [openSorting, setOpenSorting] = useState(false)
   const [filtersParams, setFiltersParams] = useState<Partial<FilterFormValues>>({})
   const [isFilterApplied, setIsFilterApplied] = useState(false);
   const navigate = useNavigate();
@@ -69,7 +70,7 @@ const PetsList = () => {
   const onSubmit = (formData: FilterFormValues) => {
     setFiltersParams(formData);
   };
-  console.log('isFetching', isFetching, filtersParams);
+
   return (
     <div className="container">
       <div className=" relative flex justify-center mt-100 mb-50">
@@ -80,7 +81,7 @@ const PetsList = () => {
           onClick={() => setOpenFilters(prev => !prev)}
         >
           <FiFilter size={18} />
-          <span className="text-lg">Фільтр</span>
+          <span className="text-base">Фільтр</span>
         </CustomButton>
         <div className="flex flex-col">
           <h1 className="text-[32px]">{title}</h1>
@@ -90,6 +91,14 @@ const PetsList = () => {
             </p>
           )}
         </div>
+        <CustomButton
+          type="button"
+          styleType="whiteButton"
+          className="w-[217px] m-0 absolute top-0 right-0 text-base text-medium"
+          onClick={() => setOpenSorting(prev => !prev)}
+        >
+          Сортування за датою
+        </CustomButton>
       </div>
       {isLoading ? (
         <PetsListSkeleton />
