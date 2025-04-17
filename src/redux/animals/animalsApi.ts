@@ -1,10 +1,11 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import type { RootState } from '../store';
 import type { AnimalTypeEnum } from 'pages/Announcement/types';
 
 export type animalAge = {
   months: number;
   years: number;
-}
+};
 interface AnimalType {
   id: string;
   age: animalAge;
@@ -23,9 +24,14 @@ interface AnimalType {
   animalImages: string[];
 }
 
-interface AnimalsResponse {
+export interface AnimalsResponse {
   total: number;
   animals: AnimalType[];
+}
+
+interface MyAnimalsResponse {
+  total: number;
+  animals: AnimalType[] | [];
 }
 
 interface AnimalById {
@@ -39,8 +45,8 @@ export const animalsApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://marketplace-backend-wrk2.onrender.com/',
     prepareHeaders: (headers, { getState }) => {
-      const token = (getState() as any).users?.token;
-      if (token) {
+      const token = (getState() as RootState).users?.token;
+      if (token && token !== 'null') {
         headers.set('Authorization', `Bearer ${token}`);
       }
       return headers;
@@ -87,8 +93,20 @@ export const animalsApi = createApi({
     getAnimalById: build.query<AnimalById, string>({
       query: id => `animals/${id}`,
     }),
+    getMyAnimals: build.query<
+      MyAnimalsResponse,
+      { page?: number; limit?: number }
+    >({
+      query: ({ page = 1, limit = 9 }) =>
+        `animals/my-animals?page=${page}&limit=${limit}`,
+    }),
   }),
 });
 
-
-export const { useGetAnimalsQuery, useGetFilteredAnimalsQuery, useCreateAnimalMutation, useGetAnimalByIdQuery  } = animalsApi
+export const {
+  useGetAnimalsQuery,
+  useCreateAnimalMutation,
+  useGetFilteredAnimalsQuery,
+  useGetAnimalByIdQuery,
+  useGetMyAnimalsQuery,
+} = animalsApi;

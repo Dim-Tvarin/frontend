@@ -14,18 +14,17 @@ import storage from 'redux-persist/lib/storage';
 import type { Persistor } from 'redux-persist';
 import { dialogReducer } from './dialogs/dialogSlice';
 import { type UserState } from './users/usersSlice';
-import { animalsApi } from './animals/animalsApi.ts';
 import {
   favoriteAnimalsReducer,
   type FavoriteAnimalsState,
 } from './animals/favoriteAnimalsSlice.ts';
 import { addInfoApi } from './animals/addInfoApi.ts';
+import { animalsApi } from './animals/animalsApi.ts';
 
 const persistConfig = {
   key: 'users',
   version: 1,
   storage,
-  // whitelist: ['token', 'user', 'isLoggedIn',],
 };
 
 const persistConfigFavoriteAnimals = {
