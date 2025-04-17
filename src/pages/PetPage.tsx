@@ -1,22 +1,18 @@
-import { genderMapping } from 'components/AnimalCard';
-import { CustomButton } from 'components/CustomButton';
-import { PhoneReveal } from 'components/PhoneReveal';
-import PetPageSceleton from 'components/sceletons/PetPageSceleton';
-import { useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router';
-import { getYearDeclension } from 'src/helpers/getYearDeclension';
-import { useGetAnimalByIdQuery } from 'src/redux/animals/animalsApi';
-import { selectUserName } from 'src/redux/users/usersSlice';
-import tracks4 from '../assets/tracks4.png';
-import ImageCarousel from 'components/ImageCarousel';
-import { showToast } from 'components/Toast';
+import { genderMapping } from "components/AnimalCard";
+import { PhoneReveal } from "components/PhoneReveal";
+import PetPageSceleton from "components/sceletons/PetPageSceleton";
+import { useNavigate, useParams } from "react-router";
+import { getYearDeclension } from "src/helpers/getYearDeclension";
+import { useGetAnimalByIdQuery } from "src/redux/animals/animalsApi";
+import tracks4 from '../assets/tracks4.png'
+import ImageCarousel from "components/ImageCarousel";
+import { showToast } from "components/Toast";
 
 const PetPage = () => {
-  const navigate = useNavigate();
-  const { id } = useParams<{ id: string }>();
-  const username = useSelector(selectUserName);
+ const navigate = useNavigate();
+ const {id} = useParams<{ id: string }>()
 
-  if (!id) {
+  if (!id ) {
     showToast({
       title: 'Щось пішло не по плану',
       description: 'Ця тварина не буда знайдена',
@@ -36,11 +32,11 @@ const PetPage = () => {
       title: 'Щось пішло не по плану',
       description: 'Виникла помилка при завантаженні даних',
       status: 'error',
-    });
-    setTimeout(() => navigate('/allpets'), 1000);
-    return;
-  }
-  const { animal } = data || {};
+    })
+    setTimeout(() => navigate('/allpets'), 1000)
+    return
+  } 
+  const { animal, ownerName, ownerPhone } = data || {}
 
   return (
     <div className="relative flex gap-20 text-default-btn mt-100">
@@ -70,11 +66,14 @@ const PetPage = () => {
           <div className="flex gap-5">
             {!!animal?.age.years && (
               <p className="text-xl text-base">
-                {getYearDeclension(animal?.age.years)}{' '}
+                {getYearDeclension(animal?.age.years)}
               </p>
             )}
             {!!animal?.age.months && (
               <p className="text-xl text-base">{` ${animal?.age.months} міс.`}</p>
+            )}
+            {!animal?.age.months && !animal?.age.years && (
+              <p className="text-xl text-base">0</p>
             )}
           </div>
           <p className="font-bold">Порода:</p>
@@ -82,22 +81,26 @@ const PetPage = () => {
           <p className="font-bold">Де знаходиться:</p>
           <p className="text-xl text-base">{animal?.animalLocation}</p>
           <p className="font-bold">Розмір:</p>
-          <p className="text-xl text-base text-error">добавить в базу данные</p>
+          <p className="text-xl text-base">
+            {animal?.size ? animal?.size : '-'}
+          </p>
         </div>
         <p className="font-bold text-xl mb-16">Опис:</p>
         <p className="text-xl text-medium mb-32">{animal?.adText}</p>
         <div className="grid grid-cols-2 gap-y-16 text-xl mb-50">
           <p className="font-bold">Контакта особа:</p>
-          <p className="text-medium">{username}</p>
+          <p className="text-medium">{ownerName}</p>
           <p className="font-bold">Тел:</p>
-          <PhoneReveal phone="+380987654321" className="-ml-[10px]" />
+          <PhoneReveal
+            phone={ownerPhone || '+380987654321'}
+            className="-ml-[10px]"
+          />
         </div>
-        <CustomButton
-          className="w-[236px] h-[44px] bg-default-btn rounded-[20px] self-center"
-          onClick={() => navigate('/')}
-        >
-          Забрати тварину
-        </CustomButton>
+        <a
+          href={`tel:${ownerPhone}`}
+          className="w-[236px] h-[44px] bg-default-btn rounded-[20px] text-white self-center grid place-content-center text-base">
+          Зв’язатися з господарем
+        </a>
       </div>
     </div>
   );

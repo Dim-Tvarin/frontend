@@ -12,7 +12,6 @@ import { announceSchema } from '../../validations/announceValidation';
 import { animalType, gender } from './types';
 import track from '../../../public/track.png';
 import { LuCirclePlus } from "react-icons/lu";
-import { LuGlobe } from "react-icons/lu";
 import { CitySelect } from 'components/CitySelect';
 import CustomRadioGroup from 'components/CustomRadioGroup';
 import { Spinner } from 'components/Spinner';
@@ -23,6 +22,7 @@ import { useSelector } from 'react-redux';
 import { selectIsLoggedIn } from 'src/redux/users/usersSlice';
 import { useNavigate } from 'react-router';
 import { showToast } from 'components/Toast';
+import BreedSelect from 'components/BreedSelect';
 
 type AnnouncementForm = z.infer<typeof announceSchema>;
 
@@ -190,14 +190,21 @@ const Announcement = () => {
                 <FormError error={errors.age?.years?.message} />
               )}
             </div>
-            <InputField
-              label="Порода *"
-              id="breed"
-              className="w-[305px] h-[40px] mt-16"
-              labelSize="lg"
-              {...register('breed')}
-              error={errors.breed?.message}
-            />
+            <div>
+              <p className="text-xl mb-8 text-left">Порода * </p>
+              <Controller
+                name="breed"
+                control={control}
+                render={({ field }) => (
+                  <BreedSelect
+                    onChange={field.onChange}
+                    className="w-[305px] h-[40px]"
+                    type={animalTypeValue}
+                    errorMess={errors?.breed?.message}
+                  />
+                )}
+              />
+            </div>
           </div>
 
           <div className="grid grid-cols-[305px_305px] mt-32 gap-16">
@@ -210,7 +217,7 @@ const Announcement = () => {
               error={errors.animalName?.message}
             />
             <div>
-              <p className="text-xl mb-[13px] text-left">Місто * </p>
+              <p className="text-xl mb-8 text-left">Місто * </p>
               <Controller
                 name="animalLocation"
                 control={control}
@@ -218,7 +225,7 @@ const Announcement = () => {
                   <CitySelect
                     onChange={field.onChange}
                     className="w-[305px] h-[40px]"
-                    error={errors?.animalLocation?.message}
+                    errorMess={errors?.animalLocation?.message}
                   />
                 )}
               />
@@ -233,7 +240,7 @@ const Announcement = () => {
             {...register('adText')}
             error={errors.adText?.message}
           />
-          <div className='mt-32  relative'>
+          {/* <div className='mt-32  relative z-1'>
             <LuGlobe size={24} className='absolute left-0 top-46'/>
             <InputField
               label="Додаткове посилання"
@@ -241,12 +248,12 @@ const Announcement = () => {
               placeholder='https://...'
               className="w-[calc(100%-32px)] h-[40px] mt-16 ml-32"
               labelSize="xl"
-             // {...register('link')}
-             // error={errors.link?.message}
+              {...register('link')}
+              error={errors.link?.message}
             />
             <p className='text-input-border text-left text-xs mt-10 ml-32'> Це може бути сторінка тварини на сайті притулку, публікація у соцмережах або відео.
             Максимальна довжина: 255 символів.</p>
-          </div>
+          </div> */}
 
           <Controller
             name="images"

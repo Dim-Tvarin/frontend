@@ -7,7 +7,7 @@ const ageSchema = z.object({
 
 
 export const announceSchema = z.object({
-  animalType: z.enum(['cat', 'dog', 'bird', 'another'], {
+  animalType: z.enum(['cats', 'dogs', 'birds', 'other'], {
     errorMap: () => {
       return { message: 'Оберіть вид тварини' };
     },

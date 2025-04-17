@@ -21,7 +21,7 @@ function App() {
   useEffect(() => {
     dispatch(refreshThunk());
   }, [dispatch]);
-  console.log('week-10.1');
+  console.log('week-11');
   return (
     <Routes>
       <Route path="/" element={<Main />}>
