@@ -5,7 +5,7 @@ import AnimalCard from "components/AnimalCard";
 import { PetsListSkeleton } from "components/sceletons/PetsListSkeleton";
 import Pagination from "components/Pagination";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, useSearchParams } from "react-router";
 import { showToast } from "components/Toast";
 import FilterItem from "components/FilterItem";
 import { age, animalType, AnimalTypeEnum, gender, size } from "./Announcement/types";
@@ -33,13 +33,16 @@ const mapAnimalType = {
 }
 
 const PetsList = () => {
-  const [page, setPage] = useState(1);
+  const [searchParams] = useSearchParams();
+  const [page, setPage] = useState(Number(searchParams.get('page')) ||1);
   const [openFilters, setOpenFilters] = useState(false)
   const [openSorting, setOpenSorting] = useState(false)
   const [filtersParams, setFiltersParams] = useState<Partial<FilterFormValues>>({})
   const [isFilterApplied, setIsFilterApplied] = useState(false);
   const [sorting, setSorting] = useState<SortOrder>('newest');
+  
   const navigate = useNavigate();
+
   const { data, isLoading, isFetching, error } = useGetFilteredAnimalsQuery({page, limit, ...filtersParams},{ skip: !filtersParams } )
   const { control, handleSubmit, watch } = useForm<FilterFormValues>({
     defaultValues: {
@@ -64,6 +67,8 @@ const PetsList = () => {
     })
     navigate('/')
   }
+
+  useEffect(() => setPage(Number(searchParams.get('page'))), [page, searchParams])
 
   useEffect(()=> {
     if (Object.keys(filtersParams).length > 0 && !isLoading && !isFetching)
