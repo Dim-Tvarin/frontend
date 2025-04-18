@@ -82,9 +82,8 @@ export const animalsApi = createApi({
         );
         const queryString = new URLSearchParams(filteredParams).toString();
         const url = `animals/filter?page=${page}&limit=${limit}&${queryString}`;
-        return url
-      }
-        
+        return url;
+      },
     }),
     createAnimal: build.mutation<unknown, FormData>({
       query: formData => ({
@@ -93,6 +92,7 @@ export const animalsApi = createApi({
         body: formData,
       }),
     }),
+
     getAnimalById: build.query<AnimalById, string>({
       query: id => `animals/${id}`,
     }),
@@ -103,6 +103,13 @@ export const animalsApi = createApi({
       query: ({ page = 1, limit = 9 }) =>
         `animals/my-animals?page=${page}&limit=${limit}`,
     }),
+    addFavoriteAnimal: build.mutation<unknown, string>({
+      query: animalId => ({
+        url: `/animals/${animalId}/favorite`,
+        method: 'PATCH',
+        body: { favorite: true },
+      }),
+    }),
   }),
 });
 
@@ -112,4 +119,5 @@ export const {
   useGetFilteredAnimalsQuery,
   useGetAnimalByIdQuery,
   useGetMyAnimalsQuery,
+  useAddFavoriteAnimalMutation,
 } = animalsApi;
