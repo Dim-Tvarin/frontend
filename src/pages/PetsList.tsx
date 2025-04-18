@@ -13,7 +13,7 @@ import BreedSelect from "components/BreedSelect";
 import { CitySelect } from "components/CitySelect";
 import { Controller, useForm } from "react-hook-form";
 
-const limit = 4
+const limit = 12
 
 interface FilterFormValues {
   animalType: AnimalTypeEnum | undefined;

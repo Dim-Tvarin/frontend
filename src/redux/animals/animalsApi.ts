@@ -78,7 +78,7 @@ export const animalsApi = createApi({
     >({
       query: ({ page = 1, limit = 12, ...params }) => {
         const filteredParams = Object.fromEntries(
-          Object.entries(params).filter(([_, v]) => v !== undefined && v !== '')
+          Object.entries(params).filter(([, v]) => v !== undefined && v !== '')
         );
         const queryString = new URLSearchParams(filteredParams).toString();
         const url = `animals/filter?page=${page}&limit=${limit}&${queryString}`;
@@ -87,7 +87,7 @@ export const animalsApi = createApi({
       }
         
     }),
-    createAnimal: build.mutation<any, FormData>({
+    createAnimal: build.mutation<unknown, FormData>({
       query: formData => ({
         url: '/animals',
         method: 'POST',
