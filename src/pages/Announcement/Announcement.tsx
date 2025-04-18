@@ -168,7 +168,7 @@ const Announcement = () => {
           <div className="flex mt-32">
             <div className="grid grid-cols-[150px_150px] gap-[10px] mr-16">
               <InputField
-                label="Вік"
+                label="Вік *"
                 id="years"
                 placeholder="0 років"
                 className="w-[150px] h-[40px] mt-16"
@@ -182,13 +182,14 @@ const Announcement = () => {
                 className="w-[150px] h-[40px] mt-16 mr-10"
                 labelSize="xl"
                 {...register('age.months')}
-              />
+              /> 
+               {errors.age?.years?.message && (
+                <FormError error={errors.age?.years?.message} />
+              )}
               {errors.age?.months?.message && (
                 <FormError error={errors.age?.months?.message} />
               )}
-              {errors.age?.years?.message && (
-                <FormError error={errors.age?.years?.message} />
-              )}
+            
             </div>
             <div>
               <p className="text-xl mb-8 text-left">Порода * </p>

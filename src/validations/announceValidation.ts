@@ -1,9 +1,34 @@
 import { z } from 'zod';
 
-const ageSchema = z.object({
-  years: z.coerce.number({ required_error: "Введіть вік тврини", invalid_type_error: "Число повинне бути цілим" }).int().min(0, 'Не валідне значення').max(30, "Максимальний вік - 30 років"),
-  months: z.coerce.number({ invalid_type_error: "Число повинне бути цілим" }).int().min(0, 'Не валідне значення').max(11, 'Не валідне значення').default(0),
-});
+const ageSchema = z
+  .object({
+    years: z.preprocess(
+      val => (val === '' ? undefined : Number(val)),
+      z
+        .number({
+          required_error: 'Введіть вік тварини',
+          invalid_type_error: 'Число повинне бути цілим',
+        })
+        .int()
+        .min(0, 'Не валідне значення')
+        .max(30, 'Максимальний вік - 30 років')
+    ),
+    months: z.preprocess(
+      val => (val === '' ? undefined : Number(val)),
+      z
+        .number({
+          required_error: '',
+          invalid_type_error: 'Число повинне бути цілим',
+        })
+        .int()
+        .min(0, 'Не валідне значення')
+        .max(11, 'Не валідне значення')
+    ),
+  })
+  .refine(data => (data.years ?? 0) + (data.months ?? 0) > 0, {
+    message: 'Вік тварини не може бути 0 років і 0 місяців',
+    path: ['months'],
+  });
 
 
 export const announceSchema = z.object({
@@ -14,14 +39,12 @@ export const announceSchema = z.object({
   }),
   gender: z.enum(['male', 'female']).optional(),
   age: ageSchema,
-
   breed: z
-    .string()
-    .nonempty('Введіть назву породи або "НЕВІДОМО"')
+    .string({ required_error: "Спочатку оберіть вид тварини, а потім породу" })
     .max(30, 'Порода не може перевищувати 30 символів')
     .trim(),
   animalName: z.string().min(2, "Мінімум 2 символи").max(50, 'Максимум 50 символів').nonempty("Введіть ім'я тварини").trim(),
-  animalLocation: z.string().min(2, 'Введіть назву населенного пункту').trim(),
+  animalLocation: z.string({ required_error: "Оберіть населенний пункт"}).min(2, 'Введіть назву населенного пункту').trim(),
   adText: z
     .string()
     .min(50, 'Текст оголошення повинен мати мінімум 50 символів')
