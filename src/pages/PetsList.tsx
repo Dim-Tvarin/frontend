@@ -197,7 +197,7 @@ const PetsList = () => {
               <CustomButton
                 type="submit"
                 styleType="defaultButton"
-                className="m-0"
+                className="m-0 self-center"
                 loading={isLoading || isFetching}
               >
                 Застосувати фільтр
