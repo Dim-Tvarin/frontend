@@ -23,7 +23,7 @@ const FilterItem = ({ label,
         <Button
           variant="outline"
           role="combobox"
-          className="w-full max-w-[305px] justify-between border-1 border-input-border px-16 text-lg text-medium rounded-lg text-default-btn"
+          className="w-full max-w-[305px] justify-between border-1 border-input-border px-16 text-base text-medium rounded-lg text-default-btn"
         >
           {items.find(i => i.value === value)?.label || label}
           <FaChevronDown color="#042D4A" />
@@ -41,7 +41,7 @@ const FilterItem = ({ label,
                 id={item.value}
                 className="ring-[1px] w-20 h-20 data-[state=checked]:ring-2 focus:outline-none text-default-btn"
               />
-              <Label htmlFor={item.value} className="text-lg">
+              <Label htmlFor={item.value} className="text-base">
                 {item.label}
               </Label>
             </div>
