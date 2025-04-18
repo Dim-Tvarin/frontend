@@ -15,6 +15,7 @@ import PetsList from 'pages/PetsList';
 import PetPage from 'pages/PetPage';
 import ProfilePage from 'pages/ProfilePage';
 import PrivateRoute from 'components/routes/PrivateRoute';
+import UpdateAnnouncement from 'pages/Announcement/UpdateAnnouncement';
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -29,6 +30,7 @@ function App() {
 
         <Route path="components" element={<Components />} />
         <Route path="announcement" element={<Announcement />} />
+        <Route path="updateannouncement/:id" element={<UpdateAnnouncement />} />
         <Route path="allpets" element={<PetsList />} />
         <Route path="allpets/:id" element={<PetPage />} />
         <Route

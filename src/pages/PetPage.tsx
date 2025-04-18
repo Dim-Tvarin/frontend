@@ -7,6 +7,7 @@ import { useGetAnimalByIdQuery } from "src/redux/animals/animalsApi";
 import tracks4 from '../assets/tracks4.png'
 import ImageCarousel from "components/ImageCarousel";
 import { showToast } from "components/Toast";
+import { CustomButton } from "components/CustomButton";
 
 const PetPage = () => {
  const navigate = useNavigate();
@@ -98,9 +99,17 @@ const PetPage = () => {
         </div>
         <a
           href={`tel:${ownerPhone}`}
-          className="w-[236px] h-[44px] bg-default-btn rounded-[20px] text-white self-center grid place-content-center text-base">
+          className="w-[236px] h-[44px] bg-default-btn rounded-[20px] text-white self-center grid place-content-center text-base"
+        >
           Зв’язатися з господарем
         </a>
+        <CustomButton
+          styleType="defaultButton"
+          className="flex gap-8  w-[259px]"
+          onClick={() => navigate(`/updateannouncement/${id}`)}
+        >
+          Відредагувати оголошення
+        </CustomButton>
       </div>
     </div>
   );
