@@ -34,7 +34,8 @@ const mapAnimalType = {
 
 const PetsList = () => {
   const [searchParams] = useSearchParams();
-  const [page, setPage] = useState(Number(searchParams.get('page')) ||1);
+  const rawPage = Number(searchParams.get('page'));
+  const [page, setPage] = useState(rawPage === 0 ? 1 : rawPage);
   const [openFilters, setOpenFilters] = useState(false)
   const [openSorting, setOpenSorting] = useState(false)
   const [filtersParams, setFiltersParams] = useState<Partial<FilterFormValues>>({})
@@ -56,19 +57,23 @@ const PetsList = () => {
   });
   const selectedAnimalType = watch('animalType') ;
   const totalPages = data && Math.ceil(data?.total / limit);
-  const title = filtersParams && filtersParams?.animalType ? mapAnimalType[filtersParams?.animalType] : 'Всі тварини'
+  const title =
+    filtersParams && filtersParams?.animalType
+      ? mapAnimalType[filtersParams?.animalType]
+      : 'Всі тварини';
 
-
-  if (error) {
+  useEffect(()=> {  if (error) {
     showToast({
       title: 'Щось пішло не по плану',
       description: 'Спробуйте ще раз пізніше',
       status: 'error',
     })
     navigate('/')
-  }
+  }}, [error])
 
-  useEffect(() => setPage(Number(searchParams.get('page'))), [page, searchParams])
+  useEffect(() => {
+    const rawPage = Number(searchParams.get('page'));
+    setPage(rawPage === 0 ? 1 : rawPage)}, [searchParams])
 
   useEffect(()=> {
     if (Object.keys(filtersParams).length > 0 && !isLoading && !isFetching)
