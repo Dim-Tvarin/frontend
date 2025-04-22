@@ -14,7 +14,7 @@ interface RadioProps {
   ref?: React.Ref<HTMLDivElement>;
   name?: string;
   value?: string;
-  defaultValue?: string;
+ // defaultValue?: string;
   className?: string;
   itemWidth?: string;
   items: Item[];
@@ -30,7 +30,7 @@ const CustomRadioGroup: FC<RadioProps> = ({
   ref,
   name,
   value,
-  defaultValue,
+ // defaultValue,
   items,
   itemWidth,
   className,
@@ -52,7 +52,7 @@ const CustomRadioGroup: FC<RadioProps> = ({
         ref={ref}
         name={name}
         value={value}
-        defaultValue={defaultValue}
+        //defaultValue={defaultValue}
         className={cn('flex gap-20', className)}
         onBlur={onBlur}
         onValueChange={onChange}

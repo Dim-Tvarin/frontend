@@ -22,20 +22,10 @@ import { animalType, gender } from "./types";
 type AnnouncementForm = z.infer<typeof announceSchema>;
 
 const UpdateAnnouncement = () => {
+  
   const navigate = useNavigate();
   const {id} = useParams<{ id: string }>()
-  const {
-      register,
-      watch,
-      handleSubmit,
-      control,
-      formState: { errors },
-    } = useForm<AnnouncementForm>({
-      resolver: zodResolver(announceSchema),
-      mode: 'onChange',
-    });
-   const animalTypeValue = watch('animalType');
-  if (!id ) {
+   if (!id ) {
     showToast({
       title: 'Щось пішло не по плану',
       description: 'Це оголошення не було знайдено',
@@ -46,6 +36,22 @@ const UpdateAnnouncement = () => {
   }
   const { data, error, isLoading } = useGetAnimalByIdQuery(id);
   const { animal } = data || {}
+  const {
+      register,
+      watch,
+      handleSubmit,
+      control,
+      formState: { errors },
+    } = useForm<AnnouncementForm>({
+      resolver: zodResolver(announceSchema),
+      mode: 'onChange',
+      defaultValues: {
+        animalType: animal?.animalType ?? '',
+      }
+    });
+   const animalTypeValue = watch('animalType');
+ 
+
   if (isLoading) {
     return <PetPageSceleton />;
   }
@@ -74,16 +80,16 @@ const UpdateAnnouncement = () => {
           <Controller
             name="animalType"
             control={control}
-            render={({ field: { onChange, name, onBlur, ref, value } }) => (
+            render={({ field: { onChange, name, onBlur, ref } }) => (
               <CustomRadioGroup
-                defaultValue={animal?.animalType}
+               // defaultValue={animal?.animalType}
                 items={animalType}
                 className="grid grid-cols-2"
                 itemWidth="305"
                 error={errors.animalType?.message}
                 name={name}
                 ref={ref}
-                value={value}
+                value={animal?.animalType}
                 onBlur={onBlur}
                 onChange={onChange}
               />
@@ -96,7 +102,7 @@ const UpdateAnnouncement = () => {
             control={control}
             render={({ field: { onChange, name, onBlur, ref, value } }) => (
               <CustomRadioGroup
-                defaultValue={animal?.gender}
+               // defaultValue={animal?.gender}
                 items={gender}
                 className="grid grid-cols-2"
                 itemWidth="305"
@@ -144,6 +150,7 @@ const UpdateAnnouncement = () => {
                 control={control}
                 render={({ field }) => (
                   <BreedSelect
+                   // value={animal?.breed}
                     onChange={field.onChange}
                     className="w-[305px] h-[40px]"
                     type={animal?.animalType}
