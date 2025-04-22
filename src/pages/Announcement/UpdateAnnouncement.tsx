@@ -47,9 +47,11 @@ const UpdateAnnouncement = () => {
       mode: 'onChange',
       defaultValues: {
         animalType: animal?.animalType ?? '',
+        gender: animal?.gender ?? undefined,
       }
     });
    const animalTypeValue = watch('animalType');
+   const genderValue = watch('gender');
  
 
   if (isLoading) {
@@ -67,7 +69,9 @@ const UpdateAnnouncement = () => {
   const onSubmit = async (data: AnnouncementForm) => {
     console.log('dataForm', data);
   }
-   console.log('data', animal, animalTypeValue);
+
+  const defaultAnimalType = (animal?.animalType !=='cats' && animal?.animalType !=='dogs' && animal?.animalType !=='birds') ? "other" : animal?.animalType
+
   return (
     <div className="container flex flex-row gap-16 text-default-btn relative z-10">
       <div className="flex flex-col flex-1/2 mt-100">
@@ -82,14 +86,13 @@ const UpdateAnnouncement = () => {
             control={control}
             render={({ field: { onChange, name, onBlur, ref } }) => (
               <CustomRadioGroup
-               // defaultValue={animal?.animalType}
                 items={animalType}
                 className="grid grid-cols-2"
                 itemWidth="305"
                 error={errors.animalType?.message}
                 name={name}
                 ref={ref}
-                value={animal?.animalType}
+                value={animalTypeValue || defaultAnimalType}
                 onBlur={onBlur}
                 onChange={onChange}
               />
@@ -100,16 +103,15 @@ const UpdateAnnouncement = () => {
           <Controller
             name="gender"
             control={control}
-            render={({ field: { onChange, name, onBlur, ref, value } }) => (
+            render={({ field: { onChange, name, onBlur, ref } }) => (
               <CustomRadioGroup
-               // defaultValue={animal?.gender}
-                items={gender}
+                items={gender}                
                 className="grid grid-cols-2"
                 itemWidth="305"
                 error={errors.gender?.message}
                 name={name}
                 ref={ref}
-                value={value}
+                value={genderValue || animal?.gender}
                 onBlur={onBlur}
                 onChange={onChange}
               />
@@ -150,7 +152,7 @@ const UpdateAnnouncement = () => {
                 control={control}
                 render={({ field }) => (
                   <BreedSelect
-                   // value={animal?.breed}
+                   value={animal?.breed}
                     onChange={field.onChange}
                     className="w-[305px] h-[40px]"
                     type={animal?.animalType}

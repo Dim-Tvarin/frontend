@@ -129,16 +129,15 @@ const Announcement = () => {
           <Controller
             name="animalType"
             control={control}
-            render={({ field: { onChange, name, onBlur, ref, value } }) => (
+            render={({ field: { onChange, name, onBlur, ref } }) => (
               <CustomRadioGroup
-                defaultValue={animalTypeValue}
                 items={animalType}
                 className="grid grid-cols-2"
                 itemWidth="305"
                 error={errors.animalType?.message}
                 name={name}
                 ref={ref}
-                value={value}
+                value={animalTypeValue}
                 onBlur={onBlur}
                 onChange={onChange}
               />
@@ -149,16 +148,15 @@ const Announcement = () => {
           <Controller
             name="gender"
             control={control}
-            render={({ field: { onChange, name, onBlur, ref, value } }) => (
+            render={({ field: { onChange, name, onBlur, ref } }) => (
               <CustomRadioGroup
-                defaultValue={genderValue}
                 items={gender}
                 className="grid grid-cols-2"
                 itemWidth="305"
                 error={errors.gender?.message}
                 name={name}
                 ref={ref}
-                value={value}
+                value={genderValue}
                 onBlur={onBlur}
                 onChange={onChange}
               />

@@ -57,8 +57,8 @@ const defaultBreeds = {
 
 
 
-const BreedSelect = ({type, onChange, className, errorMess}: 
-  {type?: AnimalTypeEnum; onChange: (breed: string) => void; className?: string; errorMess?: string;}) => {
+const BreedSelect = ({type, value, onChange, className, errorMess}: 
+  {type?: AnimalTypeEnum; value?: string; onChange: (breed: string) => void; className?: string; errorMess?: string;}) => {
   const [open, setOpen] = useState(false);
   const [selectedBreed, setSelectedBreed] = useState("");
   const [filteredBreed, setFilteredBreed] = useState< Pick<AnimalTrait, '_id' | 'breed'>[]>([])
@@ -68,7 +68,7 @@ const BreedSelect = ({type, onChange, className, errorMess}:
 
    useEffect(() => {
      let animalBreed: Pick<AnimalTrait, '_id' | 'breed'>[] = [];
-     if (type === 'other' || type === undefined) {
+     if (type !== 'cats' || type !== 'dogs' || type !== 'birds') {
        return;
      }
      const filteredByType = data?.[type] || [];
@@ -91,9 +91,10 @@ const BreedSelect = ({type, onChange, className, errorMess}:
      setSelectedBreed('')
    }, [debouncedSearch, data, isLoading, type]);
 
-    if(  type === 'other' ) {
+    if(  type !== 'cats' || type !== 'dogs' || type !== 'birds' ) {
       return (
         <InputField
+          value={value}
           id="animBeed"
           placeholder="Введіть породу"
           className="w-[305px] h-[40px]"
@@ -101,7 +102,7 @@ const BreedSelect = ({type, onChange, className, errorMess}:
         />
       );
     }
-
+console.log('type', type);
   return (
     <>
       <Popover open={open} onOpenChange={setOpen}>
@@ -111,7 +112,7 @@ const BreedSelect = ({type, onChange, className, errorMess}:
             disabled={type === undefined}
             className={`${className} w-[305px] justify-between border-input-border px-16 text-lg text-medium text-default-btn`}
           >
-            {selectedBreed || 'Оберіть породу'}
+            {value || selectedBreed || 'Оберіть породу'}
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-[305px] p-0  border-1 border-input-border rounded-t-lg z-10">

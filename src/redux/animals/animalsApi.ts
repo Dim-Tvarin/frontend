@@ -1,6 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import type { RootState } from '../store';
-import type { AnimalTypeEnum } from 'pages/Announcement/types';
 
 export type animalAge = {
   months: number;
@@ -67,7 +66,7 @@ export const animalsApi = createApi({
       {
         page?: number;
         limit?: number;
-        animalType?: AnimalTypeEnum;
+        animalType?: string;
         gender?: string;
         breed?: string;
         location?: string;
