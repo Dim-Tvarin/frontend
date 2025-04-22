@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import logo from '../../assets/logo.svg';
+import logo from '../../assets/color-logo.svg';
 import { Link } from 'react-router-dom';
 import { LiaFacebook } from 'react-icons/lia';
 import insta from '../../../public/assets/instagram.svg';

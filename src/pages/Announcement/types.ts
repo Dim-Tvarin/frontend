@@ -49,15 +49,15 @@ export const age = [
 
 export const size = [
   {
-    value: 'маленький',
+    value: 'Малий',
     label: 'маленький',
   },
   {
-    value: 'середній',
+    value: 'Середній',
     label: 'середній',
   },
     {
-    value: 'великий',
+    value: 'Великий',
     label: 'великий',
   }
 ];
