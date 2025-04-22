@@ -40,6 +40,8 @@ interface AnimalById {
   ownerPhone: string;
 }
 
+export type SortOrder = 'newest' | 'oldest';
+
 export const animalsApi = createApi({
   reducerPath: 'animalsApi',
   baseQuery: fetchBaseQuery({
@@ -71,25 +73,26 @@ export const animalsApi = createApi({
         location?: string;
         age?: string;
         size?: string;
+        sortByDate?: SortOrder;
       }
     >({
       query: ({ page = 1, limit = 12, ...params }) => {
         const filteredParams = Object.fromEntries(
-          Object.entries(params).filter(([_, v]) => v !== undefined && v !== '')
+          Object.entries(params).filter(([, v]) => v !== undefined && v !== '')
         );
         const queryString = new URLSearchParams(filteredParams).toString();
         const url = `animals/filter?page=${page}&limit=${limit}&${queryString}`;
-        return url
-      }
-        
+        return url;
+      },
     }),
-    createAnimal: build.mutation<any, FormData>({
+    createAnimal: build.mutation<unknown, FormData>({
       query: formData => ({
         url: '/animals',
         method: 'POST',
         body: formData,
       }),
     }),
+
     getAnimalById: build.query<AnimalById, string>({
       query: id => `animals/${id}`,
     }),
@@ -100,6 +103,13 @@ export const animalsApi = createApi({
       query: ({ page = 1, limit = 9 }) =>
         `animals/my-animals?page=${page}&limit=${limit}`,
     }),
+    addFavoriteAnimal: build.mutation<unknown, string>({
+      query: animalId => ({
+        url: `/animals/${animalId}/favorite`,
+        method: 'PATCH',
+        body: { favorite: true },
+      }),
+    }),
   }),
 });
 
@@ -109,4 +119,5 @@ export const {
   useGetFilteredAnimalsQuery,
   useGetAnimalByIdQuery,
   useGetMyAnimalsQuery,
+  useAddFavoriteAnimalMutation,
 } = animalsApi;

@@ -66,21 +66,30 @@ const BreedSelect = ({type, onChange, className, errorMess}:
   const {data, isLoading} = useGetAnimaltraitsQuery()
   const debouncedSearch = useDebounce(searchValue, 300);
 
-   useEffect(()=> {
-    let animalBreed: Pick<AnimalTrait, '_id' | 'breed'>[] = []
-    if (type === 'other' || type === undefined) {
-      return
-    }
-      const filteredByType = data?.[type] || []
-      const mapFilteredData = filteredByType.map(({ _id, breed }) => ({ _id, breed }))
+   useEffect(() => {
+     let animalBreed: Pick<AnimalTrait, '_id' | 'breed'>[] = [];
+     if (type === 'other' || type === undefined) {
+       return;
+     }
+     const filteredByType = data?.[type] || [];
+     const mapFilteredData = filteredByType.map(({ _id, breed }) => ({
+       _id,
+       breed,
+     }));
 
-      if (!isLoading && data && filteredByType?.length > 0 && searchValue.length > 2) {
-          animalBreed = getFilteredBreed(mapFilteredData, searchValue)
-        } else {
-          animalBreed = defaultBreeds[type] 
-        }
-        setFilteredBreed(animalBreed)
-    }, [debouncedSearch, data, isLoading, type])
+     if (
+       !isLoading &&
+       data &&
+       filteredByType?.length > 0 &&
+       searchValue.length > 2
+     ) {
+       animalBreed = getFilteredBreed(mapFilteredData, searchValue);
+     } else {
+       animalBreed = defaultBreeds[type];
+     }
+     setFilteredBreed(animalBreed);
+     setSelectedBreed('')
+   }, [debouncedSearch, data, isLoading, type]);
 
     if(  type === 'other' ) {
       return (

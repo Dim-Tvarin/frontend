@@ -1,12 +1,24 @@
 import { Button } from "./components/ui/button";
 import { FaArrowLeft } from "react-icons/fa6";
 import { FaArrowRight } from "react-icons/fa6";
+import { useSearchParams } from "react-router";
 
 
 const Pagination = (
   { currentPage = 1, totalPages = 2, onPageChange, className='' }:
   { currentPage?: number; totalPages?: number; onPageChange: (page: number)=> void; className?: string;}) => {
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+   const curPage = Number(searchParams.get('page')) || currentPage;
+   const handleNext = () => {
+    onPageChange(curPage + 1)
+    setSearchParams({ page: String(curPage + 1) });
+  }
+  const handlePrev = () => {
+    onPageChange(curPage - 1)
+    setSearchParams({ page: String(curPage - 1) });
+  }
 
   return (
     <div className={`${className} flex gap-24 items-center justify-center font-[Inter] font-semibold`}>
@@ -14,7 +26,7 @@ const Pagination = (
         variant="outline"
         size="icon"
         disabled={currentPage === 1}
-        onClick={() => onPageChange(currentPage - 1)}
+        onClick={handlePrev}
         className="w-50 h-50 rounded-full border-2 border-default-btn"
       >
         <FaArrowLeft size={22}/>
@@ -25,7 +37,7 @@ const Pagination = (
           key={page}
           variant="outline"
           size="icon"
-          onClick={() => onPageChange(page)}
+          onClick={() => { onPageChange(page); setSearchParams({ page: `${page}` }) }}
           className={`rounded-full border-2 border-default-btn w-50 h-50 font-medium transition-colors text-base
             ${
               currentPage === page
@@ -42,7 +54,7 @@ const Pagination = (
         variant="outline"
         size="icon"
         disabled={currentPage === totalPages}
-        onClick={() => onPageChange(currentPage + 1)}
+        onClick={handleNext}
         className="w-50 h-50 rounded-full border-2 border-default-btn"
       >
         <FaArrowRight size={22}/>

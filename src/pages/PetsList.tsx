@@ -1,11 +1,11 @@
 import { FiFilter } from "react-icons/fi";
 import { CustomButton } from "components/CustomButton";
-import { useGetFilteredAnimalsQuery } from "src/redux/animals/animalsApi";
+import { useGetFilteredAnimalsQuery, type SortOrder } from "src/redux/animals/animalsApi";
 import AnimalCard from "components/AnimalCard";
 import { PetsListSkeleton } from "components/sceletons/PetsListSkeleton";
 import Pagination from "components/Pagination";
-import { useState } from "react";
-import { useNavigate } from "react-router";
+import { useEffect, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router";
 import { showToast } from "components/Toast";
 import FilterItem from "components/FilterItem";
 import { age, animalType, AnimalTypeEnum, gender, size } from "./Announcement/types";
@@ -13,7 +13,7 @@ import BreedSelect from "components/BreedSelect";
 import { CitySelect } from "components/CitySelect";
 import { Controller, useForm } from "react-hook-form";
 
-const limit = 4
+const limit = 12
 
 interface FilterFormValues {
   animalType: AnimalTypeEnum | undefined;
@@ -22,6 +22,7 @@ interface FilterFormValues {
   location: string;
   age: string;
   size: string;
+  sortByDate?: "newest" | 'oldest';
 }
 
 const mapAnimalType = {
@@ -32,11 +33,18 @@ const mapAnimalType = {
 }
 
 const PetsList = () => {
-  const [page, setPage] = useState(1);
+  const [searchParams] = useSearchParams();
+  const rawPage = Number(searchParams.get('page'));
+  const [page, setPage] = useState(rawPage === 0 ? 1 : rawPage);
   const [openFilters, setOpenFilters] = useState(false)
+  const [openSorting, setOpenSorting] = useState(false)
   const [filtersParams, setFiltersParams] = useState<Partial<FilterFormValues>>({})
+  const [isFilterApplied, setIsFilterApplied] = useState(false);
+  const [sorting, setSorting] = useState<SortOrder>('newest');
+  
   const navigate = useNavigate();
-  const { data, isLoading, isFetching, error } = useGetFilteredAnimalsQuery({page, limit, ...filtersParams})
+
+  const { data, isLoading, isFetching, error } = useGetFilteredAnimalsQuery({page, limit, ...filtersParams},{ skip: !filtersParams } )
   const { control, handleSubmit, watch } = useForm<FilterFormValues>({
     defaultValues: {
       animalType: undefined,
@@ -47,23 +55,45 @@ const PetsList = () => {
       size: '',
     },
   });
-
   const selectedAnimalType = watch('animalType') ;
   const totalPages = data && Math.ceil(data?.total / limit);
-  const title = filtersParams && filtersParams?.animalType ? mapAnimalType[filtersParams?.animalType] : 'Всі тварини'
+  const title =
+    filtersParams && filtersParams?.animalType
+      ? mapAnimalType[filtersParams?.animalType]
+      : 'Всі тварини';
 
-  if (error) {
+  useEffect(()=> {  if (error) {
     showToast({
       title: 'Щось пішло не по плану',
       description: 'Спробуйте ще раз пізніше',
       status: 'error',
     })
     navigate('/')
-  }
+  }}, [error])
+
+  useEffect(() => {
+    const rawPage = Number(searchParams.get('page'));
+    setPage(rawPage === 0 ? 1 : rawPage)}, [searchParams])
+
+  useEffect(()=> {
+    if (Object.keys(filtersParams).length > 0 && !isLoading && !isFetching)
+    setIsFilterApplied(true) }, [isFetching, filtersParams, isLoading])
 
   const onSubmit = (formData: FilterFormValues) => {
-    setFiltersParams(formData)
+    const filters = {...formData, sortByDate: sorting}
+    setFiltersParams(filters);
   };
+
+  const handleAscSorting = () => {
+    setSorting('newest'); 
+    setFiltersParams({sortByDate:'newest'})
+    setOpenSorting(false)
+  }
+    const handleDescSorting = () => {
+    setSorting('oldest'); 
+    setFiltersParams({sortByDate:'oldest'})
+    setOpenSorting(false)
+  }
 
   return (
     <div className="container">
@@ -75,14 +105,36 @@ const PetsList = () => {
           onClick={() => setOpenFilters(prev => !prev)}
         >
           <FiFilter size={18} />
-          <span className="text-lg">Фільтр</span>
+          <span className="text-base">Фільтр</span>
         </CustomButton>
         <div className="flex flex-col">
           <h1 className="text-[32px]">{title}</h1>
-          {data && (
+          {isFilterApplied && data && (
             <p className="text-lg text-center text-default-btn w-full">
-              {data.total === 0 ? 'По вашому запиту нічого не знайдено' : `По вашому запиту знайдено ${data.total} тварини`}
+              {data.total === 0
+                ? 'По вашому запиту нічого не знайдено'
+                : `По вашому запиту знайдено ${data.total} тварини`}
             </p>
+          )}
+        </div>
+        <div className="absolute top-0 right-0  z-10">
+          <CustomButton
+            type="button"
+            styleType="whiteButton"
+            className="w-[217px] m-0 text-base text-medium text-default-btn"
+            onClick={() => setOpenSorting(prev => !prev)}
+          >
+            Сортування за датою
+          </CustomButton>
+          {openSorting && (
+            <div className="bg-header border-1 border-default-btn rounded-xl flex flex-col gap-4 px-16 py-10">
+              <button onClick={handleAscSorting} className="text-default-btn text-left focus:outline-none">
+                Останні оголошення
+              </button>
+              <button onClick={handleDescSorting} className="text-default-btn text-left focus:outline-none">
+                Давні оголошення
+              </button>
+            </div>
           )}
         </div>
       </div>
@@ -150,7 +202,7 @@ const PetsList = () => {
               <CustomButton
                 type="submit"
                 styleType="defaultButton"
-                className="m-0"
+                className="m-0 self-center"
                 loading={isLoading || isFetching}
               >
                 Застосувати фільтр
