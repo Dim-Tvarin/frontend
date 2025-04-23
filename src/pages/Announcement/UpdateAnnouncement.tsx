@@ -15,7 +15,7 @@ import { useNavigate, useParams } from "react-router";
 import { useGetAnimalByIdQuery } from "src/redux/animals/animalsApi";
 import { announceSchema } from "../../validations/announceValidation";
 import type { z } from "zod";
-import { animalType, gender } from "./types";
+import { animalTypeOptions, genderOption } from "./types";
 import { getMonthDeclension, getYearDeclension } from "src/helpers/getYearDeclension";
 import { FilesInput } from "components/FilesInput";
 
@@ -46,14 +46,14 @@ const UpdateAnnouncement = () => {
       resolver: zodResolver(announceSchema),
       mode: 'onChange',
       defaultValues: {
-        animalType: animal?.animalType ?? '',
+        animalType: animal?.animalType,
         gender: animal?.gender ?? undefined,
       }
     });
    const animalTypeValue = watch('animalType');
    const genderValue = watch('gender');
    const years = watch('age.years');
-  const months = watch('age.months');
+   const months = watch('age.months');
 
  
 
@@ -89,7 +89,7 @@ console.log('err', errors);
             control={control}
             render={({ field: { onChange, name, onBlur, ref } }) => (
               <CustomRadioGroup
-                items={animalType}
+                items={animalTypeOptions}
                 className="grid grid-cols-2"
                 itemWidth="305"
                 error={errors.animalType?.message}
@@ -108,7 +108,7 @@ console.log('err', errors);
             control={control}
             render={({ field: { onChange, name, onBlur, ref } }) => (
               <CustomRadioGroup
-                items={gender}                
+                items={genderOption}                
                 className="grid grid-cols-2"
                 itemWidth="305"
                 error={errors.gender?.message}

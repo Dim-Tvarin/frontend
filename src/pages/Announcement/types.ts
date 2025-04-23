@@ -78,3 +78,5 @@ export enum AnimalType {
   birds = "birds",
   other = "other",
 }
+
+export type AnimalTypeValues = `${AnimalType}`; // "cats" | "dogs" | "birds" | "other"

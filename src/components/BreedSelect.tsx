@@ -1,4 +1,4 @@
-import { useGetAnimaltraitsQuery, type AnimalTrait, type TraitsRequest } from 'src/redux/animals/addInfoApi';
+import { useGetAnimaltraitsQuery, type AnimalTrait } from 'src/redux/animals/addInfoApi';
 import { Popover, PopoverContent, PopoverTrigger } from "@radix-ui/react-popover";
 import { Command, CommandInput, CommandItem, CommandList } from "./components/ui/command";
 import { Button } from './components/ui/button';
@@ -7,6 +7,7 @@ import { BsCheckLg } from "react-icons/bs";
 import FormError from './FormError';
 import { useDebounce } from '@uidotdev/usehooks';
 import { InputField } from './InputField';
+import { AnimalType, type AnimalTypeValues } from 'pages/Announcement/types';
 
 
 const getFilteredBreed = (data:  Pick<AnimalTrait, '_id' | 'breed'>[], searchVal: string): Pick<AnimalTrait, '_id' | 'breed'>[] => {
@@ -14,7 +15,7 @@ const getFilteredBreed = (data:  Pick<AnimalTrait, '_id' | 'breed'>[], searchVal
   return  data.filter(i => i.breed.toLowerCase().startsWith(search))
 }
 
-const defaultBreeds: Pick<AnimalTrait, '_id' | 'breed'>[] = {
+const defaultBreeds: Record<Exclude<AnimalType, AnimalType.other>, Pick<AnimalTrait, '_id' | 'breed'>[]> = {
   dogs: [
     { _id: '67fb8ea44b0d6673ac919d07', breed: 'Невідомо' },
     { _id: '67fb8ea44b0d6673ac919c3a', breed: "Австралійський тер'єр" },
@@ -54,10 +55,10 @@ const defaultBreeds: Pick<AnimalTrait, '_id' | 'breed'>[] = {
   ],
 };
 
-const defaultTypes: (keyof TraitsRequest)[] = ['cats', 'dogs', 'birds'];
+const defaultTypes: Exclude<AnimalTypeValues, 'other'>[]= [AnimalType.dogs, AnimalType.cats, AnimalType.birds]
 
 const BreedSelect = ({type, value, onChange, className, errorMess}: 
-  {type?: keyof TraitsRequest | string; value?: string; onChange: (breed: string) => void; className?: string; errorMess?: string;}) => {
+  {type?: AnimalTypeValues | string; value?: string; onChange: (breed: string) => void; className?: string; errorMess?: string;}) => {
   const [open, setOpen] = useState(false);
   const [selectedBreed, setSelectedBreed] = useState("");
   const [filteredBreed, setFilteredBreed] = useState< Pick<AnimalTrait, '_id' | 'breed'>[]>([])
@@ -65,19 +66,22 @@ const BreedSelect = ({type, value, onChange, className, errorMess}:
   const {data, isLoading} = useGetAnimaltraitsQuery()
   const debouncedSearch = useDebounce(searchValue, 300);
 
+  const isDefaultAnimalType = (value: string): value is Exclude<AnimalTypeValues, 'other'> => {
+  return defaultTypes.includes(value as Exclude<AnimalTypeValues, 'other'>);
+}
+
   console.log('value', value);
    useEffect(() => {
      let animalBreed: Pick<AnimalTrait, '_id' | 'breed'>[] = [];
-     if (!data || !type || defaultTypes.includes(type as keyof TraitsRequest) === false) {
+     if (!data || !type || !isDefaultAnimalType(type)) {
        return;
      }
-     if (defaultTypes.includes(type as keyof TraitsRequest)) {
-       const filteredByType: AnimalTrait[] = data?.[type as keyof TraitsRequest] || [];
+     if (defaultTypes.includes(type)) {
+       const filteredByType: AnimalTrait[] = data?.[type ] || [];
        const mapFilteredData = filteredByType.map(({ _id, breed }) => ({
        _id,
        breed,
      }));
-    
     
 
      if (
@@ -95,7 +99,7 @@ const BreedSelect = ({type, value, onChange, className, errorMess}:
     }
    }, [debouncedSearch, data, isLoading, type]);
 
-    if(type && !defaultTypes.includes(type as keyof TraitsRequest) ) {
+    if(type && !isDefaultAnimalType(type) ) {
       return (
         <InputField
           value={value}
