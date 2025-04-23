@@ -31,7 +31,7 @@ const AnimalCard = ({id, name, gender, age, photoSrc, favorite}:
         <div className="text-left">
           <h2 className="text-lg font-medium">{name}</h2>
           <div className="text-lg font-medium flex gap-1">
-            <span>{genderMapping[gender]}</span> 
+            {gender !== 'unknown' && <span>{genderMapping[gender]}</span> }
             {!!age.years &&  (<span>{getYearDeclension(age.years)} </span>)} 
             {!!age.months &&  (<span>{`${age.months} міс.`}</span>)} 
           </div>

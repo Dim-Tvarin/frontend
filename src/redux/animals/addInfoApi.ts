@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import type { AnimalType } from 'pages/Announcement/types';
 
 interface CityType {
   _id: string;
@@ -14,10 +15,10 @@ export interface AnimalTrait {
 }
 
 export interface TraitsRequest {
-  cats: AnimalTrait[];
-  dogs: AnimalTrait[];
-  birds: AnimalTrait[];
-  other: string;
+  [AnimalType.cats]: AnimalTrait[];
+  [AnimalType.dogs]: AnimalTrait[];
+  [AnimalType.birds]: AnimalTrait[];
+  [AnimalType.other]: string;
 }
 
 
