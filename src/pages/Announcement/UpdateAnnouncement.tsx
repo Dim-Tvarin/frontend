@@ -4,7 +4,6 @@ import { CitySelect } from "components/CitySelect";
 import { CustomButton } from "components/CustomButton";
 import CustomRadioGroup from "components/CustomRadioGroup";
 import { TextareaDemo } from "components/CustomTextarea";
-import { FilesInput } from "components/FilesInput";
 import FormError from "components/FormError";
 import ImageCarousel from "components/ImageCarousel";
 import { InputField } from "components/InputField";
@@ -12,12 +11,12 @@ import PetPageSceleton from "components/sceletons/PetPageSceleton";
 import { Spinner } from "components/Spinner";
 import { showToast } from "components/Toast";
 import { Controller, useForm } from "react-hook-form";
-import { LuCirclePlus } from "react-icons/lu";
 import { useNavigate, useParams } from "react-router";
 import { useGetAnimalByIdQuery } from "src/redux/animals/animalsApi";
 import { announceSchema } from "../../validations/announceValidation";
 import type { z } from "zod";
 import { animalType, gender } from "./types";
+import { getMonthDeclension, getYearDeclension } from "src/helpers/getYearDeclension";
 
 type AnnouncementForm = z.infer<typeof announceSchema>;
 
@@ -52,6 +51,9 @@ const UpdateAnnouncement = () => {
     });
    const animalTypeValue = watch('animalType');
    const genderValue = watch('gender');
+   const years = watch('age.years');
+  const months = watch('age.months');
+  const descText = watch('adText');
  
 
   if (isLoading) {
@@ -123,20 +125,28 @@ const UpdateAnnouncement = () => {
               <InputField
                 label="Вік"
                 id="years"
-                placeholder="0 років"
+                placeholder={`${getYearDeclension(animal?.age.years || 0)}`}
                 className="w-[150px] h-[40px] mt-16"
                 labelSize="xl"
-                value={`${animal?.age.years} роки`}
+               // value={`${getYearDeclension(animal?.age.years || 0)}`}
                 {...register('age.years')}
+                onFocus={(e) => {
+                  e.target.value =  `${animal?.age.years || 0}`
+                }}
+                 onBlur={(e) => {e.target.value = `${getYearDeclension(years || 0)}`}}
               />
               <InputField
                 label=" "
                 id="months"
-                placeholder="0 місяців"
+                placeholder={`${getMonthDeclension(animal?.age.months || 0)}`}
                 className="w-[150px] h-[40px] mt-16 mr-10"
                 labelSize="xl"
-                value={`${animal?.age.months} місяців`}
-                {...register('age.months')}
+                 {...register('age.months')}
+                //value={`${getMonthDeclension(animal?.age.months || 0)}`}
+                onFocus={(e) => {
+                  e.target.value =  `${animal?.age.months || 0}`
+                }}
+                 onBlur={(e) => {e.target.value = `${getMonthDeclension(months || 0)}`}}
               />
               {errors.age?.months?.message && (
                 <FormError error={errors.age?.months?.message} />
@@ -169,6 +179,7 @@ const UpdateAnnouncement = () => {
               id="animalName"
               className="w-[305px] h-[40px] mt-16"
               labelSize="xl"
+              defaultValue={animal?.animalName}
               {...register('animalName')}
               error={errors.animalName?.message}
             />
@@ -180,6 +191,7 @@ const UpdateAnnouncement = () => {
                 render={({ field }) => (
                   <CitySelect
                     onChange={field.onChange}
+                    value={animal?.animalLocation}
                     className="w-[305px] h-[40px]"
                     errorMess={errors?.animalLocation?.message}
                   />
@@ -193,17 +205,19 @@ const UpdateAnnouncement = () => {
             className="text-left mt-32"
             placeholder="Опишіть тварину, її характер, історію, забарвлення"
             label="Опис тварини: *"
+            value={animal?.adText}
+            labelSize="xl"
             {...register('adText')}
             error={errors.adText?.message}
           />
-          <Controller
+          {/* <Controller
             name="images"
             control={control}
             defaultValue={[]}
             render={({ field: { ref, name, onChange, value } }) => (
               <FilesInput
                 ref={ref}
-                groupLabel="Добавте фото тварини та документи *"
+                groupLabel="Додайте фото тварини та документи *"
                 labelClass="mb-16 mt-32"
                 name={name}
                 onChange={onChange}
@@ -211,7 +225,7 @@ const UpdateAnnouncement = () => {
                 value={value}
               />
             )}
-          />
+          /> */}
 
           <CustomButton
             type="submit"
@@ -219,8 +233,8 @@ const UpdateAnnouncement = () => {
             disabled={isLoading}
             className="flex gap-8 z-10 w-[259px]"
           >
-            {isLoading ? <Spinner /> : <LuCirclePlus size={20} />}
-            Створити оголошення
+            {isLoading && <Spinner /> }
+            Зберегти зміни
           </CustomButton>
         </form>
       </div>

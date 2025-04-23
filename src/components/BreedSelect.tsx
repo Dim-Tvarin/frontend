@@ -1,4 +1,4 @@
-import { useGetAnimaltraitsQuery, type AnimalTrait } from 'src/redux/animals/addInfoApi';
+import { useGetAnimaltraitsQuery, type AnimalTrait, type TraitsRequest } from 'src/redux/animals/addInfoApi';
 import { Popover, PopoverContent, PopoverTrigger } from "@radix-ui/react-popover";
 import { Command, CommandInput, CommandItem, CommandList } from "./components/ui/command";
 import { Button } from './components/ui/button';
@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react';
 import { BsCheckLg } from "react-icons/bs";
 import FormError from './FormError';
 import { useDebounce } from '@uidotdev/usehooks';
-import type { AnimalTypeEnum } from 'pages/Announcement/types';
 import { InputField } from './InputField';
 
 
@@ -15,7 +14,7 @@ const getFilteredBreed = (data:  Pick<AnimalTrait, '_id' | 'breed'>[], searchVal
   return  data.filter(i => i.breed.toLowerCase().startsWith(search))
 }
 
-const defaultBreeds = {
+const defaultBreeds: Pick<AnimalTrait, '_id' | 'breed'>[] = {
   dogs: [
     { _id: '67fb8ea44b0d6673ac919d07', breed: 'Невідомо' },
     { _id: '67fb8ea44b0d6673ac919c3a', breed: "Австралійський тер'єр" },
@@ -55,10 +54,10 @@ const defaultBreeds = {
   ],
 };
 
-
+const defaultTypes: (keyof TraitsRequest)[] = ['cats', 'dogs', 'birds'];
 
 const BreedSelect = ({type, value, onChange, className, errorMess}: 
-  {type?: AnimalTypeEnum; value?: string; onChange: (breed: string) => void; className?: string; errorMess?: string;}) => {
+  {type?: keyof TraitsRequest | string; value?: string; onChange: (breed: string) => void; className?: string; errorMess?: string;}) => {
   const [open, setOpen] = useState(false);
   const [selectedBreed, setSelectedBreed] = useState("");
   const [filteredBreed, setFilteredBreed] = useState< Pick<AnimalTrait, '_id' | 'breed'>[]>([])
@@ -68,14 +67,17 @@ const BreedSelect = ({type, value, onChange, className, errorMess}:
 
    useEffect(() => {
      let animalBreed: Pick<AnimalTrait, '_id' | 'breed'>[] = [];
-     if (type !== 'cats' || type !== 'dogs' || type !== 'birds') {
+     if (!data || !type || defaultTypes.includes(type as keyof TraitsRequest) === false) {
        return;
      }
-     const filteredByType = data?.[type] || [];
-     const mapFilteredData = filteredByType.map(({ _id, breed }) => ({
+     if (defaultTypes.includes(type as keyof TraitsRequest)) {
+       const filteredByType: AnimalTrait[] = data?.[type as keyof TraitsRequest] || [];
+       const mapFilteredData = filteredByType.map(({ _id, breed }) => ({
        _id,
        breed,
      }));
+    
+    
 
      if (
        !isLoading &&
@@ -88,10 +90,11 @@ const BreedSelect = ({type, value, onChange, className, errorMess}:
        animalBreed = defaultBreeds[type];
      }
      setFilteredBreed(animalBreed);
-     setSelectedBreed('')
+     setSelectedBreed('') 
+    }
    }, [debouncedSearch, data, isLoading, type]);
 
-    if(  type !== 'cats' || type !== 'dogs' || type !== 'birds' ) {
+    if(type && !defaultTypes.includes(type) ) {
       return (
         <InputField
           value={value}
@@ -102,7 +105,7 @@ const BreedSelect = ({type, value, onChange, className, errorMess}:
         />
       );
     }
-console.log('type', type);
+
   return (
     <>
       <Popover open={open} onOpenChange={setOpen}>
@@ -112,7 +115,7 @@ console.log('type', type);
             disabled={type === undefined}
             className={`${className} w-[305px] justify-between border-input-border px-16 text-lg text-medium text-default-btn`}
           >
-            {value || selectedBreed || 'Оберіть породу'}
+            {selectedBreed ||value ||  'Оберіть породу'}
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-[305px] p-0  border-1 border-input-border rounded-t-lg z-10">

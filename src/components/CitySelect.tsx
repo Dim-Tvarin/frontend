@@ -31,7 +31,7 @@ const defaultCities: CityType[] = [
  {_id:"67f7daf6405f8609b0a0d5e4",  name: "Житомир"},{_id:"67f7daf7405f8609b0a14823",  name: "Чернігів"},
 ]
 
-export function CitySelect({ onChange, className, errorMess }: { onChange: (city: string) => void; className?: string; errorMess?: string;}) {
+export function CitySelect({ onChange, value, className, errorMess }: { onChange: (city: string) => void; value?: string; className?: string; errorMess?: string;}) {
   const [open, setOpen] = useState(false);
   const [selectedCity, setSelectedCity] = useState("");
   const [searchValue, setSearchValue] = useState("");
@@ -59,7 +59,7 @@ export function CitySelect({ onChange, className, errorMess }: { onChange: (city
             variant="outline"
             className={`${className} w-[305px] justify-between border-input-border px-16 text-lg text-medium text-default-btn`}
           >
-            {selectedCity || 'Оберіть населенний пункт'}
+            {selectedCity || value ||  'Оберіть населенний пункт'}
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-[305px] p-0  border-1 border-input-border rounded-t-lg z-10">
