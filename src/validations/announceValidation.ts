@@ -1,3 +1,4 @@
+import { AnimalType } from 'pages/Announcement/types';
 import { z } from 'zod';
 
 const ageSchema = z
@@ -32,8 +33,9 @@ const ageSchema = z
 
 
 export const announceSchema = z.object({
-  animalType:  z.string({ required_error: 'Оберіть вид тварини'}),
-
+  animalType: z.nativeEnum(AnimalType, {
+    required_error: 'Оберіть вид тварини',
+  }),
   gender: z.enum(['male', 'female', "unknown"]).optional(),
   age: ageSchema,
   breed: z

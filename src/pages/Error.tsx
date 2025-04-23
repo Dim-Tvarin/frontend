@@ -2,7 +2,7 @@ import bg from '../../public/assets/404@2x.jpg';
 
 const Error = () => {
   return (
-    <div className=" relative h-[calc(100vh-253px)] flex flex-col justify-center items-center">
+    <div className=" relative h-[calc(100vh-202px)] flex flex-col justify-center items-center">
       <div className="absolute z-1  right-0 top-0 left-0 bottom-0">
         <img src={bg} alt="граюча собака" className="w-full h-full" />
       </div>
