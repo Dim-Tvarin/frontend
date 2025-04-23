@@ -39,7 +39,6 @@ const CustomRadioGroup: FC<RadioProps> = ({
   onBlur,
   error,
 }) => {
-  console.log('valueRadio', value);
   return (
     <div className="flex flex-col">
       {groupLabel && (

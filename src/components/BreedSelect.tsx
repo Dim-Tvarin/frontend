@@ -65,6 +65,7 @@ const BreedSelect = ({type, value, onChange, className, errorMess}:
   const {data, isLoading} = useGetAnimaltraitsQuery()
   const debouncedSearch = useDebounce(searchValue, 300);
 
+  console.log('value', value);
    useEffect(() => {
      let animalBreed: Pick<AnimalTrait, '_id' | 'breed'>[] = [];
      if (!data || !type || defaultTypes.includes(type as keyof TraitsRequest) === false) {
@@ -87,14 +88,14 @@ const BreedSelect = ({type, value, onChange, className, errorMess}:
      ) {
        animalBreed = getFilteredBreed(mapFilteredData, searchValue);
      } else {
-       animalBreed = defaultBreeds[type];
+       animalBreed = defaultBreeds[type ];
      }
      setFilteredBreed(animalBreed);
      setSelectedBreed('') 
     }
    }, [debouncedSearch, data, isLoading, type]);
 
-    if(type && !defaultTypes.includes(type) ) {
+    if(type && !defaultTypes.includes(type as keyof TraitsRequest) ) {
       return (
         <InputField
           value={value}
@@ -115,7 +116,7 @@ const BreedSelect = ({type, value, onChange, className, errorMess}:
             disabled={type === undefined}
             className={`${className} w-[305px] justify-between border-input-border px-16 text-lg text-medium text-default-btn`}
           >
-            {selectedBreed ||value ||  'Оберіть породу'}
+            {selectedBreed || value ||  'Оберіть породу'}
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-[305px] p-0  border-1 border-input-border rounded-t-lg z-10">

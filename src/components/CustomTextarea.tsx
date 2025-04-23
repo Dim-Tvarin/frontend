@@ -2,6 +2,17 @@ import { Textarea } from './components/ui/textarea';
 import { cn } from './lib/utils';
 import { CustomLabel } from './CustomLabel';
 import FormError from './FormError';
+import type { TextareaHTMLAttributes } from 'react';
+
+interface TextareaDemoProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+  id: string;
+  placeholder: string;
+  label?: string;
+  labelSize?: string;
+  labelClass?: string;
+  className?: string;
+  error?: string;
+}
 
 export const TextareaDemo = ({
   placeholder,
@@ -12,15 +23,7 @@ export const TextareaDemo = ({
   className,
   error,
   ...rest
-}: {
-  id: string;
-  placeholder: string;
-  label?: string;
-  labelSize?: string;
-  labelClass?: string;
-  className?: string;
-  error?: string;
-}) => {
+}: TextareaDemoProps) => {
   return (
     <div className={cn(className && className, 'w-full')}>
       {label && (

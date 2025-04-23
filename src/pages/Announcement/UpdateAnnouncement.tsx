@@ -17,6 +17,7 @@ import { announceSchema } from "../../validations/announceValidation";
 import type { z } from "zod";
 import { animalType, gender } from "./types";
 import { getMonthDeclension, getYearDeclension } from "src/helpers/getYearDeclension";
+import { FilesInput } from "components/FilesInput";
 
 type AnnouncementForm = z.infer<typeof announceSchema>;
 
@@ -53,7 +54,7 @@ const UpdateAnnouncement = () => {
    const genderValue = watch('gender');
    const years = watch('age.years');
   const months = watch('age.months');
-  const descText = watch('adText');
+
  
 
   if (isLoading) {
@@ -73,7 +74,7 @@ const UpdateAnnouncement = () => {
   }
 
   const defaultAnimalType = (animal?.animalType !=='cats' && animal?.animalType !=='dogs' && animal?.animalType !=='birds') ? "other" : animal?.animalType
-
+console.log('err', errors);
   return (
     <div className="container flex flex-row gap-16 text-default-btn relative z-10">
       <div className="flex flex-col flex-1/2 mt-100">
@@ -162,7 +163,7 @@ const UpdateAnnouncement = () => {
                 control={control}
                 render={({ field }) => (
                   <BreedSelect
-                   value={animal?.breed}
+                    value={animal?.breed}
                     onChange={field.onChange}
                     className="w-[305px] h-[40px]"
                     type={animal?.animalType}
@@ -205,12 +206,12 @@ const UpdateAnnouncement = () => {
             className="text-left mt-32"
             placeholder="Опишіть тварину, її характер, історію, забарвлення"
             label="Опис тварини: *"
-            value={animal?.adText}
+            defaultValue={animal?.adText}
             labelSize="xl"
             {...register('adText')}
             error={errors.adText?.message}
           />
-          {/* <Controller
+          <Controller
             name="images"
             control={control}
             defaultValue={[]}
@@ -225,7 +226,7 @@ const UpdateAnnouncement = () => {
                 value={value}
               />
             )}
-          /> */}
+          /> 
 
           <CustomButton
             type="submit"
