@@ -51,7 +51,7 @@ const PetPage = () => {
   : animal?.animalType.split('/')[0].toLowerCase().replace(/^./, char => char.toUpperCase());
 
   return (
-    <div className="relative flex gap-20 text-default-btn mt-100">
+    <div className="relative flex gap-20 text-default-btn mt-100 mb-100">
       <div className="absolute z-1 -top-[85px] right-[8px]">
         <img src={tracks4} className="w-[270px] h-[515px]" alt="track" />
       </div>
