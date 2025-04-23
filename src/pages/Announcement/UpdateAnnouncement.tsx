@@ -15,7 +15,7 @@ import { useNavigate, useParams } from "react-router";
 import { useGetAnimalByIdQuery } from "src/redux/animals/animalsApi";
 import { announceSchema } from "../../validations/announceValidation";
 import type { z } from "zod";
-import { animalTypeOptions, genderOption } from "./types";
+import { animalTypeOptions, genderOption, type AnimalTypeValues } from "./types";
 import { getMonthDeclension, getYearDeclension } from "src/helpers/getYearDeclension";
 import { FilesInput } from "components/FilesInput";
 
@@ -55,7 +55,7 @@ const UpdateAnnouncement = () => {
    const years = watch('age.years');
    const months = watch('age.months');
 
- 
+ console.log('в', animal);
 
   if (isLoading) {
     return <PetPageSceleton />;
@@ -73,7 +73,10 @@ const UpdateAnnouncement = () => {
     console.log('dataForm', data);
   }
 
-  const defaultAnimalType = (animal?.animalType !=='cats' && animal?.animalType !=='dogs' && animal?.animalType !=='birds') ? "other" : animal?.animalType
+  const defaultTypes: AnimalTypeValues[] = ['cats', 'dogs', 'birds'];
+  const resolvedType:  AnimalTypeValues = defaultTypes.includes(animal?.animalType as AnimalTypeValues)
+  ? animal?.animalType as AnimalTypeValues
+  : 'other';
 console.log('err', errors);
   return (
     <div className="container flex flex-row gap-16 text-default-btn relative z-10">
@@ -95,7 +98,7 @@ console.log('err', errors);
                 error={errors.animalType?.message}
                 name={name}
                 ref={ref}
-                value={animalTypeValue || defaultAnimalType}
+                value={animalTypeValue || resolvedType}
                 onBlur={onBlur}
                 onChange={onChange}
               />
@@ -108,7 +111,7 @@ console.log('err', errors);
             control={control}
             render={({ field: { onChange, name, onBlur, ref } }) => (
               <CustomRadioGroup
-                items={genderOption}                
+                items={genderOption}
                 className="grid grid-cols-2"
                 itemWidth="305"
                 error={errors.gender?.message}
@@ -129,12 +132,14 @@ console.log('err', errors);
                 placeholder={`${getYearDeclension(animal?.age.years || 0)}`}
                 className="w-[150px] h-[40px] mt-16"
                 labelSize="xl"
-               // value={`${getYearDeclension(animal?.age.years || 0)}`}
+                defaultValue={getYearDeclension(animal?.age.years || 0)}
                 {...register('age.years')}
-                onFocus={(e) => {
-                  e.target.value =  `${animal?.age.years || 0}`
+                onFocus={e => {
+                  e.target.value = `${animal?.age.years || 0}`;
                 }}
-                 onBlur={(e) => {e.target.value = `${getYearDeclension(years || 0)}`}}
+                onBlur={e => {
+                  e.target.value = `${getYearDeclension(years || 0)}`;
+                }}
               />
               <InputField
                 label=" "
@@ -142,12 +147,14 @@ console.log('err', errors);
                 placeholder={`${getMonthDeclension(animal?.age.months || 0)}`}
                 className="w-[150px] h-[40px] mt-16 mr-10"
                 labelSize="xl"
-                 {...register('age.months')}
-                //value={`${getMonthDeclension(animal?.age.months || 0)}`}
-                onFocus={(e) => {
-                  e.target.value =  `${animal?.age.months || 0}`
+                {...register('age.months')}
+                defaultValue={getMonthDeclension(animal?.age.months || 0)}
+                onFocus={e => {
+                  e.target.value = `${animal?.age.months || 0}`;
                 }}
-                 onBlur={(e) => {e.target.value = `${getMonthDeclension(months || 0)}`}}
+                onBlur={e => {
+                  e.target.value = `${getMonthDeclension(months || 0)}`;
+                }}
               />
               {errors.age?.months?.message && (
                 <FormError error={errors.age?.months?.message} />
@@ -226,7 +233,7 @@ console.log('err', errors);
                 value={value}
               />
             )}
-          /> 
+          />
 
           <CustomButton
             type="submit"
@@ -234,7 +241,7 @@ console.log('err', errors);
             disabled={isLoading}
             className="flex gap-8 z-10 w-[259px]"
           >
-            {isLoading && <Spinner /> }
+            {isLoading && <Spinner />}
             Зберегти зміни
           </CustomButton>
         </form>

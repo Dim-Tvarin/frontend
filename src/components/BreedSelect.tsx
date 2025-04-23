@@ -102,7 +102,7 @@ const BreedSelect = ({type, value, onChange, className, errorMess}:
     if(type && !isDefaultAnimalType(type) ) {
       return (
         <InputField
-          value={value}
+          defaultValue={value}
           id="animBeed"
           placeholder="Введіть породу"
           className="w-[305px] h-[40px]"
