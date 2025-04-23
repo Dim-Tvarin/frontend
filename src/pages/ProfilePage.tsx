@@ -22,10 +22,12 @@ import {
   useGetMyAnimalsQuery,
   type AnimalsResponse,
 } from 'src/redux/animals/animalsApi';
+import { useNavigate } from 'react-router';
 
 const ProfilePage = () => {
   const user = useSelector(selectUser);
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
   const handleClick = () => {
     dispatch(logoutThunk());
     showToast({
@@ -127,6 +129,9 @@ const ProfilePage = () => {
             type="submit"
             styleType="defaultButton"
             className="flex gap-8 w-[238px] text-base m-0"
+            onClick={() => {
+              navigate('/announcement');
+            }}
           >
             <LuCirclePlus size={24} />
             Додати оголошення
@@ -161,6 +166,8 @@ const ProfilePage = () => {
                   gender={item.gender}
                   age={item.age}
                   photoSrc={item.animalImages[0]}
+                  isMyProfile={true}
+                  status={item.status}
                 />
               ))}
             </div>
