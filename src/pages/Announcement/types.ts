@@ -1,4 +1,4 @@
-export const animalType = [
+export const animalTypeOptions = [
   {
     value: 'cats',
     label: 'Кіт',
@@ -17,7 +17,7 @@ export const animalType = [
   },
 ];
 
-export const gender = [
+export const genderOption = [
   {
     value: 'male',
     label: 'Хлопчик',
@@ -28,7 +28,7 @@ export const gender = [
   }
 ];
 
-export const age = [
+export const ageOption = [
   {
     value: 'до 1 року',
     label: 'до 1 року',
@@ -71,3 +71,10 @@ export const AnimalTypeEnum = {
 } as const
 
 export type AnimalTypeEnum = (typeof AnimalTypeEnum)[keyof typeof AnimalTypeEnum]
+
+export enum AnimalType {
+  cats = "cats",
+  dogs = "dogs",
+  birds = "birds",
+  other = "other",
+}

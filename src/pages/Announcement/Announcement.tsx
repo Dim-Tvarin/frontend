@@ -9,7 +9,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { TextareaDemo } from 'components/CustomTextarea';
 import { FilesInput } from 'components/FilesInput';
 import { announceSchema } from '../../validations/announceValidation';
-import { animalType, gender } from './types';
+import { animalTypeOptions,  genderOption } from './types';
 import track from '../../../public/track.png';
 import { LuCirclePlus } from "react-icons/lu";
 import { CitySelect } from 'components/CitySelect';
@@ -132,7 +132,7 @@ const Announcement = () => {
             render={({ field: { onChange, name, onBlur, ref, value } }) => (
               <CustomRadioGroup
                 defaultValue={animalTypeValue}
-                items={animalType}
+                items={animalTypeOptions}
                 className="grid grid-cols-2"
                 itemWidth="305"
                 error={errors.animalType?.message}
@@ -152,7 +152,7 @@ const Announcement = () => {
             render={({ field: { onChange, name, onBlur, ref, value } }) => (
               <CustomRadioGroup
                 defaultValue={genderValue}
-                items={gender}
+                items={genderOption}
                 className="grid grid-cols-2"
                 itemWidth="305"
                 error={errors.gender?.message}

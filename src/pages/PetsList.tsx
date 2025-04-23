@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router";
 import { showToast } from "components/Toast";
 import FilterItem from "components/FilterItem";
-import { age, animalType, AnimalTypeEnum, gender, size } from "./Announcement/types";
+import { ageOption, animalTypeOptions, AnimalType, genderOption, size } from "./Announcement/types";
 import BreedSelect from "components/BreedSelect";
 import { CitySelect } from "components/CitySelect";
 import { Controller, useForm } from "react-hook-form";
@@ -16,7 +16,7 @@ import { Controller, useForm } from "react-hook-form";
 const limit = 12
 
 interface FilterFormValues {
-  animalType: AnimalTypeEnum | undefined;
+  animalType: AnimalType | undefined;
   gender: string;
   breed: string;
   location: string;
@@ -154,7 +154,7 @@ const PetsList = () => {
                   <FilterItem
                     {...field}
                     label="Вид тварини"
-                    items={animalType}
+                    items={animalTypeOptions}
                   />
                 )}
               />
@@ -162,7 +162,7 @@ const PetsList = () => {
                 name="gender"
                 control={control}
                 render={({ field }) => (
-                  <FilterItem {...field} label="Стать" items={gender} />
+                  <FilterItem {...field} label="Стать" items={genderOption} />
                 )}
               />
               <Controller
@@ -187,7 +187,7 @@ const PetsList = () => {
                 name="age"
                 control={control}
                 render={({ field }) => (
-                  <FilterItem {...field} label="Вік" items={age} />
+                  <FilterItem {...field} label="Вік" items={ageOption} />
                 )}
               />
 

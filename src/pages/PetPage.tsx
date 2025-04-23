@@ -7,6 +7,16 @@ import { useGetAnimalByIdQuery } from "src/redux/animals/animalsApi";
 import tracks4 from '../assets/tracks4.png'
 import ImageCarousel from "components/ImageCarousel";
 import { showToast } from "components/Toast";
+import { AnimalType } from "./Announcement/types";
+
+const defaultTypes = [AnimalType.dogs, AnimalType.cats, AnimalType.birds]
+
+export const typeMapping: Record<AnimalType, string> = {
+  [AnimalType.dogs]: "Собака",
+  [AnimalType.cats]: 'Кіт',
+  [AnimalType.birds]: "Птах",
+  [AnimalType.other]: "",
+}
 
 const PetPage = () => {
  const navigate = useNavigate();
@@ -37,6 +47,8 @@ const PetPage = () => {
     return
   } 
   const { animal, ownerName, ownerPhone } = data || {}
+  const type = animal?.animalType && defaultTypes.includes(animal?.animalType) ? typeMapping[animal?.animalType] 
+  : animal?.animalType.split('/')[0].toLowerCase().replace(/^./, char => char.toUpperCase());
 
   return (
     <div className="relative flex gap-20 text-default-btn mt-100">
@@ -53,11 +65,11 @@ const PetPage = () => {
           <p className="font-bold">Статус:</p>
           <p className="text-xl text-base">
             {animal?.status === 'active'
-              ? 'шукає господаря'
-              : 'в надійних руках'}
+              ? 'Шукає господаря'
+              : 'У надійних руках'}
           </p>
           <p className="font-bold">Вид:</p>
-          <p className="text-xl text-base">{animal?.animalType}</p>
+          <p className="text-xl text-base">{type}</p>
           <p className="font-bold">Стать:</p>
           <p className="text-xl text-base">
             {animal?.gender && genderMapping[animal?.gender]}
