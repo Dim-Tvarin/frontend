@@ -17,15 +17,18 @@ import { LuCirclePlus } from 'react-icons/lu';
 import { FiFilter } from 'react-icons/fi';
 import { PetsListSkeleton } from 'components/sceletons/PetsListSkeleton';
 import AnimalCard from 'components/AnimalCard';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import {
   useGetMyAnimalsQuery,
   type AnimalsResponse,
 } from 'src/redux/animals/animalsApi';
+import { useNavigate, useSearchParams } from 'react-router';
+import Pagination from 'components/Pagination';
 
 const ProfilePage = () => {
   const user = useSelector(selectUser);
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
   const handleClick = () => {
     dispatch(logoutThunk());
     showToast({
@@ -33,14 +36,18 @@ const ProfilePage = () => {
       status: 'success',
     });
   };
+  const [searchParams] = useSearchParams();
+  const rawPage = Number(searchParams.get('page'));
+  const [page, setPage] = useState(rawPage === 0 ? 1 : rawPage);
   const { data, isLoading, error } = useGetMyAnimalsQuery({
-    page: 1,
+    page,
     limit: 9,
   }) as {
     data: AnimalsResponse;
     isLoading: boolean;
     error: any;
   };
+  const totalPages = data ? Math.ceil(data.total / 9) : 1;
 
   useEffect(() => {
     if (error) {
@@ -54,28 +61,40 @@ const ProfilePage = () => {
   return (
     <Tabs
       defaultValue="main-info"
-      className="py-100 px-80 flex-row gap-40"
+      className="pt-100 px-80 grow flex-row gap-40"
       data-orientation="vertical"
     >
       <TabsList className="flex flex-col gap-25 h-full">
         <TabsTrigger
           value="main-info"
           aria-orientation="vertical"
-          className="w-[285px] h-[77px] text-lg m-0 data-[state=active]:shadow-none"
+          className="w-[285px] h-[77px] text-lg m-0 outline-none shadow-none rounded-[20px] py-[26px]
+          data-[state=active]:shadow-none 
+          data-[state=active]:outline-none 
+          text-white hover:text-default-btn bg-default-btn hover:bg-orange hover:border-default-btn hover:border-2 disabled:bg-disabled  
+          data-[state=active]:text-default-btn 
+          data-[state=active]:bg-white 
+          data-[state=active]:border-2
+          data-[state=active]:border-default-btn 
+          data-[state=active]:hover:border-orange"
         >
-          <div className="text-white outline-none shadow-none rounded-[20px] py-[26px] m-auto bg-default-btn hover:bg-orange hover:border-default-btn hover:border-2 hover:text-default-btn disabled:bg-disabled w-[285px] h-[77px] text-lg border-none data-[state=active]:outline-none">
-            Основна інформація
-          </div>
+          Основна інформація
         </TabsTrigger>
 
         <TabsTrigger
           value="my-adverts"
           aria-orientation="vertical"
-          className="w-[285px] h-[77px] text-lg m-0 data-[state=active]:shadow-none data-[state=active]:outline-none"
+          className="w-[285px] h-[77px] text-lg m-0 outline-none shadow-none rounded-[20px] py-[26px]
+          data-[state=active]:shadow-none 
+          data-[state=active]:outline-none 
+          text-white hover:text-default-btn bg-default-btn hover:bg-orange hover:border-default-btn hover:border-2 disabled:bg-disabled  
+          data-[state=active]:text-default-btn 
+          data-[state=active]:bg-white 
+          data-[state=active]:border-2
+          data-[state=active]:border-default-btn 
+          data-[state=active]:hover:border-orange"
         >
-          <div className="outline-none shadow-none rounded-[20px] py-[26px] m-auto border-2 text-default-btn bg-white border-default-btn hover:border-orange disabled:bg-disabled w-[285px] h-[77px] text-lg">
-            Мої оголошення
-          </div>
+          Мої оголошення
         </TabsTrigger>
       </TabsList>
       <TabsContent value="main-info" data-orientation="vertical">
@@ -127,6 +146,9 @@ const ProfilePage = () => {
             type="submit"
             styleType="defaultButton"
             className="flex gap-8 w-[238px] text-base m-0"
+            onClick={() => {
+              navigate('/announcement');
+            }}
           >
             <LuCirclePlus size={24} />
             Додати оголошення
@@ -147,12 +169,9 @@ const ProfilePage = () => {
         ) : (
           <>
             {isLoading && !data?.animals && (
-              <PetsListSkeleton
-                className="grid-cols-3"
-                length={data?.animals.length}
-              />
+              <PetsListSkeleton className="grid-cols-3" length={9} />
             )}
-            <div className="grid grid-cols-3 gap-20 mb-50 wrap">
+            <div className="grid grid-cols-3 gap-20 wrap">
               {data?.animals.map(item => (
                 <AnimalCard
                   key={item.id}
@@ -161,10 +180,20 @@ const ProfilePage = () => {
                   gender={item.gender}
                   age={item.age}
                   photoSrc={item.animalImages[0]}
+                  isMyProfile={true}
+                  status={item.status}
                 />
               ))}
             </div>
           </>
+        )}
+        {!isLoading && data && !!totalPages && totalPages > 1 && (
+          <Pagination
+            onPageChange={setPage}
+            currentPage={page}
+            totalPages={totalPages}
+            className="mb-50 mt-auto"
+          />
         )}
       </TabsContent>
     </Tabs>

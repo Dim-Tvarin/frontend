@@ -121,6 +121,9 @@ export const logoutThunk = createAsyncThunk<void, void>(
       clearToken();
     } catch (err) {
       const error = err as AxiosError<ErrorResponse>;
+      if (error.response?.status === 401) {
+        return;
+      }
 
       const errorMessages: Record<number, string> = {
         401: 'Невірний токен',

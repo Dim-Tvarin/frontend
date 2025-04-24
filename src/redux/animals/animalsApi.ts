@@ -110,6 +110,12 @@ export const animalsApi = createApi({
         body: { favorite: true },
       }),
     }),
+    deleteMyAnimals: build.mutation<unknown, string>({
+      query: animalId => ({
+        url: `/animals/${animalId}`,
+        method: 'DELETE',
+      }),
+    }),
   }),
 });
 
@@ -120,4 +126,5 @@ export const {
   useGetAnimalByIdQuery,
   useGetMyAnimalsQuery,
   useAddFavoriteAnimalMutation,
+  useDeleteMyAnimalsMutation,
 } = animalsApi;
