@@ -6,7 +6,7 @@ import { useDropzone, type FileRejection } from 'react-dropzone';
 import { cn } from './lib/utils';
 import PhotoPrev from './PhotoPrev';
 import { showToast } from './Toast';
-//import { showToast } from 'components/Toast';
+import { Button } from './components/ui/button';
 
 export const FilesInput = ({
   ref,
@@ -17,6 +17,7 @@ export const FilesInput = ({
   error,
   onChange,
   value,
+  defaultValue,
   ...rest
 }: {
   ref?: Ref<HTMLInputElement>;
@@ -27,6 +28,7 @@ export const FilesInput = ({
   onChange: (images: File[]) => void;
   value: File[],
   error?: string;
+  defaultValue?: string[];
 }) => {
 
   const [imageData, setImageData] = useState<File[]>(value || []);
@@ -97,7 +99,7 @@ export const FilesInput = ({
           ref={ref}
           name={name}
           onChange={handleFileChange}
-          disabled={imageData.length > 3 ? true : false}
+          disabled={(imageData.length > 3 || defaultValue?.length === 4) ? true : false}
           accept="image/*"
           multiple
           {...getInputProps()}
@@ -113,14 +115,14 @@ export const FilesInput = ({
             className="w-[382px] h-[64px] border-2 border-border-file bg-main-pink-l flex items-center gap-[19px]
           py-10 px-16 rounded-[8px]"
           >
-            <div
+            <Button
               className={cn(
                 'bg-default-btn text-white px-20 py-10 rounded-[10px] w-[149px] text-sm',
-                { 'bg-input-file/50 cursor-default': imageData.length > 3 }
+                { 'bg-btn-disabled/50 cursor-default focus:outline-none': imageData.length > 3  || defaultValue?.length === 4}
               )}
             >
               Вибрати файл
-            </div>
+            </Button>
             <p className="text-border-file">Файл не вибрано</p>
           </div>
           <p className="text-input-border text-sm mt-8">

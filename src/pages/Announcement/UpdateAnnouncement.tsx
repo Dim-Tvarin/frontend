@@ -13,13 +13,14 @@ import { showToast } from "components/Toast";
 import { Controller, useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router";
 import { useGetAnimalByIdQuery } from "src/redux/animals/animalsApi";
-import { announceSchema } from "../../validations/announceValidation";
 import type { z } from "zod";
 import { animalTypeOptions, genderOption, type AnimalTypeValues } from "./types";
 import { getMonthDeclension, getYearDeclension } from "src/helpers/getYearDeclension";
 import { FilesInput } from "components/FilesInput";
+import { updateAnnounceSchema } from "../../validations/updateAnnounceValidation";
 
-type AnnouncementForm = z.infer<typeof announceSchema>;
+
+type AnnouncementForm = z.infer<typeof updateAnnounceSchema>;
 
 const UpdateAnnouncement = () => {
   
@@ -43,7 +44,7 @@ const UpdateAnnouncement = () => {
       control,
       formState: { errors },
     } = useForm<AnnouncementForm>({
-      resolver: zodResolver(announceSchema),
+      resolver: zodResolver(updateAnnounceSchema),
       mode: 'onChange',
       defaultValues: {
         animalType: animal?.animalType,
@@ -55,7 +56,7 @@ const UpdateAnnouncement = () => {
    const years = watch('age.years');
    const months = watch('age.months');
 
- console.log('в', animal);
+ console.log('animal', animal);
 
   if (isLoading) {
     return <PetPageSceleton />;
@@ -77,10 +78,10 @@ const UpdateAnnouncement = () => {
   const resolvedType:  AnimalTypeValues = defaultTypes.includes(animal?.animalType as AnimalTypeValues)
   ? animal?.animalType as AnimalTypeValues
   : 'other';
-console.log('err', errors);
+
   return (
     <div className="container flex flex-row gap-16 text-default-btn relative z-10">
-      <div className="flex flex-col flex-1/2 mt-100">
+      <div className="flex flex-col flex-1/2 mt-100 mb-100">
         <h2 className="text-[32px] mb-32 z-10">Редагування оголошення</h2>
         <form
           className="flex flex-col items-start"
@@ -129,31 +130,41 @@ console.log('err', errors);
               <InputField
                 label="Вік"
                 id="years"
+                type="number"
+                inputMode="numeric"
+                min={0}
+                max={30}
                 placeholder={`${getYearDeclension(animal?.age.years || 0)}`}
                 className="w-[150px] h-[40px] mt-16 text-base"
                 labelSize="base"
-                defaultValue={getYearDeclension(animal?.age.years || 0)}
+                defaultValue={animal?.age.years || 0}
                 {...register('age.years')}
                 onFocus={e => {
                   e.target.value = `${animal?.age.years || 0}`;
                 }}
                 onBlur={e => {
-                  e.target.value = `${getYearDeclension(years || 0)}`;
+                  const raw = parseInt(e.target.value, 10) || 0;
+                  e.target.value = getYearDeclension(raw);
                 }}
               />
               <InputField
                 label=" "
                 id="months"
+                type="number"
+                inputMode="numeric"
+                min={0}
+                max={11}
                 placeholder={`${getMonthDeclension(animal?.age.months || 0)}`}
                 className="w-[150px] h-[40px] mt-16 mr-10 text-base"
                 labelSize="base"
                 {...register('age.months')}
-                defaultValue={getMonthDeclension(animal?.age.months || 0)}
+                defaultValue={animal?.age.months || 0}
                 onFocus={e => {
                   e.target.value = `${animal?.age.months || 0}`;
                 }}
                 onBlur={e => {
-                  e.target.value = `${getMonthDeclension(months || 0)}`;
+                  const raw = parseInt(e.target.value, 10) || 0;
+                  return e.target.value = getMonthDeclension(raw);
                 }}
               />
               {errors.age?.months?.message && (
@@ -230,7 +241,8 @@ console.log('err', errors);
                 name={name}
                 onChange={onChange}
                 error={errors.images?.message?.toString()}
-                value={value}
+                value={value || []}
+                defaultValue={animal?.animalImages}
               />
             )}
           />

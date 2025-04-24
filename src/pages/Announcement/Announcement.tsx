@@ -16,7 +16,6 @@ import { CitySelect } from 'components/CitySelect';
 import CustomRadioGroup from 'components/CustomRadioGroup';
 import { Spinner } from 'components/Spinner';
 import { useCreateAnimalMutation } from 'src/redux/animals/animalsApi';
-
 import FormError from 'components/FormError';
 import { useSelector } from 'react-redux';
 import { selectIsLoggedIn } from 'src/redux/users/usersSlice';
@@ -130,7 +129,6 @@ const Announcement = () => {
             control={control}
             render={({ field: { onChange, name, onBlur, ref } }) => (
               <CustomRadioGroup
-                //defaultValue={animalTypeValue}
                 items={animalTypeOptions}
                 className="grid grid-cols-2"
                 itemWidth="305"
@@ -150,7 +148,6 @@ const Announcement = () => {
             control={control}
             render={({ field: { onChange, name, onBlur, ref } }) => (
               <CustomRadioGroup
-               // defaultValue={genderValue}
                 items={genderOption}
                 className="grid grid-cols-2"
                 itemWidth="305"

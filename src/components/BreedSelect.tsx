@@ -70,7 +70,7 @@ const BreedSelect = ({type, defaultValue, onChange, className, errorMess}:
   return defaultTypes.includes(value as Exclude<AnimalTypeValues, 'other'>);
 }
 
-  console.log('breed', defaultValue, type);
+  //console.log('breed', defaultValue, type);
    useEffect(() => {
      let animalBreed: Pick<AnimalTrait, '_id' | 'breed'>[] = [];
      if (!data || !type || !isDefaultAnimalType(type)) {
