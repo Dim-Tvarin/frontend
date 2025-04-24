@@ -1,16 +1,16 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import type { RootState } from '../store';
-import type { AnimalTypeEnum } from 'pages/Announcement/types';
+import type { AnimalType } from 'pages/Announcement/types';
 
 export type animalAge = {
   months: number;
   years: number;
 };
-interface AnimalType {
+interface Animal {
   id: string;
   age: animalAge;
   animalName: string;
-  animalType: 'cats' | 'dogs' | 'birds' | 'other';
+  animalType: AnimalType;
   breed: string;
   gender: 'female' | 'male' | 'unknown';
   animalLocation: string;
@@ -26,16 +26,16 @@ interface AnimalType {
 
 export interface AnimalsResponse {
   total: number;
-  animals: AnimalType[];
+  animals: Animal[];
 }
 
 interface MyAnimalsResponse {
   total: number;
-  animals: AnimalType[] | [];
+  animals: Animal[] | [];
 }
 
 interface AnimalById {
-  animal: AnimalType;
+  animal: Animal;
   ownerName: string;
   ownerPhone: string;
 }
@@ -67,7 +67,7 @@ export const animalsApi = createApi({
       {
         page?: number;
         limit?: number;
-        animalType?: AnimalTypeEnum;
+        animalType?: AnimalType;
         gender?: string;
         breed?: string;
         location?: string;
