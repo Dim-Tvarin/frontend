@@ -1,19 +1,15 @@
 import HartSVG from 'src/assets/HartSVG';
 import { CustomButton } from './CustomButton';
-import {
-  useDeleteMyAnimalsMutation,
-  type animalAge,
-  useGetMyAnimalsQuery,
-} from 'src/redux/animals/animalsApi';
+import { type animalAge } from 'src/redux/animals/animalsApi';
 import { getYearDeclension } from 'src/helpers/getYearDeclension';
 import { useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleId } from 'src/redux/animals/favoriteAnimalsSlice';
 import type { AppDispatch, RootState } from 'src/redux/store';
 import { FiEdit, FiTrash2 } from 'react-icons/fi';
-import { showToast } from './Toast';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useState } from 'react';
+import { openDialog } from 'src/redux/dialogs/dialogSlice';
 
 export const genderMapping: Record<string, string> = {
   male: 'Хлопчик',
@@ -47,20 +43,6 @@ const AnimalCard = ({
 
   const handleAddFavorite = () => {
     dispatch(toggleId(id));
-  };
-  const [deleteMyAnimal] = useDeleteMyAnimalsMutation();
-  const { refetch } = useGetMyAnimalsQuery({ page: 1, limit: 9 });
-  const handleDelete = async (id: string) => {
-    if (confirm('Ви впевнені, що хочете видалити це оголошення?')) {
-      try {
-        await deleteMyAnimal(id).unwrap();
-        await refetch();
-        showToast({ title: 'Оголошення видалено', status: 'success' });
-      } catch (err) {
-        showToast({ title: 'Помилка при видаленні', status: 'error' });
-        console.error(err);
-      }
-    }
   };
 
   return (
@@ -131,7 +113,10 @@ const AnimalCard = ({
           </CustomButton>
           <CustomButton
             styleType="iconButton"
-            onClick={() => handleDelete(id)}
+            onClick={() => {
+              dispatch(openDialog({ type: 'alertDelete', id })),
+                console.log('open');
+            }}
             className="hover:bg-error-input "
           >
             <FiTrash2 className="text-white" size={22} />

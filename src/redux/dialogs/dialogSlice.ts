@@ -5,6 +5,7 @@ type DialogType =
   | 'forgotPassword'
   | 'verifyResetCode'
   | 'resetPassword'
+  | { type: 'alertDelete'; id: string }
   | null;
 
 interface DialogState {
