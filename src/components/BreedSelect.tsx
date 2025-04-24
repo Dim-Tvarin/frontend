@@ -57,8 +57,8 @@ const defaultBreeds: Record<Exclude<AnimalType, AnimalType.other>, Pick<AnimalTr
 
 const defaultTypes: Exclude<AnimalTypeValues, 'other'>[]= [AnimalType.dogs, AnimalType.cats, AnimalType.birds]
 
-const BreedSelect = ({type, value, onChange, className, errorMess}: 
-  {type?: AnimalTypeValues | string; value?: string; onChange: (breed: string) => void; className?: string; errorMess?: string;}) => {
+const BreedSelect = ({type, defaultValue, onChange, className, errorMess}: 
+  {type?: AnimalTypeValues | string; defaultValue?: string; onChange: (breed: string) => void; className?: string; errorMess?: string;}) => {
   const [open, setOpen] = useState(false);
   const [selectedBreed, setSelectedBreed] = useState("");
   const [filteredBreed, setFilteredBreed] = useState< Pick<AnimalTrait, '_id' | 'breed'>[]>([])
@@ -70,7 +70,7 @@ const BreedSelect = ({type, value, onChange, className, errorMess}:
   return defaultTypes.includes(value as Exclude<AnimalTypeValues, 'other'>);
 }
 
-  console.log('value', value);
+  console.log('breed', defaultValue, type);
    useEffect(() => {
      let animalBreed: Pick<AnimalTrait, '_id' | 'breed'>[] = [];
      if (!data || !type || !isDefaultAnimalType(type)) {
@@ -102,7 +102,7 @@ const BreedSelect = ({type, value, onChange, className, errorMess}:
     if(type && !isDefaultAnimalType(type) ) {
       return (
         <InputField
-          defaultValue={value}
+          defaultValue={defaultValue}
           id="animBeed"
           placeholder="Введіть породу"
           className="w-[305px] h-[40px]"
@@ -120,7 +120,7 @@ const BreedSelect = ({type, value, onChange, className, errorMess}:
             disabled={type === undefined}
             className={`${className} w-[305px] justify-between border-input-border px-16 text-lg text-medium text-default-btn`}
           >
-            {selectedBreed || value ||  'Оберіть породу'}
+            {selectedBreed || defaultValue ||  'Оберіть породу'}
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-[305px] p-0  border-1 border-input-border rounded-t-lg z-10">

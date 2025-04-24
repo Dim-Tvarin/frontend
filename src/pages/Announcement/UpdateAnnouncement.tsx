@@ -170,10 +170,10 @@ console.log('err', errors);
                 control={control}
                 render={({ field }) => (
                   <BreedSelect
-                    value={animal?.breed}
+                    defaultValue={animal?.breed}
                     onChange={field.onChange}
                     className="w-[305px] h-[40px]"
-                    type={animal?.animalType}
+                    type={animalTypeValue || animal?.animalType}
                     errorMess={errors?.breed?.message}
                   />
                 )}
