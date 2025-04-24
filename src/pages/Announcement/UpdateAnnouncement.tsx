@@ -86,7 +86,7 @@ console.log('err', errors);
           className="flex flex-col items-start"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <p className="text-xl mb-16 z-10">Оберіть вид тварини *</p>
+          <p className="text-base mb-16 z-10">Оберіть вид тварини *</p>
           <Controller
             name="animalType"
             control={control}
@@ -105,7 +105,7 @@ console.log('err', errors);
             )}
           />
 
-          <p className="text-xl mt-32 mb-16">Стать </p>
+          <p className="text-base mt-32 mb-16">Стать </p>
           <Controller
             name="gender"
             control={control}
@@ -130,8 +130,8 @@ console.log('err', errors);
                 label="Вік"
                 id="years"
                 placeholder={`${getYearDeclension(animal?.age.years || 0)}`}
-                className="w-[150px] h-[40px] mt-16"
-                labelSize="xl"
+                className="w-[150px] h-[40px] mt-16 text-base"
+                labelSize="base"
                 defaultValue={getYearDeclension(animal?.age.years || 0)}
                 {...register('age.years')}
                 onFocus={e => {
@@ -145,8 +145,8 @@ console.log('err', errors);
                 label=" "
                 id="months"
                 placeholder={`${getMonthDeclension(animal?.age.months || 0)}`}
-                className="w-[150px] h-[40px] mt-16 mr-10"
-                labelSize="xl"
+                className="w-[150px] h-[40px] mt-16 mr-10 text-base"
+                labelSize="base"
                 {...register('age.months')}
                 defaultValue={getMonthDeclension(animal?.age.months || 0)}
                 onFocus={e => {
@@ -164,7 +164,7 @@ console.log('err', errors);
               )}
             </div>
             <div>
-              <p className="text-xl mb-8 text-left">Порода * </p>
+              <p className="text-base mb-8 text-left">Порода * </p>
               <Controller
                 name="breed"
                 control={control}
@@ -185,14 +185,14 @@ console.log('err', errors);
             <InputField
               label="Ім’я тварини *"
               id="animalName"
-              className="w-[305px] h-[40px] mt-16"
-              labelSize="xl"
+              className="w-[305px] h-[40px] mt-16 text-base"
+              labelSize="base"
               defaultValue={animal?.animalName}
               {...register('animalName')}
               error={errors.animalName?.message}
             />
             <div>
-              <p className="text-xl mb-8 text-left">Місто * </p>
+              <p className="text-base mb-8 text-left">Місто * </p>
               <Controller
                 name="animalLocation"
                 control={control}
@@ -210,7 +210,7 @@ console.log('err', errors);
 
           <TextareaDemo
             id="announvementText"
-            className="text-left mt-32"
+            className="text-left mt-32 text-sm"
             placeholder="Опишіть тварину, її характер, історію, забарвлення"
             label="Опис тварини: *"
             defaultValue={animal?.adText}

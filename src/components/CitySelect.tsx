@@ -57,7 +57,7 @@ export function CitySelect({ onChange, value, className, errorMess }: { onChange
         <PopoverTrigger asChild>
           <Button
             variant="outline"
-            className={`${className} w-[305px] justify-between border-input-border px-16 text-lg text-medium text-default-btn`}
+            className={`${className} w-[305px] justify-between border-input-border px-16 text-base text-medium text-default-btn`}
           >
             {selectedCity || value ||  'Оберіть населенний пункт'}
           </Button>
@@ -71,7 +71,7 @@ export function CitySelect({ onChange, value, className, errorMess }: { onChange
             <CommandList className="border-1 border-input-border bg-white rounded-b-lg ">
               {filteredData.map(city => (
                 <CommandItem
-                  className="text-lg text-default-btn px-16 text-left "
+                  className="text-base text-default-btn px-16 text-left "
                   key={city._id}
                   value={city.name}
                   onSelect={() => {

@@ -118,7 +118,7 @@ const BreedSelect = ({type, defaultValue, onChange, className, errorMess}:
           <Button
             variant="outline"
             disabled={type === undefined}
-            className={`${className} w-[305px] justify-between border-input-border px-16 text-lg text-medium text-default-btn`}
+            className={`${className} w-[305px] justify-between border-input-border px-16 text-base text-medium text-default-btn`}
           >
             {selectedBreed || defaultValue ||  'Оберіть породу'}
           </Button>
@@ -133,7 +133,7 @@ const BreedSelect = ({type, defaultValue, onChange, className, errorMess}:
               {filteredBreed.map(
                 (breed: Pick<AnimalTrait, '_id' | 'breed'>) => (
                   <CommandItem
-                    className="text-lg text-default-btn px-16 text-left "
+                    className="text-base text-default-btn px-16 text-left "
                     key={breed._id}
                     value={breed.breed}
                     onSelect={() => {
