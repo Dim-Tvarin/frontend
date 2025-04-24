@@ -8,7 +8,7 @@ const Main = () => {
     <div className="flex flex-col min-h-screen">
       <Header />
       <DialogsManager />
-      <main className="grow">
+      <main className="grow flex flex-col">
         <Outlet />
       </main>
       <Footer />
