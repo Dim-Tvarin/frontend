@@ -17,12 +17,13 @@ import { LuCirclePlus } from 'react-icons/lu';
 import { FiFilter } from 'react-icons/fi';
 import { PetsListSkeleton } from 'components/sceletons/PetsListSkeleton';
 import AnimalCard from 'components/AnimalCard';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import {
   useGetMyAnimalsQuery,
   type AnimalsResponse,
 } from 'src/redux/animals/animalsApi';
-import { useNavigate } from 'react-router';
+import { useNavigate, useSearchParams } from 'react-router';
+import Pagination from 'components/Pagination';
 
 const ProfilePage = () => {
   const user = useSelector(selectUser);
@@ -35,14 +36,18 @@ const ProfilePage = () => {
       status: 'success',
     });
   };
+  const [searchParams] = useSearchParams();
+  const rawPage = Number(searchParams.get('page'));
+  const [page, setPage] = useState(rawPage === 0 ? 1 : rawPage);
   const { data, isLoading, error } = useGetMyAnimalsQuery({
-    page: 1,
+    page,
     limit: 9,
   }) as {
     data: AnimalsResponse;
     isLoading: boolean;
     error: any;
   };
+  const totalPages = data ? Math.ceil(data.total / 9) : 1;
 
   useEffect(() => {
     if (error) {
@@ -56,7 +61,7 @@ const ProfilePage = () => {
   return (
     <Tabs
       defaultValue="main-info"
-      className="py-100 px-80 flex-row gap-40"
+      className="pt-100 px-80 grow flex-row gap-40"
       data-orientation="vertical"
     >
       <TabsList className="flex flex-col gap-25 h-full">
@@ -152,12 +157,9 @@ const ProfilePage = () => {
         ) : (
           <>
             {isLoading && !data?.animals && (
-              <PetsListSkeleton
-                className="grid-cols-3"
-                length={data?.animals.length}
-              />
+              <PetsListSkeleton className="grid-cols-3" length={9} />
             )}
-            <div className="grid grid-cols-3 gap-20 mb-50 wrap">
+            <div className="grid grid-cols-3 gap-20 wrap">
               {data?.animals.map(item => (
                 <AnimalCard
                   key={item.id}
@@ -172,6 +174,14 @@ const ProfilePage = () => {
               ))}
             </div>
           </>
+        )}
+        {!isLoading && data && !!totalPages && totalPages > 1 && (
+          <Pagination
+            onPageChange={setPage}
+            currentPage={page}
+            totalPages={totalPages}
+            className="mb-50 mt-auto"
+          />
         )}
       </TabsContent>
     </Tabs>
