@@ -1,13 +1,20 @@
-import AnimalCard from "./AnimalCard";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "./components/ui/carousel";
-import { useGetAnimalsQuery } from "src/redux/animals/animalsApi";
-import { CarouselSceleton } from "components/sceletons/CarouselSceleton"
+import AnimalCard from './AnimalCard';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from './components/ui/carousel';
+import { useGetAnimalsQuery } from 'src/redux/animals/animalsApi';
+import { CarouselSceleton } from 'components/sceletons/CarouselSceleton';
 
 const AnimalsCarousel = () => {
-  const { data, isLoading } = useGetAnimalsQuery({page: 1, limit: 8})
+  const { data, isLoading } = useGetAnimalsQuery({ page: 1, limit: 8 });
 
-  if ( isLoading ) { return <CarouselSceleton />}
-
+  if (isLoading) {
+    return <CarouselSceleton />;
+  }
 
   return (
     <Carousel
@@ -28,6 +35,7 @@ const AnimalsCarousel = () => {
               age={item.age}
               photoSrc={item.animalImages[0]}
               favorite={item.favorite}
+              status={item.status}
             />
           </CarouselItem>
         ))}
@@ -36,6 +44,6 @@ const AnimalsCarousel = () => {
       <CarouselNext />
     </Carousel>
   );
-}
+};
 
 export default AnimalsCarousel;

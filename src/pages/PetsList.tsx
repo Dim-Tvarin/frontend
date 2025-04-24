@@ -1,19 +1,28 @@
-import { FiFilter } from "react-icons/fi";
-import { CustomButton } from "components/CustomButton";
-import { useGetFilteredAnimalsQuery, type SortOrder } from "src/redux/animals/animalsApi";
-import AnimalCard from "components/AnimalCard";
-import { PetsListSkeleton } from "components/sceletons/PetsListSkeleton";
-import Pagination from "components/Pagination";
-import { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router";
-import { showToast } from "components/Toast";
-import FilterItem from "components/FilterItem";
-import { age, animalType, AnimalTypeEnum, gender, size } from "./Announcement/types";
-import BreedSelect from "components/BreedSelect";
-import { CitySelect } from "components/CitySelect";
-import { Controller, useForm } from "react-hook-form";
+import { FiFilter } from 'react-icons/fi';
+import { CustomButton } from 'components/CustomButton';
+import {
+  useGetFilteredAnimalsQuery,
+  type SortOrder,
+} from 'src/redux/animals/animalsApi';
+import AnimalCard from 'components/AnimalCard';
+import { PetsListSkeleton } from 'components/sceletons/PetsListSkeleton';
+import Pagination from 'components/Pagination';
+import { useEffect, useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router';
+import { showToast } from 'components/Toast';
+import FilterItem from 'components/FilterItem';
+import {
+  age,
+  animalType,
+  AnimalTypeEnum,
+  gender,
+  size,
+} from './Announcement/types';
+import BreedSelect from 'components/BreedSelect';
+import { CitySelect } from 'components/CitySelect';
+import { Controller, useForm } from 'react-hook-form';
 
-const limit = 12
+const limit = 12;
 
 interface FilterFormValues {
   animalType: AnimalTypeEnum | undefined;
@@ -22,29 +31,34 @@ interface FilterFormValues {
   location: string;
   age: string;
   size: string;
-  sortByDate?: "newest" | 'oldest';
+  sortByDate?: 'newest' | 'oldest';
 }
 
 const mapAnimalType = {
-  cats: "Котики",
-  dogs: "Собаки",
+  cats: 'Котики',
+  dogs: 'Собаки',
   birds: 'Пташки',
-  other: "Інші тварини"
-}
+  other: 'Інші тварини',
+};
 
 const PetsList = () => {
   const [searchParams] = useSearchParams();
   const rawPage = Number(searchParams.get('page'));
   const [page, setPage] = useState(rawPage === 0 ? 1 : rawPage);
-  const [openFilters, setOpenFilters] = useState(false)
-  const [openSorting, setOpenSorting] = useState(false)
-  const [filtersParams, setFiltersParams] = useState<Partial<FilterFormValues>>({})
+  const [openFilters, setOpenFilters] = useState(false);
+  const [openSorting, setOpenSorting] = useState(false);
+  const [filtersParams, setFiltersParams] = useState<Partial<FilterFormValues>>(
+    {}
+  );
   const [isFilterApplied, setIsFilterApplied] = useState(false);
   const [sorting, setSorting] = useState<SortOrder>('newest');
-  
+
   const navigate = useNavigate();
 
-  const { data, isLoading, isFetching, error } = useGetFilteredAnimalsQuery({page, limit, ...filtersParams},{ skip: !filtersParams } )
+  const { data, isLoading, isFetching, error } = useGetFilteredAnimalsQuery(
+    { page, limit, ...filtersParams },
+    { skip: !filtersParams }
+  );
   const { control, handleSubmit, watch } = useForm<FilterFormValues>({
     defaultValues: {
       animalType: undefined,
@@ -55,45 +69,49 @@ const PetsList = () => {
       size: '',
     },
   });
-  const selectedAnimalType = watch('animalType') ;
+  const selectedAnimalType = watch('animalType');
   const totalPages = data && Math.ceil(data?.total / limit);
   const title =
     filtersParams && filtersParams?.animalType
       ? mapAnimalType[filtersParams?.animalType]
       : 'Всі тварини';
 
-  useEffect(()=> {  if (error) {
-    showToast({
-      title: 'Щось пішло не по плану',
-      description: 'Спробуйте ще раз пізніше',
-      status: 'error',
-    })
-    navigate('/')
-  }}, [error])
+  useEffect(() => {
+    if (error) {
+      showToast({
+        title: 'Щось пішло не по плану',
+        description: 'Спробуйте ще раз пізніше',
+        status: 'error',
+      });
+      navigate('/');
+    }
+  }, [error]);
 
   useEffect(() => {
     const rawPage = Number(searchParams.get('page'));
-    setPage(rawPage === 0 ? 1 : rawPage)}, [searchParams])
+    setPage(rawPage === 0 ? 1 : rawPage);
+  }, [searchParams]);
 
-  useEffect(()=> {
+  useEffect(() => {
     if (Object.keys(filtersParams).length > 0 && !isLoading && !isFetching)
-    setIsFilterApplied(true) }, [isFetching, filtersParams, isLoading])
+      setIsFilterApplied(true);
+  }, [isFetching, filtersParams, isLoading]);
 
   const onSubmit = (formData: FilterFormValues) => {
-    const filters = {...formData, sortByDate: sorting}
+    const filters = { ...formData, sortByDate: sorting };
     setFiltersParams(filters);
   };
 
   const handleAscSorting = () => {
-    setSorting('newest'); 
-    setFiltersParams({sortByDate:'newest'})
-    setOpenSorting(false)
-  }
-    const handleDescSorting = () => {
-    setSorting('oldest'); 
-    setFiltersParams({sortByDate:'oldest'})
-    setOpenSorting(false)
-  }
+    setSorting('newest');
+    setFiltersParams({ sortByDate: 'newest' });
+    setOpenSorting(false);
+  };
+  const handleDescSorting = () => {
+    setSorting('oldest');
+    setFiltersParams({ sortByDate: 'oldest' });
+    setOpenSorting(false);
+  };
 
   return (
     <div className="container">
@@ -128,10 +146,16 @@ const PetsList = () => {
           </CustomButton>
           {openSorting && (
             <div className="bg-header border-1 border-default-btn rounded-xl flex flex-col gap-4 px-16 py-10">
-              <button onClick={handleAscSorting} className="text-default-btn text-left focus:outline-none">
+              <button
+                onClick={handleAscSorting}
+                className="text-default-btn text-left focus:outline-none"
+              >
                 Останні оголошення
               </button>
-              <button onClick={handleDescSorting} className="text-default-btn text-left focus:outline-none">
+              <button
+                onClick={handleDescSorting}
+                className="text-default-btn text-left focus:outline-none"
+              >
                 Давні оголошення
               </button>
             </div>
@@ -222,6 +246,7 @@ const PetsList = () => {
                 age={item.age}
                 photoSrc={item.animalImages[0]}
                 favorite={item.favorite}
+                status={item.status}
               />
             ))}
           </div>
@@ -237,7 +262,6 @@ const PetsList = () => {
       )}
     </div>
   );
-}
+};
 
 export default PetsList;
-

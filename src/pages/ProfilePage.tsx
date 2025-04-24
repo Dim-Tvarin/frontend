@@ -68,21 +68,33 @@ const ProfilePage = () => {
         <TabsTrigger
           value="main-info"
           aria-orientation="vertical"
-          className="w-[285px] h-[77px] text-lg m-0 data-[state=active]:shadow-none"
+          className="w-[285px] h-[77px] text-lg m-0 outline-none shadow-none rounded-[20px] py-[26px]
+          data-[state=active]:shadow-none 
+          data-[state=active]:outline-none 
+          text-white hover:text-default-btn bg-default-btn hover:bg-orange hover:border-default-btn hover:border-2 disabled:bg-disabled  
+          data-[state=active]:text-default-btn 
+          data-[state=active]:bg-white 
+          data-[state=active]:border-2
+          data-[state=active]:border-default-btn 
+          data-[state=active]:hover:border-orange"
         >
-          <div className="text-white outline-none shadow-none rounded-[20px] py-[26px] m-auto bg-default-btn hover:bg-orange hover:border-default-btn hover:border-2 hover:text-default-btn disabled:bg-disabled w-[285px] h-[77px] text-lg border-none data-[state=active]:outline-none">
-            Основна інформація
-          </div>
+          Основна інформація
         </TabsTrigger>
 
         <TabsTrigger
           value="my-adverts"
           aria-orientation="vertical"
-          className="w-[285px] h-[77px] text-lg m-0 data-[state=active]:shadow-none data-[state=active]:outline-none"
+          className="w-[285px] h-[77px] text-lg m-0 outline-none shadow-none rounded-[20px] py-[26px]
+          data-[state=active]:shadow-none 
+          data-[state=active]:outline-none 
+          text-white hover:text-default-btn bg-default-btn hover:bg-orange hover:border-default-btn hover:border-2 disabled:bg-disabled  
+          data-[state=active]:text-default-btn 
+          data-[state=active]:bg-white 
+          data-[state=active]:border-2
+          data-[state=active]:border-default-btn 
+          data-[state=active]:hover:border-orange"
         >
-          <div className="outline-none shadow-none rounded-[20px] py-[26px] m-auto border-2 text-default-btn bg-white border-default-btn hover:border-orange disabled:bg-disabled w-[285px] h-[77px] text-lg">
-            Мої оголошення
-          </div>
+          Мої оголошення
         </TabsTrigger>
       </TabsList>
       <TabsContent value="main-info" data-orientation="vertical">

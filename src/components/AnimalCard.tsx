@@ -113,10 +113,7 @@ const AnimalCard = ({
           </CustomButton>
           <CustomButton
             styleType="iconButton"
-            onClick={() => {
-              dispatch(openDialog({ type: 'alertDelete', id })),
-                console.log('open');
-            }}
+            onClick={() => dispatch(openDialog({ type: 'alertDelete', id }))}
             className="hover:bg-error-input "
           >
             <FiTrash2 className="text-white" size={22} />
