@@ -179,18 +179,18 @@ const PetsList = () => {
         <div className="relative flex justify-around gap-20">
           {openFilters && (
             <div
-              className="xl:hidden z-50 fixed flex justify-center items-start bg-black/50"
-              onClick={() => setOpenFilters(false)}
+              className="z-50 fixed xl:relative inset-0 flex items-start bg-black/50 xl:bg-transparent xl:w-1/4 xl:h-fit"
+              onClick={() => {
+                setOpenFilters(false);
+              }}
             >
               <form
-                onSubmit={e => {
-                  e.stopPropagation();
-                  handleSubmit(onSubmit);
-                }}
+                onSubmit={handleSubmit(onSubmit)}
+                onClick={e => e.stopPropagation()}
                 className={cn(
                   'xl:flex flex-col transition-all duration-500 xl:bg-transparent',
-                  'xl:static xl:w-1/4 xl:gap-32',
-                  'flex flex-col  bg-dialog p-16 gap-16  rounded-4xl w-full t-[256px]'
+                  'xl:static  xl:gap-32',
+                  'flex flex-col bg-dialog p-16 gap-16 rounded-4xl w-[95%] sm:w-[344px] ml-16 mt-[260px] xl:mt-0 xl:ml-0'
                 )}
               >
                 <Controller
@@ -272,7 +272,7 @@ const PetsList = () => {
           )}
 
           <div
-            className={`w-full grid gap-16 lg:gap-20 mb-32 md:mb-50 wrap transition-all duration-500 grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 ${openFilters ? 'xl:grid-cols-3 w-3/4' : 'xl:grid-cols-4'}`}
+            className={`w-full grid gap-16 lg:gap-20 mb-32 md:mb-50 wrap justify-center transition-all duration-500 grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 ${openFilters ? 'xl:grid-cols-3 w-3/4' : 'xl:grid-cols-4'}`}
           >
             {data?.animals.map(item => (
               <AnimalCard

@@ -174,7 +174,7 @@ const BreedSelect = ({
             {selectedBreed || defaultValue || placeholder || ''}
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="z-10 p-0 border-1 border-input-border rounded-t-lg">
+        <PopoverContent className="z-10 p-0 border-1 border-input-border rounded-t-lg w-(--radix-popover-trigger-width)">
           <Command className="bg-white">
             <CommandInput
               placeholder="Пошук ..."

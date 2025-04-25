@@ -69,7 +69,7 @@ const AnimalCard = ({
   return (
     <div
       className={cn(
-        'relative flex items-end bg-white border-2 border-orange rounded-4xl overflow-hidden max-w-sm ',
+        'relative flex items-end bg-white border-2 border-orange rounded-4xl overflow-hidden max-w-sm xl:scale-90 2xl:scale-100',
         isAllPetsPage
           ? 'w-[156px] h-[198px] md:w-[242px] md:h-[318px] xl:w-[305px] xl:h-[400px]'
           : 'w-[242px] h-[318px] md:w-[294px] md:h-[400px] lg:w-[305px]'
