@@ -70,6 +70,12 @@ const BreedSelect = ({type, defaultValue, onChange, className, errorMess}:
   const {data, isLoading} = useGetAnimaltraitsQuery()
   const debouncedSearch = useDebounce(searchValue, 300);
 
+  useEffect(() => {
+    if (defaultValue) {
+      setSelectedBreed(defaultValue);
+      onChange?.(defaultValue);
+    }
+  }, [defaultValue]);
    useEffect(() => {
      let animalBreed: Pick<AnimalTrait, '_id' | 'breed'>[] = [];
      if (!data || !type || !isDefaultAnimalType(type)) {

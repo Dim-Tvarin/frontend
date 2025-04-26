@@ -31,7 +31,8 @@ const defaultCities: CityType[] = [
  {_id:"67f7daf6405f8609b0a0d5e4",  name: "Житомир"},{_id:"67f7daf7405f8609b0a14823",  name: "Чернігів"},
 ]
 
-export function CitySelect({ onChange, value, className, errorMess }: { onChange: (city: string) => void; value?: string; className?: string; errorMess?: string;}) {
+export function CitySelect({ onChange, defaultValue, value, className, errorMess }:
+   { onChange: (city: string) => void; defaultValue?: string; value?: string; className?: string; errorMess?: string;}) {
   const [open, setOpen] = useState(false);
   const [selectedCity, setSelectedCity] = useState("");
   const [searchValue, setSearchValue] = useState("");
@@ -39,6 +40,13 @@ export function CitySelect({ onChange, value, className, errorMess }: { onChange
   const debouncedSearch = useDebounce(searchValue, 300);
 
   const {data, isLoading} = useGetCitiesQuery()
+
+  useEffect(() => {
+    if (defaultValue) {
+      setSelectedCity(defaultValue);
+      onChange?.(defaultValue);
+    }
+  }, [defaultValue]);
 
   useEffect(()=> {
       let cities: CityType[] = []

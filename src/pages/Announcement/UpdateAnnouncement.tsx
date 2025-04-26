@@ -40,7 +40,7 @@ const UpdateAnnouncement = () => {
   const { data, error, isLoading } = useGetAnimalByIdQuery(id);
   const [editAnimal] = useEditAnimalMutation()
   const { animal } = data || {}
-  console.log('animal',animal);
+
   const {
       register,
       watch,
@@ -76,39 +76,34 @@ const UpdateAnnouncement = () => {
   const onSubmit = async (data: AnnouncementForm) => {
     if (!animal) return 
     const { images, ...otherData } = data;
-    //const cleaned = cleanObject(otherData);
     console.log('dataForm', data);
 
     const bodyData = new FormData();
     if (images && images?.length > 0) {
       images?.forEach((image: File) => bodyData.append('images', image))
-    } else {
-      bodyData.append('images', JSON.stringify([]) );
-        //new Blob([], { type: 'application/json' })
     }
 
-      bodyData.append(
+    bodyData.append(
       'animalData',
       JSON.stringify({
         ...otherData,
       })
     );
+  
     try {
-    await editAnimal({id: animal?.id,  formData: bodyData}).unwrap();
-     showToast({
-       title: 'Оголошення успішно оновлене',
-       status: 'success',
-     });
-   } catch (error) {
+      await editAnimal({ id: animal?.id, formData: bodyData }).unwrap();
+      showToast({
+        title: 'Оголошення успішно оновлене',
+        status: 'success',
+      });
+    } catch  {
       showToast({
         title: 'Щось пішло не по плану',
         description: 'Виникла помилка при редагуванні оголошення',
         status: 'error',
       });
       return;
-    }
-    
-    
+    }   
   }
 
   const defaultTypes: AnimalTypeValues[] = ['cats', 'dogs', 'birds'];
@@ -126,6 +121,7 @@ const UpdateAnnouncement = () => {
         >
           <p className="text-base mb-16 z-10">Оберіть вид тварини *</p>
           <Controller
+            defaultValue={animal?.animalType}
             name="animalType"
             control={control}
             render={({ field: { onChange, name, onBlur, ref } }) => (
@@ -145,6 +141,7 @@ const UpdateAnnouncement = () => {
 
           <p className="text-base mt-32 mb-16">Стать </p>
           <Controller
+            defaultValue={animal?.gender}
             name="gender"
             control={control}
             render={({ field: { onChange, name, onBlur, ref } }) => (
@@ -277,6 +274,7 @@ const UpdateAnnouncement = () => {
                 control={control}
                 render={({ field }) => (
                   <CitySelect
+                    defaultValue={animal?.animalLocation}
                     onChange={field.onChange}
                     value={animal?.animalLocation}
                     className="w-[305px] h-[40px]"
