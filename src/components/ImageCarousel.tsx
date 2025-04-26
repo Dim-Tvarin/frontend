@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Skeleton } from "components/components/ui/skeleton";
+import { FaRegTrashAlt } from "react-icons/fa";
 
-const ImageCarousel = ({images}: {images: string[];}) => {
+const ImageCarousel = ({images, isDelete=false}: {images: string[]; isDelete?: boolean;}) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   if (images.length === 0) {
@@ -13,6 +14,11 @@ const ImageCarousel = ({images}: {images: string[];}) => {
   return (
     <div className="flex flex-col items-center gap-32">
       <div className="relative w-[630px] h-[529px] rounded-[30px] bg-orange">
+        {isDelete && (
+          <div className="absolute top-[52px] right-[42px] w-[36px] h-[36px] bg-default-btn rounded-full grid place-items-center hover:bg-orange transition-all duration-300 z-10">
+            <FaRegTrashAlt color="white" />
+          </div>
+        )}
         <div className="absolute bottom-0 w-[600px] h-[497px] rounded-[30px] overflow-hidden">
           <img
             src={images[activeIndex]}
@@ -28,10 +34,15 @@ const ImageCarousel = ({images}: {images: string[];}) => {
               <button
                 key={idx}
                 onClick={() => setActiveIndex(idx)}
-                className={`w-[200px] h-[200px] rounded-[20px] overflow-hidden transition ring-2 ${
+                className={`w-[200px] h-[200px] rounded-[20px] overflow-hidden transition ring-2 relative ${
                   idx === activeIndex ? 'ring-orange-400' : 'ring-transparent'
                 }`}
               >
+                {isDelete && (
+                  <div className="absolute top-10 right-10 w-[36px] h-[36px] bg-default-btn rounded-full grid place-items-center hover:bg-orange transition-all duration-300">
+                    <FaRegTrashAlt color="white" />
+                  </div>
+                )}
                 <img
                   src={src}
                   alt={`Thumbnail ${idx}`}

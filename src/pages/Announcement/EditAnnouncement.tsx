@@ -326,7 +326,7 @@ const EditAnnouncement = () => {
       </div>
 
       <div className="flex flex-col gap-32 py-32 items-end my-100">
-        <ImageCarousel images={animal?.animalImages || []} />
+        <ImageCarousel images={animal?.animalImages || []} isDelete />
       </div>
     </div>
   );
