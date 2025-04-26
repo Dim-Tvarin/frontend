@@ -118,7 +118,7 @@ const PetPage = () => {
         <CustomButton
           styleType="defaultButton"
           className="flex gap-8  w-[259px]"
-          onClick={() => navigate(`/updateannouncement/${id}`)}
+          onClick={() => navigate(`/editannouncement/${id}`)}
         >
           Відредагувати оголошення
         </CustomButton>

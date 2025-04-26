@@ -23,7 +23,7 @@ import { useState } from "react";
 
 type AnnouncementForm = z.infer<typeof updateAnnounceSchema>;
 
-const UpdateAnnouncement = () => {
+const EditAnnouncement = () => {
   const [isFocusedYear, setIsFocusedYear] = useState(false);
   const [isFocusedMonth, setIsFocusedMonth] = useState(false);
   const navigate = useNavigate();
@@ -325,14 +325,11 @@ const UpdateAnnouncement = () => {
         </form>
       </div>
 
-      <div className=" bg-orange rounded-[30px] flex flex-col gap-32 py-32 items-end my-100">
-        {/* <div className="w-[600px] rounded-l-[30px] overflow-hidden ml-30">
-            <img src={announce4} alt="хлопець з лабродором" />
-          </div> */}
+      <div className="flex flex-col gap-32 py-32 items-end my-100">
         <ImageCarousel images={animal?.animalImages || []} />
       </div>
     </div>
   );
 }
 
-export default UpdateAnnouncement;
+export default EditAnnouncement;
