@@ -57,6 +57,10 @@ const defaultBreeds: Record<Exclude<AnimalType, AnimalType.other>, Pick<AnimalTr
 
 const defaultTypes: Exclude<AnimalTypeValues, 'other'>[]= [AnimalType.dogs, AnimalType.cats, AnimalType.birds]
 
+  const isDefaultAnimalType = (value: string): value is Exclude<AnimalTypeValues, 'other'> => {
+    return defaultTypes.includes(value as Exclude<AnimalTypeValues, 'other'>);
+  }
+
 const BreedSelect = ({type, defaultValue, onChange, className, errorMess}: 
   {type?: AnimalTypeValues | string; defaultValue?: string; onChange: (breed: string) => void; className?: string; errorMess?: string;}) => {
   const [open, setOpen] = useState(false);
@@ -66,11 +70,6 @@ const BreedSelect = ({type, defaultValue, onChange, className, errorMess}:
   const {data, isLoading} = useGetAnimaltraitsQuery()
   const debouncedSearch = useDebounce(searchValue, 300);
 
-  const isDefaultAnimalType = (value: string): value is Exclude<AnimalTypeValues, 'other'> => {
-  return defaultTypes.includes(value as Exclude<AnimalTypeValues, 'other'>);
-}
-
-  //console.log('breed', defaultValue, type);
    useEffect(() => {
      let animalBreed: Pick<AnimalTrait, '_id' | 'breed'>[] = [];
      if (!data || !type || !isDefaultAnimalType(type)) {
@@ -106,7 +105,7 @@ const BreedSelect = ({type, defaultValue, onChange, className, errorMess}:
           id="animBeed"
           placeholder="Введіть породу"
           className="w-[305px] h-[40px]"
-          onChange={(e) => setSelectedBreed(e.target.value)}
+          onChange={(e) => {setSelectedBreed(e.target.value); onChange?.(e.target.value)}}
         />
       );
     }
