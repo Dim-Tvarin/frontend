@@ -19,6 +19,7 @@ import { getMonthDeclension, getYearDeclension } from "src/helpers/getYearDeclen
 import { FilesInput } from "components/FilesInput";
 import { updateAnnounceSchema } from "../../validations/updateAnnounceValidation";
 import { useState } from "react";
+import cleanObject from "src/helpers/cleanObject";
 
 
 type AnnouncementForm = z.infer<typeof updateAnnounceSchema>;
@@ -57,7 +58,7 @@ const UpdateAnnouncement = () => {
    const animalTypeValue = watch('animalType');
    const genderValue = watch('gender');
 
- console.log('defaultValues', animal,errors);
+ console.log('animal', animal,errors);
 
   if (isLoading) {
     return <PetPageSceleton />;
@@ -72,7 +73,8 @@ const UpdateAnnouncement = () => {
       return
     } 
   const onSubmit = async (data: AnnouncementForm) => {
-    console.log('dataForm', data);
+    const cleaned = cleanObject(data);
+    console.log('dataForm', data, cleaned);
   }
 
   const defaultTypes: AnimalTypeValues[] = ['cats', 'dogs', 'birds'];
