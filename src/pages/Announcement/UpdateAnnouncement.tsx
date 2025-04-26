@@ -12,14 +12,13 @@ import { Spinner } from "components/Spinner";
 import { showToast } from "components/Toast";
 import { Controller, useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router";
-import { useGetAnimalByIdQuery } from "src/redux/animals/animalsApi";
+import { useEditAnimalMutation, useGetAnimalByIdQuery } from "src/redux/animals/animalsApi";
 import type { z } from "zod";
 import { animalTypeOptions, genderOption, type AnimalTypeValues } from "./types";
 import { getMonthDeclension, getYearDeclension } from "src/helpers/getYearDeclension";
 import { FilesInput } from "components/FilesInput";
 import { updateAnnounceSchema } from "../../validations/updateAnnounceValidation";
 import { useState } from "react";
-import cleanObject from "src/helpers/cleanObject";
 
 
 type AnnouncementForm = z.infer<typeof updateAnnounceSchema>;
@@ -39,8 +38,9 @@ const UpdateAnnouncement = () => {
     return;
   }
   const { data, error, isLoading } = useGetAnimalByIdQuery(id);
+  const [editAnimal] = useEditAnimalMutation()
   const { animal } = data || {}
-  
+  console.log('animal',animal);
   const {
       register,
       watch,
@@ -53,12 +53,12 @@ const UpdateAnnouncement = () => {
       defaultValues: {
         animalType: animal?.animalType,
         gender: animal?.gender ?? undefined,
+        breed: animal?.breed,
+        animalLocation: animal?.animalLocation,
       }
     });
    const animalTypeValue = watch('animalType');
    const genderValue = watch('gender');
-
- console.log('animal', animal,errors);
 
   if (isLoading) {
     return <PetPageSceleton />;
@@ -72,9 +72,43 @@ const UpdateAnnouncement = () => {
       setTimeout(() => navigate('/allpets'), 1000)
       return
     } 
+    
   const onSubmit = async (data: AnnouncementForm) => {
-    const cleaned = cleanObject(data);
-    console.log('dataForm', data, cleaned);
+    if (!animal) return 
+    const { images, ...otherData } = data;
+    //const cleaned = cleanObject(otherData);
+    console.log('dataForm', data);
+
+    const bodyData = new FormData();
+    if (images && images?.length > 0) {
+      images?.forEach((image: File) => bodyData.append('images', image))
+    } else {
+      bodyData.append('images', JSON.stringify([]) );
+        //new Blob([], { type: 'application/json' })
+    }
+
+      bodyData.append(
+      'animalData',
+      JSON.stringify({
+        ...otherData,
+      })
+    );
+    try {
+    await editAnimal({id: animal?.id,  formData: bodyData}).unwrap();
+     showToast({
+       title: 'Оголошення успішно оновлене',
+       status: 'success',
+     });
+   } catch (error) {
+      showToast({
+        title: 'Щось пішло не по плану',
+        description: 'Виникла помилка при редагуванні оголошення',
+        status: 'error',
+      });
+      return;
+    }
+    
+    
   }
 
   const defaultTypes: AnimalTypeValues[] = ['cats', 'dogs', 'birds'];

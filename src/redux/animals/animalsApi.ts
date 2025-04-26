@@ -62,6 +62,13 @@ export const animalsApi = createApi({
           `animals?page=${page}&limit=${limit}`,
       }
     ),
+    editAnimal: build.mutation<unknown, { id: string; formData: FormData }>({
+      query: ({ id, formData }) => ({ 
+        url: `/animals/${id}`,
+        method: 'PUT',
+        body: formData,
+      }),
+    }),
     getFilteredAnimals: build.query<
       AnimalsResponse,
       {
@@ -122,6 +129,7 @@ export const animalsApi = createApi({
 export const {
   useGetAnimalsQuery,
   useCreateAnimalMutation,
+  useEditAnimalMutation,
   useGetFilteredAnimalsQuery,
   useGetAnimalByIdQuery,
   useGetMyAnimalsQuery,
