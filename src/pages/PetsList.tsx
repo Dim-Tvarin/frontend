@@ -59,7 +59,7 @@ const PetsList = () => {
     { page, limit, ...filtersParams },
     { skip: !filtersParams }
   );
-  const { control, handleSubmit, watch } = useForm<FilterFormValues>({
+  const { control, handleSubmit, watch, reset } = useForm<FilterFormValues>({
     defaultValues: {
       animalType: undefined,
       gender: '',
@@ -112,6 +112,9 @@ const PetsList = () => {
     setFiltersParams({ sortByDate: 'oldest' });
     setOpenSorting(false);
   };
+  const handleClearFilter = () => {setFiltersParams({});
+    reset();
+  }
 
   return (
     <div className="container">
@@ -148,13 +151,13 @@ const PetsList = () => {
             <div className="bg-header border-1 border-default-btn rounded-xl flex flex-col gap-4 px-16 py-10">
               <button
                 onClick={handleAscSorting}
-                className="text-default-btn text-left focus:outline-none"
+                className="text-default-btn text-left text-lg focus:outline-none"
               >
                 Останні оголошення
               </button>
               <button
                 onClick={handleDescSorting}
-                className="text-default-btn text-left focus:outline-none"
+                className="text-default-btn text-left text-lg focus:outline-none"
               >
                 Давні оголошення
               </button>
@@ -230,6 +233,15 @@ const PetsList = () => {
                 loading={isLoading || isFetching}
               >
                 Застосувати фільтр
+              </CustomButton>
+              <CustomButton
+                type="button"
+                styleType="defaultButton"
+                className="m-0 self-center"
+                onClick={handleClearFilter}
+                disabled={Object.keys(filtersParams).length === 0}
+              >
+                Очистити фільтр
               </CustomButton>
             </form>
           )}
