@@ -151,13 +151,13 @@ const PetsList = () => {
             <div className="bg-header border-1 border-default-btn rounded-xl flex flex-col gap-4 px-16 py-10">
               <button
                 onClick={handleAscSorting}
-                className="text-default-btn text-left focus:outline-none"
+                className="text-default-btn text-left text-lg focus:outline-none"
               >
                 Останні оголошення
               </button>
               <button
                 onClick={handleDescSorting}
-                className="text-default-btn text-left focus:outline-none"
+                className="text-default-btn text-left text-lg focus:outline-none"
               >
                 Давні оголошення
               </button>
