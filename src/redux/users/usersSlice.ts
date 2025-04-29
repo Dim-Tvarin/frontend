@@ -66,6 +66,12 @@ const slice = createSlice({
     clearError: state => {
       state.error = null;
     },
+    updateUserLocally: (state, action: PayloadAction<User>) => {
+      state.user = {
+        ...state.user,
+        ...action.payload,
+      };
+    },
   },
   extraReducers: builder => {
     builder
