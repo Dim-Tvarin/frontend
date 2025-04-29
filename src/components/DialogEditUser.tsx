@@ -2,7 +2,7 @@ import * as Dialog from '@radix-ui/react-dialog';
 import { CustomButton } from './CustomButton';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './components/ui/tabs';
 import CloseSVG from 'src/assets/CloseSVG';
-import { closeDialog } from 'src/redux/dialogs/dialogSlice';
+import { closeDialog, openDialog } from 'src/redux/dialogs/dialogSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch, RootState } from 'src/redux/store';
 import {
@@ -22,8 +22,6 @@ import { useEffect, useState } from 'react';
 import { useSmartUserUpdate } from 'hooks/useSmartUserUpdate';
 import AvatarUploadField from './AvatarUploadField';
 import { showToast } from './Toast';
-import { useDeleteUserMutation } from 'src/redux/users/usersApi';
-import { logoutThunk } from 'src/redux/users/usersOperations';
 
 type FormData = z.infer<typeof editUserSchema>;
 
@@ -70,17 +68,6 @@ const DialogEditUser: React.FC = () => {
       showToast({ title: 'Щось пішло не так', status: 'error' });
     }
   }, [isSuccess, isError, dispatch]);
-  const [deleteUser, { isLoading: isDeleting }] = useDeleteUserMutation();
-  const handleDeleteUser = async () => {
-    try {
-      await deleteUser().unwrap();
-      showToast({ title: 'Акаунт видалено', status: 'success' });
-      dispatch(logoutThunk());
-      dispatch(closeDialog());
-    } catch {
-      showToast({ title: 'Помилка при видаленні акаунту', status: 'error' });
-    }
-  };
   return (
     <Dialog.Root
       open={activeDialog === 'editUser'}
@@ -209,10 +196,17 @@ const DialogEditUser: React.FC = () => {
                           type="button"
                           styleType="whiteButton"
                           className="mt-32 w-[196px] h-[44px] text-base"
-                          onClick={handleDeleteUser}
-                          disabled={isDeleting}
+                          onClick={() =>
+                            dispatch(
+                              openDialog({
+                                type: 'alertDelete',
+                                entity: 'user',
+                              })
+                            )
+                          }
+                          //   disabled={isDeletingUser}
                         >
-                          {isDeleting ? 'Видалення...' : 'Видалити профіль'}
+                          Видалити профіль
                         </CustomButton>
                       </DialogFooter>
                     </div>

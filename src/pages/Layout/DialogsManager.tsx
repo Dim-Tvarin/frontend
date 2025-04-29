@@ -20,9 +20,7 @@ const DialogsManager = () => {
       {activeDialog === 'resetPassword' && <DialogResetPassword />}
       {activeDialog === 'editUser' && <DialogEditUser />}
       {typeof activeDialog === 'object' &&
-        activeDialog?.type === 'alertDelete' && (
-          <DialogAlertDelete id={activeDialog.id} />
-        )}
+        activeDialog?.type === 'alertDelete' && <DialogAlertDelete />}
     </>
   );
 };
