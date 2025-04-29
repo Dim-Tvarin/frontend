@@ -7,7 +7,7 @@ import {
   TabsTrigger,
 } from 'components/components/ui/tabs';
 import avatarStubMin from '../assets/avatar-stub.png';
-import avatarStuMax from '../assets/avatar-stub@2x.png';
+import avatarStubMax from '../assets/avatar-stub@2x.png';
 import { selectUser } from 'src/redux/users/usersSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch } from 'src/redux/store';
@@ -24,6 +24,7 @@ import {
 } from 'src/redux/animals/animalsApi';
 import { useNavigate, useSearchParams } from 'react-router';
 import Pagination from 'components/Pagination';
+import { openDialog } from 'src/redux/dialogs/dialogSlice';
 
 const ProfilePage = () => {
   const user = useSelector(selectUser);
@@ -101,8 +102,8 @@ const ProfilePage = () => {
         <div className="flex">
           <div className="w-[305px] h-[305px] mr-30 shrink-0">
             <ResponsiveImage
-              urlMax={avatarStuMax}
-              urlMin={avatarStubMin}
+              urlMax={user.avatarURL || avatarStubMax}
+              urlMin={user.avatarURL || avatarStubMin}
               alt="аватар"
             />
           </div>
@@ -120,6 +121,7 @@ const ProfilePage = () => {
             </div>
             <div className="flex gap-20 ml-auto mt-auto">
               <CustomButton
+                onClick={() => dispatch(openDialog('editUser'))}
                 styleType="defaultButton"
                 className="m-0 w-[210px] h-[45px]"
               >
