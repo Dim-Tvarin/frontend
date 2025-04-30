@@ -43,7 +43,7 @@ export const editUserSchema = z.object({
     .optional(),
 });
 
-export const editPasswordSchema = z
+export const changePasswordSchema = z
   .object({
     password: z
       .string()
@@ -78,5 +78,5 @@ export const editPasswordSchema = z
   })
   .refine(data => data.newPassword === data.repeat_newPassword, {
     message: 'Паролі не співпадають',
-    path: ['repeat_password'],
+    path: ['repeat_newPassword'],
   });

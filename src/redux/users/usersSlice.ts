@@ -141,6 +141,7 @@ const slice = createSlice({
           verifyUserThunk.rejected,
           loginThunk.rejected,
           logoutThunk.rejected,
+          refreshThunk.rejected,
           forgotPasswordThunk.rejected,
           verifyResetPasswordThunk.rejected,
           resetPasswordThunk.rejected

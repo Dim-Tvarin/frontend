@@ -54,7 +54,25 @@ export const usersApi = createApi({
         method: 'DELETE',
       }),
     }),
+    changePassword: builder.mutation<
+      void,
+      {
+        password: string;
+        newPassword: string;
+        repeat_newPassword: string;
+      }
+    >({
+      query: body => ({
+        url: '/users/change-password',
+        method: 'PATCH',
+        body,
+      }),
+    }),
   }),
 });
 
-export const { useUpdateUserMutation, useDeleteUserMutation } = usersApi;
+export const {
+  useUpdateUserMutation,
+  useDeleteUserMutation,
+  useChangePasswordMutation,
+} = usersApi;

@@ -1,29 +1,14 @@
 import * as Dialog from '@radix-ui/react-dialog';
-import { CustomButton } from './CustomButton';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './components/ui/tabs';
 import CloseSVG from 'src/assets/CloseSVG';
-import { closeDialog, openDialog } from 'src/redux/dialogs/dialogSlice';
+import { closeDialog } from 'src/redux/dialogs/dialogSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch, RootState } from 'src/redux/store';
-import {
-  DialogHeader,
-  DialogFooter,
-  DialogOverlay,
-} from './components/ui/dialog';
-import { InputField } from './InputField';
-import { selectError, selectUser } from 'src/redux/users/usersSlice';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { DialogHeader, DialogOverlay } from './components/ui/dialog';
 
-import type { z } from 'zod';
-import { PhoneInput } from './PhoneInput';
-import { editUserSchema } from '../validations/editProfileValidation';
-import { useEffect, useState } from 'react';
-import { useSmartUserUpdate } from 'hooks/useSmartUserUpdate';
-import AvatarUploadField from './AvatarUploadField';
-import { showToast } from './Toast';
-
-type FormData = z.infer<typeof editUserSchema>;
+import UserProfileForm from './UserProfileForm';
+import { useState } from 'react';
+import UserPasswordForm from './UserPasswordForm';
 
 const DialogEditUser: React.FC = () => {
   const [activeTab, setActiveTab] = useState('account');
@@ -31,43 +16,7 @@ const DialogEditUser: React.FC = () => {
   const activeDialog = useSelector(
     (state: RootState) => state.dialog.activeDialog
   );
-  const emailError = useSelector(selectError);
-  const user = useSelector(selectUser);
-  const defaultValues = {
-    name: user.name || '',
-    email: user.email || '',
-    location: user.location || '',
-    phone: user.phone || '',
-  };
-  const {
-    register,
-    handleSubmit,
-    reset,
-    setValue,
-    formState: { errors },
-  } = useForm<FormData>({
-    resolver: zodResolver(editUserSchema),
-    mode: 'onChange',
-    defaultValues,
-  });
-  useEffect(() => {
-    if (user) {
-      reset(defaultValues);
-    }
-  }, [user, reset]);
-  const { updateUserSmart, isLoading, isSuccess, isError } =
-    useSmartUserUpdate();
 
-  const onSubmit = async (data: FormData) => {
-    await updateUserSmart(data);
-  };
-  useEffect(() => {
-    if (isSuccess) {
-      dispatch(closeDialog());
-    } else if (isError) {
-      showToast({ title: 'Щось пішло не так', status: 'error' });
-    }
-  }, [isSuccess, isError, dispatch]);
   return (
     <Dialog.Root
       open={activeDialog === 'editUser'}
@@ -89,17 +38,17 @@ const DialogEditUser: React.FC = () => {
                 defaultValue="account"
                 value={activeTab}
                 onValueChange={setActiveTab}
-                className={`rounded-[30px] p-[60px] pb-[84px]  text-center gap-0 bg-dialog ${
+                className={`rounded-[30px]  text-center gap-0 bg-dialog ${
                   activeTab === 'account'
-                    ? 'w-[965px] min-h-[589px]'
-                    : 'w-[630px] min-h-[604px]'
+                    ? 'w-[965px] min-h-[589px] p-[60px] pb-[84px] '
+                    : 'w-[630px] min-h-[604px] p-50'
                 }`}
               >
                 <TabsList className="felx gap-20">
                   <TabsTrigger
                     value="account"
                     aria-orientation="vertical"
-                    className="w-[185px] h-[45px] m-0 outline-none shadow-none rounded-[20px] py-[26px]
+                    className="w-[185px] h-[45px] m-0 outline-none shadow-none rounded-[20px]
           data-[state=active]:shadow-none 
           data-[state=active]:outline-none 
           text-white hover:text-default-btn bg-default-btn hover:bg-orange hover:border-default-btn hover:border-2 disabled:bg-disabled  
@@ -114,7 +63,7 @@ const DialogEditUser: React.FC = () => {
                   <TabsTrigger
                     value="password"
                     aria-orientation="vertical"
-                    className="w-[185px] h-[45px] m-0 outline-none shadow-none rounded-[20px] py-[26px]
+                    className="w-[185px] h-[45px] m-0 outline-none shadow-none rounded-[20px]
           data-[state=active]:shadow-none 
           data-[state=active]:outline-none 
           text-white hover:text-default-btn bg-default-btn hover:bg-orange hover:border-default-btn hover:border-2 disabled:bg-disabled  
@@ -128,91 +77,11 @@ const DialogEditUser: React.FC = () => {
                   </TabsTrigger>
                 </TabsList>
                 <TabsContent value="account" className="flex mt-30">
-                  <form onSubmit={handleSubmit(onSubmit)} className="flex">
-                    <AvatarUploadField
-                      currentAvatar={user.avatarURL}
-                      onFileSelect={file =>
-                        setValue('avatar', file, { shouldValidate: true })
-                      }
-                      error={
-                        typeof errors.avatar?.message === 'string'
-                          ? errors.avatar.message
-                          : undefined
-                      }
-                    />
-                    <div className="flex flex-col gap-[15px]">
-                      <InputField
-                        label="Ім’я або назва організації"
-                        placeholder="Введіть ваше імʼя"
-                        className="w-[510px] h-48 text-[18px]"
-                        labelClass="mb-16"
-                        labelSize="xl"
-                        id="name"
-                        {...register('name')}
-                        error={errors.name?.message}
-                      />
-                      <InputField
-                        label="Адреса електронної пошти"
-                        placeholder="Введіть адресу електронної пошти"
-                        className="w-[510px] h-48 text-[18px]"
-                        labelClass=" mb-16"
-                        labelSize="xl"
-                        id="email"
-                        {...register('email')}
-                        error={emailError || errors.email?.message}
-                      />
-                      <div className="flex justify-between gap-8">
-                        <InputField
-                          label="Місто"
-                          placeholder="Введіть ваше місто"
-                          className="w-[277px] h-48 text-[18px]"
-                          labelClass=" mb-16"
-                          labelSize="xl"
-                          id="location"
-                          {...register('location')}
-                          error={errors.location?.message}
-                        />
-                        <PhoneInput
-                          label="Номер телефону"
-                          placeholder="+380"
-                          className="w-[225px] h-48 text-[18px]"
-                          labelClass=" mb-16"
-                          labelSize="xl"
-                          id="phone"
-                          {...register('phone')}
-                          error={errors.phone?.message}
-                        />
-                      </div>
-                      <DialogFooter className="flex flex-row">
-                        <CustomButton
-                          type="submit"
-                          styleType="defaultButton"
-                          className="mt-32 w-[196px] h-[44px] text-base"
-                          disabled={isLoading}
-                        >
-                          {isLoading ? 'Збереження...' : 'Зберегти зміни'}
-                        </CustomButton>
-                        <CustomButton
-                          type="button"
-                          styleType="whiteButton"
-                          className="mt-32 w-[196px] h-[44px] text-base"
-                          onClick={() =>
-                            dispatch(
-                              openDialog({
-                                type: 'alertDelete',
-                                entity: 'user',
-                              })
-                            )
-                          }
-                          //   disabled={isDeletingUser}
-                        >
-                          Видалити профіль
-                        </CustomButton>
-                      </DialogFooter>
-                    </div>
-                  </form>
+                  <UserProfileForm />
                 </TabsContent>
-                <TabsContent value="password"></TabsContent>
+                <TabsContent value="password" className="flex mt-30">
+                  <UserPasswordForm />
+                </TabsContent>
               </Tabs>
             </Dialog.Title>
           </DialogHeader>

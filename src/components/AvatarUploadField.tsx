@@ -64,7 +64,7 @@ const AvatarUploadField: React.FC<Props> = ({
         className="hidden"
       />
       {error && <FormError error={error} />}
-      <ul className="flex flex-col text-xs text-default-btn mt-20">
+      <ul className="flex flex-col text-xs text-input-border mt-20">
         <li>Формати: JPG, PNG, GIF</li>
         <li>Макс. розмір: 2 МБ</li>
         <li>Рекомендований розмір: 150×150 – 500×500 px</li>
