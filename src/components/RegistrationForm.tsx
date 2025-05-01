@@ -68,7 +68,7 @@ const RegistrationForm: React.FC = () => {
         <InputField
           label="Ім’я або назва організації"
           placeholder="Введіть ваше імʼя"
-          className="w-[630px]"
+          className="w-[630px] h-40"
           labelClass="mb-16 text-default-btn"
           labelSize="base"
           id="name"
@@ -78,18 +78,18 @@ const RegistrationForm: React.FC = () => {
         <InputField
           label="Адреса електронної пошти"
           placeholder="Введіть адресу електронної пошти"
-          className="w-[630px]"
+          className="w-[630px] h-40"
           labelClass="text-default-btn mb-16"
           labelSize="base"
           id="email"
           {...register('email')}
           error={emailError || errors.email?.message}
         />
-        <div className="flex gap-5">
+        <div className="flex gap-20">
           <div className="flex flex-col text-[16px]">
             <label
               htmlFor="location"
-              className="text-base text-left text-default-btn mb-10 leading-[125%]"
+              className="text-base text-left text-default-btn mb-16 leading-[125%]"
             >
               Місто
             </label>
@@ -100,7 +100,7 @@ const RegistrationForm: React.FC = () => {
                 <CitySelect
                   value={field.value}
                   onChange={field.onChange}
-                  className="w-[255px] h-40 text-[16px] hover:border-input-border"
+                  className="w-[305px] h-40 text-[16px] hover:border-input-border"
                   errorMess={errors.location?.message}
                 />
               )}
@@ -109,7 +109,7 @@ const RegistrationForm: React.FC = () => {
           <PhoneInput
             label="Номер телефону"
             placeholder="+380"
-            className="h-40"
+            className="w-[305px] h-40"
             labelClass="text-default-btn mb-16"
             labelSize="base"
             id="phone"

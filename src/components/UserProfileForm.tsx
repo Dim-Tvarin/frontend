@@ -82,7 +82,7 @@ const UserProfileForm = () => {
         <InputField
           label="Ім’я або назва організації"
           placeholder="Введіть ваше імʼя"
-          className="w-[510px] h-48 text-[16px] pl-28"
+          className="w-[530px] h-48 text-[16px] pl-28"
           labelClass="mb-10 text-default-btn"
           labelSize="[16px]"
           id="name"
@@ -92,7 +92,7 @@ const UserProfileForm = () => {
         <InputField
           label="Адреса електронної пошти"
           placeholder="Введіть адресу електронної пошти"
-          className="w-[510px] h-48 text-[16px] pl-28"
+          className="w-[530px] h-48 text-[16px] pl-28"
           labelClass="text-default-btn mb-10"
           labelSize="[16px]"
           id="email"

@@ -88,7 +88,7 @@ export function CitySelect({
         <PopoverTrigger asChild>
           <Button
             variant="outline"
-            className={`${className} w-[305px] justify-between border-input-border px-16 text-medium text-default-btn`}
+            className={`w-[305px] justify-between border-input-border px-16 text-medium text-default-btn ${className} `}
           >
             {selectedCity || 'Оберіть населенний пункт'}
           </Button>
