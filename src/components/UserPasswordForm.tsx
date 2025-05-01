@@ -58,7 +58,7 @@ const UserPasswordForm = () => {
         label="Новий пароль"
         placeholder="********"
         className="w-[530px] h-40 text-base"
-        labelClass="leading-[125%] mb-10"
+        labelClass="leading-[125%] mb-10  text-default-btn "
         labelSize="[16px]"
         id="newPassword"
         {...register('newPassword')}
@@ -72,7 +72,7 @@ const UserPasswordForm = () => {
         label="Повторіть новий пароль для підтверждення"
         placeholder="********"
         className="w-[530px] h-40 text-base"
-        labelClass="leading-[125%] mb-10"
+        labelClass="leading-[125%] mb-10  text-default-btn "
         labelSize="[16px]"
         id="repeat_newPassword"
         {...register('repeat_newPassword')}

@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { InputField } from 'components/InputField';
 import { PhoneInput } from 'components/PhoneInput';
@@ -13,6 +13,7 @@ import { clearError, selectError } from '../redux/users/usersSlice';
 import CustomRadioGroup from './CustomRadioGroup';
 import { useEffect } from 'react';
 import { showToast } from './Toast';
+import { CitySelect } from './CitySelect';
 
 type FormData = z.infer<typeof registrationSchema>;
 
@@ -25,6 +26,7 @@ const RegistrationForm: React.FC = () => {
 
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors },
     setValue,
@@ -66,9 +68,9 @@ const RegistrationForm: React.FC = () => {
         <InputField
           label="Ім’я або назва організації"
           placeholder="Введіть ваше імʼя"
-          className="w-[630px] text-[18px]"
-          labelClass="mb-16"
-          labelSize="xl"
+          className="w-[630px]"
+          labelClass="mb-16 text-default-btn"
+          labelSize="base"
           id="name"
           {...register('name')}
           error={errors.name?.message}
@@ -76,30 +78,40 @@ const RegistrationForm: React.FC = () => {
         <InputField
           label="Адреса електронної пошти"
           placeholder="Введіть адресу електронної пошти"
-          className="w-[630px] text-[18px]"
-          labelClass=" mb-16"
-          labelSize="xl"
+          className="w-[630px]"
+          labelClass="text-default-btn mb-16"
+          labelSize="base"
           id="email"
           {...register('email')}
           error={emailError || errors.email?.message}
         />
         <div className="flex gap-5">
-          <InputField
-            label="Місто"
-            placeholder="Введіть ваше місто"
-            className="w-[305px] text-[18px]"
-            labelClass=" mb-16"
-            labelSize="xl"
-            id="location"
-            {...register('location')}
-            error={errors.location?.message}
-          />
+          <div className="flex flex-col text-[16px]">
+            <label
+              htmlFor="location"
+              className="text-base text-left text-default-btn mb-10 leading-[125%]"
+            >
+              Місто
+            </label>
+            <Controller
+              name="location"
+              control={control}
+              render={({ field }) => (
+                <CitySelect
+                  value={field.value}
+                  onChange={field.onChange}
+                  className="w-[255px] h-40 text-[16px] hover:border-input-border"
+                  errorMess={errors.location?.message}
+                />
+              )}
+            />
+          </div>
           <PhoneInput
             label="Номер телефону"
             placeholder="+380"
-            className="text-[18px]"
-            labelClass=" mb-16"
-            labelSize="xl"
+            className="h-40"
+            labelClass="text-default-btn mb-16"
+            labelSize="base"
             id="phone"
             {...register('phone')}
             error={errors.phone?.message}
@@ -107,9 +119,9 @@ const RegistrationForm: React.FC = () => {
         </div>
         <CustomRadioGroup
           groupLabel="Оберіть хто Ви"
-          labelSize="xl"
-          labelClass="mb-16"
-          className="text-lg"
+          labelSize="base"
+          labelClass="mb-16 text-default-btn"
+          className="text-[16px] text-default-btn"
           items={userTypeOptions}
           value={userTypeValue}
           onChange={value =>
@@ -121,9 +133,9 @@ const RegistrationForm: React.FC = () => {
         <PasswordField
           label="Пароль"
           placeholder="Введіть надійний пароль"
-          className="w-[630px] text-[18px]"
-          labelClass="leading-[125%] mb-16"
-          labelSize="xl"
+          className="w-[630px] h-40"
+          labelClass="leading-[125%] mb-16 text-default-btn"
+          labelSize="base"
           id="password"
           {...register('password')}
           error={errors.password?.message}
@@ -134,9 +146,9 @@ const RegistrationForm: React.FC = () => {
         <PasswordField
           label="Повторіть пароль"
           placeholder="Введіть пароль повторно"
-          className="w-[630px] text-[18px]"
-          labelClass="leading-[125%] mb-16"
-          labelSize="xl"
+          className="w-[630px] h-40"
+          labelClass="leading-[125%] mb-16 text-default-btn"
+          labelSize="base"
           id="repeat_password"
           {...register('repeat_password')}
           error={errors.repeat_password?.message}

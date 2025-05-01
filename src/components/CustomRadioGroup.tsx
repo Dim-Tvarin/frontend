@@ -72,7 +72,7 @@ const CustomRadioGroup: FC<RadioProps> = ({
               id={item.value}
               className="ring-[1px] w-20 h-20 data-[state=checked]:ring-2 focus:outline-none"
             />
-            <Label htmlFor={item.value} className="text-lg">
+            <Label htmlFor={item.value} className="text-base">
               {item.label}
             </Label>
           </div>
