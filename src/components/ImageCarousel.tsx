@@ -1,10 +1,17 @@
-import { useState } from "react";
-import { Skeleton } from "components/components/ui/skeleton";
-import { FaRegTrashAlt } from "react-icons/fa";
+import { useState } from 'react';
+import { Skeleton } from 'components/components/ui/skeleton';
+import { FaRegTrashAlt } from 'react-icons/fa';
+import type { animalImage } from 'src/redux/animals/animalsApi';
 
-const ImageCarousel = ({images, isDelete=false}: {images: string[]; isDelete?: boolean;}) => {
+const ImageCarousel = ({
+  images,
+  isDelete = false,
+}: {
+  images: animalImage[];
+  isDelete?: boolean;
+}) => {
   const [activeIndex, setActiveIndex] = useState(0);
-
+  console.log('images', images);
   if (images.length === 0) {
     return (
       <Skeleton className="w-[630px] h-[529px] rounded-[30px] shadow-lg" />
@@ -21,7 +28,7 @@ const ImageCarousel = ({images, isDelete=false}: {images: string[]; isDelete?: b
         )}
         <div className="absolute bottom-0 w-[600px] h-[497px] rounded-[30px] overflow-hidden">
           <img
-            src={images[activeIndex]}
+            src={images[activeIndex].url}
             alt="Selected"
             className="w-full h-full object-cover"
           />
@@ -44,7 +51,7 @@ const ImageCarousel = ({images, isDelete=false}: {images: string[]; isDelete?: b
                   </div>
                 )}
                 <img
-                  src={src}
+                  src={src.url}
                   alt={`Thumbnail ${idx}`}
                   className="w-full h-full object-cover"
                 />
@@ -55,6 +62,6 @@ const ImageCarousel = ({images, isDelete=false}: {images: string[]; isDelete?: b
       )}
     </div>
   );
-}
+};
 
 export default ImageCarousel;

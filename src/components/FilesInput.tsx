@@ -1,4 +1,4 @@
-import { type Ref,  useEffect,  useState } from 'react';
+import { type Ref, useEffect, useState } from 'react';
 import { Input } from './components/ui/input';
 import { CustomLabel } from './CustomLabel';
 import FormError from './FormError';
@@ -7,6 +7,7 @@ import { cn } from './lib/utils';
 import PhotoPrev from './PhotoPrev';
 import { showToast } from './Toast';
 import { Button } from './components/ui/button';
+import type { animalImage } from 'src/redux/animals/animalsApi';
 
 export const FilesInput = ({
   ref,
@@ -26,30 +27,28 @@ export const FilesInput = ({
   labelSize?: string;
   name: string;
   onChange: (images: File[]) => void;
-  value: File[],
+  value: File[];
   error?: string;
-  defaultValue?: string[];
+  defaultValue?: animalImage[];
 }) => {
-
   const [imageData, setImageData] = useState<File[]>(value || []);
 
-  useEffect(()=> {
+  useEffect(() => {
     if (value.length !== imageData.length) {
       setImageData(value);
     }
-  }, [value])
+  }, [value]);
 
   const onDrop = (acceptedFiles: File[]) => {
-    const newFiles = [...imageData, ...acceptedFiles].slice(0, 4); 
+    const newFiles = [...imageData, ...acceptedFiles].slice(0, 4);
     setImageData(newFiles);
     onChange(newFiles);
   };
 
- 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
-       onDrop(Array.from(event.target.files));
-     }
+      onDrop(Array.from(event.target.files));
+    }
   };
 
   const handleDeleteImage = (index: number) => {
@@ -57,13 +56,13 @@ export const FilesInput = ({
     setImageData(filteredFiles);
     onChange(filteredFiles);
   };
-  
+
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: {
       'image/jpeg': [],
       'image/png': [],
-      'image/gif': []
+      'image/gif': [],
     },
     multiple: true,
     maxFiles: 4,
@@ -75,12 +74,10 @@ export const FilesInput = ({
             description: 'Недопустимий формат або розмір файлу',
             status: 'error',
           });
-        })
-      })
+        });
+      });
     },
   });
-
-  
 
   return (
     <div className="w-full">
@@ -99,7 +96,9 @@ export const FilesInput = ({
           ref={ref}
           name={name}
           onChange={handleFileChange}
-          disabled={(imageData.length > 3 || defaultValue?.length === 4) ? true : false}
+          disabled={
+            imageData.length > 3 || defaultValue?.length === 4 ? true : false
+          }
           accept="image/*"
           multiple
           {...getInputProps()}
@@ -118,7 +117,10 @@ export const FilesInput = ({
             <Button
               className={cn(
                 'bg-default-btn text-white px-20 py-10 rounded-[10px] w-[149px] text-sm',
-                { 'bg-btn-disabled/50 cursor-default focus:outline-none': imageData.length > 3  || defaultValue?.length === 4}
+                {
+                  'bg-btn-disabled/50 cursor-default focus:outline-none':
+                    imageData.length > 3 || defaultValue?.length === 4,
+                }
               )}
             >
               Вибрати файл

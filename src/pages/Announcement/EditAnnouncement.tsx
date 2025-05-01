@@ -1,25 +1,34 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import BreedSelect from "components/BreedSelect";
-import { CitySelect } from "components/CitySelect";
-import { CustomButton } from "components/CustomButton";
-import CustomRadioGroup from "components/CustomRadioGroup";
-import { TextareaDemo } from "components/CustomTextarea";
-import FormError from "components/FormError";
-import ImageCarousel from "components/ImageCarousel";
-import { InputField } from "components/InputField";
-import PetPageSceleton from "components/sceletons/PetPageSceleton";
-import { Spinner } from "components/Spinner";
-import { showToast } from "components/Toast";
-import { Controller, useForm } from "react-hook-form";
-import { useNavigate, useParams } from "react-router";
-import { useEditAnimalMutation, useGetAnimalByIdQuery } from "src/redux/animals/animalsApi";
-import type { z } from "zod";
-import { animalTypeOptions, genderOption, type AnimalTypeValues } from "./types";
-import { getMonthDeclension, getYearDeclension } from "src/helpers/getYearDeclension";
-import { FilesInput } from "components/FilesInput";
-import { updateAnnounceSchema } from "../../validations/updateAnnounceValidation";
-import { useState } from "react";
-
+import { zodResolver } from '@hookform/resolvers/zod';
+import BreedSelect from 'components/BreedSelect';
+import { CitySelect } from 'components/CitySelect';
+import { CustomButton } from 'components/CustomButton';
+import CustomRadioGroup from 'components/CustomRadioGroup';
+import { TextareaDemo } from 'components/CustomTextarea';
+import FormError from 'components/FormError';
+import ImageCarousel from 'components/ImageCarousel';
+import { InputField } from 'components/InputField';
+import PetPageSceleton from 'components/sceletons/PetPageSceleton';
+import { Spinner } from 'components/Spinner';
+import { showToast } from 'components/Toast';
+import { Controller, useForm } from 'react-hook-form';
+import { useNavigate, useParams } from 'react-router';
+import {
+  useEditAnimalMutation,
+  useGetAnimalByIdQuery,
+} from 'src/redux/animals/animalsApi';
+import type { z } from 'zod';
+import {
+  animalTypeOptions,
+  genderOption,
+  type AnimalTypeValues,
+} from './types';
+import {
+  getMonthDeclension,
+  getYearDeclension,
+} from 'src/helpers/getYearDeclension';
+import { FilesInput } from 'components/FilesInput';
+import { updateAnnounceSchema } from '../../validations/updateAnnounceValidation';
+import { useState } from 'react';
 
 type AnnouncementForm = z.infer<typeof updateAnnounceSchema>;
 
@@ -27,8 +36,8 @@ const EditAnnouncement = () => {
   const [isFocusedYear, setIsFocusedYear] = useState(false);
   const [isFocusedMonth, setIsFocusedMonth] = useState(false);
   const navigate = useNavigate();
-  const {id} = useParams<{ id: string }>()
-   if (!id ) {
+  const { id } = useParams<{ id: string }>();
+  if (!id) {
     showToast({
       title: 'Щось пішло не по плану',
       description: 'Це оголошення не було знайдено',
@@ -38,49 +47,49 @@ const EditAnnouncement = () => {
     return;
   }
   const { data, error, isLoading } = useGetAnimalByIdQuery(id);
-  const [editAnimal] = useEditAnimalMutation()
-  const { animal } = data || {}
+  const [editAnimal] = useEditAnimalMutation();
+  const { animal } = data || {};
 
   const {
-      register,
-      watch,
-      handleSubmit,
-      control,
-      formState: { errors },
-    } = useForm<AnnouncementForm>({
-      resolver: zodResolver(updateAnnounceSchema),
-      mode: 'onChange',
-      defaultValues: {
-        animalType: animal?.animalType,
-        gender: animal?.gender ?? undefined,
-        breed: animal?.breed,
-        animalLocation: animal?.animalLocation,
-      }
-    });
-   const animalTypeValue = watch('animalType');
-   const genderValue = watch('gender');
+    register,
+    watch,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<AnnouncementForm>({
+    resolver: zodResolver(updateAnnounceSchema),
+    mode: 'onChange',
+    defaultValues: {
+      animalType: animal?.animalType,
+      gender: animal?.gender ?? undefined,
+      breed: animal?.breed,
+      animalLocation: animal?.animalLocation,
+    },
+  });
+  const animalTypeValue = watch('animalType');
+  const genderValue = watch('gender');
 
   if (isLoading) {
     return <PetPageSceleton />;
   }
   if (error) {
-      showToast({
-        title: 'Щось пішло не по плану',
-        description: 'Виникла помилка при завантаженні даних',
-        status: 'error',
-      })
-      setTimeout(() => navigate('/allpets'), 1000)
-      return
-    } 
-    
+    showToast({
+      title: 'Щось пішло не по плану',
+      description: 'Виникла помилка при завантаженні даних',
+      status: 'error',
+    });
+    setTimeout(() => navigate('/allpets'), 1000);
+    return;
+  }
+
   const onSubmit = async (data: AnnouncementForm) => {
-    if (!animal) return 
+    if (!animal) return;
     const { images, ...otherData } = data;
     console.log('dataForm', data);
 
     const bodyData = new FormData();
     if (images && images?.length > 0) {
-      images?.forEach((image: File) => bodyData.append('images', image))
+      images?.forEach((image: File) => bodyData.append('images', image));
     }
 
     bodyData.append(
@@ -89,28 +98,30 @@ const EditAnnouncement = () => {
         ...otherData,
       })
     );
-  
+
     try {
       await editAnimal({ id: animal?.id, formData: bodyData }).unwrap();
       showToast({
         title: 'Оголошення успішно оновлене',
         status: 'success',
       });
-    } catch  {
+    } catch {
       showToast({
         title: 'Щось пішло не по плану',
         description: 'Виникла помилка при редагуванні оголошення',
         status: 'error',
       });
       return;
-    }   
-  }
+    }
+  };
 
   const defaultTypes: AnimalTypeValues[] = ['cats', 'dogs', 'birds'];
-  const resolvedType:  AnimalTypeValues = defaultTypes.includes(animal?.animalType as AnimalTypeValues)
-  ? animal?.animalType as AnimalTypeValues
-  : 'other';
-
+  const resolvedType: AnimalTypeValues = defaultTypes.includes(
+    animal?.animalType as AnimalTypeValues
+  )
+    ? (animal?.animalType as AnimalTypeValues)
+    : 'other';
+  console.log('animal?.animalImages', animal?.animalImages);
   return (
     <div className="container flex flex-row gap-16 text-default-btn relative z-10">
       <div className="flex flex-col flex-1/2 mt-100 mb-100">
@@ -330,6 +341,6 @@ const EditAnnouncement = () => {
       </div>
     </div>
   );
-}
+};
 
 export default EditAnnouncement;
