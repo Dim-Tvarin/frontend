@@ -35,6 +35,7 @@ type AnnouncementForm = z.infer<typeof updateAnnounceSchema>;
 const EditAnnouncement = () => {
   const [isFocusedYear, setIsFocusedYear] = useState(false);
   const [isFocusedMonth, setIsFocusedMonth] = useState(false);
+  const [imagesForDelete, setImagesForDelete] = useState([] as string[]);
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   if (!id) {
@@ -47,7 +48,7 @@ const EditAnnouncement = () => {
     return;
   }
   const { data, error, isLoading } = useGetAnimalByIdQuery(id);
-  const [editAnimal] = useEditAnimalMutation();
+  const [editAnimal, { isLoading: isEditingAnimal }] = useEditAnimalMutation();
   const { animal } = data || {};
 
   const {
@@ -82,14 +83,31 @@ const EditAnnouncement = () => {
     return;
   }
 
+  const handleDeleteImage = (imageId: string) => {
+    setImagesForDelete(prev => [...prev, imageId]);
+    showToast({
+      title: 'Зображення видалено',
+      status: 'success',
+    });
+  };
+
   const onSubmit = async (data: AnnouncementForm) => {
     if (!animal) return;
     const { images, ...otherData } = data;
-    console.log('dataForm', data);
+    console.log('dataForm', data, imagesForDelete);
 
     const bodyData = new FormData();
     if (images && images?.length > 0) {
       images?.forEach((image: File) => bodyData.append('images', image));
+    }
+
+    if (imagesForDelete && imagesForDelete.length > 0) {
+      bodyData.append(
+        'imagesToDelete',
+        JSON.stringify({
+          imagesForDelete,
+        })
+      );
     }
 
     bodyData.append(
@@ -98,6 +116,8 @@ const EditAnnouncement = () => {
         ...otherData,
       })
     );
+
+    bodyData.forEach(item => console.log(item));
 
     try {
       await editAnimal({ id: animal?.id, formData: bodyData }).unwrap();
@@ -121,7 +141,7 @@ const EditAnnouncement = () => {
   )
     ? (animal?.animalType as AnimalTypeValues)
     : 'other';
-  console.log('animal?.animalImages', animal?.animalImages);
+
   return (
     <div className="container flex flex-row gap-16 text-default-btn relative z-10">
       <div className="flex flex-col flex-1/2 mt-100 mb-100">
@@ -327,17 +347,21 @@ const EditAnnouncement = () => {
           <CustomButton
             type="submit"
             styleType="defaultButton"
-            disabled={isLoading}
+            disabled={isLoading || isEditingAnimal}
             className="flex gap-8 z-10 w-[259px]"
           >
-            {isLoading && <Spinner />}
+            {isLoading || (isEditingAnimal && <Spinner />)}
             Зберегти зміни
           </CustomButton>
         </form>
       </div>
 
       <div className="flex flex-col gap-32 py-32 items-end my-100">
-        <ImageCarousel images={animal?.animalImages || []} isDelete />
+        <ImageCarousel
+          images={animal?.animalImages || []}
+          isDelete
+          onDelete={handleDeleteImage}
+        />
       </div>
     </div>
   );

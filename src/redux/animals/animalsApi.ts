@@ -69,7 +69,7 @@ export const animalsApi = createApi({
     editAnimal: build.mutation<unknown, { id: string; formData: FormData }>({
       query: ({ id, formData }) => ({
         url: `/animals/${id}`,
-        method: 'PUT',
+        method: 'PATCH',
         body: formData,
       }),
     }),
