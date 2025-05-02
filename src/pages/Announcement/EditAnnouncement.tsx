@@ -104,7 +104,6 @@ const EditAnnouncement = () => {
     }
 
     if (imagesForDelete && imagesForDelete.length > 0) {
-      //bodyData.append('imagesToDelete', JSON.stringify(imagesForDelete));
       otherData.imagesToDelete = imagesForDelete;
     }
 
