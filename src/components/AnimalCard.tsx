@@ -1,6 +1,6 @@
 import HartSVG from 'src/assets/HartSVG';
 import { CustomButton } from './CustomButton';
-import { type animalAge } from 'src/redux/animals/animalsApi';
+import { type animalAge, type animalImage } from 'src/redux/animals/animalsApi';
 import { getYearDeclension } from 'src/helpers/getYearDeclension';
 import { useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
@@ -31,7 +31,7 @@ const AnimalCard = ({
   name: string;
   gender: string;
   age: animalAge;
-  photoSrc: string;
+  photoSrc: animalImage;
   favorite?: boolean;
   status?: string;
   isMyProfile?: boolean;
@@ -48,7 +48,7 @@ const AnimalCard = ({
   return (
     <div className="relative w-[305px] h-[400px] border-2 border-orange rounded-4xl max-w-sm bg-white overflow-hidden flex items-end">
       <img
-        src={photoSrc}
+        src={photoSrc.url}
         alt={name}
         className="absolute inset-0 w-full h-full object-cover z-1"
       />
@@ -107,7 +107,7 @@ const AnimalCard = ({
           </CustomButton>
           <CustomButton
             styleType="iconButton"
-            onClick={() => navigate(`/edit/${id}`)}
+            onClick={() => navigate(`/editannouncement/${id}`)}
           >
             <FiEdit className="text-white" size={22} />
           </CustomButton>
