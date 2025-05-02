@@ -107,7 +107,7 @@ const AnimalCard = ({
           </CustomButton>
           <CustomButton
             styleType="iconButton"
-            onClick={() => navigate(`/edit/${id}`)}
+            onClick={() => navigate(`/editannouncement/${id}`)}
           >
             <FiEdit className="text-white" size={22} />
           </CustomButton>

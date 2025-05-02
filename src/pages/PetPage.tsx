@@ -1,28 +1,28 @@
-import { genderMapping } from "components/AnimalCard";
-import { PhoneReveal } from "components/PhoneReveal";
-import PetPageSceleton from "components/sceletons/PetPageSceleton";
-import { useNavigate, useParams } from "react-router";
-import { getYearDeclension } from "src/helpers/getYearDeclension";
-import { useGetAnimalByIdQuery } from "src/redux/animals/animalsApi";
-import tracks4 from '../assets/tracks4.png'
-import ImageCarousel from "components/ImageCarousel";
-import { showToast } from "components/Toast";
-import { AnimalType } from "./Announcement/types";
+import { genderMapping } from 'components/AnimalCard';
+import { PhoneReveal } from 'components/PhoneReveal';
+import PetPageSceleton from 'components/sceletons/PetPageSceleton';
+import { useNavigate, useParams } from 'react-router';
+import { getYearDeclension } from 'src/helpers/getYearDeclension';
+import { useGetAnimalByIdQuery } from 'src/redux/animals/animalsApi';
+import tracks4 from '../assets/tracks4.png';
+import ImageCarousel from 'components/ImageCarousel';
+import { showToast } from 'components/Toast';
+import { AnimalType } from './Announcement/types';
 
-const defaultTypes = [AnimalType.dogs, AnimalType.cats, AnimalType.birds]
+const defaultTypes = [AnimalType.dogs, AnimalType.cats, AnimalType.birds];
 
 export const typeMapping: Record<AnimalType, string> = {
-  [AnimalType.dogs]: "Собака",
+  [AnimalType.dogs]: 'Собака',
   [AnimalType.cats]: 'Кіт',
-  [AnimalType.birds]: "Птах",
-  [AnimalType.other]: "",
-}
+  [AnimalType.birds]: 'Птах',
+  [AnimalType.other]: '',
+};
 
 const PetPage = () => {
- const navigate = useNavigate();
- const {id} = useParams<{ id: string }>()
+  const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>();
 
-  if (!id ) {
+  if (!id) {
     showToast({
       title: 'Щось пішло не по плану',
       description: 'Ця тварина не буда знайдена',
@@ -42,13 +42,18 @@ const PetPage = () => {
       title: 'Щось пішло не по плану',
       description: 'Виникла помилка при завантаженні даних',
       status: 'error',
-    })
-    setTimeout(() => navigate('/allpets'), 1000)
-    return
-  } 
-  const { animal, ownerName, ownerPhone } = data || {}
-  const type = animal?.animalType && defaultTypes.includes(animal?.animalType) ? typeMapping[animal?.animalType] 
-  : animal?.animalType.split('/')[0].toLowerCase().replace(/^./, char => char.toUpperCase());
+    });
+    setTimeout(() => navigate('/allpets'), 1000);
+    return;
+  }
+  const { animal, ownerName, ownerPhone } = data || {};
+  const type =
+    animal?.animalType && defaultTypes.includes(animal?.animalType)
+      ? typeMapping[animal?.animalType]
+      : animal?.animalType
+          .split('/')[0]
+          .toLowerCase()
+          .replace(/^./, char => char.toUpperCase());
 
   return (
     <div className="relative flex gap-20 text-default-btn mt-100 mb-100">
@@ -110,7 +115,8 @@ const PetPage = () => {
         </div>
         <a
           href={`tel:${ownerPhone}`}
-          className="w-[236px] h-[44px] bg-default-btn rounded-[20px] text-white self-center grid place-content-center text-base">
+          className="w-[236px] h-[44px] bg-default-btn rounded-[20px] text-white self-center grid place-content-center text-base"
+        >
           Зв’язатися з господарем
         </a>
       </div>

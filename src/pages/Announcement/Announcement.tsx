@@ -16,7 +16,6 @@ import { CitySelect } from 'components/CitySelect';
 import CustomRadioGroup from 'components/CustomRadioGroup';
 import { Spinner } from 'components/Spinner';
 import { useCreateAnimalMutation } from 'src/redux/animals/animalsApi';
-
 import FormError from 'components/FormError';
 import { useSelector } from 'react-redux';
 import { selectIsLoggedIn } from 'src/redux/users/usersSlice';
@@ -124,41 +123,38 @@ const Announcement = () => {
           className="flex flex-col items-start"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <p className="text-xl mb-16 z-10">Оберіть вид тварини *</p>
-
+          <p className="text-base mb-16 z-10">Оберіть вид тварини *</p>
           <Controller
             name="animalType"
             control={control}
-            render={({ field: { onChange, name, onBlur, ref, value } }) => (
+            render={({ field: { onChange, name, onBlur, ref } }) => (
               <CustomRadioGroup
-                defaultValue={animalTypeValue}
                 items={animalTypeOptions}
                 className="grid grid-cols-2"
                 itemWidth="305"
                 error={errors.animalType?.message}
                 name={name}
                 ref={ref}
-                value={value}
+                value={animalTypeValue}
                 onBlur={onBlur}
                 onChange={onChange}
               />
             )}
           />
 
-          <p className="text-xl mt-32 mb-16">Стать </p>
+          <p className="text-base mt-32 mb-16">Стать </p>
           <Controller
             name="gender"
             control={control}
-            render={({ field: { onChange, name, onBlur, ref, value } }) => (
+            render={({ field: { onChange, name, onBlur, ref } }) => (
               <CustomRadioGroup
-                defaultValue={genderValue}
                 items={genderOption}
                 className="grid grid-cols-2"
                 itemWidth="305"
                 error={errors.gender?.message}
                 name={name}
                 ref={ref}
-                value={value}
+                value={genderValue}
                 onBlur={onBlur}
                 onChange={onChange}
               />
@@ -171,16 +167,16 @@ const Announcement = () => {
                 label="Вік *"
                 id="years"
                 placeholder="0 років"
-                className="w-[150px] h-[40px] mt-16"
-                labelSize="xl"
+                className="w-[150px] h-[40px] mt-16 text-base"
+                labelSize="base"
                 {...register('age.years')}
               />
               <InputField
                 label=" "
                 id="months"
                 placeholder="0 місяців"
-                className="w-[150px] h-[40px] mt-16 mr-10"
-                labelSize="xl"
+                className="w-[150px] h-[40px] mt-16 mr-10 text-base"
+                labelSize="base"
                 {...register('age.months')}
               /> 
                {errors.age?.years?.message && (
@@ -192,7 +188,7 @@ const Announcement = () => {
             
             </div>
             <div>
-              <p className="text-xl mb-8 text-left">Порода * </p>
+              <p className="text-base mb-8 text-left">Порода * </p>
               <Controller
                 name="breed"
                 control={control}
@@ -212,13 +208,13 @@ const Announcement = () => {
             <InputField
               label="Ім’я тварини *"
               id="animalName"
-              className="w-[305px] h-[40px] mt-16"
-              labelSize="xl"
+              className="w-[305px] h-[40px] mt-16 text-base"
+              labelSize="base"
               {...register('animalName')}
               error={errors.animalName?.message}
             />
             <div>
-              <p className="text-xl mb-8 text-left">Місто * </p>
+              <p className="text-base mb-8 text-left">Місто * </p>
               <Controller
                 name="animalLocation"
                 control={control}
@@ -235,7 +231,7 @@ const Announcement = () => {
 
           <TextareaDemo
             id="announvementText"
-            className="text-left mt-32"
+            className="text-left mt-32 text-sm"
             placeholder="Опишіть тварину, її характер, історію, забарвлення"
             label="Опис тварини: *"
             {...register('adText')}
@@ -263,7 +259,7 @@ const Announcement = () => {
             render={({ field: { ref, name, onChange, value } }) => (
               <FilesInput
                 ref={ref}
-                groupLabel="Добавте фото тварини та документи *"
+                groupLabel="Додайте фото тварини та документи *"
                 labelClass="mb-16 mt-32"
                 name={name}
                 onChange={onChange}

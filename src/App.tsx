@@ -15,13 +15,14 @@ import PetsList from 'pages/PetsList';
 import PetPage from 'pages/PetPage';
 import ProfilePage from 'pages/ProfilePage';
 import PrivateRoute from 'components/routes/PrivateRoute';
+import EditAnnouncement from 'pages/Announcement/EditAnnouncement';
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
     dispatch(refreshThunk());
   }, [dispatch]);
-  console.log('week-12.1');
+  console.log('week-13');
   return (
     <Routes>
       <Route path="/" element={<Main />}>
@@ -29,6 +30,7 @@ function App() {
 
         <Route path="components" element={<Components />} />
         <Route path="announcement" element={<Announcement />} />
+        <Route path="editannouncement/:id" element={<EditAnnouncement />} />
         <Route path="allpets" element={<PetsList />} />
         <Route path="allpets/:id" element={<PetPage />} />
         <Route

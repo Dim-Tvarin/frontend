@@ -33,7 +33,7 @@ const AnimalsCarousel = () => {
               name={item.animalName}
               gender={item.gender}
               age={item.age}
-              photoSrc={item.animalImages[0]}
+              photoSrc={item.animalImages[0].url}
               favorite={item.favorite}
               status={item.status}
             />

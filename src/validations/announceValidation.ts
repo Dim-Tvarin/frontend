@@ -36,7 +36,7 @@ export const announceSchema = z.object({
   animalType: z.nativeEnum(AnimalType, {
     required_error: 'Оберіть вид тварини',
   }),
-  gender: z.enum(['male', 'female']).optional(),
+  gender: z.enum(['male', 'female', "unknown"]).optional(),
   age: ageSchema,
   breed: z
     .string({ required_error: "Спочатку оберіть вид тварини, а потім породу" })

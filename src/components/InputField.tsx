@@ -10,6 +10,7 @@ interface InputFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
   error?: string;
   labelSize?: string;
   labelClass?: string;
+  ref?: React.Ref<HTMLInputElement>;
 }
 
 export const InputField: FC<InputFieldProps> = ({
@@ -19,6 +20,7 @@ export const InputField: FC<InputFieldProps> = ({
   labelClass,
   labelSize = 'xs',
   error,
+  ref,
   ...rest
 }) => {
   return (
@@ -30,6 +32,7 @@ export const InputField: FC<InputFieldProps> = ({
       )}
       <Input
         id={id}
+        ref={ref}
         className={cn(
           'border border-input-border rounded-[8px] px-[20px] py-[14px] h-[48px] placeholder:text-input-border',
           { 'border-error-input': error },

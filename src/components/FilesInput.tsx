@@ -1,4 +1,4 @@
-import { type Ref,  useEffect,  useState } from 'react';
+import { type Ref, useEffect, useState } from 'react';
 import { Input } from './components/ui/input';
 import { CustomLabel } from './CustomLabel';
 import FormError from './FormError';
@@ -6,7 +6,8 @@ import { useDropzone, type FileRejection } from 'react-dropzone';
 import { cn } from './lib/utils';
 import PhotoPrev from './PhotoPrev';
 import { showToast } from './Toast';
-//import { showToast } from 'components/Toast';
+import { Button } from './components/ui/button';
+import type { animalImage } from 'src/redux/animals/animalsApi';
 
 export const FilesInput = ({
   ref,
@@ -17,6 +18,7 @@ export const FilesInput = ({
   error,
   onChange,
   value,
+  defaultValue,
   ...rest
 }: {
   ref?: Ref<HTMLInputElement>;
@@ -25,29 +27,28 @@ export const FilesInput = ({
   labelSize?: string;
   name: string;
   onChange: (images: File[]) => void;
-  value: File[],
+  value: File[];
   error?: string;
+  defaultValue?: animalImage[];
 }) => {
-
   const [imageData, setImageData] = useState<File[]>(value || []);
 
-  useEffect(()=> {
+  useEffect(() => {
     if (value.length !== imageData.length) {
       setImageData(value);
     }
-  }, [value])
+  }, [value]);
 
   const onDrop = (acceptedFiles: File[]) => {
-    const newFiles = [...imageData, ...acceptedFiles].slice(0, 4); 
+    const newFiles = [...imageData, ...acceptedFiles].slice(0, 4);
     setImageData(newFiles);
     onChange(newFiles);
   };
 
- 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
-       onDrop(Array.from(event.target.files));
-     }
+      onDrop(Array.from(event.target.files));
+    }
   };
 
   const handleDeleteImage = (index: number) => {
@@ -55,13 +56,13 @@ export const FilesInput = ({
     setImageData(filteredFiles);
     onChange(filteredFiles);
   };
-  
+
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: {
       'image/jpeg': [],
       'image/png': [],
-      'image/gif': []
+      'image/gif': [],
     },
     multiple: true,
     maxFiles: 4,
@@ -73,12 +74,10 @@ export const FilesInput = ({
             description: 'Недопустимий формат або розмір файлу',
             status: 'error',
           });
-        })
-      })
+        });
+      });
     },
   });
-
-  
 
   return (
     <div className="w-full">
@@ -97,7 +96,9 @@ export const FilesInput = ({
           ref={ref}
           name={name}
           onChange={handleFileChange}
-          disabled={imageData.length > 3 ? true : false}
+          disabled={
+            imageData.length > 3 || defaultValue?.length === 4 ? true : false
+          }
           accept="image/*"
           multiple
           {...getInputProps()}
@@ -113,14 +114,17 @@ export const FilesInput = ({
             className="w-[382px] h-[64px] border-2 border-border-file bg-main-pink-l flex items-center gap-[19px]
           py-10 px-16 rounded-[8px]"
           >
-            <div
+            <Button
               className={cn(
                 'bg-default-btn text-white px-20 py-10 rounded-[10px] w-[149px] text-sm',
-                { 'bg-input-file/50 cursor-default': imageData.length > 3 }
+                {
+                  'bg-btn-disabled/50 cursor-default focus:outline-none':
+                    imageData.length > 3 || defaultValue?.length === 4,
+                }
               )}
             >
               Вибрати файл
-            </div>
+            </Button>
             <p className="text-border-file">Файл не вибрано</p>
           </div>
           <p className="text-input-border text-sm mt-8">

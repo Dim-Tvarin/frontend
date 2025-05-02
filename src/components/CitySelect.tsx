@@ -50,13 +50,15 @@ const defaultCities: CityType[] = [
 ];
 
 export function CitySelect({
-  value,
   onChange,
+  defaultValue,
+  value,
   className,
   errorMess,
 }: {
-  value?: string;
   onChange: (city: string) => void;
+  defaultValue?: string;
+  value?: string;
   className?: string;
   errorMess?: string;
 }) {
@@ -67,6 +69,13 @@ export function CitySelect({
   const debouncedSearch = useDebounce(searchValue, 300);
 
   const { data, isLoading } = useGetCitiesQuery();
+
+  useEffect(() => {
+    if (defaultValue) {
+      setSelectedCity(defaultValue);
+      onChange?.(defaultValue);
+    }
+  }, [defaultValue]);
 
   useEffect(() => {
     setSelectedCity(value || '');
@@ -88,9 +97,9 @@ export function CitySelect({
         <PopoverTrigger asChild>
           <Button
             variant="outline"
-            className={`w-[305px] justify-between border-input-border px-16 text-medium text-default-btn ${className} `}
+            className={`${className} w-[305px] justify-between border-input-border px-16 text-base text-medium text-default-btn`}
           >
-            {selectedCity || 'Оберіть населенний пункт'}
+            {selectedCity || value || 'Оберіть населенний пункт'}
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-[305px] p-0  border-1 border-input-border rounded-t-lg z-10">
@@ -102,7 +111,7 @@ export function CitySelect({
             <CommandList className="border-1 border-input-border bg-white rounded-b-lg ">
               {filteredData.map(city => (
                 <CommandItem
-                  className="text-lg text-default-btn px-16 text-left "
+                  className="text-base text-default-btn px-16 text-left "
                   key={city._id}
                   value={city.name}
                   onSelect={() => {

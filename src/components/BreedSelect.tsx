@@ -6,8 +6,8 @@ import { useEffect, useState } from 'react';
 import { BsCheckLg } from "react-icons/bs";
 import FormError from './FormError';
 import { useDebounce } from '@uidotdev/usehooks';
-import type { AnimalTypeEnum } from 'pages/Announcement/types';
 import { InputField } from './InputField';
+import { AnimalType, type AnimalTypeValues } from 'pages/Announcement/types';
 
 
 const getFilteredBreed = (data:  Pick<AnimalTrait, '_id' | 'breed'>[], searchVal: string): Pick<AnimalTrait, '_id' | 'breed'>[] => {
@@ -15,7 +15,7 @@ const getFilteredBreed = (data:  Pick<AnimalTrait, '_id' | 'breed'>[], searchVal
   return  data.filter(i => i.breed.toLowerCase().startsWith(search))
 }
 
-const defaultBreeds = {
+const defaultBreeds: Record<Exclude<AnimalType, AnimalType.other>, Pick<AnimalTrait, '_id' | 'breed'>[]> = {
   dogs: [
     { _id: '67fb8ea44b0d6673ac919d07', breed: 'Невідомо' },
     { _id: '67fb8ea44b0d6673ac919c3a', breed: "Австралійський тер'єр" },
@@ -55,10 +55,14 @@ const defaultBreeds = {
   ],
 };
 
+const defaultTypes: Exclude<AnimalTypeValues, 'other'>[]= [AnimalType.dogs, AnimalType.cats, AnimalType.birds]
 
+  const isDefaultAnimalType = (value: string): value is Exclude<AnimalTypeValues, 'other'> => {
+    return defaultTypes.includes(value as Exclude<AnimalTypeValues, 'other'>);
+  }
 
-const BreedSelect = ({type, onChange, className, errorMess}: 
-  {type?: AnimalTypeEnum; onChange: (breed: string) => void; className?: string; errorMess?: string;}) => {
+const BreedSelect = ({type, defaultValue, onChange, className, errorMess}: 
+  {type?: AnimalTypeValues | string; defaultValue?: string; onChange: (breed: string) => void; className?: string; errorMess?: string;}) => {
   const [open, setOpen] = useState(false);
   const [selectedBreed, setSelectedBreed] = useState("");
   const [filteredBreed, setFilteredBreed] = useState< Pick<AnimalTrait, '_id' | 'breed'>[]>([])
@@ -66,16 +70,24 @@ const BreedSelect = ({type, onChange, className, errorMess}:
   const {data, isLoading} = useGetAnimaltraitsQuery()
   const debouncedSearch = useDebounce(searchValue, 300);
 
+  useEffect(() => {
+    if (defaultValue) {
+      setSelectedBreed(defaultValue);
+      onChange?.(defaultValue);
+    }
+  }, [defaultValue]);
    useEffect(() => {
      let animalBreed: Pick<AnimalTrait, '_id' | 'breed'>[] = [];
-     if (type === 'other' || type === undefined) {
+     if (!data || !type || !isDefaultAnimalType(type)) {
        return;
      }
-     const filteredByType = data?.[type] || [];
-     const mapFilteredData = filteredByType.map(({ _id, breed }) => ({
+     if (defaultTypes.includes(type)) {
+       const filteredByType: AnimalTrait[] = data?.[type ] || [];
+       const mapFilteredData = filteredByType.map(({ _id, breed }) => ({
        _id,
        breed,
      }));
+    
 
      if (
        !isLoading &&
@@ -85,19 +97,21 @@ const BreedSelect = ({type, onChange, className, errorMess}:
      ) {
        animalBreed = getFilteredBreed(mapFilteredData, searchValue);
      } else {
-       animalBreed = defaultBreeds[type];
+       animalBreed = defaultBreeds[type ];
      }
      setFilteredBreed(animalBreed);
-     setSelectedBreed('')
+     setSelectedBreed('') 
+    }
    }, [debouncedSearch, data, isLoading, type]);
 
-    if(  type === 'other' ) {
+    if(type && !isDefaultAnimalType(type) ) {
       return (
         <InputField
+          defaultValue={defaultValue}
           id="animBeed"
           placeholder="Введіть породу"
           className="w-[305px] h-[40px]"
-          onChange={(e) => setSelectedBreed(e.target.value)}
+          onChange={(e) => {setSelectedBreed(e.target.value); onChange?.(e.target.value)}}
         />
       );
     }
@@ -109,9 +123,9 @@ const BreedSelect = ({type, onChange, className, errorMess}:
           <Button
             variant="outline"
             disabled={type === undefined}
-            className={`${className} w-[305px] justify-between border-input-border px-16 text-lg text-medium text-default-btn`}
+            className={`${className} w-[305px] justify-between border-input-border px-16 text-base text-medium text-default-btn`}
           >
-            {selectedBreed || 'Оберіть породу'}
+            {selectedBreed || defaultValue ||  'Оберіть породу'}
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-[305px] p-0  border-1 border-input-border rounded-t-lg z-10">
@@ -124,7 +138,7 @@ const BreedSelect = ({type, onChange, className, errorMess}:
               {filteredBreed.map(
                 (breed: Pick<AnimalTrait, '_id' | 'breed'>) => (
                   <CommandItem
-                    className="text-lg text-default-btn px-16 text-left "
+                    className="text-base text-default-btn px-16 text-left "
                     key={breed._id}
                     value={breed.breed}
                     onSelect={() => {

@@ -112,9 +112,10 @@ const PetsList = () => {
     setFiltersParams({ sortByDate: 'oldest' });
     setOpenSorting(false);
   };
-  const handleClearFilter = () => {setFiltersParams({});
+  const handleClearFilter = () => {
+    setFiltersParams({});
     reset();
-  }
+  };
 
   return (
     <div className="container">
@@ -236,7 +237,7 @@ const PetsList = () => {
               </CustomButton>
               <CustomButton
                 type="button"
-                styleType="defaultButton"
+                styleType="whiteButton"
                 className="m-0 self-center"
                 onClick={handleClearFilter}
                 disabled={Object.keys(filtersParams).length === 0}
@@ -256,7 +257,7 @@ const PetsList = () => {
                 name={item.animalName}
                 gender={item.gender}
                 age={item.age}
-                photoSrc={item.animalImages[0]}
+                photoSrc={item.animalImages[0].url}
                 favorite={item.favorite}
                 status={item.status}
               />

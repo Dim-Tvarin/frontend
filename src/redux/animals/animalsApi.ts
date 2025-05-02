@@ -6,6 +6,10 @@ export type animalAge = {
   months: number;
   years: number;
 };
+export type animalImage = {
+  publicId: string;
+  url: string;
+};
 interface Animal {
   id: string;
   age: animalAge;
@@ -21,7 +25,7 @@ interface Animal {
   owner: string;
   createdAt: string;
   updatedAt: string;
-  animalImages: string[];
+  animalImages: animalImage[];
 }
 
 export interface AnimalsResponse {
@@ -62,6 +66,13 @@ export const animalsApi = createApi({
           `animals?page=${page}&limit=${limit}`,
       }
     ),
+    editAnimal: build.mutation<unknown, { id: string; formData: FormData }>({
+      query: ({ id, formData }) => ({
+        url: `/animals/${id}`,
+        method: 'PATCH',
+        body: formData,
+      }),
+    }),
     getFilteredAnimals: build.query<
       AnimalsResponse,
       {
@@ -122,6 +133,7 @@ export const animalsApi = createApi({
 export const {
   useGetAnimalsQuery,
   useCreateAnimalMutation,
+  useEditAnimalMutation,
   useGetFilteredAnimalsQuery,
   useGetAnimalByIdQuery,
   useGetMyAnimalsQuery,
