@@ -92,7 +92,9 @@ const EditAnnouncement = () => {
     });
   };
 
-  const onSubmit = async (data: AnnouncementForm) => {
+  const onSubmit = async (
+    data: AnnouncementForm & { imagesToDelete?: string[] }
+  ) => {
     if (!animal) return;
     const { images, ...otherData } = data;
 
@@ -100,9 +102,10 @@ const EditAnnouncement = () => {
     if (images && images?.length > 0) {
       images?.forEach((image: File) => bodyData.append('images', image));
     }
-    console.log('imagesForDelete', imagesForDelete);
+
     if (imagesForDelete && imagesForDelete.length > 0) {
-      bodyData.append('imagesToDelete', JSON.stringify(imagesForDelete));
+      //bodyData.append('imagesToDelete', JSON.stringify(imagesForDelete));
+      otherData.imagesToDelete = imagesForDelete;
     }
 
     bodyData.append(

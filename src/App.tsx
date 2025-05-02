@@ -22,7 +22,7 @@ function App() {
   useEffect(() => {
     dispatch(refreshThunk());
   }, [dispatch]);
-  console.log('week-12.1');
+  console.log('week-13');
   return (
     <Routes>
       <Route path="/" element={<Main />}>
