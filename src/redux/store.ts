@@ -20,6 +20,7 @@ import {
 } from './animals/favoriteAnimalsSlice.ts';
 import { addInfoApi } from './animals/addInfoApi.ts';
 import { animalsApi } from './animals/animalsApi.ts';
+import { usersApi } from './users/usersApi.ts';
 
 const persistConfig = {
   key: 'users',
@@ -36,6 +37,7 @@ const persistConfigFavoriteAnimals = {
 export const store = configureStore({
   reducer: {
     users: persistReducer<UserState>(persistConfig, usersReducer),
+    [usersApi.reducerPath]: usersApi.reducer,
     dialog: dialogReducer,
     [animalsApi.reducerPath]: animalsApi.reducer,
     favoriteAnimals: persistReducer<FavoriteAnimalsState>(
@@ -49,7 +51,11 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat([animalsApi.middleware, addInfoApi.middleware]),
+    }).concat([
+      animalsApi.middleware,
+      addInfoApi.middleware,
+      usersApi.middleware,
+    ]),
 });
 
 export const persistor: Persistor = persistStore(store);

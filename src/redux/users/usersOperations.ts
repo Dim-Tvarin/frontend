@@ -1,7 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { clearToken, marketplaceApiUsers, setToken } from '../../api';
-import type { RootState } from '../store';
+import type { AppDispatch, RootState } from '../store';
 import { AxiosError } from 'axios';
+import { showToast } from 'components/Toast';
 
 interface RegisterCredentials {
   name: string;
@@ -140,16 +141,49 @@ export const logoutThunk = createAsyncThunk<void, void>(
   }
 );
 
+// export const refreshThunk = createAsyncThunk<
+//   UsersRefreshResponse,
+//   void,
+//   { state: RootState }
+// >('refresh', async (_, thunkAPI) => {
+//   const token = (thunkAPI.getState() as RootState).users.token;
+
+//   if (!token) {
+//     return thunkAPI.rejectWithValue('Token does not exist');
+//   }
+//   setToken(token);
+
+//   try {
+//     const { data } =
+//       await marketplaceApiUsers.get<UsersRefreshResponse>('current');
+//     return data;
+//   } catch (err) {
+//     const error = err as AxiosError<ErrorResponse>;
+
+//     const errorMessages: Record<number, string> = {
+//       401: 'Невірний токен. Будь ласка, увійдіть знову',
+//       404: 'Користувача не знайдено',
+//       500: 'Помилка сервера. Спробуйте пізніше',
+//     };
+
+//     return thunkAPI.rejectWithValue(
+//       error.response?.status
+//         ? errorMessages[error.response.status]
+//         : 'Refresh failed'
+//     );
+//   }
+// });
 export const refreshThunk = createAsyncThunk<
   UsersRefreshResponse,
   void,
-  { state: RootState }
+  { state: RootState; dispatch: AppDispatch }
 >('refresh', async (_, thunkAPI) => {
-  const token = (thunkAPI.getState() as RootState).users.token;
+  const token = thunkAPI.getState().users.token;
 
   if (!token) {
-    return thunkAPI.rejectWithValue('Token does not exist');
+    return thunkAPI.rejectWithValue('Token is missing');
   }
+
   setToken(token);
 
   try {
@@ -159,16 +193,19 @@ export const refreshThunk = createAsyncThunk<
   } catch (err) {
     const error = err as AxiosError<ErrorResponse>;
 
-    const errorMessages: Record<number, string> = {
-      401: 'Невірний токен. Будь ласка, увійдіть знову',
-      404: 'Користувача не знайдено',
-      500: 'Помилка сервера. Спробуйте пізніше',
-    };
+    const status = error.response?.status;
+
+    if (status === 401) {
+      thunkAPI.dispatch(logoutThunk());
+      showToast({
+        title: 'Сесію завершено',
+        description: 'Будь ласка, увійдіть знову',
+        status: 'error',
+      });
+    }
 
     return thunkAPI.rejectWithValue(
-      error.response?.status
-        ? errorMessages[error.response.status]
-        : 'Refresh failed'
+      error.response?.data?.message ?? 'Не вдалося оновити сесію'
     );
   }
 });

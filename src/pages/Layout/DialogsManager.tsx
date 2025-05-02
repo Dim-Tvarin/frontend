@@ -5,6 +5,7 @@ import DialogForgotPassword from 'components/DialogForgotPassword';
 import DialogVerifyResetCode from 'components/DialogVerifyResetCode';
 import DialogResetPassword from 'components/DialogResetPassword';
 import DialogAlertDelete from 'components/DialogAlertDelete';
+import DialogEditUser from 'components/DialogEditUser';
 
 const DialogsManager = () => {
   const activeDialog = useSelector(
@@ -17,10 +18,9 @@ const DialogsManager = () => {
       {activeDialog === 'forgotPassword' && <DialogForgotPassword />}
       {activeDialog === 'verifyResetCode' && <DialogVerifyResetCode />}
       {activeDialog === 'resetPassword' && <DialogResetPassword />}
+      {activeDialog === 'editUser' && <DialogEditUser />}
       {typeof activeDialog === 'object' &&
-        activeDialog?.type === 'alertDelete' && (
-          <DialogAlertDelete id={activeDialog.id} />
-        )}
+        activeDialog?.type === 'alertDelete' && <DialogAlertDelete />}
     </>
   );
 };

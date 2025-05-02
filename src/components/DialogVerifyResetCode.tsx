@@ -119,27 +119,27 @@ const DialogVerifyResetCode: React.FC = () => {
         >
           <p className="text-center mb-24 text-sm text-input-border leading-[125%]">
             Ми відправили код на вашу електронну пошту. Будь ласка, введіть його
-            у поле для відновлення паролю, щоб продовжити
+            щоб продовжити
           </p>
           <CodeInput
             onChange={value => setValue('code', value)}
             error={verifyResetCodeError || errors.code?.message}
           />
-          <p className="mt-20 text-sm text-center text-input-border">
+          <div className="mt-20 text-sm text-input-border mr-auto">
             {!canResend && timer !== 0 ? (
               `Не отримали код? Надіслати повторно через 0:${timer < 10 ? '0' + timer : timer}`
             ) : (
               <CustomButton
                 type="button"
                 styleType="linkButton"
-                className="text-sm "
+                className="text-sm"
                 onClick={handleResendCode}
                 disabled={isLoading}
               >
                 {isLoading ? <Spinner /> : 'Надіслати повідомлення ще раз'}
               </CustomButton>
             )}
-          </p>
+          </div>
           <DialogFooter>
             <CustomButton
               type="submit"
@@ -156,14 +156,14 @@ const DialogVerifyResetCode: React.FC = () => {
           onClick={() => dispatch(closeDialog())}
           to="/register"
           end
-          className="mt-16 text-link"
+          className="mt-16 text-link text-lg"
         >
           Зареєструватись
         </NavLink>
 
         <CustomButton
           styleType="linkButton"
-          className="mt-10 text-base"
+          className="mt-10 text-lg"
           onClick={() => dispatch(openDialog('login'))}
         >
           Увійти
