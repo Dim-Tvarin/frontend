@@ -237,7 +237,7 @@ const PetsList = () => {
               </CustomButton>
               <CustomButton
                 type="button"
-                styleType="defaultButton"
+                styleType="whiteButton"
                 className="m-0 self-center"
                 onClick={handleClearFilter}
                 disabled={Object.keys(filtersParams).length === 0}

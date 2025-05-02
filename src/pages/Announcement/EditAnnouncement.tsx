@@ -94,7 +94,6 @@ const EditAnnouncement = () => {
   const onSubmit = async (data: AnnouncementForm) => {
     if (!animal) return;
     const { images, ...otherData } = data;
-    console.log('dataForm', data, imagesForDelete);
 
     const bodyData = new FormData();
     if (images && images?.length > 0) {
@@ -116,8 +115,6 @@ const EditAnnouncement = () => {
         ...otherData,
       })
     );
-
-    bodyData.forEach(item => console.log(item));
 
     try {
       await editAnimal({ id: animal?.id, formData: bodyData }).unwrap();
