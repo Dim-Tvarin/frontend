@@ -59,9 +59,9 @@ export const Header = () => {
           </li>
           <li>
             {isLoggedIn ? (
-              <div className="max-h-[54px]">
+              <div className="flex flex-col items-center max-h-[54px]">
                 <Avatar
-                  className="size-9 text-[10px] p-0"
+                  className="size-9 text-[10px] p-0 m-4"
                   onClick={() => navigate('/profile')}
                 >
                   <AvatarImage

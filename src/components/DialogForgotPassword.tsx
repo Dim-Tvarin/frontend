@@ -82,8 +82,8 @@ const DialogForgotPassword: React.FC = () => {
           <InputField
             label="Електронна пошта"
             placeholder="user@gmail.com"
-            className="text-[18px]"
-            labelSize="xl"
+            className="w-[349px] h-40 text-base"
+            labelSize="base"
             labelClass="text-input-border mb-16"
             id="forgotEmail"
             {...register('forgotEmail')}
@@ -105,14 +105,14 @@ const DialogForgotPassword: React.FC = () => {
           onClick={() => dispatch(closeDialog())}
           to="/register"
           end
-          className="mt-16 text-link"
+          className="mt-16 text-link text-lg"
         >
           Зареєструватись
         </NavLink>
 
         <CustomButton
           styleType="linkButton"
-          className="mt-10 text-base"
+          className="mt-10 text-lg"
           onClick={() => dispatch(openDialog('login'))}
         >
           Увійти

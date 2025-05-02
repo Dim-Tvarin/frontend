@@ -38,7 +38,9 @@ const DialogLogin: React.FC = () => {
   );
   const navigate = useNavigate();
   const authError = useSelector(selectError);
-  const favoriteIds = useSelector((state: RootState) => state.favoriteAnimals.ids);
+  const favoriteIds = useSelector(
+    (state: RootState) => state.favoriteAnimals.ids
+  );
   const [updateAnimal] = useAddFavoriteAnimalMutation();
 
   const {
@@ -105,8 +107,8 @@ const DialogLogin: React.FC = () => {
           <InputField
             label="Електронна пошта"
             placeholder="user@gmail.com"
-            className="text-[18px] mb-16"
-            labelSize="xl"
+            className="h-40 w-[349px] text-[16px] mb-16"
+            labelSize="base"
             labelClass="text-input-border mb-16"
             id="email"
             {...register('email')}
@@ -115,8 +117,8 @@ const DialogLogin: React.FC = () => {
           <PasswordField
             label="Пароль"
             placeholder="********"
-            className="text-[18px]"
-            labelSize="xl"
+            className="h-40 w-[349px] text-[16px]"
+            labelSize="base"
             labelClass="text-input-border mb-16"
             id="password"
             {...register('password')}
@@ -136,14 +138,14 @@ const DialogLogin: React.FC = () => {
           onClick={() => dispatch(closeDialog())}
           to="/register"
           end
-          className="mt-16 text-base text-link hover:text-orange"
+          className="mt-16 text-lg text-link hover:text-orange"
         >
           Зареєструватися
         </NavLink>
 
         <CustomButton
           styleType="linkButton"
-          className="mt-10 text-base"
+          className="mt-10 text-lg"
           onClick={() => dispatch(openDialog('forgotPassword'))}
         >
           Забули пароль?

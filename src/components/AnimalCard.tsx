@@ -111,9 +111,18 @@ const AnimalCard = ({
           >
             <FiEdit className="text-white" size={22} />
           </CustomButton>
+
           <CustomButton
             styleType="iconButton"
-            onClick={() => dispatch(openDialog({ type: 'alertDelete', id }))}
+            onClick={() =>
+              dispatch(
+                openDialog({
+                  type: 'alertDelete',
+                  entity: 'animal',
+                  id: id,
+                })
+              )
+            }
             className="hover:bg-error-input "
           >
             <FiTrash2 className="text-white" size={22} />

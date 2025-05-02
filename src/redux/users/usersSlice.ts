@@ -66,6 +66,12 @@ const slice = createSlice({
     clearError: state => {
       state.error = null;
     },
+    updateUserLocally: (state, action: PayloadAction<User>) => {
+      state.user = {
+        ...state.user,
+        ...action.payload,
+      };
+    },
   },
   extraReducers: builder => {
     builder
@@ -135,6 +141,7 @@ const slice = createSlice({
           verifyUserThunk.rejected,
           loginThunk.rejected,
           logoutThunk.rejected,
+          refreshThunk.rejected,
           forgotPasswordThunk.rejected,
           verifyResetPasswordThunk.rejected,
           resetPasswordThunk.rejected

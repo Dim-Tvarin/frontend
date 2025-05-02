@@ -80,8 +80,8 @@ const DialogResetPassword: React.FC = () => {
           <PasswordField
             label="Введіть новий пароль"
             placeholder="********"
-            className="text-[18px] mb-16"
-            labelSize="xl"
+            className="h-40 text-[16px] mb-16"
+            labelSize="base"
             labelClass="text-input-border mb-16"
             id="password"
             {...register('password')}
@@ -91,8 +91,8 @@ const DialogResetPassword: React.FC = () => {
           <PasswordField
             label="Введіть новий пароль повторно"
             placeholder="********"
-            className="text-[18px] mb-16"
-            labelSize="xl"
+            className="h-40 text-[16px] mb-16"
+            labelSize="base"
             labelClass="text-input-border mb-16"
             id="repeat_password"
             {...register('repeat_password')}
@@ -117,14 +117,14 @@ const DialogResetPassword: React.FC = () => {
           onClick={() => dispatch(closeDialog())}
           to="/register"
           end
-          className="mt-16 text-base text-link hover:text-orange"
+          className="mt-16 text-lg text-link hover:text-orange"
         >
           Зареєструватись
         </NavLink>
 
         <CustomButton
           styleType="linkButton"
-          className="mt-10 text-base"
+          className="mt-10 text-lg"
           onClick={() => dispatch(openDialog('login'))}
         >
           Увійти
