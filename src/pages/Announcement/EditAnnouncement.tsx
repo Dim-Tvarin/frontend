@@ -85,6 +85,7 @@ const EditAnnouncement = () => {
 
   const handleDeleteImage = (imageId: string) => {
     setImagesForDelete(prev => [...prev, imageId]);
+    //DialogAlertDelete
     showToast({
       title: 'Зображення видалено',
       status: 'success',
@@ -99,14 +100,9 @@ const EditAnnouncement = () => {
     if (images && images?.length > 0) {
       images?.forEach((image: File) => bodyData.append('images', image));
     }
-
+    console.log('imagesForDelete', imagesForDelete);
     if (imagesForDelete && imagesForDelete.length > 0) {
-      bodyData.append(
-        'imagesToDelete',
-        JSON.stringify({
-          imagesForDelete,
-        })
-      );
+      bodyData.append('imagesToDelete', JSON.stringify(imagesForDelete));
     }
 
     bodyData.append(
