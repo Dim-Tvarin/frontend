@@ -30,7 +30,6 @@ import { useEffect, useState } from 'react';
 import { Spinner } from './Spinner';
 import { CodeInput } from './CodeInput';
 import { showToast } from './Toast';
-import { cn } from './lib/utils';
 
 type FormData = z.infer<typeof verifyResetCodeSchema>;
 

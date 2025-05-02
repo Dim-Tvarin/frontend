@@ -25,6 +25,18 @@ import {
 import { useNavigate, useSearchParams } from 'react-router';
 import Pagination from 'components/Pagination';
 import { openDialog } from 'src/redux/dialogs/dialogSlice';
+import AdvertsFilter from 'components/AdvertsFilter';
+
+export interface AnimalsFilters {
+  animalType?: 'cats' | 'dogs' | 'birds' | 'other';
+  gender?: 'male' | 'female';
+  breed?: string;
+  location?: string;
+  age?: string;
+  size?: string;
+  status?: 'active' | 'inactive';
+  sortByDate?: 'newest' | 'oldest';
+}
 
 const ProfilePage = () => {
   const user = useSelector(selectUser);
@@ -40,13 +52,17 @@ const ProfilePage = () => {
   const [searchParams] = useSearchParams();
   const rawPage = Number(searchParams.get('page'));
   const [page, setPage] = useState(rawPage === 0 ? 1 : rawPage);
-  const { data, isLoading, error } = useGetMyAnimalsQuery({
+  const [filters, setFilters] = useState<AnimalsFilters>({});
+  const [openFilters, setOpenFilters] = useState(false);
+  const { data, isLoading, error, refetch } = useGetMyAnimalsQuery({
     page,
     limit: 9,
+    ...filters,
   }) as {
     data: AnimalsResponse;
     isLoading: boolean;
     error: any;
+    refetch: () => void;
   };
   const totalPages = data ? Math.ceil(data.total / 9) : 1;
 
@@ -59,6 +75,23 @@ const ProfilePage = () => {
       });
     }
   }, [error]);
+
+  const handleFilterChange = <K extends keyof AnimalsFilters>(
+    key: K,
+    value: AnimalsFilters[K]
+  ) => {
+    setFilters(prev => ({ ...prev, [key]: value }));
+  };
+
+  const handleFilterReset = () => {
+    setFilters({});
+  };
+
+  const handleFilterSubmit = () => {
+    setPage(1);
+    refetch();
+  };
+
   return (
     <Tabs
       defaultValue="main-info"
@@ -97,6 +130,14 @@ const ProfilePage = () => {
         >
           Мої оголошення
         </TabsTrigger>
+        {openFilters && (
+          <AdvertsFilter
+            filters={filters}
+            onChange={handleFilterChange}
+            onReset={handleFilterReset}
+            onSubmit={handleFilterSubmit}
+          />
+        )}
       </TabsList>
       <TabsContent value="main-info" data-orientation="vertical">
         <div className="flex">
@@ -159,6 +200,7 @@ const ProfilePage = () => {
             type="button"
             styleType="defaultButton"
             className="flex gap-[6px] w-[108px] h-[45px] m-0 text-base"
+            onClick={() => setOpenFilters(prev => !prev)}
           >
             <FiFilter className="w-25 h-[29px]" />
             Фільтр
