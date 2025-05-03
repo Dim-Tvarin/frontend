@@ -32,12 +32,7 @@ export const FilesInput = ({
   defaultValue?: animalImage[];
 }) => {
   const [imageData, setImageData] = useState<File[]>(value || []);
-  console.log(
-    'defaultValue',
-    defaultValue,
-    imageData.length,
-    defaultValue?.length
-  );
+
   useEffect(() => {
     if (value.length !== imageData.length) {
       setImageData(value);

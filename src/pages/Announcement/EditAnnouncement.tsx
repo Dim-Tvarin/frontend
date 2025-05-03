@@ -50,7 +50,7 @@ const EditAnnouncement = () => {
     setTimeout(() => navigate(`/allpets/${id}`), 1000);
     return;
   }
-  const { data, error, isLoading } = useGetAnimalByIdQuery(id);
+  const { data, refetch, error, isLoading } = useGetAnimalByIdQuery(id);
   const [editAnimal, { isLoading: isEditingAnimal }] = useEditAnimalMutation();
   const { animal } = data || {};
 
@@ -58,6 +58,7 @@ const EditAnnouncement = () => {
     register,
     watch,
     handleSubmit,
+    resetField,
     control,
     formState: { errors },
   } = useForm<AnnouncementForm>({
@@ -72,7 +73,6 @@ const EditAnnouncement = () => {
   });
   const animalTypeValue = watch('animalType');
   const genderValue = watch('gender');
-  //const images = watch('images');
 
   if (isLoading) {
     return <PetPageSceleton />;
@@ -87,19 +87,6 @@ const EditAnnouncement = () => {
     return;
   }
 
-  // if (images?.length === 0) {
-  //   showToast({
-  //     title: 'Ви не можете видалити всі зображення',
-  //     status: 'error',
-  //   });
-  //   setError('images', {
-  //     type: 'manual',
-  //     message: "Мінімум одне зображення обов'язкове",
-  //   });
-  //   return;
-  // } else {
-  //   //clearErrors('images');
-  // }
   const filteredImages =
     animal?.animalImages.filter(
       image => !imagesForDelete.includes(image.publicId)
@@ -148,6 +135,8 @@ const EditAnnouncement = () => {
         title: 'Оголошення успішно оновлене',
         status: 'success',
       });
+      resetField('images');
+      await refetch();
     } catch {
       showToast({
         title: 'Щось пішло не по плану',

@@ -37,7 +37,7 @@ const ImageCarousel = ({
         )}
         <div className="absolute bottom-0 w-[600px] h-[497px] rounded-[30px] overflow-hidden">
           <img
-            src={images[activeIndex].url}
+            src={images[activeIndex]?.url}
             alt="Selected"
             className="w-full h-full object-cover"
           />
@@ -57,7 +57,10 @@ const ImageCarousel = ({
                 {isDelete && (
                   <div
                     className="absolute top-10 right-10 w-[36px] h-[36px] bg-default-btn rounded-full grid place-items-center hover:bg-orange transition-all duration-300 cursor-pointer"
-                    onClick={() => handleDeleteImage(src.publicId)}
+                    onClick={e => {
+                      e.stopPropagation();
+                      handleDeleteImage(src.publicId);
+                    }}
                   >
                     <FaRegTrashAlt color="white" />
                   </div>
