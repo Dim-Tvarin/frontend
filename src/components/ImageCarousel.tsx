@@ -21,15 +21,6 @@ const ImageCarousel = ({
   }
 
   const handleDeleteImage = (id: string) => {
-    // const updatedImages = images.filter(img => img.publicId !== id);
-    // setLocalImages(updatedImages);
-    // setActiveIndex(prevIndex => {
-    //   const newIndex = Math.max(
-    //     0,
-    //     prevIndex - (prevIndex >= updatedImages.length ? 1 : 0)
-    //   );
-    //   return newIndex;
-    // });
     onDelete?.(id);
   };
 
