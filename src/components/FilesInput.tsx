@@ -32,7 +32,12 @@ export const FilesInput = ({
   defaultValue?: animalImage[];
 }) => {
   const [imageData, setImageData] = useState<File[]>(value || []);
-
+  console.log(
+    'defaultValue',
+    defaultValue,
+    imageData.length,
+    defaultValue?.length
+  );
   useEffect(() => {
     if (value.length !== imageData.length) {
       setImageData(value);
@@ -81,6 +86,10 @@ export const FilesInput = ({
     },
   });
 
+  const isDisabled =
+    imageData.length > 3 ||
+    (defaultValue && defaultValue?.length + imageData.length > 3);
+
   return (
     <div className="w-full">
       {groupLabel && (
@@ -98,9 +107,7 @@ export const FilesInput = ({
           ref={ref}
           name={name}
           onChange={handleFileChange}
-          disabled={
-            imageData.length > 3 || defaultValue?.length === 4 ? true : false
-          }
+          disabled={isDisabled}
           accept="image/*"
           multiple
           {...getInputProps()}
@@ -122,7 +129,7 @@ export const FilesInput = ({
                 'bg-default-btn text-white px-20 py-10 rounded-[10px] w-[149px] text-sm',
                 {
                   'bg-btn-disabled/50 cursor-default focus:outline-none':
-                    imageData.length > 3 || defaultValue?.length === 4,
+                    isDisabled,
                 }
               )}
             >
