@@ -29,6 +29,7 @@ import {
 import { FilesInput } from 'components/FilesInput';
 import { updateAnnounceSchema } from '../../validations/updateAnnounceValidation';
 import { useState } from 'react';
+import Modal from 'components/Modal';
 
 type AnnouncementForm = z.infer<typeof updateAnnounceSchema>;
 
@@ -36,6 +37,8 @@ const EditAnnouncement = () => {
   const [isFocusedYear, setIsFocusedYear] = useState(false);
   const [isFocusedMonth, setIsFocusedMonth] = useState(false);
   const [imagesForDelete, setImagesForDelete] = useState([] as string[]);
+  const [openModal, setOpenModal] = useState(false);
+  const [idForDelete, setIdForDelete] = useState('');
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   if (!id) {
@@ -69,6 +72,7 @@ const EditAnnouncement = () => {
   });
   const animalTypeValue = watch('animalType');
   const genderValue = watch('gender');
+  //const images = watch('images');
 
   if (isLoading) {
     return <PetPageSceleton />;
@@ -83,13 +87,38 @@ const EditAnnouncement = () => {
     return;
   }
 
+  // if (images?.length === 0) {
+  //   showToast({
+  //     title: 'Ви не можете видалити всі зображення',
+  //     status: 'error',
+  //   });
+  //   setError('images', {
+  //     type: 'manual',
+  //     message: "Мінімум одне зображення обов'язкове",
+  //   });
+  //   return;
+  // } else {
+  //   //clearErrors('images');
+  // }
+  const filteredImages =
+    animal?.animalImages.filter(
+      image => !imagesForDelete.includes(image.publicId)
+    ) || [];
+
   const handleDeleteImage = (imageId: string) => {
-    setImagesForDelete(prev => [...prev, imageId]);
-    //DialogAlertDelete
-    showToast({
-      title: 'Зображення видалено',
-      status: 'success',
-    });
+    console.log('errors', filteredImages, imagesForDelete);
+    if (
+      animal?.animalImages &&
+      animal?.animalImages?.length - imagesForDelete.length === 1
+    ) {
+      showToast({
+        title: 'Ви не можете видалити всі зображення',
+        status: 'error',
+      });
+    } else {
+      setOpenModal(true);
+      setIdForDelete(imageId);
+    }
   };
 
   const onSubmit = async (
@@ -138,227 +167,249 @@ const EditAnnouncement = () => {
     : 'other';
 
   return (
-    <div className="container flex flex-row gap-16 text-default-btn relative z-10">
-      <div className="flex flex-col flex-1/2 mt-100 mb-100">
-        <h2 className="text-[32px] mb-32 z-10">Редагування оголошення</h2>
-        <form
-          className="flex flex-col items-start"
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <p className="text-base mb-16 z-10">Оберіть вид тварини *</p>
-          <Controller
-            defaultValue={animal?.animalType}
-            name="animalType"
-            control={control}
-            render={({ field: { onChange, name, onBlur, ref } }) => (
-              <CustomRadioGroup
-                items={animalTypeOptions}
-                className="grid grid-cols-2"
-                itemWidth="305"
-                error={errors.animalType?.message}
-                name={name}
-                ref={ref}
-                value={animalTypeValue || resolvedType}
-                onBlur={onBlur}
-                onChange={onChange}
-              />
-            )}
-          />
-
-          <p className="text-base mt-32 mb-16">Стать </p>
-          <Controller
-            defaultValue={animal?.gender}
-            name="gender"
-            control={control}
-            render={({ field: { onChange, name, onBlur, ref } }) => (
-              <CustomRadioGroup
-                items={genderOption}
-                className="grid grid-cols-2"
-                itemWidth="305"
-                error={errors.gender?.message}
-                name={name}
-                ref={ref}
-                value={genderValue || animal?.gender}
-                onBlur={onBlur}
-                onChange={onChange}
-              />
-            )}
-          />
-
-          <div className="flex mt-32">
-            <div className="grid grid-cols-[150px_150px] gap-[10px] mr-16">
-              <Controller
-                name="age.years"
-                control={control}
-                defaultValue={animal?.age.years || 0}
-                render={({ field: { value, onChange, onBlur, ref } }) => (
-                  <InputField
-                    ref={ref}
-                    id="years"
-                    value={
-                      isFocusedYear
-                        ? value
-                        : getYearDeclension(Number(value) || 0)
-                    }
-                    onFocus={e => {
-                      e.target.value = `${value || 0}`;
-                      setIsFocusedYear(true);
-                    }}
-                    onBlur={e => {
-                      const parsed = parseInt(e.target.value, 10) || 0;
-                      onChange(parsed);
-                      setIsFocusedYear(false);
-                      onBlur();
-                    }}
-                    onChange={e => {
-                      const parsed = parseInt(e.target.value, 10) || 0;
-                      onChange(parsed);
-                    }}
-                    inputMode="numeric"
-                    type="text"
-                    placeholder="0 років"
-                    className="w-[150px] h-[40px] mt-16 mr-10 text-base"
-                    label="Вік"
-                    labelSize="base"
-                  />
-                )}
-              />
-              <Controller
-                name="age.months"
-                control={control}
-                defaultValue={animal?.age.months || 0}
-                render={({ field: { value, onChange, onBlur, ref } }) => (
-                  <InputField
-                    ref={ref}
-                    id="months"
-                    value={
-                      isFocusedMonth
-                        ? value
-                        : getMonthDeclension(Number(value) || 0)
-                    }
-                    onFocus={e => {
-                      e.target.value = `${value || 0}`;
-                      setIsFocusedMonth(true);
-                    }}
-                    onBlur={e => {
-                      const parsed = parseInt(e.target.value, 10) || 0;
-                      onChange(parsed);
-                      setIsFocusedMonth(false);
-                      onBlur();
-                    }}
-                    onChange={e => {
-                      const parsed = parseInt(e.target.value, 10) || 0;
-                      onChange(parsed);
-                    }}
-                    inputMode="numeric"
-                    type="text"
-                    placeholder="0 місяців"
-                    className="w-[150px] h-[40px] mt-16 mr-10 text-base"
-                    label=" "
-                  />
-                )}
-              />
-              {errors.age?.months?.message && (
-                <FormError error={errors.age?.months?.message} />
-              )}
-              {errors.age?.years?.message && (
-                <FormError error={errors.age?.years?.message} />
-              )}
-            </div>
-            <div>
-              <p className="text-base mb-8 text-left">Порода * </p>
-              <Controller
-                name="breed"
-                control={control}
-                render={({ field }) => (
-                  <BreedSelect
-                    defaultValue={animal?.breed}
-                    onChange={field.onChange}
-                    className="w-[305px] h-[40px]"
-                    type={animalTypeValue || animal?.animalType}
-                    errorMess={errors?.breed?.message}
-                  />
-                )}
-              />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-[305px_305px] mt-32 gap-16">
-            <InputField
-              label="Ім’я тварини *"
-              id="animalName"
-              className="w-[305px] h-[40px] mt-16 text-base"
-              labelSize="base"
-              defaultValue={animal?.animalName}
-              {...register('animalName')}
-              error={errors.animalName?.message}
-            />
-            <div>
-              <p className="text-base mb-8 text-left">Місто * </p>
-              <Controller
-                name="animalLocation"
-                control={control}
-                render={({ field }) => (
-                  <CitySelect
-                    defaultValue={animal?.animalLocation}
-                    onChange={field.onChange}
-                    value={animal?.animalLocation}
-                    className="w-[305px] h-[40px]"
-                    errorMess={errors?.animalLocation?.message}
-                  />
-                )}
-              />
-            </div>
-          </div>
-
-          <TextareaDemo
-            id="announvementText"
-            className="text-left mt-32 text-sm"
-            placeholder="Опишіть тварину, її характер, історію, забарвлення"
-            label="Опис тварини: *"
-            defaultValue={animal?.adText}
-            labelSize="xl"
-            {...register('adText')}
-            error={errors.adText?.message}
-          />
-          <Controller
-            name="images"
-            control={control}
-            defaultValue={[]}
-            render={({ field: { ref, name, onChange, value } }) => (
-              <FilesInput
-                ref={ref}
-                groupLabel="Додайте фото тварини та документи *"
-                labelClass="mb-16 mt-32"
-                name={name}
-                onChange={onChange}
-                error={errors.images?.message?.toString()}
-                value={value || []}
-                defaultValue={animal?.animalImages}
-              />
-            )}
-          />
-
-          <CustomButton
-            type="submit"
-            styleType="defaultButton"
-            disabled={isLoading || isEditingAnimal}
-            className="flex gap-8 z-10 w-[259px]"
+    <>
+      <div className="container flex flex-row gap-16 text-default-btn relative z-10">
+        <div className="flex flex-col flex-1/2 mt-100 mb-100">
+          <h2 className="text-[32px] mb-32 z-10">Редагування оголошення</h2>
+          <form
+            className="flex flex-col items-start"
+            onSubmit={handleSubmit(onSubmit)}
           >
-            {isLoading || (isEditingAnimal && <Spinner />)}
-            Зберегти зміни
-          </CustomButton>
-        </form>
-      </div>
+            <p className="text-base mb-16 z-10">Оберіть вид тварини *</p>
+            <Controller
+              defaultValue={animal?.animalType}
+              name="animalType"
+              control={control}
+              render={({ field: { onChange, name, onBlur, ref } }) => (
+                <CustomRadioGroup
+                  items={animalTypeOptions}
+                  className="grid grid-cols-2"
+                  itemWidth="305"
+                  error={errors.animalType?.message}
+                  name={name}
+                  ref={ref}
+                  value={animalTypeValue || resolvedType}
+                  onBlur={onBlur}
+                  onChange={onChange}
+                />
+              )}
+            />
 
-      <div className="flex flex-col gap-32 py-32 items-end my-100">
-        <ImageCarousel
-          images={animal?.animalImages || []}
-          isDelete
-          onDelete={handleDeleteImage}
-        />
+            <p className="text-base mt-32 mb-16">Стать </p>
+            <Controller
+              defaultValue={animal?.gender}
+              name="gender"
+              control={control}
+              render={({ field: { onChange, name, onBlur, ref } }) => (
+                <CustomRadioGroup
+                  items={genderOption}
+                  className="grid grid-cols-2"
+                  itemWidth="305"
+                  error={errors.gender?.message}
+                  name={name}
+                  ref={ref}
+                  value={genderValue || animal?.gender}
+                  onBlur={onBlur}
+                  onChange={onChange}
+                />
+              )}
+            />
+
+            <div className="flex mt-32">
+              <div className="grid grid-cols-[150px_150px] gap-[10px] mr-16">
+                <Controller
+                  name="age.years"
+                  control={control}
+                  defaultValue={animal?.age.years || 0}
+                  render={({ field: { value, onChange, onBlur, ref } }) => (
+                    <InputField
+                      ref={ref}
+                      id="years"
+                      value={
+                        isFocusedYear
+                          ? value
+                          : getYearDeclension(Number(value) || 0)
+                      }
+                      onFocus={e => {
+                        e.target.value = `${value || 0}`;
+                        setIsFocusedYear(true);
+                      }}
+                      onBlur={e => {
+                        const parsed = parseInt(e.target.value, 10) || 0;
+                        onChange(parsed);
+                        setIsFocusedYear(false);
+                        onBlur();
+                      }}
+                      onChange={e => {
+                        const parsed = parseInt(e.target.value, 10) || 0;
+                        onChange(parsed);
+                      }}
+                      inputMode="numeric"
+                      type="text"
+                      placeholder="0 років"
+                      className="w-[150px] h-[40px] mt-16 mr-10 text-base"
+                      label="Вік"
+                      labelSize="base"
+                    />
+                  )}
+                />
+                <Controller
+                  name="age.months"
+                  control={control}
+                  defaultValue={animal?.age.months || 0}
+                  render={({ field: { value, onChange, onBlur, ref } }) => (
+                    <InputField
+                      ref={ref}
+                      id="months"
+                      value={
+                        isFocusedMonth
+                          ? value
+                          : getMonthDeclension(Number(value) || 0)
+                      }
+                      onFocus={e => {
+                        e.target.value = `${value || 0}`;
+                        setIsFocusedMonth(true);
+                      }}
+                      onBlur={e => {
+                        const parsed = parseInt(e.target.value, 10) || 0;
+                        onChange(parsed);
+                        setIsFocusedMonth(false);
+                        onBlur();
+                      }}
+                      onChange={e => {
+                        const parsed = parseInt(e.target.value, 10) || 0;
+                        onChange(parsed);
+                      }}
+                      inputMode="numeric"
+                      type="text"
+                      placeholder="0 місяців"
+                      className="w-[150px] h-[40px] mt-16 mr-10 text-base"
+                      label=" "
+                    />
+                  )}
+                />
+                {errors.age?.months?.message && (
+                  <FormError error={errors.age?.months?.message} />
+                )}
+                {errors.age?.years?.message && (
+                  <FormError error={errors.age?.years?.message} />
+                )}
+              </div>
+              <div>
+                <p className="text-base mb-8 text-left">Порода * </p>
+                <Controller
+                  name="breed"
+                  control={control}
+                  render={({ field }) => (
+                    <BreedSelect
+                      defaultValue={animal?.breed}
+                      onChange={field.onChange}
+                      className="w-[305px] h-[40px]"
+                      type={animalTypeValue || animal?.animalType}
+                      errorMess={errors?.breed?.message}
+                    />
+                  )}
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-[305px_305px] mt-32 gap-16">
+              <InputField
+                label="Ім’я тварини *"
+                id="animalName"
+                className="w-[305px] h-[40px] mt-16 text-base"
+                labelSize="base"
+                defaultValue={animal?.animalName}
+                {...register('animalName')}
+                error={errors.animalName?.message}
+              />
+              <div>
+                <p className="text-base mb-8 text-left">Місто * </p>
+                <Controller
+                  name="animalLocation"
+                  control={control}
+                  render={({ field }) => (
+                    <CitySelect
+                      defaultValue={animal?.animalLocation}
+                      onChange={field.onChange}
+                      value={animal?.animalLocation}
+                      className="w-[305px] h-[40px]"
+                      errorMess={errors?.animalLocation?.message}
+                    />
+                  )}
+                />
+              </div>
+            </div>
+
+            <TextareaDemo
+              id="announvementText"
+              className="text-left mt-32 text-sm"
+              placeholder="Опишіть тварину, її характер, історію, забарвлення"
+              label="Опис тварини: *"
+              defaultValue={animal?.adText}
+              labelSize="xl"
+              {...register('adText')}
+              error={errors.adText?.message}
+            />
+            <Controller
+              name="images"
+              control={control}
+              defaultValue={[]}
+              render={({ field: { ref, name, onChange, value } }) => (
+                <FilesInput
+                  ref={ref}
+                  groupLabel="Додайте фото тварини та документи *"
+                  labelClass="mb-16 mt-32"
+                  name={name}
+                  onChange={onChange}
+                  error={errors.images?.message?.toString()}
+                  value={value || []}
+                  defaultValue={animal?.animalImages}
+                />
+              )}
+            />
+
+            <CustomButton
+              type="submit"
+              styleType="defaultButton"
+              disabled={isLoading || isEditingAnimal}
+              className="flex gap-8 z-10 w-[259px]"
+            >
+              {isLoading || (isEditingAnimal && <Spinner />)}
+              Зберегти зміни
+            </CustomButton>
+          </form>
+        </div>
+
+        <div className="flex flex-col gap-32 py-32 items-end my-100">
+          <ImageCarousel
+            images={filteredImages}
+            isDelete
+            onDelete={handleDeleteImage}
+          />
+        </div>
       </div>
-    </div>
+      {openModal && (
+        <Modal
+          open={openModal}
+          onOpenChange={setOpenModal}
+          onCancel={() => {
+            setIdForDelete('');
+          }}
+          onConfirm={() => {
+            setImagesForDelete(prev => [...prev, idForDelete]);
+            setIdForDelete('');
+            showToast({
+              title: 'Зображення підготовлено для видалення',
+              description:
+                'Для підтвердження натисніть кнопку "Зберегти зміни"',
+              status: 'success',
+            });
+          }}
+          description="Ви дійсно хочете видалити це зображення?"
+        />
+      )}
+    </>
   );
 };
 

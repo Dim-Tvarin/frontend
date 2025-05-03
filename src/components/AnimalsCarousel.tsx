@@ -25,20 +25,21 @@ const AnimalsCarousel = () => {
       className="w-full z-10"
     >
       <CarouselContent>
-        {data?.animals.map(item => (
-          <CarouselItem key={item.id} className="basis-1/4">
-            <AnimalCard
-              key={item.id}
-              id={item.id}
-              name={item.animalName}
-              gender={item.gender}
-              age={item.age}
-              photoSrc={item.animalImages[0].url}
-              favorite={item.favorite}
-              status={item.status}
-            />
-          </CarouselItem>
-        ))}
+        {data &&
+          data?.animals.map(item => (
+            <CarouselItem key={item.id} className="basis-1/4">
+              <AnimalCard
+                key={item.id}
+                id={item.id}
+                name={item.animalName}
+                gender={item.gender}
+                age={item.age}
+                photoSrc={item?.animalImages[0]?.url}
+                favorite={item.favorite}
+                status={item.status}
+              />
+            </CarouselItem>
+          ))}
       </CarouselContent>
       <CarouselPrevious />
       <CarouselNext />

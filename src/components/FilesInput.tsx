@@ -46,6 +46,8 @@ export const FilesInput = ({
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
     if (event.target.files) {
       onDrop(Array.from(event.target.files));
     }
@@ -115,6 +117,7 @@ export const FilesInput = ({
           py-10 px-16 rounded-[8px]"
           >
             <Button
+              type="button"
               className={cn(
                 'bg-default-btn text-white px-20 py-10 rounded-[10px] w-[149px] text-sm',
                 {
