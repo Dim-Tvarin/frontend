@@ -137,12 +137,42 @@ const EditAnnouncement = () => {
       });
       resetField('images');
       await refetch();
-    } catch {
-      showToast({
-        title: 'Щось пішло не по плану',
-        description: 'Виникла помилка при редагуванні оголошення',
-        status: 'error',
-      });
+    } catch (error: unknown) {
+      if ('status' in error) {
+        switch (error.status) {
+          case 400:
+            showToast({
+              title: 'Неправильний запит',
+              description: 'Перевірте введені дані',
+              status: 'error',
+            });
+            break;
+          case 401:
+            showToast({
+              title: 'Щось пішло не по плану',
+              description:
+                'Вам потрібно авторизуватися, щоб редагувати оголошення',
+              status: 'error',
+            });
+            break;
+          case 404:
+            showToast({
+              title: 'Щось пішло не по плану',
+              description: 'Ми не знайшли тваринку з таким ID',
+              status: 'error',
+            });
+            break;
+          default:
+            console.error('Ошибка:', error.status);
+        }
+      } else {
+        showToast({
+          title: 'Щось пішло не по плану',
+          description: 'Виникла помилка при редагуванні оголошення',
+          status: 'error',
+        });
+      }
+
       return;
     }
   };
