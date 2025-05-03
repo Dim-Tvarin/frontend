@@ -106,7 +106,6 @@ const EditAnnouncement = () => {
     ) || [];
 
   const handleDeleteImage = (imageId: string) => {
-    console.log('errors', filteredImages, imagesForDelete);
     if (
       animal?.animalImages &&
       animal?.animalImages?.length - imagesForDelete.length === 1

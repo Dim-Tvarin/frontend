@@ -4,6 +4,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogOverlay,
+  DialogTitle,
 } from './components/ui/dialog';
 import { CustomButton } from './CustomButton';
 import CloseSVG from 'src/assets/CloseSVG';
@@ -36,6 +37,7 @@ const Modal = ({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogOverlay className="bg-black/70" />
       <DialogContent
+        aria-describedby={undefined}
         className="w-[800px] min-h-[300px] rounded-[30px] py-[62px] px-[86px] bg-white text-center gap-0"
         onPointerDownOutside={e => e.preventDefault()}
         aria-labelledby="dialog-content"
@@ -49,6 +51,7 @@ const Modal = ({
           <CloseSVG size="22" />
         </DialogClose>
         <DialogHeader>
+          <DialogTitle className="sr-only">Confirmation</DialogTitle>
           <p className="text-[28px] leading-[150%] text-default-btn text-center mb-[47px]">
             {description}
           </p>
