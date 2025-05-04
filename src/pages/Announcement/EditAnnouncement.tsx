@@ -26,10 +26,11 @@ import {
   getMonthDeclension,
   getYearDeclension,
 } from 'src/helpers/getYearDeclension';
-import { FilesInput } from 'components/FilesInput';
+
 import { updateAnnounceSchema } from '../../validations/updateAnnounceValidation';
 import { useState } from 'react';
 import Modal from 'components/Modal';
+import { FilesInput } from 'components/FilesInputWithCrop';
 
 type AnnouncementForm = z.infer<typeof updateAnnounceSchema>;
 
@@ -383,6 +384,7 @@ const EditAnnouncement = () => {
                   error={errors.images?.message?.toString()}
                   value={value || []}
                   defaultValue={animal?.animalImages}
+                  imagesForDelete={imagesForDelete.length}
                 />
               )}
             />
