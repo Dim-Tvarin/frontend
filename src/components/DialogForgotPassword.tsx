@@ -8,7 +8,11 @@ import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { NavLink } from 'react-router-dom';
-import { selectError, setUserEmail } from '../redux/users/usersSlice';
+import {
+  clearError,
+  selectError,
+  setUserEmail,
+} from '../redux/users/usersSlice';
 import CloseSVG from '../assets/CloseSVG';
 import {
   Dialog,
@@ -51,15 +55,19 @@ const DialogForgotPassword: React.FC = () => {
         description: 'Код підтвердження надіслано, будь ласка перевірте пошту',
         status: 'success',
       });
-      dispatch(openDialog('verifyResetCode'));
       reset();
+      dispatch(clearError());
+      dispatch(openDialog('verifyResetCode'));
     }
   };
 
   return (
     <Dialog
       open={activeDialog === 'forgotPassword'}
-      onOpenChange={() => dispatch(closeDialog())}
+      onOpenChange={() => {
+        dispatch(clearError());
+        dispatch(closeDialog());
+      }}
     >
       <DialogOverlay className="bg-black/70" />
       <DialogContent
@@ -102,7 +110,10 @@ const DialogForgotPassword: React.FC = () => {
         </form>
 
         <NavLink
-          onClick={() => dispatch(closeDialog())}
+          onClick={() => {
+            dispatch(clearError());
+            dispatch(closeDialog());
+          }}
           to="/register"
           end
           className="mt-16 text-link text-lg"
@@ -113,7 +124,10 @@ const DialogForgotPassword: React.FC = () => {
         <CustomButton
           styleType="linkButton"
           className="mt-10 text-lg"
-          onClick={() => dispatch(openDialog('login'))}
+          onClick={() => {
+            dispatch(clearError());
+            dispatch(openDialog('login'));
+          }}
         >
           Увійти
         </CustomButton>
