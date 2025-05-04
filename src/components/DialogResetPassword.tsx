@@ -7,7 +7,7 @@ import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { NavLink } from 'react-router-dom';
-import { selectError } from '../redux/users/usersSlice';
+import { clearError, selectError } from '../redux/users/usersSlice';
 import CloseSVG from '../assets/CloseSVG';
 import {
   Dialog,
@@ -50,6 +50,7 @@ const DialogResetPassword: React.FC = () => {
         status: 'success',
       });
       reset();
+      dispatch(clearError());
       dispatch(openDialog('login'));
     }
   };
@@ -57,7 +58,10 @@ const DialogResetPassword: React.FC = () => {
   return (
     <Dialog
       open={activeDialog === 'resetPassword'}
-      onOpenChange={() => dispatch(closeDialog())}
+      onOpenChange={() => {
+        dispatch(clearError());
+        dispatch(closeDialog());
+      }}
     >
       <DialogOverlay className="bg-black/70" />
       <DialogContent
@@ -114,7 +118,10 @@ const DialogResetPassword: React.FC = () => {
         </form>
 
         <NavLink
-          onClick={() => dispatch(closeDialog())}
+          onClick={() => {
+            dispatch(clearError());
+            dispatch(closeDialog());
+          }}
           to="/register"
           end
           className="mt-16 text-lg text-link hover:text-orange"
@@ -125,7 +132,10 @@ const DialogResetPassword: React.FC = () => {
         <CustomButton
           styleType="linkButton"
           className="mt-10 text-lg"
-          onClick={() => dispatch(openDialog('login'))}
+          onClick={() => {
+            dispatch(clearError());
+            dispatch(openDialog('login'));
+          }}
         >
           Увійти
         </CustomButton>
