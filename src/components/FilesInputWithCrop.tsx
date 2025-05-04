@@ -11,6 +11,7 @@ import type { animalImage } from 'src/redux/animals/animalsApi';
 import getCroppedImg from '../helpers/cropImage';
 import Modal from './ImageCropModal';
 import { cn } from './lib/utils';
+import { CustomButton } from './CustomButton';
 
 export const FilesInput = ({
   ref,
@@ -192,9 +193,21 @@ export const FilesInput = ({
               onCropComplete={onCropComplete}
             />
           </div>
-          <div className="flex justify-end gap-4 mt-4">
-            <Button onClick={() => setCropModalOpen(false)}>Скасувати</Button>
-            <Button onClick={handleCropConfirm}>Зберегти</Button>
+          <div className="flex justify-end gap-4 mt-4 ml-auto items-center">
+            <CustomButton
+              styleType="defaultButton"
+              onClick={handleCropConfirm}
+              className="m-0 w-[150px]"
+            >
+              Зберегти
+            </CustomButton>
+            <CustomButton
+              styleType="linkButton"
+              onClick={() => setCropModalOpen(false)}
+              className="w-100"
+            >
+              Скасувати
+            </CustomButton>
           </div>
         </Modal>
       )}

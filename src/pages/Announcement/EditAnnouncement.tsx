@@ -138,7 +138,7 @@ const EditAnnouncement = () => {
       });
       resetField('images');
       await refetch();
-    } catch (error: unknown) {
+    } catch (error: any) {
       if ('status' in error) {
         switch (error.status) {
           case 400:
