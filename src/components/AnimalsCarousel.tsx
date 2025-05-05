@@ -25,12 +25,13 @@ const AnimalsCarousel = () => {
       }}
       className="w-full z-10"
     >
-      <CarouselContent className="-ml-2 flex">
+      <CarouselContent className="-ml-16 flex ">
         {data &&
           data?.animals.map(item => (
             <CarouselItem
               key={item.id}
-              className="min-w-[66.666%] md:min-w-[50%] lg:min-w-[33.3%] xl:min-w-[25%] pl-16"
+              className="basis-[66.6%] md:basis-[44%] lg:basis-[25%] pl-16"
+              // className="min-w-[66.666%] md:min-w-[33%] lg:min-w-[25%] pl-16"
             >
               <AnimalCard
                 key={item.id}

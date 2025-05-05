@@ -30,7 +30,7 @@ export const Home = () => {
           <img src={track} alt="track" />
         </div>
         <div className="sm:w-full order-2 md:order-1 flex flex-col gap-16 lg:gap-[24px] justify-center md:w-2/4 items-center z-10">
-          <p className="text-base md:text-xl lg:text-[32px] px-[20px] font-normal z-10">
+          <p className="text-base md:text-xl lg:text-[32px] px-[35px] md:px-[20px] font-normal z-10">
             Оберіть для себе ідеального домашнього улюбленця, або допоможіть
             безпритульним тваринам знайти свій дім
           </p>
