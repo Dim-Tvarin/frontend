@@ -1,7 +1,7 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 import logo from '../../assets/color-logo.svg';
 import { CustomButton } from 'components/CustomButton';
-import { FaRegHeart } from 'react-icons/fa';
+import { GoHeart } from 'react-icons/go';
 import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch } from '../../redux/store';
 import { selectIsLoggedIn, selectUser } from '../../redux/users/usersSlice';
@@ -33,8 +33,8 @@ export const Header = () => {
 
         <ul
           className={cn(
-            'flex flex-row items-center text-lg gap-56 mt-4',
-            isLoggedIn ? 'mr-0' : 'ml-64'
+            'flex flex-row items-center text-lg gap-[60px] mt-4',
+            isLoggedIn ? 'ml-16' : 'ml-[76px]'
           )}
         >
           <li>
@@ -85,9 +85,9 @@ export const Header = () => {
               <img src={search} alt="search" />
             </NavLink>
           </li> */}
-        <div className="flex items-center gap-20">
+        <div className="flex items-center gap-28">
           <button onClick={() => navigate('/favorite')} className="relative">
-            <FaRegHeart size="30px" />
+            <GoHeart size="32px" />
           </button>
 
           {isLoggedIn ? (
