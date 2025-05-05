@@ -30,8 +30,7 @@ const AnimalsCarousel = () => {
           data?.animals.map(item => (
             <CarouselItem
               key={item.id}
-              className="basis-[66.6%] md:basis-[44%] lg:basis-[25%] pl-16"
-              // className="min-w-[66.666%] md:min-w-[33%] lg:min-w-[25%] pl-16"
+              className="basis-[66.6%] md:basis-[50%] lg:basis-[37%] xl:basis-[29%] 2xl:basis-[25%] pl-16"
             >
               <AnimalCard
                 key={item.id}
@@ -46,8 +45,8 @@ const AnimalsCarousel = () => {
             </CarouselItem>
           ))}
       </CarouselContent>
-      <CarouselPrevious className="hidden md:block" />
-      <CarouselNext className="hidden md:block" />
+      <CarouselPrevious className="hidden md:flex" />
+      <CarouselNext className="hidden md:flex" />
     </Carousel>
   );
 };
