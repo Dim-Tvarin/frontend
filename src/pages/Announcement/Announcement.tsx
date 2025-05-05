@@ -23,6 +23,7 @@ import { useNavigate } from 'react-router';
 import { showToast } from 'components/Toast';
 import BreedSelect from 'components/BreedSelect';
 import { FilesInput } from 'components/FilesInputWithCrop';
+import { useEffect } from 'react';
 
 type AnnouncementForm = z.infer<typeof announceSchema>;
 
@@ -46,14 +47,21 @@ const Announcement = () => {
   const navigate = useNavigate();
 
   const isLoggedIn = useSelector(selectIsLoggedIn);
-  if (!isLoggedIn) {
-    showToast({
-      title: 'Звурніть увагу!',
-      description: 'Щоб додати оголошення ви повинні бути залогіненими',
-      status: 'info',
-    });
-    setTimeout(() => navigate('/register'), 2000);
-  }
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      showToast({
+        title: 'Звурніть увагу!',
+        description: 'Щоб додати оголошення ви повинні бути залогіненими',
+        status: 'info',
+      });
+      const timer = setTimeout(() => {
+        navigate('/register');
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [isLoggedIn, navigate]);
 
   const onSubmit = async (data: AnnouncementForm) => {
     const result = announceSchema.safeParse(data);
