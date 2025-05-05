@@ -1,6 +1,5 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 import logo from '../../assets/color-logo.svg';
-import search from '../../assets/search.svg';
 import { CustomButton } from 'components/CustomButton';
 import { FaRegHeart } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,6 +13,7 @@ import {
   AvatarImage,
 } from 'components/components/ui/avatar';
 import fallbackIcon from '../../assets/avatar-icon.png';
+import { cn } from 'components/lib/utils';
 
 export const Header = () => {
   const navigate = useNavigate();
@@ -28,30 +28,59 @@ export const Header = () => {
           <li className="mr-auto">
             <NavLink className="flex flex-col items-center" to="/" end>
               <img src={logo} alt="logo" className="w-46 h-46" />
-              <span className="text-xxs">Dim Tvaryn</span>
+              <span className="text-xxs hover:text-default-btn transition:all duration-300">
+                Dim Tvaryn
+              </span>
             </NavLink>
           </li>
           <li className="mr-56">
-            <NavLink to="/allpets" end>
+            <NavLink
+              to="/allpets"
+              className={({ isActive }) =>
+                cn(
+                  'hover:text-default-btn transition-all duration-300',
+                  isActive ? 'text-default-btn underline' : 'text-black'
+                )
+              }
+              end
+            >
               Знайти тварину
             </NavLink>
           </li>
           <li className="mr-56">
-            <NavLink to="/announcement" end>
+            <NavLink
+              to="/announcement"
+              className={({ isActive }) =>
+                cn(
+                  'hover:text-default-btn transition-all duration-300',
+                  isActive ? 'text-default-btn underline' : 'text-black'
+                )
+              }
+              end
+            >
               Віддати в добрі руки
             </NavLink>
           </li>
           <li className="mr-56">
-            <NavLink to="/lookfor" end>
+            <NavLink
+              to="/lookfor"
+              className={({ isActive }) =>
+                cn(
+                  'hover:text-default-btn transition-all duration-300',
+                  isActive ? 'text-default-btn underline' : 'text-black'
+                )
+              }
+              end
+            >
               Догляд за твариною
             </NavLink>
           </li>
 
-          <li className="ml-auto mr-20">
+          {/* <li className="ml-auto mr-20">
             <NavLink to="/favorite" end>
               <img src={search} alt="search" />
             </NavLink>
-          </li>
+          </li> */}
           <li className="mr-20">
             <NavLink to="/favorite" end>
               <FaRegHeart size="30px" />
