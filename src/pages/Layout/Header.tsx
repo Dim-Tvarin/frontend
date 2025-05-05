@@ -23,17 +23,21 @@ export const Header = () => {
 
   return (
     <header className="h-100 bg-header flex items-center">
-      <nav className="container">
-        <ul className="flex flex-row items-center text-lg">
-          <li className="mr-auto">
-            <NavLink className="flex flex-col items-center" to="/" end>
-              <img src={logo} alt="logo" className="w-46 h-46" />
-              <span className="text-xxs hover:text-default-btn transition:all duration-300">
-                Dim Tvaryn
-              </span>
-            </NavLink>
-          </li>
-          <li className="mr-56">
+      <nav className="container flex items-center justify-between">
+        <NavLink className="flex flex-col items-center gap-2" to="/" end>
+          <img src={logo} alt="logo" className="w-46 h-46" />
+          <span className="text-sm hover:text-default-btn transition:all duration-300">
+            Dim Tvaryn
+          </span>
+        </NavLink>
+
+        <ul
+          className={cn(
+            'flex flex-row items-center text-lg gap-56 mt-4',
+            isLoggedIn ? 'mr-0' : 'ml-64'
+          )}
+        >
+          <li>
             <NavLink
               to="/allpets"
               className={({ isActive }) =>
@@ -47,7 +51,7 @@ export const Header = () => {
               Знайти тварину
             </NavLink>
           </li>
-          <li className="mr-56">
+          <li>
             <NavLink
               to="/announcement"
               className={({ isActive }) =>
@@ -61,7 +65,7 @@ export const Header = () => {
               Віддати в добрі руки
             </NavLink>
           </li>
-          <li className="mr-56">
+          <li>
             <NavLink
               to="/lookfor"
               className={({ isActive }) =>
@@ -75,53 +79,48 @@ export const Header = () => {
               Догляд за твариною
             </NavLink>
           </li>
-
-          {/* <li className="ml-auto mr-20">
+        </ul>
+        {/* <li className="ml-auto mr-20">
             <NavLink to="/favorite" end>
               <img src={search} alt="search" />
             </NavLink>
           </li> */}
-          <li className="mr-20">
-            <NavLink to="/favorite" end>
-              <FaRegHeart size="30px" />
-            </NavLink>
-          </li>
-          <li>
-            {isLoggedIn ? (
-              <div className="flex flex-col items-center max-h-[54px]">
-                <Avatar
-                  className="size-9 text-[10px] p-0 m-4"
-                  onClick={() => navigate('/profile')}
-                >
-                  <AvatarImage
-                    src={user.avatarURL}
-                    alt={`Аватар ${user.name}`}
-                  />
-                  <AvatarFallback>
-                    <img
-                      src={fallbackIcon}
-                      alt={`Аватар ${user.name}`}
-                      className="w-full h-full object-cover rounded-full m-0 p-0"
-                    />
-                  </AvatarFallback>
-                </Avatar>
-                <span className="text-[10px] leading-[140%] tracking-[0.01em] m-0">
-                  {user.name}
-                </span>
-              </div>
-            ) : (
-              <CustomButton
-                onClick={() => dispatch(openDialog('login'))}
-                type="button"
-                styleType="defaultButton"
-                className="w-100 m-auto"
+        <div className="flex items-center gap-20">
+          <button onClick={() => navigate('/favorite')} className="relative">
+            <FaRegHeart size="30px" />
+          </button>
+
+          {isLoggedIn ? (
+            <div className="flex flex-col items-center max-h-[54px]">
+              <Avatar
+                className="size-9 text-[10px] p-0 m-4"
+                onClick={() => navigate('/profile')}
               >
-                <CabinetSVG />
-                <span>Вхід</span>
-              </CustomButton>
-            )}
-          </li>
-        </ul>
+                <AvatarImage src={user.avatarURL} alt={`Аватар ${user.name}`} />
+                <AvatarFallback>
+                  <img
+                    src={fallbackIcon}
+                    alt={`Аватар ${user.name}`}
+                    className="w-full h-full object-cover rounded-full m-0 p-0"
+                  />
+                </AvatarFallback>
+              </Avatar>
+              <span className="text-[10px] leading-[140%] tracking-[0.01em] m-0">
+                {user.name}
+              </span>
+            </div>
+          ) : (
+            <CustomButton
+              onClick={() => dispatch(openDialog('login'))}
+              type="button"
+              styleType="defaultButton"
+              className="w-[102px] m-auto"
+            >
+              <CabinetSVG />
+              <span>Вхід</span>
+            </CustomButton>
+          )}
+        </div>
       </nav>
     </header>
   );
