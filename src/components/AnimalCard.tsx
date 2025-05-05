@@ -46,7 +46,7 @@ const AnimalCard = ({
   };
 
   return (
-    <div className="relative w-[305px] h-[400px] border-2 border-orange rounded-4xl max-w-sm bg-white overflow-hidden flex items-end">
+    <div className="w-[242px] h-[318px] md:w-[294px] md:h-[400px] relative lg:w-[305px]  border-2 border-orange rounded-4xl max-w-sm bg-white overflow-hidden flex items-end">
       <img
         src={photoSrc}
         alt={name}

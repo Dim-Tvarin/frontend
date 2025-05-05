@@ -22,8 +22,8 @@ export const Header = () => {
   const user = useSelector(selectUser);
 
   return (
-    <header className="h-100 bg-header flex items-center">
-      <nav className="container flex items-center justify-between">
+    <header className="xs:h-80 h-100 bg-header flex items-center">
+      <nav className="xs:hidden container flex items-center justify-between">
         <NavLink className="flex flex-col items-center gap-2" to="/" end>
           <img src={logo} alt="logo" className="w-46 h-46" />
           <span className="text-sm hover:text-default-btn transition:all duration-300">
