@@ -9,7 +9,12 @@ import ImageCarousel from 'components/ImageCarousel';
 import { showToast } from 'components/Toast';
 import { AnimalType } from './Announcement/types';
 
-const defaultTypes = [AnimalType.dogs, AnimalType.cats, AnimalType.birds];
+const defaultTypes = [
+  AnimalType.dogs,
+  AnimalType.cats,
+  AnimalType.birds,
+  AnimalType.other,
+];
 
 export const typeMapping: Record<AnimalType, string> = {
   [AnimalType.dogs]: 'Собака',

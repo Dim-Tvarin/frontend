@@ -1,13 +1,17 @@
-import { type Ref, useEffect, useState } from 'react';
+import { useState, useEffect, type Ref } from 'react';
+import Cropper, { type Area } from 'react-easy-crop';
 import { Input } from './components/ui/input';
+import { Button } from './components/ui/button';
+import { useDropzone, type FileRejection } from 'react-dropzone';
 import { CustomLabel } from './CustomLabel';
 import FormError from './FormError';
-import { useDropzone, type FileRejection } from 'react-dropzone';
-import { cn } from './lib/utils';
 import PhotoPrev from './PhotoPrev';
 import { showToast } from './Toast';
-import { Button } from './components/ui/button';
 import type { animalImage } from 'src/redux/animals/animalsApi';
+import getCroppedImg from '../helpers/cropImage';
+import Modal from './ImageCropModal';
+import { cn } from './lib/utils';
+import { CustomButton } from './CustomButton';
 
 export const FilesInput = ({
   ref,
@@ -19,6 +23,7 @@ export const FilesInput = ({
   onChange,
   value,
   defaultValue,
+  imagesForDelete = 0,
   ...rest
 }: {
   ref?: Ref<HTMLInputElement>;
@@ -30,8 +35,14 @@ export const FilesInput = ({
   value: File[];
   error?: string;
   defaultValue?: animalImage[];
+  imagesForDelete?: number;
 }) => {
   const [imageData, setImageData] = useState<File[]>(value || []);
+  const [cropModalOpen, setCropModalOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [crop, setCrop] = useState({ x: 0, y: 0 });
+  const [zoom, setZoom] = useState(1);
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
 
   useEffect(() => {
     if (value.length !== imageData.length) {
@@ -39,35 +50,46 @@ export const FilesInput = ({
     }
   }, [value]);
 
+  const openCropModal = (file: File) => {
+    setSelectedImage(file);
+    setCropModalOpen(true);
+  };
+
+  const onCropComplete = (_: unknown, croppedAreaPixels: Area) => {
+    setCroppedAreaPixels(croppedAreaPixels);
+  };
+
+  const handleCropConfirm = async () => {
+    if (selectedImage && croppedAreaPixels) {
+      const cropped = await getCroppedImg(selectedImage, croppedAreaPixels);
+      const newFiles = [...imageData, cropped].slice(0, 4);
+      setImageData(newFiles);
+      onChange(newFiles);
+    }
+    setCropModalOpen(false);
+    setSelectedImage(null);
+  };
+
   const onDrop = (acceptedFiles: File[]) => {
-    const newFiles = [...imageData, ...acceptedFiles].slice(0, 4);
-    setImageData(newFiles);
-    onChange(newFiles);
+    const file = acceptedFiles[0];
+    if (file) openCropModal(file);
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    event.preventDefault();
-    event.stopPropagation();
-    if (event.target.files) {
-      onDrop(Array.from(event.target.files));
-    }
+    if (event.target.files) onDrop(Array.from(event.target.files));
   };
 
   const handleDeleteImage = (index: number) => {
-    const filteredFiles = imageData.filter((_, i) => i !== index);
-    setImageData(filteredFiles);
-    onChange(filteredFiles);
+    const updated = imageData.filter((_, i) => i !== index);
+    setImageData(updated);
+    onChange(updated);
   };
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
-    accept: {
-      'image/jpeg': [],
-      'image/png': [],
-      'image/gif': [],
-    },
-    multiple: true,
-    maxFiles: 4,
+    accept: { 'image/jpeg': [], 'image/png': [] },
+    multiple: false,
+    maxFiles: 1,
     onDropRejected: (fileRejections: FileRejection[]) => {
       fileRejections.forEach(({ errors }) => {
         errors.forEach(() => {
@@ -82,8 +104,9 @@ export const FilesInput = ({
   });
 
   const isDisabled =
-    imageData.length > 3 ||
-    (defaultValue && defaultValue?.length + imageData.length > 3);
+    imageData.length >= 4 ||
+    (defaultValue &&
+      defaultValue?.length + imageData.length - imagesForDelete >= 4);
 
   return (
     <div className="w-full">
@@ -92,6 +115,7 @@ export const FilesInput = ({
           {groupLabel}
         </CustomLabel>
       )}
+
       <div
         {...getRootProps()}
         className={`border-2 border-dashed border--border-drag p-6 rounded-lg text-center cursor-pointer bg-main-pink-l
@@ -104,15 +128,15 @@ export const FilesInput = ({
           onChange={handleFileChange}
           disabled={isDisabled}
           accept="image/*"
-          multiple
+          multiple={false}
           {...getInputProps()}
           {...rest}
         />
         <div className="flex items-center flex-col">
-          <p className="text-default-btn text-lg mb-16">
+          <p className="text-default-btn text-lg mb-4">
             {isDragActive
               ? 'Отпустите файл сюда...'
-              : 'Перетягніть файл сюди або '}
+              : 'Перетягніть файл сюди або натисніть'}
           </p>
           <div
             className="w-[382px] h-[64px] border-2 border-border-file bg-main-pink-l flex items-center gap-[19px]
@@ -137,8 +161,9 @@ export const FilesInput = ({
           </p>
         </div>
       </div>
+
       {imageData.length > 0 && (
-        <div className="grid grid-cols-2 gap-16 mt-32">
+        <div className="grid grid-cols-2 gap-16 mt-8">
           {imageData.map((img, index) => (
             <PhotoPrev
               image={img}
@@ -149,7 +174,43 @@ export const FilesInput = ({
           ))}
         </div>
       )}
+
       {error && <FormError error={error} />}
+
+      {cropModalOpen && selectedImage && (
+        <Modal
+          onClose={() => setCropModalOpen(false)}
+          title="Обрізати зображення"
+        >
+          <div className="w-full h-[400px] relative">
+            <Cropper
+              image={URL.createObjectURL(selectedImage)}
+              crop={crop}
+              zoom={zoom}
+              aspect={4 / 3}
+              onCropChange={setCrop}
+              onZoomChange={setZoom}
+              onCropComplete={onCropComplete}
+            />
+          </div>
+          <div className="flex justify-end gap-4 mt-4 ml-auto items-center">
+            <CustomButton
+              styleType="defaultButton"
+              onClick={handleCropConfirm}
+              className="m-0 w-[150px]"
+            >
+              Зберегти
+            </CustomButton>
+            <CustomButton
+              styleType="linkButton"
+              onClick={() => setCropModalOpen(false)}
+              className="w-100"
+            >
+              Скасувати
+            </CustomButton>
+          </div>
+        </Modal>
+      )}
     </div>
   );
 };

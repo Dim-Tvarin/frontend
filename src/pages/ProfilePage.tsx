@@ -223,7 +223,7 @@ const ProfilePage = () => {
                   name={item.animalName}
                   gender={item.gender}
                   age={item.age}
-                  photoSrc={item.animalImages[0].url}
+                  photoSrc={item?.animalImages[0]?.url}
                   isMyProfile={true}
                   status={item.status}
                 />
