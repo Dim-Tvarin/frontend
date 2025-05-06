@@ -27,7 +27,7 @@ export const Header = () => {
 
   return (
     <>
-      <header className="xs:h-80 h-100 bg-header flex items-center z-30">
+      <header className="h-80 lg:h-100 bg-header flex items-center z-30">
         {/* DESKTOP NAV */}
         <nav className="xs:hidden container lg:flex items-center justify-between">
           <NavLink className="flex flex-col items-center gap-2" to="/" end>
@@ -39,8 +39,8 @@ export const Header = () => {
 
           <ul
             className={cn(
-              'flex flex-row items-center text-lg gap-[60px] mt-4',
-              isLoggedIn ? 'ml-16' : 'ml-[76px]'
+              'flex flex-row items-center text-lg gap-28 xl:gap-[60px] mt-4',
+              isLoggedIn ? 'ml-16' : 'ml-20 xl:ml-[76px]'
             )}
           >
             <li>
