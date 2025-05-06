@@ -39,7 +39,7 @@ const PetPage = () => {
   }
   const { data, error, isLoading } = useGetAnimalByIdQuery(id);
 
-  if (isLoading) {
+  if (!isLoading) {
     return <PetPageSceleton />;
   }
   if (error) {
