@@ -130,7 +130,7 @@ export const Header = () => {
       </nav>
 
       {/* MOBILE HEADER */}
-      <div className="container xs:flex hidden items-center justify-between w-full px-4 lg:hidden">
+      <div className="container xs:flex hidden items-center justify-between w-full px-4 lg:hidden z-30">
         <button
           onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
           className="focus:outline-none"
@@ -182,22 +182,27 @@ export const Header = () => {
       </div>
 
       {/* MOBILE MENU PANEL */}
-      {isMobileMenuOpen && (
-        <div className="absolute top-80 left-0 w-full bg-[#f0f4fa] p-4 shadow-md z-50 rounded-b-lg xs:flex flex-col gap-16 text-lg font-medium text-default-btn">
-          <NavLink to="/profile" onClick={() => setMobileMenuOpen(false)}>
-            Особистий кабінет
-          </NavLink>
-          <NavLink to="/allpets" onClick={() => setMobileMenuOpen(false)}>
-            Знайти тварину
-          </NavLink>
-          <NavLink to="/announcement" onClick={() => setMobileMenuOpen(false)}>
-            Віддати в добрі руки
-          </NavLink>
-          <NavLink to="/lookfor" onClick={() => setMobileMenuOpen(false)}>
-            Догляд за твариною
-          </NavLink>
-        </div>
-      )}
+      <div
+        className={cn(
+          'absolute top-80 left-0 w-full bg-dialog shadow-md z-50 rounded-b-lg flex flex-col gap-32  text-base font-semibold text-default-btn py-16 transition-all duration-700 ease-in-out transform lg:hidden will-change-transform',
+          isMobileMenuOpen
+            ? 'translate-y-0 opacity-100 pointer-events-auto'
+            : '-translate-y-[300px] opacity-0 pointer-events-none'
+        )}
+      >
+        <NavLink to="/profile" onClick={() => setMobileMenuOpen(false)}>
+          Особистий кабінет
+        </NavLink>
+        <NavLink to="/allpets" onClick={() => setMobileMenuOpen(false)}>
+          Знайти тварину
+        </NavLink>
+        <NavLink to="/announcement" onClick={() => setMobileMenuOpen(false)}>
+          Віддати в добрі руки
+        </NavLink>
+        <NavLink to="/lookfor" onClick={() => setMobileMenuOpen(false)}>
+          Догляд за твариною
+        </NavLink>
+      </div>
     </header>
   );
 };
