@@ -5,7 +5,7 @@ import Main from 'pages/Layout/Main';
 import { Home } from 'pages/Home';
 import Registration from 'pages/Auth/Registration';
 import Components from 'pages/Components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { refreshThunk } from './redux/users/usersOperations';
 import type { AppDispatch } from './redux/store';
@@ -16,12 +16,16 @@ import PetPage from 'pages/PetPage';
 import ProfilePage from 'pages/ProfilePage';
 import PrivateRoute from 'components/routes/PrivateRoute';
 import EditAnnouncement from 'pages/Announcement/EditAnnouncement';
+import { selectToken } from './redux/users/usersSlice';
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
+  const token = useSelector(selectToken);
   useEffect(() => {
-    dispatch(refreshThunk());
-  }, [dispatch]);
+    if (token) {
+      dispatch(refreshThunk());
+    }
+  }, [dispatch, token]);
   console.log('week-13');
   return (
     <Routes>

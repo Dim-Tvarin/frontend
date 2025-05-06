@@ -147,6 +147,8 @@ const slice = createSlice({
           resetPasswordThunk.rejected
         ),
         (state, action) => {
+          const message = action.payload as string;
+          if (!message) return;
           state.isLoading = false;
           state.error = action.payload as string;
         }

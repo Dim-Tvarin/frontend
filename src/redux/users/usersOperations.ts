@@ -141,38 +141,6 @@ export const logoutThunk = createAsyncThunk<void, void>(
   }
 );
 
-// export const refreshThunk = createAsyncThunk<
-//   UsersRefreshResponse,
-//   void,
-//   { state: RootState }
-// >('refresh', async (_, thunkAPI) => {
-//   const token = (thunkAPI.getState() as RootState).users.token;
-
-//   if (!token) {
-//     return thunkAPI.rejectWithValue('Token does not exist');
-//   }
-//   setToken(token);
-
-//   try {
-//     const { data } =
-//       await marketplaceApiUsers.get<UsersRefreshResponse>('current');
-//     return data;
-//   } catch (err) {
-//     const error = err as AxiosError<ErrorResponse>;
-
-//     const errorMessages: Record<number, string> = {
-//       401: 'Невірний токен. Будь ласка, увійдіть знову',
-//       404: 'Користувача не знайдено',
-//       500: 'Помилка сервера. Спробуйте пізніше',
-//     };
-
-//     return thunkAPI.rejectWithValue(
-//       error.response?.status
-//         ? errorMessages[error.response.status]
-//         : 'Refresh failed'
-//     );
-//   }
-// });
 export const refreshThunk = createAsyncThunk<
   UsersRefreshResponse,
   void,
@@ -181,7 +149,7 @@ export const refreshThunk = createAsyncThunk<
   const token = thunkAPI.getState().users.token;
 
   if (!token) {
-    return thunkAPI.rejectWithValue('Token is missing');
+    return thunkAPI.rejectWithValue(null);
   }
 
   setToken(token);
@@ -192,6 +160,11 @@ export const refreshThunk = createAsyncThunk<
     return data;
   } catch (err) {
     const error = err as AxiosError<ErrorResponse>;
+    const errorMessages: Record<number, string> = {
+      401: 'Невірний токен. Будь ласка, увійдіть знову',
+      404: 'Користувача не знайдено',
+      500: 'Помилка сервера. Спробуйте пізніше',
+    };
 
     const status = error.response?.status;
 
@@ -205,7 +178,9 @@ export const refreshThunk = createAsyncThunk<
     }
 
     return thunkAPI.rejectWithValue(
-      error.response?.data?.message ?? 'Не вдалося оновити сесію'
+      error.response?.status
+        ? errorMessages[error.response.status]
+        : 'Не вдалося оновити сесію'
     );
   }
 });
