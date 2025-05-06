@@ -16,7 +16,7 @@ const ImageCarousel = ({
 
   if (images.length === 0) {
     return (
-      <Skeleton className="w-[325px] h-[210px] lg:w-[630px] lg:h-[529px] rounded-[30px] shadow-lg" />
+      <Skeleton className="w-[325px] h-[210px] lg:w-[630px] lg:h-[471px] rounded-[30px] shadow-lg" />
     );
   }
 
@@ -26,7 +26,7 @@ const ImageCarousel = ({
 
   return (
     <div className="flex flex-col items-center gap-32">
-      <div className="relative w-[325px] h-[210px] lg:w-[630px] lg:h-[529px] rounded-[30px] bg-orange">
+      <div className="relative min-w-[325px] h-[210px] w-[80%] md:h-[471px] lg:w-[466px] xl:w-[630px] rounded-[30px] bg-orange">
         {isDelete && (
           <div
             className="absolute top-[52px] right-[42px] w-[36px] h-[36px] bg-default-btn rounded-full grid place-items-center hover:bg-orange transition-all duration-300 z-10 cursor-pointer"
@@ -35,7 +35,7 @@ const ImageCarousel = ({
             <FaRegTrashAlt color="white" />
           </div>
         )}
-        <div className="absolute bottom-0 w-[310px] h-[194px] lg:w-[600px] lg:h-[497px] rounded-[30px] overflow-hidden">
+        <div className="absolute bottom-0 min-w-[310px] h-[194px] w-[95%] md:h-[440px] lg:w-[442px]  xl:w-[600px] rounded-[30px] overflow-hidden">
           <img
             src={images[activeIndex]?.url}
             alt="Selected"
@@ -50,7 +50,7 @@ const ImageCarousel = ({
               <button
                 key={idx}
                 onClick={() => setActiveIndex(idx)}
-                className={`w-100 h-100 lg:w-[200px] lg:h-[200px] rounded-[20px] overflow-hidden transition ring-2 relative ${
+                className={`w-100 h-100 md:w-[200px] md:h-[200px] rounded-[20px] overflow-hidden transition ring-2 relative ${
                   idx === activeIndex ? 'ring-orange-400' : 'ring-transparent'
                 }`}
               >

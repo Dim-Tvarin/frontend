@@ -13,7 +13,7 @@ export const PhoneReveal = ({
 
   return (
     <div
-      className={`${className} flex items-center lg:gap-50 text-lg flex-col lg:flex-row`}
+      className={`${className} flex items-center xl:gap-50 text-lg flex-col xl:flex-row`}
     >
       <span className=" font-medium">{isRevealed ? phone : maskedPhone}</span>
       {!isRevealed && (
