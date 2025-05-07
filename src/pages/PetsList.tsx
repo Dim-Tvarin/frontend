@@ -21,6 +21,7 @@ import {
 import BreedSelect from 'components/BreedSelect';
 import { CitySelect } from 'components/CitySelect';
 import { Controller, useForm } from 'react-hook-form';
+import { cn } from 'components/lib/utils';
 
 const limit = 12;
 
@@ -139,7 +140,7 @@ const PetsList = () => {
             </p>
           )}
         </div>
-        <div className="absolute top-0 right-0  z-10">
+        <div className="absolute top-0 right-0 z-10 flex items-end flex-col">
           <CustomButton
             type="button"
             styleType="whiteButton"
@@ -149,16 +150,22 @@ const PetsList = () => {
             Сортування за датою
           </CustomButton>
           {openSorting && (
-            <div className="bg-header border-1 border-default-btn rounded-xl flex flex-col gap-4 px-16 py-10">
+            <div className="bg-dialog border-1 border-default-btn rounded-xl flex flex-col gap-4 px-16 py-10">
               <button
                 onClick={handleAscSorting}
-                className="text-default-btn text-left text-lg focus:outline-none"
+                className={cn(
+                  'text-default-btn text-left text-lg focus:outline-none hover:text-orange transition-all duration-300',
+                  sorting === 'newest' && 'text-orange'
+                )}
               >
                 Останні оголошення
               </button>
               <button
                 onClick={handleDescSorting}
-                className="text-default-btn text-left text-lg focus:outline-none"
+                className={cn(
+                  'text-default-btn text-left text-lg focus:outline-none hover:text-orange transition-all duration-300',
+                  sorting === 'oldest' && 'text-orange'
+                )}
               >
                 Давні оголошення
               </button>

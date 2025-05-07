@@ -21,13 +21,17 @@ const AnimalsCarousel = () => {
       opts={{
         align: 'start',
         loop: true,
+        duration: 1000,
       }}
       className="w-full z-10"
     >
-      <CarouselContent>
+      <CarouselContent className="-ml-16 flex ">
         {data &&
           data?.animals.map(item => (
-            <CarouselItem key={item.id} className="basis-1/4">
+            <CarouselItem
+              key={item.id}
+              className="basis-[66.6%] md:basis-[50%] lg:basis-[37%] xl:basis-[29%] 2xl:basis-[25%] ml-16 pl-16"
+            >
               <AnimalCard
                 key={item.id}
                 id={item.id}
@@ -41,8 +45,8 @@ const AnimalsCarousel = () => {
             </CarouselItem>
           ))}
       </CarouselContent>
-      <CarouselPrevious />
-      <CarouselNext />
+      <CarouselPrevious className="hidden md:flex" />
+      <CarouselNext className="hidden md:flex" />
     </Carousel>
   );
 };

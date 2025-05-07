@@ -63,6 +63,13 @@
   --spacing-72: 72px;
   --spacing-80: 80px;
   --spacing-100: 100px;
+
+
+  --breakpoint-xs: 360px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1440px;
 }
 
 :root {
@@ -147,6 +154,13 @@ table {
   box-sizing: border-box;
 }
 
-/* .dark {
-
-} */
+@media (min-width: 320px) {
+  .container {
+    padding: 0 16px;
+  }
+}
+@media (min-width: 768px) {
+  .container {
+    padding: 0 80px;
+  }
+}

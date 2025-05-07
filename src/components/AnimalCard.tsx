@@ -46,7 +46,7 @@ const AnimalCard = ({
   };
 
   return (
-    <div className="relative w-[305px] h-[400px] border-2 border-orange rounded-4xl max-w-sm bg-white overflow-hidden flex items-end">
+    <div className="w-[242px] h-[318px] md:w-[294px] md:h-[400px] relative lg:w-[305px]  border-2 border-orange rounded-4xl max-w-sm bg-white overflow-hidden flex items-end">
       <img
         src={photoSrc}
         alt={name}
@@ -59,7 +59,7 @@ const AnimalCard = ({
           </div>
         </div>
       )}
-      <div className="bg-main-pink-l/80 relative rounded-t-4xl z-10 w-full px-32 py-12">
+      <div className="bg-main-pink-l/80 relative rounded-t-4xl z-10 w-full px-16 md:px-32 py-12">
         <div className="text-left">
           <div className="flex justify-between">
             <h2 className="text-lg font-medium">{name}</h2>
@@ -72,7 +72,7 @@ const AnimalCard = ({
           <div className="text-lg font-medium flex gap-1">
             {gender !== 'unknown' && <span>{genderMapping[gender]}</span>}
             {!!age.years && <span>{getYearDeclension(age.years)} </span>}
-            {!!age.months && <span>{`${age.months} міс.`}</span>}
+            {!!age.months && <span>{`${age.months}\u00A0міс.`}</span>}
           </div>
           {!isMyProfile && (
             <div
