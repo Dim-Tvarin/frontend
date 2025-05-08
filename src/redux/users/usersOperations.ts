@@ -3,6 +3,7 @@ import { clearToken, marketplaceApiUsers, setToken } from '../../api';
 import type { AppDispatch, RootState } from '../store';
 import { AxiosError } from 'axios';
 import { showToast } from 'components/Toast';
+import type { Animal } from '../animals/animalsApi';
 
 interface RegisterCredentials {
   name: string;
@@ -26,6 +27,7 @@ interface User {
   avatarURL?: string;
   location?: string;
   theme?: 'light' | 'dark';
+  favorites: Animal[];
 }
 
 interface UsersRegisterResponse {
