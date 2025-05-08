@@ -10,7 +10,7 @@ export type animalImage = {
   publicId: string;
   url: string;
 };
-interface Animal {
+export interface Animal {
   id: string;
   age: animalAge;
   animalName: string;
@@ -121,6 +121,16 @@ export const animalsApi = createApi({
         body: { favorite: true },
       }),
     }),
+    toggleFavoriteAnimal: build.mutation<
+      unknown,
+      { id: string; favorite: boolean }
+    >({
+      query: ({ id, favorite }) => ({
+        url: `/animals/${id}/favorite`,
+        method: 'PATCH',
+        body: { favorite },
+      }),
+    }),
     deleteMyAnimals: build.mutation<unknown, string>({
       query: animalId => ({
         url: `/animals/${animalId}`,
@@ -138,5 +148,6 @@ export const {
   useGetAnimalByIdQuery,
   useGetMyAnimalsQuery,
   useAddFavoriteAnimalMutation,
+  useToggleFavoriteAnimalMutation,
   useDeleteMyAnimalsMutation,
 } = animalsApi;
