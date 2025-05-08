@@ -71,70 +71,72 @@ const ProfilePage = () => {
   };
 
   return (
-    <Tabs
-      defaultValue="main-info"
-      className="pt-100 px-80 grow flex-row gap-40"
-      data-orientation="vertical"
-    >
-      <TabsList className="flex flex-col gap-25 h-full">
-        <TabsTrigger
-          value="main-info"
-          aria-orientation="vertical"
-          className="w-[285px] h-[77px] text-lg m-0 outline-none shadow-none rounded-[20px] py-[26px]
-          data-[state=active]:shadow-none 
-          data-[state=active]:outline-none 
-          text-white hover:text-default-btn bg-default-btn hover:bg-orange hover:border-default-btn hover:border-2 disabled:bg-disabled  
-          data-[state=active]:text-default-btn 
-          data-[state=active]:bg-white 
-          data-[state=active]:border-2
-          data-[state=active]:border-default-btn 
-          data-[state=active]:hover:border-orange"
-        >
-          Основна інформація
-        </TabsTrigger>
-
-        <TabsTrigger
-          value="my-adverts"
-          aria-orientation="vertical"
-          className="w-[285px] h-[77px] text-lg m-0 outline-none shadow-none rounded-[20px] py-[26px]
-          data-[state=active]:shadow-none 
-          data-[state=active]:outline-none 
-          text-white hover:text-default-btn bg-default-btn hover:bg-orange hover:border-default-btn hover:border-2 disabled:bg-disabled  
-          data-[state=active]:text-default-btn 
-          data-[state=active]:bg-white 
-          data-[state=active]:border-2
-          data-[state=active]:border-default-btn 
-          data-[state=active]:hover:border-orange"
-        >
-          Мої оголошення
-        </TabsTrigger>
-        {openFilters && (
-          <AdvertsFilter
-            filters={filters}
-            onChange={handleFilterChange}
-            onReset={handleFilterReset}
-            onSubmit={handleFilterSubmit}
-          />
-        )}
-      </TabsList>
-      <TabsContent value="main-info" data-orientation="vertical">
-        <ProfileMainTab />
-      </TabsContent>
-      <TabsContent
-        value="my-adverts"
+    <div className="container">
+      <Tabs
+        defaultValue="main-info"
+        className="pt-100 grow flex-row gap-[18px]"
         data-orientation="vertical"
-        className="flex flex-col gap-[44px]"
       >
-        <ProfileMyAdvertsTab
-          setOpenFilters={setOpenFilters}
-          data={data}
-          isLoading={isLoading}
-          totalPages={totalPages}
-          page={page}
-          setPage={setPage}
-        />
-      </TabsContent>
-    </Tabs>
+        <TabsList className="flex flex-col gap-32 h-[140px] p-0">
+          <TabsTrigger
+            value="main-info"
+            aria-orientation="vertical"
+            className="w-[307px] h-[54px] text-lg m-0 outline-none shadow-none rounded-[20px] py-[15px]
+          data-[state=active]:shadow-none 
+          data-[state=active]:outline-none 
+          text-white hover:text-default-btn bg-default-btn hover:bg-orange hover:border-default-btn hover:border-2 disabled:bg-disabled  
+          data-[state=active]:text-default-btn 
+          data-[state=active]:bg-white 
+          data-[state=active]:border-2
+          data-[state=active]:border-default-btn 
+          data-[state=active]:hover:border-orange"
+          >
+            Основна інформація
+          </TabsTrigger>
+
+          <TabsTrigger
+            value="my-adverts"
+            aria-orientation="vertical"
+            className="w-[307px] h-[54px] text-lg m-0 outline-none shadow-none rounded-[20px] py-[15px]
+          data-[state=active]:shadow-none 
+          data-[state=active]:outline-none 
+          text-white hover:text-default-btn bg-default-btn hover:bg-orange hover:border-default-btn hover:border-2 disabled:bg-disabled  
+          data-[state=active]:text-default-btn 
+          data-[state=active]:bg-white 
+          data-[state=active]:border-2
+          data-[state=active]:border-default-btn 
+          data-[state=active]:hover:border-orange"
+          >
+            Мої оголошення
+          </TabsTrigger>
+          {openFilters && (
+            <AdvertsFilter
+              filters={filters}
+              onChange={handleFilterChange}
+              onReset={handleFilterReset}
+              onSubmit={handleFilterSubmit}
+            />
+          )}
+        </TabsList>
+        <TabsContent value="main-info" data-orientation="vertical">
+          <ProfileMainTab />
+        </TabsContent>
+        <TabsContent
+          value="my-adverts"
+          data-orientation="vertical"
+          className="flex flex-col gap-[44px]"
+        >
+          <ProfileMyAdvertsTab
+            setOpenFilters={setOpenFilters}
+            data={data}
+            isLoading={isLoading}
+            totalPages={totalPages}
+            page={page}
+            setPage={setPage}
+          />
+        </TabsContent>
+      </Tabs>
+    </div>
   );
 };
 

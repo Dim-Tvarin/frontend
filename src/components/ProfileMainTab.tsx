@@ -10,9 +10,11 @@ import { showToast } from './Toast';
 import { CustomButton } from './CustomButton';
 import AnimalCard from './AnimalCard';
 import { selectFavoriteAnimals } from 'src/redux/animals/favoriteAnimalsSlice';
+import { useNavigate } from 'react-router';
 
 const ProfileMainTab = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
   const user = useSelector(selectUser);
   const handleClick = () => {
     dispatch(logoutThunk());
@@ -64,21 +66,34 @@ const ProfileMainTab = () => {
           </div>
         </div>
       </div>
-      <h2 className="text-2xl font-bold mt-10">Обрані</h2>
-      <div className="grid grid-cols-3 gap-20">
-        {favoriteAnimals.map(item => (
-          <AnimalCard
-            key={item.id}
-            id={item.id}
-            name={item.animalName}
-            gender={item.gender}
-            age={item.age}
-            photoSrc={item.animalImages[0].url}
-            status={item.status}
-            animal={item}
-          />
-        ))}
-      </div>
+      {user.userType === 'adopter' && (
+        <>
+          <h2 className="text-[28px] text-left mt-[43px] mb-[60px] text-default-btn">
+            Обрані
+          </h2>
+          <div className="grid grid-cols-3 gap-20">
+            {favoriteAnimals.map(item => (
+              <AnimalCard
+                key={item.id}
+                id={item.id}
+                name={item.animalName}
+                gender={item.gender}
+                age={item.age}
+                photoSrc={item.animalImages[0].url}
+                status={item.status}
+                animal={item}
+              />
+            ))}
+          </div>
+          <CustomButton
+            styleType="defaultButton"
+            onClick={() => navigate('/favorite')}
+            className="mt-50 text-base"
+          >
+            Переглянути всіх
+          </CustomButton>
+        </>
+      )}
     </>
   );
 };
