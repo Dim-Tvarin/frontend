@@ -10,6 +10,7 @@ const initialState: ViewedAnimalsState = {
 const viewedAnimalsSlice = createSlice({
   name: 'viewedAnimals',
   initialState,
+  selectors: { selectViewedAnimals: state => state.animals },
   reducers: {
     addViewedAnimal: (state, action: PayloadAction<Animal>) => {
       const animal = action.payload;
@@ -27,4 +28,5 @@ const viewedAnimalsSlice = createSlice({
 
 export const { addViewedAnimal, clearViewedAnimals } =
   viewedAnimalsSlice.actions;
+export const { selectViewedAnimals } = viewedAnimalsSlice.selectors;
 export const viewedAnimalsReducer = viewedAnimalsSlice.reducer;

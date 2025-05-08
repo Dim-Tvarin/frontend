@@ -8,6 +8,10 @@ import tracks4 from '../assets/tracks4.png';
 import ImageCarousel from 'components/ImageCarousel';
 import { showToast } from 'components/Toast';
 import { AnimalType } from './Announcement/types';
+import { addViewedAnimal } from 'src/redux/animals/viewedAnimalsSlice';
+import { useEffect } from 'react';
+import type { AppDispatch } from 'src/redux/store';
+import { useDispatch } from 'react-redux';
 
 const defaultTypes = [AnimalType.dogs, AnimalType.cats, AnimalType.birds];
 
@@ -19,6 +23,7 @@ export const typeMapping: Record<AnimalType, string> = {
 };
 
 const PetPage = () => {
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
 
@@ -33,6 +38,11 @@ const PetPage = () => {
     return;
   }
   const { data, error, isLoading } = useGetAnimalByIdQuery(id);
+  useEffect(() => {
+    if (data?.animal) {
+      dispatch(addViewedAnimal(data.animal));
+    }
+  }, [data?.animal, dispatch]);
 
   if (isLoading) {
     return <PetPageSceleton />;

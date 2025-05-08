@@ -21,6 +21,10 @@ import {
 import { addInfoApi } from './animals/addInfoApi.ts';
 import { animalsApi } from './animals/animalsApi.ts';
 import { usersApi } from './users/usersApi.ts';
+import {
+  viewedAnimalsReducer,
+  type ViewedAnimalsState,
+} from './animals/viewedAnimalsSlice';
 
 const persistConfig = {
   key: 'users',
@@ -30,6 +34,12 @@ const persistConfig = {
 
 const persistConfigFavoriteAnimals = {
   key: 'favoriteAnimals',
+  storage,
+  whitelist: ['animals'],
+};
+
+const persistConfigViewedAnimals = {
+  key: 'viewedAnimals',
   storage,
   whitelist: ['animals'],
 };
@@ -45,6 +55,10 @@ export const store = configureStore({
       favoriteAnimalsReducer
     ),
     [addInfoApi.reducerPath]: addInfoApi.reducer,
+    viewedAnimals: persistReducer<ViewedAnimalsState>(
+      persistConfigViewedAnimals,
+      viewedAnimalsReducer
+    ),
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

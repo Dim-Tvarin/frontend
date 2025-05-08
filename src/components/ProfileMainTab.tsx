@@ -11,6 +11,7 @@ import { CustomButton } from './CustomButton';
 import AnimalCard from './AnimalCard';
 import { selectFavoriteAnimals } from 'src/redux/animals/favoriteAnimalsSlice';
 import { useNavigate } from 'react-router';
+import { selectViewedAnimals } from 'src/redux/animals/viewedAnimalsSlice';
 
 const ProfileMainTab = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -25,6 +26,7 @@ const ProfileMainTab = () => {
   };
 
   const favoriteAnimals = useSelector(selectFavoriteAnimals);
+  const viewedAnimals = useSelector(selectViewedAnimals);
 
   return (
     <>
@@ -71,27 +73,61 @@ const ProfileMainTab = () => {
           <h2 className="text-[28px] text-left mt-[43px] mb-[60px] text-default-btn">
             Обрані
           </h2>
-          <div className="grid grid-cols-3 gap-20">
-            {favoriteAnimals.map(item => (
-              <AnimalCard
-                key={item.id}
-                id={item.id}
-                name={item.animalName}
-                gender={item.gender}
-                age={item.age}
-                photoSrc={item.animalImages[0].url}
-                status={item.status}
-                animal={item}
-              />
-            ))}
-          </div>
-          <CustomButton
-            styleType="defaultButton"
-            onClick={() => navigate('/favorite')}
-            className="mt-50 text-base"
-          >
-            Переглянути всіх
-          </CustomButton>
+          {favoriteAnimals.length === 0 ? (
+            <p className="text-center text-lg text-gray-500 mt-10">
+              У вас поки немає обраних.
+            </p>
+          ) : (
+            <>
+              <div className="grid grid-cols-3 gap-20">
+                {favoriteAnimals.slice(0, 3).map(item => (
+                  <AnimalCard
+                    key={item.id}
+                    id={item.id}
+                    name={item.animalName}
+                    gender={item.gender}
+                    age={item.age}
+                    photoSrc={item.animalImages[0].url}
+                    status={item.status}
+                    animal={item}
+                  />
+                ))}
+              </div>
+              <CustomButton
+                styleType="defaultButton"
+                onClick={() => navigate('/favorite')}
+                className="mt-50 text-base"
+              >
+                Переглянути всіх
+              </CustomButton>
+            </>
+          )}
+          <h2 className="text-[28px] text-left mb-[60px] text-default-btn mt-100">
+            Історія переглядів
+          </h2>
+          {viewedAnimals.length === 0 ? (
+            <p className="text-center text-lg text-gray-500 mt-10">
+              У вас поки немає історії переглядів.
+            </p>
+          ) : (
+            <div className="h-[820px] grid grid-cols-3 gap-20 overflow-hidden">
+              {viewedAnimals
+                .slice(0, 6)
+                .reverse()
+                .map(item => (
+                  <AnimalCard
+                    key={item.id}
+                    id={item.id}
+                    name={item.animalName}
+                    gender={item.gender}
+                    age={item.age}
+                    photoSrc={item.animalImages[0].url}
+                    status={item.status}
+                    animal={item}
+                  />
+                ))}
+            </div>
+          )}
         </>
       )}
     </>

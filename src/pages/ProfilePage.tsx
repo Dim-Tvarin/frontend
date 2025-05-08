@@ -74,7 +74,7 @@ const ProfilePage = () => {
     <div className="container">
       <Tabs
         defaultValue="main-info"
-        className="pt-100 grow flex-row gap-[18px]"
+        className="pt-100 pb-100 grow flex-row gap-[18px]"
         data-orientation="vertical"
       >
         <TabsList className="flex flex-col gap-32 h-[140px] p-0">
