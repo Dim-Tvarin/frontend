@@ -203,7 +203,6 @@ const EditAnnouncement = () => {
                 <CustomRadioGroup
                   items={animalTypeOptions}
                   className="grid grid-cols-2"
-                  itemWidth="305"
                   error={errors.animalType?.message}
                   name={name}
                   ref={ref}
@@ -223,7 +222,6 @@ const EditAnnouncement = () => {
                 <CustomRadioGroup
                   items={genderOption}
                   className="grid grid-cols-2"
-                  itemWidth="305"
                   error={errors.gender?.message}
                   name={name}
                   ref={ref}
