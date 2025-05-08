@@ -94,7 +94,7 @@ export const Header = () => {
               <img src={search} alt="search" />
             </NavLink>
           </li> */}
-          <li className="mr-20">
+          <div className="flex items-center gap-28">
             <NavLink to="/favorite" className="relative" end>
               {favoritesCount > 0 ? (
                 <FaHeart size={32} className="text-error-input" />
@@ -107,8 +107,7 @@ export const Header = () => {
                 </span>
               )}
             </NavLink>
-          </li>
-          <li>
+
             {isLoggedIn ? (
               <div className="flex flex-col items-center max-h-[54px]">
                 <Avatar
@@ -142,7 +141,7 @@ export const Header = () => {
                 <span>Вхід</span>
               </CustomButton>
             )}
-          </li>
+          </div>
         </nav>
 
         {/* MOBILE HEADER */}

@@ -36,7 +36,7 @@ const FavoritePage = () => {
   };
 
   return (
-    <div className="container flex flex-col">
+    <div className="container flex flex-col h-full grow">
       <div className="relative text-center mt-100 mb-50">
         <h1 className="text-[32px] text-default-btn w-full">Обрані</h1>
         {favorites.length === 0 && (
@@ -48,8 +48,8 @@ const FavoritePage = () => {
         <PetsListSkeleton />
       ) : (
         <>
-          <div className="flex gap-20 flex-col">
-            <div className="grid gap-20 wrap transition-all duration-500 grid-cols-4 grow">
+          <div className="flex gap-20 flex-col h-full grow">
+            <div className="grid gap-20 wrap transition-all duration-500 grid-cols-4 ">
               {paginatedFavorites.map(item => (
                 <AnimalCard
                   key={item.id}
