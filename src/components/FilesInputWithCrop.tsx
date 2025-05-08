@@ -24,10 +24,12 @@ export const FilesInput = ({
   value,
   defaultValue,
   imagesForDelete = 0,
+  className,
   ...rest
 }: {
   ref?: Ref<HTMLInputElement>;
   groupLabel?: string;
+  className?: string;
   labelClass?: string;
   labelSize?: string;
   name: string;
@@ -109,7 +111,7 @@ export const FilesInput = ({
       defaultValue?.length + imageData.length - imagesForDelete >= 4);
 
   return (
-    <div className="w-full">
+    <div className={`${className}`}>
       {groupLabel && (
         <CustomLabel labelSize={labelSize} labelClass={labelClass}>
           {groupLabel}
@@ -133,13 +135,11 @@ export const FilesInput = ({
           {...rest}
         />
         <div className="flex items-center flex-col">
-          <p className="text-default-btn text-lg mb-4">
-            {isDragActive
-              ? 'Отпустите файл сюда...'
-              : 'Перетягніть файл сюди або натисніть'}
+          <p className="text-default-btn text-base lg:text-lg mb-16">
+            {isDragActive ? 'Отпустите файл сюда...' : 'Перетягніть файл сюди'}
           </p>
           <div
-            className="w-[382px] h-[64px] border-2 border-border-file bg-main-pink-l flex items-center gap-[19px]
+            className="lg:w-[382px] h-[64px] border-2 border-border-file bg-main-pink-l flex items-center gap-[19px]
           py-10 px-16 rounded-[8px]"
           >
             <Button
@@ -154,7 +154,9 @@ export const FilesInput = ({
             >
               Вибрати файл
             </Button>
-            <p className="text-border-file">Файл не вибрано</p>
+            <p className="text-border-file text-sm lg:text-base">
+              Файл не вибрано
+            </p>
           </div>
           <p className="text-input-border text-sm mt-8">
             Загрузити можна максимум 4 фото

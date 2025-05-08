@@ -55,9 +55,10 @@ const CustomRadioGroup: FC<RadioProps> = ({
         onValueChange={onChange}
       >
         {items.map(item => (
-          <div
+          <Label
+            htmlFor={item.value}
             className={cn(
-              'flex items-center gap-8 rounded-lg p-8 border-1 border-input-border h-40',
+              'flex items-center gap-8 rounded-lg p-8 border-1 border-input-border h-40 text-base',
               itemWidth ? `w-[${itemWidth}px]` : 'w-full',
               { 'border-error-input': error }
             )}
@@ -69,10 +70,8 @@ const CustomRadioGroup: FC<RadioProps> = ({
               id={item.value}
               className="ring-[1px] w-20 h-20 data-[state=checked]:ring-2 focus:outline-none text-base"
             />
-            <Label htmlFor={item.value} className="text-base">
-              {item.label}
-            </Label>
-          </div>
+            {item.label}
+          </Label>
         ))}
       </RadioGroup>
       {error && <FormError error={error} />}
