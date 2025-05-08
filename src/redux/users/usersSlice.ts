@@ -9,6 +9,7 @@ import {
   verifyResetPasswordThunk,
   verifyUserThunk,
 } from './usersOperations';
+import type { Animal } from '../animals/animalsApi';
 
 interface User {
   name: string;
@@ -18,6 +19,7 @@ interface User {
   avatarURL?: string;
   location?: string;
   theme?: 'light' | 'dark';
+  favorites: Animal[];
 }
 
 export interface UserState {
@@ -37,6 +39,7 @@ const initialState: UserState = {
     avatarURL: '',
     location: '',
     theme: 'light',
+    favorites: [],
   },
   token: null,
   isLoggedIn: false,
@@ -58,6 +61,7 @@ const slice = createSlice({
     selectIsLoggedIn: state => state.isLoggedIn,
     selectError: state => state.error,
     selectLoading: state => state.isLoading,
+    selectFavorites: state => state.user.favorites,
   },
   reducers: {
     setUserEmail: (state, action: PayloadAction<string>) => {
@@ -169,4 +173,5 @@ export const {
   selectIsLoggedIn,
   selectError,
   selectLoading,
+  selectFavorites,
 } = slice.selectors;

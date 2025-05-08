@@ -31,7 +31,7 @@ const persistConfig = {
 const persistConfigFavoriteAnimals = {
   key: 'favoriteAnimals',
   storage,
-  whitelist: ['ids'],
+  whitelist: ['animals'],
 };
 
 export const store = configureStore({
