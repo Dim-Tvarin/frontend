@@ -97,13 +97,13 @@ export function CitySelect({
         <PopoverTrigger asChild>
           <Button
             variant="outline"
-            className={`${className} w-[305px] justify-between border-input-border px-16 text-base text-medium text-default-btn`}
+            className={`${className} justify-between border-input-border px-16 text-base text-medium text-default-btn`}
           >
             {selectedCity || value || 'Оберіть населенний пункт'}
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-[305px] p-0  border-1 border-input-border rounded-t-lg z-10">
-          <Command>
+        <PopoverContent className="p-0  border-1 border-input-border rounded-t-lg z-10">
+          <Command className="bg-white">
             <CommandInput
               placeholder="Пошук міста..."
               onValueChange={val => setSearchValue(val)}
