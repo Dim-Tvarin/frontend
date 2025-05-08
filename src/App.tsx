@@ -17,6 +17,8 @@ import ProfilePage from 'pages/ProfilePage';
 import PrivateRoute from 'components/routes/PrivateRoute';
 import EditAnnouncement from 'pages/Announcement/EditAnnouncement';
 import { selectToken } from './redux/users/usersSlice';
+import FavoritePage from 'pages/FavoritePage';
+import { useSyncFavoritesOnLogin } from 'hooks/useSyncFavoritesOnLogin';
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -26,6 +28,7 @@ function App() {
       dispatch(refreshThunk());
     }
   }, [dispatch, token]);
+  useSyncFavoritesOnLogin();
   console.log('week-13');
   return (
     <Routes>
@@ -37,8 +40,9 @@ function App() {
         <Route path="editannouncement/:id" element={<EditAnnouncement />} />
         <Route path="allpets" element={<PetsList />} />
         <Route path="allpets/:id" element={<PetPage />} />
+        <Route path="favorite" element={<FavoritePage />} />
         <Route
-          path="/profile"
+          path="profile"
           element={
             <PrivateRoute>
               <ProfilePage />
