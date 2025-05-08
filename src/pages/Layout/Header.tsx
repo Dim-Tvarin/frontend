@@ -2,7 +2,6 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import logo from '../../assets/color-logo.svg';
 import search from '../../assets/search.svg';
 import { CustomButton } from 'components/CustomButton';
-import { FaRegHeart } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch } from '../../redux/store';
 import { selectIsLoggedIn, selectUser } from '../../redux/users/usersSlice';
@@ -14,12 +13,16 @@ import {
   AvatarImage,
 } from 'components/components/ui/avatar';
 import fallbackIcon from '../../assets/avatar-icon.png';
+import { selectFavoriteAnimals } from 'src/redux/animals/favoriteAnimalsSlice';
+import { FaHeart, FaRegHeart } from 'react-icons/fa';
 
 export const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const user = useSelector(selectUser);
+  const favoriteAnimals = useSelector(selectFavoriteAnimals);
+  const favoritesCount = favoriteAnimals.length;
 
   return (
     <header className="h-100 bg-header flex items-center">
@@ -53,8 +56,17 @@ export const Header = () => {
             </NavLink>
           </li>
           <li className="mr-20">
-            <NavLink to="/favorite" end>
-              <FaRegHeart size="30px" />
+            <NavLink to="/favorite" className="relative" end>
+              {favoritesCount > 0 ? (
+                <FaHeart size={32} className="text-error-input" />
+              ) : (
+                <FaRegHeart size={32} />
+              )}
+              {favoritesCount > 0 && (
+                <span className="absolute -top-5 -right-[3px] bg-none text-black rounded-full w-8 h-20 text-sm flex items-center justify-center">
+                  {favoritesCount}
+                </span>
+              )}
             </NavLink>
           </li>
           <li>
