@@ -57,13 +57,17 @@ const DialogLogin: React.FC = () => {
       });
       reset();
       navigate('/');
+      dispatch(clearError());
       dispatch(closeDialog());
     }
   };
   return (
     <Dialog
       open={activeDialog === 'login'}
-      onOpenChange={() => dispatch(closeDialog())}
+      onOpenChange={() => {
+        dispatch(clearError());
+        dispatch(closeDialog());
+      }}
     >
       <DialogOverlay className="bg-black/70" />
       <DialogContent
@@ -114,7 +118,10 @@ const DialogLogin: React.FC = () => {
           </DialogFooter>
         </form>
         <NavLink
-          onClick={() => dispatch(closeDialog())}
+          onClick={() => {
+            dispatch(clearError());
+            dispatch(closeDialog());
+          }}
           to="/register"
           end
           className="mt-16 text-lg text-link hover:text-orange"
@@ -125,7 +132,10 @@ const DialogLogin: React.FC = () => {
         <CustomButton
           styleType="linkButton"
           className="mt-10 text-lg"
-          onClick={() => dispatch(openDialog('forgotPassword'))}
+          onClick={() => {
+            dispatch(clearError());
+            dispatch(openDialog('forgotPassword'));
+          }}
         >
           Забули пароль?
         </CustomButton>

@@ -11,6 +11,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { NavLink } from 'react-router-dom';
 import {
+  clearError,
   selectError,
   selectLoading,
   selectUserEmail,
@@ -89,15 +90,19 @@ const DialogVerifyResetCode: React.FC = () => {
       verifyResetPasswordThunk({ resetPasswordCode: data.code })
     );
     if (verifyResetPasswordThunk.fulfilled.match(result)) {
-      dispatch(openDialog('resetPassword'));
       reset();
+      dispatch(clearError());
+      dispatch(openDialog('resetPassword'));
     }
   };
 
   return (
     <Dialog
       open={activeDialog === 'verifyResetCode'}
-      onOpenChange={() => dispatch(closeDialog())}
+      onOpenChange={() => {
+        dispatch(clearError());
+        dispatch(closeDialog());
+      }}
     >
       <DialogOverlay className="bg-black/70" />
       <DialogContent
@@ -153,7 +158,10 @@ const DialogVerifyResetCode: React.FC = () => {
         </form>
 
         <NavLink
-          onClick={() => dispatch(closeDialog())}
+          onClick={() => {
+            dispatch(clearError());
+            dispatch(closeDialog());
+          }}
           to="/register"
           end
           className="mt-16 text-link text-lg"
@@ -164,7 +172,10 @@ const DialogVerifyResetCode: React.FC = () => {
         <CustomButton
           styleType="linkButton"
           className="mt-10 text-lg"
-          onClick={() => dispatch(openDialog('login'))}
+          onClick={() => {
+            dispatch(clearError());
+            dispatch(openDialog('login'));
+          }}
         >
           Увійти
         </CustomButton>

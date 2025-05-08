@@ -7,11 +7,11 @@ import { z } from 'zod';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { TextareaDemo } from 'components/CustomTextarea';
-import { FilesInput } from 'components/FilesInput';
+
 import { announceSchema } from '../../validations/announceValidation';
-import { animalTypeOptions,  genderOption } from './types';
+import { animalTypeOptions, genderOption } from './types';
 import track from '../../../public/track.png';
-import { LuCirclePlus } from "react-icons/lu";
+import { LuCirclePlus } from 'react-icons/lu';
 import { CitySelect } from 'components/CitySelect';
 import CustomRadioGroup from 'components/CustomRadioGroup';
 import { Spinner } from 'components/Spinner';
@@ -22,6 +22,8 @@ import { selectIsLoggedIn } from 'src/redux/users/usersSlice';
 import { useNavigate } from 'react-router';
 import { showToast } from 'components/Toast';
 import BreedSelect from 'components/BreedSelect';
+import { FilesInput } from 'components/FilesInputWithCrop';
+import { useEffect } from 'react';
 
 type AnnouncementForm = z.infer<typeof announceSchema>;
 
@@ -45,14 +47,21 @@ const Announcement = () => {
   const navigate = useNavigate();
 
   const isLoggedIn = useSelector(selectIsLoggedIn);
-  if (!isLoggedIn) {
-    showToast({
-      title: 'Звурніть увагу!',
-      description: 'Щоб додати оголошення ви повинні бути залогіненими',
-      status: 'info',
-    })
-    setTimeout(() => navigate('/register') , 2000)
-  }
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      showToast({
+        title: 'Звурніть увагу!',
+        description: 'Щоб додати оголошення ви повинні бути залогіненими',
+        status: 'info',
+      });
+      const timer = setTimeout(() => {
+        navigate('/register');
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [isLoggedIn, navigate]);
 
   const onSubmit = async (data: AnnouncementForm) => {
     const result = announceSchema.safeParse(data);
@@ -63,51 +72,51 @@ const Announcement = () => {
 
     const { images, ...otherData } = data;
     images?.forEach((image: File) => bodyFormData.append('images', image));
-    const genderData = otherData.gender ? otherData.gender : 'unknown'
+    const genderData = otherData.gender ? otherData.gender : 'unknown';
 
     bodyFormData.append(
       'animalData',
       JSON.stringify({
         ...otherData,
         gender: genderData,
-        age: otherData.age
+        age: otherData.age,
       })
     );
 
-     try {
+    try {
       await createAnimal(bodyFormData).unwrap();
       showToast({
         title: 'Оголошення успішно створене',
         status: 'success',
-      })
+      });
 
       reset();
     } catch (error: any) {
-       if (error?.status === 400) {
-         showToast({
-           title: 'Невірний формат даних',
-           description: `Виправте помилку ${error.message}`,
-           status: 'error',
-         });
-       }
+      if (error?.status === 400) {
+        showToast({
+          title: 'Невірний формат даних',
+          description: `Виправте помилку ${error.message}`,
+          status: 'error',
+        });
+      }
       if (error?.status === 401) {
         showToast({
           title: 'Щоб залишити оголошення, увійдіть у свій аккаунт',
           status: 'error',
-        })
-      } if (error?.status === 500) {
+        });
+      }
+      if (error?.status === 500) {
         showToast({
           title: 'Виникла помилка сервера',
           description: 'Спробуйте ще раз пізніше',
           status: 'error',
-        })
-      }else {
+        });
+      } else {
         console.error('error', error);
         showToast({
           title: 'Щось пішло не по плану',
           status: 'error',
         });
-
       }
     }
   };
@@ -178,14 +187,13 @@ const Announcement = () => {
                 className="w-[150px] h-[40px] mt-16 mr-10 text-base"
                 labelSize="base"
                 {...register('age.months')}
-              /> 
-               {errors.age?.years?.message && (
+              />
+              {errors.age?.years?.message && (
                 <FormError error={errors.age?.years?.message} />
               )}
               {errors.age?.months?.message && (
                 <FormError error={errors.age?.months?.message} />
               )}
-            
             </div>
             <div>
               <p className="text-base mb-8 text-left">Порода * </p>
