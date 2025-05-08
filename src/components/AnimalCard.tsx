@@ -1,15 +1,23 @@
 import HartSVG from 'src/assets/HartSVG';
 import { CustomButton } from './CustomButton';
-import { type animalAge } from 'src/redux/animals/animalsApi';
+import {
+  useToggleFavoriteAnimalMutation,
+  type Animal,
+  type animalAge,
+} from 'src/redux/animals/animalsApi';
 import { getYearDeclension } from 'src/helpers/getYearDeclension';
 import { useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleId } from 'src/redux/animals/favoriteAnimalsSlice';
-import type { AppDispatch, RootState } from 'src/redux/store';
+import {
+  selectFavoriteAnimals,
+  toggleAnimal,
+} from 'src/redux/animals/favoriteAnimalsSlice';
+import type { AppDispatch } from 'src/redux/store';
 import { FiEdit, FiTrash2 } from 'react-icons/fi';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useState } from 'react';
 import { openDialog } from 'src/redux/dialogs/dialogSlice';
+import { selectIsLoggedIn } from 'src/redux/users/usersSlice';
 
 export const genderMapping: Record<string, string> = {
   male: 'Хлопчик',
@@ -23,26 +31,35 @@ const AnimalCard = ({
   gender,
   age,
   photoSrc,
-  favorite,
   status,
   isMyProfile = false,
+  animal,
 }: {
   id: string;
   name: string;
   gender: string;
   age: animalAge;
   photoSrc: string;
-  favorite?: boolean;
   status?: string;
   isMyProfile?: boolean;
+  animal?: Animal;
 }) => {
-  const favIds = useSelector((state: RootState) => state.favoriteAnimals.ids);
+  const favAnimals = useSelector(selectFavoriteAnimals);
+  const isInFavorites = favAnimals.some(a => a.id === id);
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const [visible, setVisible] = useState(true);
+  const [toggleFavorite] = useToggleFavoriteAnimalMutation();
+  const isLoggedIn = useSelector(selectIsLoggedIn);
 
   const handleAddFavorite = () => {
-    dispatch(toggleId(id));
+    if (!animal) return;
+
+    const shouldBeFavorite = !isInFavorites;
+    dispatch(toggleAnimal(animal));
+    if (isLoggedIn) {
+      toggleFavorite({ id: animal.id, favorite: shouldBeFavorite });
+    }
   };
 
   return (
@@ -74,12 +91,12 @@ const AnimalCard = ({
             {!!age.years && <span>{getYearDeclension(age.years)} </span>}
             {!!age.months && <span>{`${age.months} міс.`}</span>}
           </div>
-          {!isMyProfile && (
+          {!isMyProfile && animal && (
             <div
               className="absolute right-[18px] top-[14px] cursor-pointer"
               onClick={handleAddFavorite}
             >
-              <HartSVG hartFill={favorite || favIds.includes(id)} />
+              <HartSVG hartFill={isInFavorites} />
             </div>
           )}
         </div>

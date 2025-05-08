@@ -258,8 +258,8 @@ const PetsList = () => {
                 gender={item.gender}
                 age={item.age}
                 photoSrc={item.animalImages[0].url}
-                favorite={item.favorite}
                 status={item.status}
+                animal={item}
               />
             ))}
           </div>
