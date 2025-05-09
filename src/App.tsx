@@ -5,7 +5,7 @@ import Main from 'pages/Layout/Main';
 import { Home } from 'pages/Home';
 import Registration from 'pages/Auth/Registration';
 import Components from 'pages/Components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { refreshThunk } from './redux/users/usersOperations';
 import type { AppDispatch } from './redux/store';
@@ -16,12 +16,19 @@ import PetPage from 'pages/PetPage';
 import ProfilePage from 'pages/ProfilePage';
 import PrivateRoute from 'components/routes/PrivateRoute';
 import EditAnnouncement from 'pages/Announcement/EditAnnouncement';
+import { selectToken } from './redux/users/usersSlice';
+import FavoritePage from 'pages/FavoritePage';
+import { useSyncFavoritesOnLogin } from 'hooks/useSyncFavoritesOnLogin';
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
+  const token = useSelector(selectToken);
   useEffect(() => {
-    dispatch(refreshThunk());
-  }, [dispatch]);
+    if (token) {
+      dispatch(refreshThunk());
+    }
+  }, [dispatch, token]);
+  useSyncFavoritesOnLogin();
   console.log('week-14');
   return (
     <Routes>
@@ -33,8 +40,9 @@ function App() {
         <Route path="editannouncement/:id" element={<EditAnnouncement />} />
         <Route path="allpets" element={<PetsList />} />
         <Route path="allpets/:id" element={<PetPage />} />
+        <Route path="favorite" element={<FavoritePage />} />
         <Route
-          path="/profile"
+          path="profile"
           element={
             <PrivateRoute>
               <ProfilePage />
