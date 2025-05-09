@@ -62,7 +62,7 @@ const FavoritePage = () => {
                   animal={item}
                 />
               ))}
-            </div>{' '}
+            </div>
             {totalPages > 1 && (
               <div className="mt-auto">
                 <Pagination
