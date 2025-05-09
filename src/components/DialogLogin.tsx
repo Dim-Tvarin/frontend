@@ -24,8 +24,6 @@ import {
 import { openDialog, closeDialog } from '../redux/dialogs/dialogSlice';
 import { useEffect } from 'react';
 import { showToast } from './Toast';
-import { useAddFavoriteAnimalMutation } from 'src/redux/animals/animalsApi';
-import { clearIds } from 'src/redux/animals/favoriteAnimalsSlice';
 type FormData = z.infer<typeof loginSchema>;
 
 const DialogLogin: React.FC = () => {
@@ -38,10 +36,6 @@ const DialogLogin: React.FC = () => {
   );
   const navigate = useNavigate();
   const authError = useSelector(selectError);
-  const favoriteIds = useSelector(
-    (state: RootState) => state.favoriteAnimals.ids
-  );
-  const [updateAnimal] = useAddFavoriteAnimalMutation();
 
   const {
     register,
@@ -62,21 +56,6 @@ const DialogLogin: React.FC = () => {
         status: 'success',
       });
       reset();
-      if (favoriteIds.length > 0) {
-        try {
-          favoriteIds.forEach(id => {
-            updateAnimal(id);
-          });
-        } catch (err) {
-          console.error('Ошибка при оновленні обраних тварин:', err);
-          showToast({
-            title: 'Халепа',
-            description: 'При відправці обраних тварин виникла помилка',
-            status: 'error',
-          });
-        }
-      }
-      dispatch(clearIds());
       navigate('/');
       dispatch(clearError());
       dispatch(closeDialog());

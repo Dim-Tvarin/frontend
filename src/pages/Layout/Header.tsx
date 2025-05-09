@@ -13,10 +13,11 @@ import {
   AvatarImage,
 } from 'components/components/ui/avatar';
 import fallbackIcon from '../../assets/avatar-icon.png';
+import { selectFavoriteAnimals } from 'src/redux/animals/favoriteAnimalsSlice';
+import { FaHeart, FaRegHeart } from 'react-icons/fa';
+import { RxCross2, RxHamburgerMenu } from 'react-icons/rx';
 import { cn } from 'components/lib/utils';
 import { useState } from 'react';
-import { RxCross2 } from 'react-icons/rx';
-import { RxHamburgerMenu } from 'react-icons/rx';
 
 export const Header = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -24,6 +25,8 @@ export const Header = () => {
   const dispatch = useDispatch<AppDispatch>();
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const user = useSelector(selectUser);
+  const favoriteAnimals = useSelector(selectFavoriteAnimals);
+  const favoritesCount = favoriteAnimals.length;
 
   return (
     <>
@@ -86,15 +89,24 @@ export const Header = () => {
               </NavLink>
             </li>
           </ul>
-          {/* <li className="ml-auto mr-20">
+          {/* {/* <li className="ml-auto mr-20">
             <NavLink to="/favorite" end>
               <img src={search} alt="search" />
             </NavLink>
           </li> */}
           <div className="flex items-center gap-28">
-            <button onClick={() => navigate('/favorite')} className="relative">
-              <GoHeart size="32px" />
-            </button>
+            <NavLink to="/favorite" className="relative" end>
+              {favoritesCount > 0 ? (
+                <FaHeart size={32} className="text-error-input" />
+              ) : (
+                <FaRegHeart size={32} />
+              )}
+              {favoritesCount > 0 && (
+                <span className="absolute -top-5 -right-[3px] bg-none text-black rounded-full w-8 h-20 text-sm flex items-center justify-center">
+                  {favoritesCount}
+                </span>
+              )}
+            </NavLink>
 
             {isLoggedIn ? (
               <div className="flex flex-col items-center max-h-[54px]">
