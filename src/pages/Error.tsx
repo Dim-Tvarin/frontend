@@ -2,14 +2,16 @@ import bg from '../../public/assets/404@2x.jpg';
 
 const Error = () => {
   return (
-    <div className=" relative h-[calc(100vh-202px)] flex flex-col justify-center items-center">
+    <div className=" relative h-[calc(100vh-158px)] lg:h-[calc(100vh-202px)] flex flex-col justify-center items-center">
       <div className="absolute z-1  right-0 top-0 left-0 bottom-0">
         <img src={bg} alt="граюча собака" className="w-full h-full" />
       </div>
-      <div className="z-10">
-        <h1 className="text-white text-[150px] mb-12">Ой!</h1>
-        <h2 className="text-black text-[40px]">Щось пішло не так...</h2>
-        <p className="text-black text-[32px]">
+      <div className="z-10 flex flex-col gap-20">
+        <h1 className="text-white text-[150px] text-8xl lg:mb-12">Ой!</h1>
+        <h2 className="text-black text-3xl lg:text-[40px]">
+          Щось пішло не так...
+        </h2>
+        <p className="text-black text-xl lg:text-[32px]">
           Спробуйте перезавантажити сторінку
         </p>
       </div>
