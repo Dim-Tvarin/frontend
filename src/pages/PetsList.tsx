@@ -120,11 +120,11 @@ const PetsList = () => {
 
   return (
     <div className="container">
-      <div className=" relative flex justify-center mt-100 mb-50">
+      <div className="relative flex justify-center mt-100 mb-50">
         <CustomButton
           type="button"
           styleType="defaultButton"
-          className="w-[129px] m-0 absolute top-0 left-0"
+          className="top-0 left-0 absolute m-0 w-[129px]"
           onClick={() => setOpenFilters(prev => !prev)}
         >
           <FiFilter size={18} />
@@ -133,24 +133,24 @@ const PetsList = () => {
         <div className="flex flex-col">
           <h1 className="text-[32px]">{title}</h1>
           {isFilterApplied && data && (
-            <p className="text-lg text-center text-default-btn w-full">
+            <p className="w-full text-default-btn text-lg text-center">
               {data.total === 0
                 ? 'По вашому запиту нічого не знайдено'
                 : `По вашому запиту знайдено ${data.total} тварини`}
             </p>
           )}
         </div>
-        <div className="absolute top-0 right-0 z-10 flex items-end flex-col">
+        <div className="top-0 right-0 z-10 absolute flex flex-col items-end">
           <CustomButton
             type="button"
             styleType="whiteButton"
-            className="w-[217px] m-0 text-base text-medium text-default-btn"
+            className="m-0 w-[217px] text-default-btn text-medium text-base"
             onClick={() => setOpenSorting(prev => !prev)}
           >
             Сортування за датою
           </CustomButton>
           {openSorting && (
-            <div className="bg-dialog border-1 border-default-btn rounded-xl flex flex-col gap-4 px-16 py-10">
+            <div className="flex flex-col gap-4 bg-dialog px-16 py-10 border-1 border-default-btn rounded-xl">
               <button
                 onClick={handleAscSorting}
                 className={cn(
@@ -180,7 +180,7 @@ const PetsList = () => {
           {openFilters && (
             <form
               onSubmit={handleSubmit(onSubmit)}
-              className="w-1/4 flex flex-col gap-32 transition-all duration-500"
+              className="flex flex-col gap-32 w-1/4 transition-all duration-500"
             >
               <Controller
                 name="animalType"
@@ -237,7 +237,7 @@ const PetsList = () => {
               <CustomButton
                 type="submit"
                 styleType="defaultButton"
-                className="m-0 self-center"
+                className="self-center m-0"
                 loading={isLoading || isFetching}
               >
                 Застосувати фільтр
@@ -245,7 +245,7 @@ const PetsList = () => {
               <CustomButton
                 type="button"
                 styleType="whiteButton"
-                className="m-0 self-center"
+                className="self-center m-0"
                 onClick={handleClearFilter}
                 disabled={Object.keys(filtersParams).length === 0}
               >
