@@ -126,7 +126,7 @@ const Announcement = () => {
       <div className="absolute z-1  left-10 lg:left-[84px] top-20 lg:top-[27px]">
         <img src={track} alt="track" className="w-[180px]" />
       </div>
-      <div className="flex flex-col flex-1/2 mt-100">
+      <div className="flex flex-col flex-1/2 mt-72 lg:mt-100">
         <h2 className="text-lg lg:text-[32px] mb-16 lg:mb-32 z-10">
           Додати оголошення
         </h2>
@@ -134,9 +134,7 @@ const Announcement = () => {
           className="flex flex-col items-start z-20 mb-50 w-full"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <p className="text-base lg:text-xl mb-10 lg:mb-16 z-10">
-            Оберіть вид тварини *
-          </p>
+          <p className="text-base mb-10 lg:mb-16 z-10">Оберіть вид тварини *</p>
           <Controller
             name="animalType"
             control={control}
@@ -154,9 +152,7 @@ const Announcement = () => {
             )}
           />
 
-          <p className="text-base lg:text-xl mt-16 lg:mt-32 mb-10 lg:mb-16">
-            Стать
-          </p>
+          <p className="text-base mt-16 lg:mt-32 mb-10 lg:mb-16">Стать</p>
           <Controller
             name="gender"
             control={control}
@@ -174,7 +170,7 @@ const Announcement = () => {
             )}
           />
 
-          <div className=" w-full grid md:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-2 gap-20 mt-16 lg:mt-32 flex-wrap">
+          <div className="w-full grid md:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-2 gap-0 md:gap-20 mt-16 lg:mt-32 flex-wrap">
             <div className="grid grid-cols-2 gap-16 lg:gap-[10px] w-full md:w-[296px]">
               <InputField
                 label="Вік *"
@@ -200,7 +196,9 @@ const Announcement = () => {
               )}
             </div>
             <div className="w-full mt-16 md:mt-0 md:w-[296px] lg:w-[305px]">
-              <p className="text-base lg:text-xl mb-6 text-left">Порода *</p>
+              <p className="text-base mb-5 text-left lg:mt-32 xl:mt-0">
+                Порода *
+              </p>
               <Controller
                 name="breed"
                 control={control}
@@ -225,8 +223,8 @@ const Announcement = () => {
               {...register('animalName')}
               error={errors.animalName?.message}
             />
-            <div className=" w-full md:w-[296px] lg:w-[305px] md:mt-4">
-              <p className="text-base lg:text-xl mb-8 text-left">Місто * </p>
+            <div className="w-full md:w-[296px] lg:w-[305px] md:mt-4">
+              <p className="text-base mb-8 text-left">Місто * </p>
               <Controller
                 name="animalLocation"
                 control={control}
@@ -243,9 +241,10 @@ const Announcement = () => {
 
           <TextareaDemo
             id="announvementText"
-            className="text-left  mt-16 lg:mt-32 text-sm "
+            className="text-left mt-16 lg:mt-32 text-base"
             placeholder="Опишіть тварину, її характер, історію, забарвлення"
             label="Опис тварини: *"
+            labelSize="base"
             {...register('adText')}
             error={errors.adText?.message}
           />
@@ -272,7 +271,7 @@ const Announcement = () => {
               <FilesInput
                 ref={ref}
                 groupLabel="Додайте фото тварини та документи *"
-                labelClass="mb-16  mt-16 lg:mt-32"
+                labelClass="mb-16 mt-16 lg:mt-32"
                 labelSize="base"
                 className="w-full "
                 name={name}
