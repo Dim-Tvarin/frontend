@@ -195,18 +195,18 @@ export const FilesInput = ({
               onCropComplete={onCropComplete}
             />
           </div>
-          <div className="flex justify-end gap-4 mt-4 ml-auto items-center">
+          <div className="flex gap-20 mt-32 ml-auto items-center justify-center">
             <CustomButton
               styleType="defaultButton"
               onClick={handleCropConfirm}
-              className="m-0 w-[150px]"
+              className="m-0 w-[157px]"
             >
               Зберегти
             </CustomButton>
             <CustomButton
-              styleType="linkButton"
+              styleType="whiteButton"
               onClick={() => setCropModalOpen(false)}
-              className="w-100"
+              className="m-0 w-[157px] bg-dialog"
             >
               Скасувати
             </CustomButton>
