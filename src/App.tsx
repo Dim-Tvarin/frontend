@@ -4,7 +4,6 @@ import Error from 'pages/Error';
 import Main from 'pages/Layout/Main';
 import { Home } from 'pages/Home';
 import Registration from 'pages/Auth/Registration';
-import Components from 'pages/Components';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { refreshThunk } from './redux/users/usersOperations';
@@ -34,8 +33,6 @@ function App() {
     <Routes>
       <Route path="/" element={<Main />}>
         <Route index element={<Home />} />
-
-        <Route path="components" element={<Components />} />
         <Route path="announcement" element={<Announcement />} />
         <Route path="editannouncement/:id" element={<EditAnnouncement />} />
         <Route path="allpets" element={<PetsList />} />
