@@ -31,6 +31,9 @@ import { updateAnnounceSchema } from '../../validations/updateAnnounceValidation
 import { useState } from 'react';
 import Modal from 'components/Modal';
 import { FilesInput } from 'components/FilesInputWithCrop';
+import { openDialog } from 'src/redux/dialogs/dialogSlice';
+import type { AppDispatch } from 'src/redux/store';
+import { useDispatch } from 'react-redux';
 
 type AnnouncementForm = z.infer<typeof updateAnnounceSchema>;
 
@@ -41,6 +44,7 @@ const EditAnnouncement = () => {
   const [openModal, setOpenModal] = useState(false);
   const [idForDelete, setIdForDelete] = useState('');
   const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
   const { id } = useParams<{ id: string }>();
   if (!id) {
     showToast({
@@ -103,6 +107,7 @@ const EditAnnouncement = () => {
         status: 'error',
       });
     } else {
+      dispatch(openDialog('modal'));
       setOpenModal(true);
       setIdForDelete(imageId);
     }
@@ -187,14 +192,14 @@ const EditAnnouncement = () => {
 
   return (
     <>
-      <div className="container flex flex-row gap-16 text-default-btn relative z-10">
+      <div className="z-10 relative flex flex-row gap-16 text-default-btn container">
         <div className="flex flex-col flex-1/2 mt-100 mb-100">
-          <h2 className="text-[32px] mb-32 z-10">Редагування оголошення</h2>
+          <h2 className="z-10 mb-32 text-[32px]">Редагування оголошення</h2>
           <form
             className="flex flex-col items-start"
             onSubmit={handleSubmit(onSubmit)}
           >
-            <p className="text-base mb-16 z-10">Оберіть вид тварини *</p>
+            <p className="z-10 mb-16 text-base">Оберіть вид тварини *</p>
             <Controller
               defaultValue={animal?.animalType}
               name="animalType"
@@ -213,7 +218,7 @@ const EditAnnouncement = () => {
               )}
             />
 
-            <p className="text-base mt-32 mb-16">Стать </p>
+            <p className="mt-32 mb-16 text-base">Стать </p>
             <Controller
               defaultValue={animal?.gender}
               name="gender"
@@ -233,7 +238,7 @@ const EditAnnouncement = () => {
             />
 
             <div className="flex mt-32">
-              <div className="grid grid-cols-[150px_150px] gap-[10px] mr-16">
+              <div className="gap-[10px] grid grid-cols-[150px_150px] mr-16">
                 <Controller
                   name="age.years"
                   control={control}
@@ -264,7 +269,7 @@ const EditAnnouncement = () => {
                       inputMode="numeric"
                       type="text"
                       placeholder="0 років"
-                      className="w-[150px] h-[40px] mt-16 mr-10 text-base"
+                      className="mt-16 mr-10 w-[150px] h-[40px] text-base"
                       label="Вік"
                       labelSize="base"
                     />
@@ -300,7 +305,7 @@ const EditAnnouncement = () => {
                       inputMode="numeric"
                       type="text"
                       placeholder="0 місяців"
-                      className="w-[150px] h-[40px] mt-16 mr-10 text-base"
+                      className="mt-16 mr-10 w-[150px] h-[40px] text-base"
                       label=" "
                     />
                   )}
@@ -313,7 +318,7 @@ const EditAnnouncement = () => {
                 )}
               </div>
               <div>
-                <p className="text-base mb-8 text-left">Порода * </p>
+                <p className="mb-8 text-base text-left">Порода * </p>
                 <Controller
                   name="breed"
                   control={control}
@@ -330,18 +335,18 @@ const EditAnnouncement = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-[305px_305px] mt-32 gap-16">
+            <div className="gap-16 grid grid-cols-[305px_305px] mt-32">
               <InputField
                 label="Ім’я тварини *"
                 id="animalName"
-                className="w-[305px] h-[40px] mt-16 text-base"
+                className="mt-16 w-[305px] h-[40px] text-base"
                 labelSize="base"
                 defaultValue={animal?.animalName}
                 {...register('animalName')}
                 error={errors.animalName?.message}
               />
               <div>
-                <p className="text-base mb-8 text-left">Місто * </p>
+                <p className="mb-8 text-base text-left">Місто * </p>
                 <Controller
                   name="animalLocation"
                   control={control}
@@ -360,7 +365,7 @@ const EditAnnouncement = () => {
 
             <TextareaDemo
               id="announvementText"
-              className="text-left mt-32 text-sm"
+              className="mt-32 text-sm text-left"
               placeholder="Опишіть тварину, її характер, історію, забарвлення"
               label="Опис тварини: *"
               defaultValue={animal?.adText}
@@ -391,7 +396,7 @@ const EditAnnouncement = () => {
               type="submit"
               styleType="defaultButton"
               disabled={isLoading || isEditingAnimal}
-              className="flex gap-8 z-10 w-[259px]"
+              className="z-10 flex gap-8 w-[259px]"
             >
               {isLoading || (isEditingAnimal && <Spinner />)}
               Зберегти зміни
@@ -399,7 +404,7 @@ const EditAnnouncement = () => {
           </form>
         </div>
 
-        <div className="flex flex-col gap-32 py-32 items-end my-100">
+        <div className="flex flex-col items-end gap-32 my-100 py-32">
           <ImageCarousel
             images={filteredImages}
             isDelete
@@ -409,8 +414,6 @@ const EditAnnouncement = () => {
       </div>
       {openModal && (
         <Modal
-          open={openModal}
-          onOpenChange={setOpenModal}
           onCancel={() => {
             setIdForDelete('');
           }}

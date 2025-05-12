@@ -1,3 +1,4 @@
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Dialog,
   DialogClose,
@@ -9,64 +10,69 @@ import {
 import { CustomButton } from './CustomButton';
 import CloseSVG from 'src/assets/CloseSVG';
 import tracks4 from 'src/assets/tracks4.png';
+import type { AppDispatch, RootState } from 'src/redux/store';
+import { closeDialog } from 'src/redux/dialogs/dialogSlice';
 
 const Modal = ({
   description,
   onConfirm,
   onCancel,
-  open,
-  onOpenChange,
 }: {
   description: string;
   onConfirm: () => void;
   onCancel: () => void;
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
 }) => {
+  const dispatch = useDispatch<AppDispatch>();
+  const activeDialog = useSelector(
+    (state: RootState) => state.dialog.activeDialog
+  );
   const handleCancel = () => {
-    onOpenChange(false);
     onCancel();
+    dispatch(closeDialog());
   };
 
   const handleConfirm = () => {
-    onOpenChange(false);
     onConfirm();
+    dispatch(closeDialog());
   };
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog
+      open={activeDialog === 'modal'}
+      onOpenChange={() => dispatch(closeDialog())}
+    >
       <DialogOverlay className="bg-black/70" />
       <DialogContent
         aria-describedby={undefined}
-        className="w-[800px] min-h-[300px] rounded-[30px] py-[62px] px-[86px] bg-white text-center gap-0"
+        className="gap-0 bg-white px-[86px] py-[62px] rounded-[30px] w-[800px] min-h-[300px] text-center"
         onPointerDownOutside={e => e.preventDefault()}
         aria-labelledby="dialog-content"
       >
         <img
-          className="absolute top-16 left-16 h-[250px]"
+          className="top-16 left-16 absolute h-[250px]"
           src={tracks4}
           alt="background"
         />
-        <DialogClose className="absolute top-32 right-32">
+        <DialogClose className="top-32 right-32 absolute">
           <CloseSVG size="22" />
         </DialogClose>
         <DialogHeader>
           <DialogTitle className="sr-only">Confirmation</DialogTitle>
-          <p className="text-[28px] leading-[150%] text-default-btn text-center mb-[47px]">
+          <p className="mb-[47px] text-[28px] text-default-btn text-center leading-[150%]">
             {description}
           </p>
         </DialogHeader>
-        <div className="flex gap-50 justify-center">
+        <div className="flex justify-center gap-50">
           <CustomButton
             styleType="defaultButton"
-            className="w-100 h-[45px] m-0 bg-error-input"
+            className="bg-error-input m-0 w-100 h-[45px]"
             onClick={handleConfirm}
           >
             Так
           </CustomButton>
           <CustomButton
             styleType="defaultButton"
-            className="w-100 h-[45px] m-0"
+            className="m-0 w-100 h-[45px]"
             onClick={handleCancel}
           >
             Ні
