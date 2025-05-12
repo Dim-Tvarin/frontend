@@ -15,7 +15,6 @@ interface RadioProps {
   name?: string;
   value?: string;
   className?: string;
-  itemWidth?: string;
   items: Item[];
   groupLabel?: string;
   labelSize?: string;
@@ -30,7 +29,6 @@ const CustomRadioGroup: FC<RadioProps> = ({
   name,
   value,
   items,
-  itemWidth,
   className,
   groupLabel,
   labelClass,
@@ -40,7 +38,7 @@ const CustomRadioGroup: FC<RadioProps> = ({
   error,
 }) => {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col flex-wrap w-full">
       {groupLabel && (
         <CustomLabel labelSize={labelSize} labelClass={labelClass}>
           {groupLabel}
@@ -55,10 +53,10 @@ const CustomRadioGroup: FC<RadioProps> = ({
         onValueChange={onChange}
       >
         {items.map(item => (
-          <div
+          <Label
+            htmlFor={item.value}
             className={cn(
-              'flex items-center gap-8 rounded-lg p-8 border-1 border-input-border h-40',
-              itemWidth ? `w-[${itemWidth}px]` : 'w-full',
+              'flex items-center gap-8 rounded-lg p-8 border-1 border-input-border h-40 text-base w-full md:w-[300px] lg:w-[305px]',
               { 'border-error-input': error }
             )}
             key={item.value}
@@ -69,10 +67,8 @@ const CustomRadioGroup: FC<RadioProps> = ({
               id={item.value}
               className="ring-[1px] w-20 h-20 data-[state=checked]:ring-2 focus:outline-none text-base"
             />
-            <Label htmlFor={item.value} className="text-base">
-              {item.label}
-            </Label>
-          </div>
+            {item.label}
+          </Label>
         ))}
       </RadioGroup>
       {error && <FormError error={error} />}

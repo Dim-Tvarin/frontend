@@ -123,24 +123,28 @@ const Announcement = () => {
 
   return (
     <div className="z-10 relative flex flex-row gap-16 text-default-btn container">
-      <div className="top-[27px] left-[84px] z-1 absolute">
+      <div className="top-20 lg:top-[27px] left-10 lg:left-[84px] z-1 absolute">
         <img src={track} alt="track" className="w-[180px]" />
       </div>
       <div className="flex flex-col flex-1/2 mt-100">
         <h2 className="z-10 mb-32 text-[32px]">Додати оголошення</h2>
+      <div className="flex flex-col flex-1/2 mt-72 lg:mt-100">
+        <h2 className="z-10 mb-16 lg:mb-32 lg:text-[32px] text-lg">
+          Додати оголошення
+        </h2>
         <form
-          className="flex flex-col items-start"
+          className="z-20 flex flex-col items-start mb-50 w-full"
           onSubmit={handleSubmit(onSubmit)}
         >
           <p className="z-10 mb-16 text-base">Оберіть вид тварини *</p>
+          <p className="z-10 mb-10 lg:mb-16 text-base">Оберіть вид тварини *</p>
           <Controller
             name="animalType"
             control={control}
             render={({ field: { onChange, name, onBlur, ref } }) => (
               <CustomRadioGroup
                 items={animalTypeOptions}
-                className="grid grid-cols-2"
-                itemWidth="305"
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-2"
                 error={errors.animalType?.message}
                 name={name}
                 ref={ref}
@@ -152,14 +156,14 @@ const Announcement = () => {
           />
 
           <p className="mt-32 mb-16 text-base">Стать </p>
+          <p className="mt-16 lg:mt-32 mb-10 lg:mb-16 text-base">Стать</p>
           <Controller
             name="gender"
             control={control}
             render={({ field: { onChange, name, onBlur, ref } }) => (
               <CustomRadioGroup
                 items={genderOption}
-                className="grid grid-cols-2"
-                itemWidth="305"
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-2"
                 error={errors.gender?.message}
                 name={name}
                 ref={ref}
@@ -172,11 +176,14 @@ const Announcement = () => {
 
           <div className="flex mt-32">
             <div className="gap-[10px] grid grid-cols-[150px_150px] mr-16">
+          <div className="flex-wrap gap-0 md:gap-20 grid md:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-2 mt-16 lg:mt-32 w-full">
+            <div className="gap-16 lg:gap-[10px] grid grid-cols-2 w-full md:w-[296px]">
               <InputField
                 label="Вік *"
                 id="years"
                 placeholder="0 років"
                 className="mt-16 w-[150px] h-[40px] text-base"
+                className="w-full lg:w-[150px] h-[40px] text-base"
                 labelSize="base"
                 {...register('age.years')}
               />
@@ -203,7 +210,7 @@ const Announcement = () => {
                 render={({ field }) => (
                   <BreedSelect
                     onChange={field.onChange}
-                    className="w-[305px] h-[40px]"
+                    className="w-full h-[40px]"
                     type={animalTypeValue}
                     errorMess={errors?.breed?.message}
                   />
@@ -229,7 +236,7 @@ const Announcement = () => {
                 render={({ field }) => (
                   <CitySelect
                     onChange={field.onChange}
-                    className="w-[305px] h-[40px]"
+                    className="w-full h-[40px]"
                     errorMess={errors?.animalLocation?.message}
                   />
                 )}
@@ -242,6 +249,7 @@ const Announcement = () => {
             className="mt-32 text-sm text-left"
             placeholder="Опишіть тварину, її характер, історію, забарвлення"
             label="Опис тварини: *"
+            labelSize="base"
             {...register('adText')}
             error={errors.adText?.message}
           />
@@ -268,7 +276,9 @@ const Announcement = () => {
               <FilesInput
                 ref={ref}
                 groupLabel="Додайте фото тварини та документи *"
-                labelClass="mb-16 mt-32"
+                labelClass="mb-16 mt-16 lg:mt-32"
+                labelSize="base"
+                className="w-full"
                 name={name}
                 onChange={onChange}
                 error={errors.images?.message?.toString()}
