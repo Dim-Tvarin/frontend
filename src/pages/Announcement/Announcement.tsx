@@ -253,20 +253,6 @@ const Announcement = () => {
             {...register('adText')}
             error={errors.adText?.message}
           />
-          {/* <div className='z-1 relative mt-32'>
-            <LuGlobe size={24} className='top-46 left-0 absolute'/>
-            <InputField
-              label="Додаткове посилання"
-              id="link"
-              placeholder='https://...'
-              className="mt-16 ml-32 w-[calc(100%-32px)] h-[40px]"
-              labelSize="xl"
-              {...register('link')}
-              error={errors.link?.message}
-            />
-            <p className='mt-10 ml-32 text-input-border text-xs text-left'> Це може бути сторінка тварини на сайті притулку, публікація у соцмережах або відео.
-            Максимальна довжина: 255 символів.</p>
-          </div> */}
 
           <Controller
             name="images"
