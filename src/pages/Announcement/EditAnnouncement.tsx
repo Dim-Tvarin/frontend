@@ -31,6 +31,9 @@ import { updateAnnounceSchema } from '../../validations/updateAnnounceValidation
 import { useState } from 'react';
 import Modal from 'components/Modal';
 import { FilesInput } from 'components/FilesInputWithCrop';
+import { openDialog } from 'src/redux/dialogs/dialogSlice';
+import type { AppDispatch } from 'src/redux/store';
+import { useDispatch } from 'react-redux';
 
 type AnnouncementForm = z.infer<typeof updateAnnounceSchema>;
 
@@ -41,6 +44,7 @@ const EditAnnouncement = () => {
   const [openModal, setOpenModal] = useState(false);
   const [idForDelete, setIdForDelete] = useState('');
   const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
   const { id } = useParams<{ id: string }>();
   if (!id) {
     showToast({
@@ -103,6 +107,7 @@ const EditAnnouncement = () => {
         status: 'error',
       });
     } else {
+      dispatch(openDialog('modal'));
       setOpenModal(true);
       setIdForDelete(imageId);
     }
@@ -187,20 +192,16 @@ const EditAnnouncement = () => {
 
   return (
     <>
-      <div
-        className="container grid gap-16 grid-cols-1 
-                lg:grid-cols-[1fr_1fr] 
-                lg:grid-rows-[150px_1fr] lg:auto-rows-fr text-default-btn relative z-10"
-      >
-        <h2 className="text-lg lg:text-[32px] mb-16 lg:mb-32 z-10 order-1 lg:row-start-1 lg:col-start-1 lg:row-span-1  mt-72 lg:mt-100">
+      <div className="z-10 relative gap-16 grid grid-cols-1 lg:grid-cols-[1fr_1fr] lg:grid-rows-[150px_1fr] lg:auto-rows-fr text-default-btn container">
+        <h2 className="z-10 order-1 lg:col-start-1 lg:row-span-1 lg:row-start-1 mt-72 lg:mt-100 mb-16 lg:mb-32 lg:text-[32px] text-lg">
           Редагування оголошення
         </h2>
-        <div className="order-3 lg:row-start-2 lg:col-start-1 lg:row-span-1 flex flex-col flex-1/2 mb-100">
+        <div className="flex flex-col flex-1/2 order-3 lg:col-start-1 lg:row-span-1 lg:row-start-2 mb-100">
           <form
             className="flex flex-col items-start"
             onSubmit={handleSubmit(onSubmit)}
           >
-            <p className="text-base mb-10 lg:mb-16 z-10">
+            <p className="z-10 mb-10 lg:mb-16 text-base">
               Оберіть вид тварини *
             </p>
             <Controller
@@ -221,7 +222,7 @@ const EditAnnouncement = () => {
               )}
             />
 
-            <p className="text-base mt-16 lg:mt-32 mb-10 lg:mb-16">Стать</p>
+            <p className="mt-16 lg:mt-32 mb-10 lg:mb-16 text-base">Стать</p>
             <Controller
               defaultValue={animal?.gender}
               name="gender"
@@ -229,7 +230,7 @@ const EditAnnouncement = () => {
               render={({ field: { onChange, name, onBlur, ref } }) => (
                 <CustomRadioGroup
                   items={genderOption}
-                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1  2xl:grid-cols-2"
+                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-2"
                   error={errors.gender?.message}
                   name={name}
                   ref={ref}
@@ -240,8 +241,8 @@ const EditAnnouncement = () => {
               )}
             />
 
-            <div className="w-full grid md:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-2 gap-0 md:gap-20 mt-16 lg:mt-32 flex-wrap">
-              <div className="grid grid-cols-2 gap-16 lg:gap-[10px] w-full md:w-[296px]">
+            <div className="flex-wrap gap-0 md:gap-20 grid md:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-2 mt-16 lg:mt-32 w-full">
+              <div className="gap-16 lg:gap-[10px] grid grid-cols-2 w-full md:w-[296px]">
                 <Controller
                   name="age.years"
                   control={control}
@@ -320,9 +321,9 @@ const EditAnnouncement = () => {
                   <FormError error={errors.age?.years?.message} />
                 )}
               </div>
-              <div className="w-full mt-16 md:mt-0 md:w-[296px] lg:w-[305px]">
-                <p className="text-base mb-5 text-left lg:mt-32 xl:mt-0">
-                  Порода *{' '}
+              <div className="mt-16 md:mt-0 w-full md:w-[296px] lg:w-[305px]">
+                <p className="lg:mt-32 xl:mt-0 mb-5 text-base text-left">
+                  Порода *
                 </p>
                 <Controller
                   name="breed"
@@ -340,18 +341,18 @@ const EditAnnouncement = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-2 mt-16 lg:mt-32 gap-16 w-full ">
+            <div className="gap-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-2 mt-16 lg:mt-32 w-full">
               <InputField
                 label="Ім’я тварини *"
                 id="animalName"
-                className="w-full md:w-[296px] lg:w-[305px] h-[40px] mt-16 text-base"
+                className="mt-16 w-full md:w-[296px] lg:w-[305px] h-[40px] text-base"
                 labelSize="base"
                 defaultValue={animal?.animalName}
                 {...register('animalName')}
                 error={errors.animalName?.message}
               />
-              <div className="w-full md:w-[296px] lg:w-[305px] md:mt-4">
-                <p className="text-base mb-8 text-left">Місто * </p>
+              <div className="md:mt-4 w-full md:w-[296px] lg:w-[305px]">
+                <p className="mb-8 text-base text-left">Місто * </p>
                 <Controller
                   name="animalLocation"
                   control={control}
@@ -370,7 +371,7 @@ const EditAnnouncement = () => {
 
             <TextareaDemo
               id="announvementText"
-              className="text-left mt-16 lg:mt-32 text-base"
+              className="mt-16 lg:mt-32 text-base text-left"
               placeholder="Опишіть тварину, її характер, історію, забарвлення"
               label="Опис тварини: *"
               defaultValue={animal?.adText}
@@ -403,7 +404,7 @@ const EditAnnouncement = () => {
               type="submit"
               styleType="defaultButton"
               disabled={isLoading || isEditingAnimal}
-              className="flex gap-8 z-10 w-[259px]"
+              className="z-10 flex gap-8 w-[259px]"
             >
               {isLoading || (isEditingAnimal && <Spinner />)}
               Зберегти зміни
@@ -411,7 +412,7 @@ const EditAnnouncement = () => {
           </form>
         </div>
 
-        <div className="order-2 lg:row-start-1 lg:col-start-2 lg:row-span-2 flex flex-col gap-32 items-center m-0 lg:my-100">
+        <div className="flex flex-col items-center gap-32 order-2 lg:col-start-2 lg:row-span-2 lg:row-start-1 m-0 lg:my-100">
           <ImageCarousel
             images={filteredImages}
             isDelete
@@ -421,8 +422,6 @@ const EditAnnouncement = () => {
       </div>
       {openModal && (
         <Modal
-          open={openModal}
-          onOpenChange={setOpenModal}
           onCancel={() => {
             setIdForDelete('');
           }}
