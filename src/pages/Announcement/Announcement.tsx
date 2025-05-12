@@ -123,24 +123,27 @@ const Announcement = () => {
 
   return (
     <div className="container flex flex-row gap-16 text-default-btn relative z-10">
-      <div className="absolute z-1  left-[84px] top-[27px]">
+      <div className="absolute z-1  left-10 lg:left-[84px] top-20 lg:top-[27px]">
         <img src={track} alt="track" className="w-[180px]" />
       </div>
       <div className="flex flex-col flex-1/2 mt-100">
-        <h2 className="text-[32px] mb-32 z-10">Додати оголошення</h2>
+        <h2 className="text-lg lg:text-[32px] mb-16 lg:mb-32 z-10">
+          Додати оголошення
+        </h2>
         <form
-          className="flex flex-col items-start"
+          className="flex flex-col items-start z-20 mb-50 w-full"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <p className="text-base mb-16 z-10">Оберіть вид тварини *</p>
+          <p className="text-base lg:text-xl mb-10 lg:mb-16 z-10">
+            Оберіть вид тварини *
+          </p>
           <Controller
             name="animalType"
             control={control}
             render={({ field: { onChange, name, onBlur, ref } }) => (
               <CustomRadioGroup
                 items={animalTypeOptions}
-                className="grid grid-cols-2"
-                itemWidth="305"
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-2"
                 error={errors.animalType?.message}
                 name={name}
                 ref={ref}
@@ -151,15 +154,16 @@ const Announcement = () => {
             )}
           />
 
-          <p className="text-base mt-32 mb-16">Стать </p>
+          <p className="text-base lg:text-xl mt-16 lg:mt-32 mb-10 lg:mb-16">
+            Стать
+          </p>
           <Controller
             name="gender"
             control={control}
             render={({ field: { onChange, name, onBlur, ref } }) => (
               <CustomRadioGroup
                 items={genderOption}
-                className="grid grid-cols-2"
-                itemWidth="305"
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1  2xl:grid-cols-2"
                 error={errors.gender?.message}
                 name={name}
                 ref={ref}
@@ -170,13 +174,13 @@ const Announcement = () => {
             )}
           />
 
-          <div className="flex mt-32">
-            <div className="grid grid-cols-[150px_150px] gap-[10px] mr-16">
+          <div className=" w-full grid md:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-2 gap-20 mt-16 lg:mt-32 flex-wrap">
+            <div className="grid grid-cols-2 gap-16 lg:gap-[10px] w-full md:w-[296px]">
               <InputField
                 label="Вік *"
                 id="years"
                 placeholder="0 років"
-                className="w-[150px] h-[40px] mt-16 text-base"
+                className="w-full lg:w-[150px] h-[40px] text-base"
                 labelSize="base"
                 {...register('age.years')}
               />
@@ -184,7 +188,7 @@ const Announcement = () => {
                 label=" "
                 id="months"
                 placeholder="0 місяців"
-                className="w-[150px] h-[40px] mt-16 mr-10 text-base"
+                className="w-full lg:w-[150px] h-[40px] text-base"
                 labelSize="base"
                 {...register('age.months')}
               />
@@ -195,15 +199,15 @@ const Announcement = () => {
                 <FormError error={errors.age?.months?.message} />
               )}
             </div>
-            <div>
-              <p className="text-base mb-8 text-left">Порода * </p>
+            <div className="w-full mt-16 md:mt-0 md:w-[296px] lg:w-[305px]">
+              <p className="text-base lg:text-xl mb-6 text-left">Порода *</p>
               <Controller
                 name="breed"
                 control={control}
                 render={({ field }) => (
                   <BreedSelect
                     onChange={field.onChange}
-                    className="w-[305px] h-[40px]"
+                    className="w-full h-[40px]"
                     type={animalTypeValue}
                     errorMess={errors?.breed?.message}
                   />
@@ -212,24 +216,24 @@ const Announcement = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-[305px_305px] mt-32 gap-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-2 mt-16 lg:mt-32 gap-16 w-full ">
             <InputField
               label="Ім’я тварини *"
               id="animalName"
-              className="w-[305px] h-[40px] mt-16 text-base"
+              className="w-full md:w-[296px] lg:w-[305px] h-[40px] mt-16 text-base"
               labelSize="base"
               {...register('animalName')}
               error={errors.animalName?.message}
             />
-            <div>
-              <p className="text-base mb-8 text-left">Місто * </p>
+            <div className=" w-full md:w-[296px] lg:w-[305px] md:mt-4">
+              <p className="text-base lg:text-xl mb-8 text-left">Місто * </p>
               <Controller
                 name="animalLocation"
                 control={control}
                 render={({ field }) => (
                   <CitySelect
                     onChange={field.onChange}
-                    className="w-[305px] h-[40px]"
+                    className="w-full h-[40px]"
                     errorMess={errors?.animalLocation?.message}
                   />
                 )}
@@ -239,7 +243,7 @@ const Announcement = () => {
 
           <TextareaDemo
             id="announvementText"
-            className="text-left mt-32 text-sm"
+            className="text-left  mt-16 lg:mt-32 text-sm "
             placeholder="Опишіть тварину, її характер, історію, забарвлення"
             label="Опис тварини: *"
             {...register('adText')}
@@ -268,7 +272,9 @@ const Announcement = () => {
               <FilesInput
                 ref={ref}
                 groupLabel="Додайте фото тварини та документи *"
-                labelClass="mb-16 mt-32"
+                labelClass="mb-16  mt-16 lg:mt-32"
+                labelSize="base"
+                className="w-full "
                 name={name}
                 onChange={onChange}
                 error={errors.images?.message?.toString()}
@@ -281,7 +287,7 @@ const Announcement = () => {
             type="submit"
             styleType="defaultButton"
             disabled={isLoading}
-            className="flex gap-8 z-10 w-[259px]"
+            className="flex gap-8 z-10 w-[259px] mt-32 lg:mt-50"
           >
             {isLoading ? <Spinner /> : <LuCirclePlus size={20} />}
             Створити оголошення
@@ -289,19 +295,19 @@ const Announcement = () => {
         </form>
       </div>
 
-      <div className=" bg-orange rounded-[30px] flex flex-col gap-32 py-32 items-end my-100">
-        <div className="w-[600px] rounded-l-[30px] overflow-hidden ml-30">
+      <div className="hidden bg-orange rounded-[30px] lg:flex flex-col gap-32 py-32 items-end my-100 w-1/2 h-full z-20">
+        <div className="w-[95%] max-w-[600px] rounded-l-[30px] overflow-hidden ml-30">
           <img src={announce4} alt="хлопець з лабродором" />
         </div>
-        <div className="w-[600px] rounded-l-[30px] overflow-hidden">
+        <div className="w-[95%] max-w-[600px] rounded-l-[30px] overflow-hidden">
           <img src={announce2} alt="дівчина з собакою" />
         </div>
-        <div className="w-[600px] rounded-l-[30px] overflow-hidden">
+        <div className="w-[95%] max-w-[600px] rounded-l-[30px] overflow-hidden">
           <img src={announce3} alt="дівчина з котом" />
         </div>
       </div>
 
-      <div className="absolute z-1  left-[43%] -bottom-[16px] rotate-[57deg]">
+      <div className="hidden lg:block absolute z-1  left-[43%] -bottom-[16px] rotate-[57deg]">
         <img src={track} alt="track" className="w-[180px]" />
       </div>
     </div>

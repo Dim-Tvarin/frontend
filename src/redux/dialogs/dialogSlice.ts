@@ -6,6 +6,7 @@ type DialogType =
   | 'verifyResetCode'
   | 'resetPassword'
   | 'editUser'
+  | 'modal'
   | { type: 'alertDelete'; entity: 'animal'; id: string }
   | { type: 'alertDelete'; entity: 'user' }
   | null;
