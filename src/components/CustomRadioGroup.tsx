@@ -19,6 +19,7 @@ interface RadioProps {
   groupLabel?: string;
   labelSize?: string;
   labelClass?: string;
+  itemWidth?: string;
   onChange: (value: string) => void;
   onBlur?: () => void;
   error?: string;
@@ -31,6 +32,7 @@ const CustomRadioGroup: FC<RadioProps> = ({
   items,
   className,
   groupLabel,
+  itemWidth,
   labelClass,
   labelSize = '[16px]',
   onChange,
@@ -57,6 +59,7 @@ const CustomRadioGroup: FC<RadioProps> = ({
             htmlFor={item.value}
             className={cn(
               'flex items-center gap-8 rounded-lg p-8 border-1 border-input-border h-40 text-base w-full md:w-[300px] lg:w-[305px]',
+              itemWidth ? `w-[${itemWidth}px]` : 'w-full',
               { 'border-error-input': error }
             )}
             key={item.value}
@@ -65,7 +68,7 @@ const CustomRadioGroup: FC<RadioProps> = ({
               checked={item.value === value}
               value={item.value}
               id={item.value}
-              className="ring-[1px] w-20 h-20 data-[state=checked]:ring-2 focus:outline-none text-base"
+              className="focus:outline-none ring-[1px] data-[state=checked]:ring-2 w-20 h-20 text-base"
             />
             {item.label}
           </Label>
