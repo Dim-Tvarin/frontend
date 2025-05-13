@@ -45,8 +45,8 @@ const AnimalsCarousel = () => {
             </CarouselItem>
           ))}
       </CarouselContent>
-      <CarouselPrevious className="hidden md:flex" />
-      <CarouselNext className="hidden md:flex" />
+      <CarouselPrevious className="hidden md:flex focus:outline-none" />
+      <CarouselNext className="hidden md:flex focus:outline-none" />
     </Carousel>
   );
 };
