@@ -6,6 +6,8 @@ type DialogType =
   | 'verifyResetCode'
   | 'resetPassword'
   | 'editUser'
+  | 'editAvatarUpload'
+  | 'editAvatarCrop'
   | { type: 'alertDelete'; entity: 'animal'; id: string }
   | { type: 'alertDelete'; entity: 'user' }
   | null;

@@ -4,7 +4,7 @@ import ResponsiveImage from 'components/ResponsiveImage';
 import { PetsListSkeleton } from 'components/sceletons/PetsListSkeleton';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useSearchParams } from 'react-router';
+import { useNavigate, useSearchParams } from 'react-router';
 import {
   selectFavoriteAnimals,
   selectFavoritesLoading,
@@ -14,6 +14,7 @@ import emptyFavoriteMin from '../assets/empty-favorites@1x.png';
 import { CustomButton } from 'components/CustomButton';
 
 const FavoritePage = () => {
+  const navigate = useNavigate();
   const isLoading = useSelector(selectFavoritesLoading);
   const favorites = useSelector(selectFavoriteAnimals);
   const perPage = 16;
@@ -57,6 +58,7 @@ const FavoritePage = () => {
             <CustomButton
               styleType="defaultButton"
               className="mt-80 text-base w-[197px]"
+              onClick={() => navigate('/allpets')}
             >
               До списку тварин
             </CustomButton>
