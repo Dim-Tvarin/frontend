@@ -400,7 +400,7 @@ const EditAnnouncement = () => {
               type="submit"
               styleType="defaultButton"
               disabled={isLoading || isEditingAnimal}
-              className="z-10 flex gap-8 w-[259px]"
+              className="z-10 flex gap-8 w-[196px]"
             >
               {isLoading || (isEditingAnimal && <Spinner />)}
               Зберегти зміни
