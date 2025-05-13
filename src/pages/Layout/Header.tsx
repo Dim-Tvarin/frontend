@@ -89,11 +89,6 @@ export const Header = () => {
               </NavLink>
             </li>
           </ul>
-          {/* {/* <li className="mr-20 ml-auto">
-            <NavLink to="/favorite" end>
-              <img src={search} alt="search" />
-            </NavLink>
-          </li> */}
           <div className="flex items-center gap-28">
             <NavLink to="/favorite" className="relative" end>
               {favoritesCount > 0 ? (
