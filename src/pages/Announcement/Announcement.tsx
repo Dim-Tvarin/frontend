@@ -122,19 +122,20 @@ const Announcement = () => {
   };
 
   return (
-    <div className="container flex flex-row gap-16 text-default-btn relative z-10">
-      <div className="absolute z-1  left-10 lg:left-[84px] top-20 lg:top-[27px]">
-        <img src={track} alt="track" className="w-[180px]" />
+    <div className="z-10 relative flex flex-row gap-16 text-default-btn container">
+      <div className="top-20 lg:top-[27px] left-10 lg:left-[84px] z-1 absolute">
+        <img src={track} alt="track" className="w-[105px] lg:w-[180px]" />
       </div>
-      <div className="flex flex-col flex-1/2 mt-72 lg:mt-100">
-        <h2 className="text-lg lg:text-[32px] mb-16 lg:mb-32 z-10">
+
+      <div className="flex flex-col flex-1/2 mt-40 lg:mt-100">
+        <h2 className="z-10 mb-16 lg:mb-32 lg:text-[32px] text-lg">
           Додати оголошення
         </h2>
         <form
-          className="flex flex-col items-start z-20 mb-50 w-full"
+          className="z-20 flex flex-col items-start mb-50 w-full"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <p className="text-base mb-10 lg:mb-16 z-10">Оберіть вид тварини *</p>
+          <p className="z-10 mb-10 text-base">Оберіть вид тварини *</p>
           <Controller
             name="animalType"
             control={control}
@@ -152,14 +153,14 @@ const Announcement = () => {
             )}
           />
 
-          <p className="text-base mt-16 lg:mt-32 mb-10 lg:mb-16">Стать</p>
+          <p className="mt-16 lg:mt-32 mb-10 text-base">Стать</p>
           <Controller
             name="gender"
             control={control}
             render={({ field: { onChange, name, onBlur, ref } }) => (
               <CustomRadioGroup
                 items={genderOption}
-                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1  2xl:grid-cols-2"
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-2"
                 error={errors.gender?.message}
                 name={name}
                 ref={ref}
@@ -170,8 +171,8 @@ const Announcement = () => {
             )}
           />
 
-          <div className="w-full grid md:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-2 gap-0 md:gap-20 mt-16 lg:mt-32 flex-wrap">
-            <div className="grid grid-cols-2 gap-16 lg:gap-[10px] w-full md:w-[296px]">
+          <div className="flex-wrap gap-0 md:gap-20 grid md:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-2 mt-16 lg:mt-32 w-full">
+            <div className="gap-16 grid grid-cols-2 w-full md:w-[305px]">
               <InputField
                 label="Вік *"
                 id="years"
@@ -184,7 +185,7 @@ const Announcement = () => {
                 label=" "
                 id="months"
                 placeholder="0 місяців"
-                className="w-full lg:w-[150px] h-[40px] text-base"
+                className="mr-10 w-full lg:w-[150px] h-[40px] text-base"
                 labelSize="base"
                 {...register('age.months')}
               />
@@ -195,10 +196,8 @@ const Announcement = () => {
                 <FormError error={errors.age?.months?.message} />
               )}
             </div>
-            <div className="w-full mt-16 md:mt-0 md:w-[296px] lg:w-[305px]">
-              <p className="text-base mb-5 text-left lg:mt-32 xl:mt-0">
-                Порода *
-              </p>
+            <div className="mt-16 md:mt-0 w-full md:w-[296px] lg:w-[305px]">
+              <p className="mb-10 lg:mb-5 text-base text-left">Порода *</p>
               <Controller
                 name="breed"
                 control={control}
@@ -214,17 +213,17 @@ const Announcement = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-2 mt-16 lg:mt-32 gap-16 w-full ">
+          <div className="items-end gap-10 lg:gap-32 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-2 mt-16 lg:mt-32 w-full">
             <InputField
               label="Ім’я тварини *"
               id="animalName"
-              className="w-full md:w-[296px] lg:w-[305px] h-[40px] mt-16 text-base"
+              className="mt-10 w-full md:w-[296px] lg:w-[305px] h-[40px] text-base"
               labelSize="base"
               {...register('animalName')}
               error={errors.animalName?.message}
             />
-            <div className="w-full md:w-[296px] lg:w-[305px] md:mt-4">
-              <p className="text-base mb-8 text-left">Місто * </p>
+            <div className="md:mt-4 w-full md:w-[296px] lg:w-[305px]">
+              <p className="mb-10 text-base text-left">Місто * </p>
               <Controller
                 name="animalLocation"
                 control={control}
@@ -241,27 +240,13 @@ const Announcement = () => {
 
           <TextareaDemo
             id="announvementText"
-            className="text-left mt-16 lg:mt-32 text-base"
+            className="mt-10 lg:mt-32 text-base text-left"
             placeholder="Опишіть тварину, її характер, історію, забарвлення"
             label="Опис тварини: *"
             labelSize="base"
             {...register('adText')}
             error={errors.adText?.message}
           />
-          {/* <div className='mt-32  relative z-1'>
-            <LuGlobe size={24} className='absolute left-0 top-46'/>
-            <InputField
-              label="Додаткове посилання"
-              id="link"
-              placeholder='https://...'
-              className="w-[calc(100%-32px)] h-[40px] mt-16 ml-32"
-              labelSize="xl"
-              {...register('link')}
-              error={errors.link?.message}
-            />
-            <p className='text-input-border text-left text-xs mt-10 ml-32'> Це може бути сторінка тварини на сайті притулку, публікація у соцмережах або відео.
-            Максимальна довжина: 255 символів.</p>
-          </div> */}
 
           <Controller
             name="images"
@@ -271,9 +256,9 @@ const Announcement = () => {
               <FilesInput
                 ref={ref}
                 groupLabel="Додайте фото тварини та документи *"
-                labelClass="mb-16 mt-16 lg:mt-32"
+                labelClass="mb-16 mt-16"
                 labelSize="base"
-                className="w-full "
+                className="w-full"
                 name={name}
                 onChange={onChange}
                 error={errors.images?.message?.toString()}
@@ -286,7 +271,7 @@ const Announcement = () => {
             type="submit"
             styleType="defaultButton"
             disabled={isLoading}
-            className="flex gap-8 z-10 w-[259px] mt-32 lg:mt-50"
+            className="z-10 flex gap-8 mt-32 lg:mt-50 w-[259px]"
           >
             {isLoading ? <Spinner /> : <LuCirclePlus size={20} />}
             Створити оголошення
@@ -294,19 +279,19 @@ const Announcement = () => {
         </form>
       </div>
 
-      <div className="hidden bg-orange rounded-[30px] lg:flex flex-col gap-32 py-32 items-end my-100 w-1/2 h-full z-20">
-        <div className="w-[95%] max-w-[600px] rounded-l-[30px] overflow-hidden ml-30">
+      <div className="hidden z-20 lg:flex flex-col items-end gap-32 bg-orange my-100 py-32 rounded-[30px] w-1/2 h-full">
+        <div className="ml-30 rounded-l-[30px] w-[95%] max-w-[600px] overflow-hidden">
           <img src={announce4} alt="хлопець з лабродором" />
         </div>
-        <div className="w-[95%] max-w-[600px] rounded-l-[30px] overflow-hidden">
+        <div className="rounded-l-[30px] w-[95%] max-w-[600px] overflow-hidden">
           <img src={announce2} alt="дівчина з собакою" />
         </div>
-        <div className="w-[95%] max-w-[600px] rounded-l-[30px] overflow-hidden">
+        <div className="rounded-l-[30px] w-[95%] max-w-[600px] overflow-hidden">
           <img src={announce3} alt="дівчина з котом" />
         </div>
       </div>
 
-      <div className="hidden lg:block absolute z-1  left-[43%] -bottom-[16px] rotate-[57deg]">
+      <div className="hidden lg:block -bottom-[16px] left-[43%] z-1 absolute rotate-[57deg]">
         <img src={track} alt="track" className="w-[180px]" />
       </div>
     </div>
