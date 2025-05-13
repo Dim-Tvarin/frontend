@@ -29,7 +29,7 @@ export const Home = () => {
         <div className="hidden md:block md:top-50 lg:top-[35px] md:left-46 lg:left-[88px] z-1 absolute w-[103px] lg:w-[207px] h-[105px] lg:h-[203px]">
           <img src={track} alt="track" />
         </div>
-        <div className="z-10 flex flex-col justify-center items-center gap-16 lg:gap-[24px] order-2 md:order-1 sm:w-full md:w-2/4">
+        <div className="z-10 flex flex-col justify-center items-center gap-30 lg:gap-50 order-2 md:order-1 sm:w-full md:w-2/4">
           <p className="z-10 px-[35px] md:px-0 font-normal lg:text-[32px] text-base md:text-xl">
             Оберіть для себе ідеального домашнього улюбленця, або допоможіть
             безпритульним тваринам знайти свій дім
@@ -39,7 +39,7 @@ export const Home = () => {
             onClick={handleNavigateAnnouncement}
           >
             <LuCirclePlus size={20} />
-            Створити оголошення
+            Додати оголошення
           </CustomButton>
           <div className="hidden md:block md:top-[266px] lg:top-[510px] xl:top-[455px] md:left-[248px] lg:left-[216px] xl:left-[354px] z-1 absolute w-[103px] lg:w-[300px] h-[105px] lg:h-[320px] rotate-[57deg]">
             <img src={track} alt="track" />
@@ -69,8 +69,8 @@ export const Home = () => {
             />
           </div>
         </div>
-        <div className="z-10 flex flex-col justify-start items-start gap-10 md:gap-[24px] w-full md:w-2/4 text-start">
-          <h3 className="lg:mb-8 font-semibold lg:text-[32px] text-base">
+        <div className="z-10 flex flex-col justify-start items-start gap-10 md:gap-32 w-full md:w-2/4 text-start">
+          <h3 className="font-semibold lg:text-[32px] text-base">
             Чому саме ми?
           </h3>
           <p className="font-normal text-sm lg:text-2xl">
@@ -86,16 +86,16 @@ export const Home = () => {
           </p>
         </div>
       </section>
-      <section className="relative flex flex-col justify-center items-center gap-20 md:gap-36 lg:gap-50 mb-80 lg:mb-100">
+      <section className="relative flex flex-col justify-center items-center mb-50 lg:mb-100">
         <div className="hidden md:block -top-[92px] right-16 z-1 absolute w-[172px] lg:w-[260px] h-[168px] lg:h-[270px] rotate-[57deg]">
           <img src={track} alt="track" />
         </div>
-        <h3 className="z-10 relative font-semibold text-base md:text-2xl lg:text-5xl">
-          Тварини які шукають дім
+        <h3 className="z-10 relative mb-12 lg:mb-50 font-semibold text-base md:text-2xl lg:text-5xl">
+          Тварини, які шукають дім
         </h3>
         <AnimalsCarousel />
         <CustomButton
-          className="z-10 flex gap-10 bg-default-btn mt-0 md:mt-16 rounded-[20px] w-[236px] h-[44px]"
+          className="z-10 flex gap-10 bg-default-btn mt-50 rounded-[20px] w-[236px] h-[44px]"
           onClick={() => navigate('/allpets')}
         >
           Переглянути всіх

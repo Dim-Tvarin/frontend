@@ -30,7 +30,7 @@ const AnimalsCarousel = () => {
           data?.animals.map(item => (
             <CarouselItem
               key={item.id}
-              className="ml-16 pl-16 basis-[66.6%] md:basis-[50%] lg:basis-[37%] xl:basis-[29%] 2xl:basis-[25%]"
+              className="pl-20 basis-[66.6%] md:basis-[50%] lg:basis-[37%] xl:basis-[29%] 2xl:basis-[25%]"
             >
               <AnimalCard
                 key={item.id}
