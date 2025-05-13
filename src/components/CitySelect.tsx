@@ -15,6 +15,7 @@ import {
 import FormError from './FormError';
 import { useGetCitiesQuery } from 'src/redux/animals/addInfoApi';
 import { useDebounce } from '@uidotdev/usehooks';
+import { cn } from './lib/utils';
 
 interface CityType {
   _id: string;
@@ -54,12 +55,14 @@ export function CitySelect({
   defaultValue,
   value,
   className,
+  widthClass = 'w-[305px]',
   errorMess,
 }: {
   onChange: (city: string) => void;
   defaultValue?: string;
   value?: string;
   className?: string;
+  widthClass?: string;
   errorMess?: string;
 }) {
   const [open, setOpen] = useState(false);
@@ -97,12 +100,21 @@ export function CitySelect({
         <PopoverTrigger asChild>
           <Button
             variant="outline"
-            className={`${className} w-[305px] justify-between border-input-border px-16 text-base text-medium text-default-btn`}
+            className={cn(
+              className,
+              widthClass,
+              ' justify-between border-input-border px-16 text-base text-medium text-default-btn'
+            )}
           >
             {selectedCity || value || 'Оберіть населенний пункт'}
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-[305px] p-0  border-1 border-input-border rounded-t-lg z-10">
+        <PopoverContent
+          className={cn(
+            widthClass,
+            '  p-0  border-1 border-input-border rounded-t-lg z-10'
+          )}
+        >
           <Command>
             <CommandInput
               placeholder="Пошук міста..."

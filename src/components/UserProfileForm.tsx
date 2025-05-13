@@ -1,23 +1,25 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useDispatch, useSelector } from 'react-redux';
 import type { z } from 'zod';
-
 import { editUserSchema } from '../validations/editProfileValidation';
 import { selectError, selectUser } from 'src/redux/users/usersSlice';
 import { closeDialog, openDialog } from 'src/redux/dialogs/dialogSlice';
 import type { AppDispatch } from 'src/redux/store';
-
 import { InputField } from './InputField';
 import { PhoneInput } from './PhoneInput';
 import { CustomButton } from './CustomButton';
 import { DialogFooter } from './components/ui/dialog';
-import AvatarUploadField from './AvatarUploadField';
+import avatarStubMin from '../assets/avatar-stub.png';
+import avatarStubMax from '../assets/avatar-stub@2x.png';
 import { showToast } from './Toast';
 import { Spinner } from './Spinner';
 import { CitySelect } from './CitySelect';
 import { useSmartUserUpdate } from 'hooks/useSmartUserUpdate';
+import ResponsiveImage from './ResponsiveImage';
+import { LuCirclePlus } from 'react-icons/lu';
+import { useImageCrop } from 'src/context/ImageCropContext';
 
 type FormData = z.infer<typeof editUserSchema>;
 
@@ -25,6 +27,9 @@ const UserProfileForm = () => {
   const dispatch = useDispatch<AppDispatch>();
   const emailError = useSelector(selectError);
   const user = useSelector(selectUser);
+  const formRef = useRef<HTMLFormElement | null>(null);
+  const avatarRef = useRef<File | undefined>(undefined);
+  const { setImageAfterCrop, setFormSubmit } = useImageCrop();
 
   const defaultValues = {
     name: user.name || '',
@@ -38,7 +43,6 @@ const UserProfileForm = () => {
     control,
     handleSubmit,
     reset,
-    setValue,
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(editUserSchema),
@@ -53,6 +57,18 @@ const UserProfileForm = () => {
   const { updateUserSmart, isLoading, isSuccess, isError } =
     useSmartUserUpdate();
 
+  const onSubmit = async (data: FormData) => {
+    await updateUserSmart({ ...data, avatar: avatarRef.current });
+    console.log('[onSubmit] Avatar ref:', avatarRef.current);
+  };
+  const handleClick = () => {
+    setImageAfterCrop((file: File) => {
+      avatarRef.current = file;
+    });
+    setFormSubmit(handleSubmit(onSubmit));
+    dispatch(openDialog('editAvatarUpload'));
+  };
+
   useEffect(() => {
     if (isSuccess) {
       dispatch(closeDialog());
@@ -61,23 +77,26 @@ const UserProfileForm = () => {
     }
   }, [isSuccess, isError, dispatch]);
 
-  const onSubmit = async (data: FormData) => {
-    await updateUserSmart(data);
-  };
-
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex">
-      <AvatarUploadField
-        currentAvatar={user.avatarURL}
-        onFileSelect={file =>
-          setValue('avatar', file, { shouldValidate: true })
-        }
-        error={
-          typeof errors.avatar?.message === 'string'
-            ? errors.avatar.message
-            : undefined
-        }
-      />
+    <form ref={formRef} onSubmit={handleSubmit(onSubmit)} className="flex">
+      <div className="w-[305px] h-[305px] mr-30 shrink-0 relative">
+        <ResponsiveImage
+          urlMin={user.avatarURL || avatarStubMin}
+          urlMax={user.avatarURL || avatarStubMax}
+          alt="Аватар"
+        />
+        <LuCirclePlus
+          onClick={handleClick}
+          size={36}
+          fill="white"
+          className="absolute bottom-0 right-0  cursor-pointer"
+        />
+        <ul className="flex flex-col text-xs text-input-border mt-20">
+          <li>Формати: JPG, PNG, GIF</li>
+          <li>Макс. розмір: 2 МБ</li>
+          <li>Рекомендований розмір: 150×150 – 500×500 px</li>
+        </ul>
+      </div>
       <div className="flex flex-col gap-[15px]">
         <InputField
           label="Ім’я або назва організації"
@@ -114,7 +133,8 @@ const UserProfileForm = () => {
                 <CitySelect
                   value={field.value}
                   onChange={field.onChange}
-                  className="w-[255px] h-40 text-[16px] hover:border-input-border"
+                  className="h-40 text-[16px] hover:border-input-border"
+                  widthClass="w-[255px]"
                   errorMess={errors.location?.message}
                 />
               )}
