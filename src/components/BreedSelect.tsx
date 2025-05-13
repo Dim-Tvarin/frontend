@@ -144,16 +144,19 @@ const BreedSelect = ({
 
   if (type && !isDefaultAnimalType(type)) {
     return (
-      <InputField
-        defaultValue={defaultValue}
-        id="animBeed"
-        placeholder="Введіть породу"
-        className="w-full lg:w-[305px] h-[40px]"
-        onChange={e => {
-          setSelectedBreed(e.target.value);
-          onChange?.(e.target.value);
-        }}
-      />
+      <>
+        <InputField
+          defaultValue={defaultValue}
+          id="animBeed"
+          placeholder="Введіть породу"
+          className="w-full lg:w-[305px] h-[40px]"
+          onChange={e => {
+            setSelectedBreed(e.target.value);
+            onChange?.(e.target.value);
+          }}
+        />
+        {errorMess && <FormError error={errorMess} />}
+      </>
     );
   }
 
@@ -169,17 +172,17 @@ const BreedSelect = ({
             {selectedBreed || defaultValue || 'Оберіть породу'}
           </Button>
         </PopoverTrigger>
-        <PopoverContent className=" p-0  border-1 border-input-border rounded-t-lg z-10">
+        <PopoverContent className="z-10 p-0 border-1 border-input-border rounded-t-lg">
           <Command className="bg-white">
             <CommandInput
               placeholder="Пошук ..."
               onValueChange={val => setSearchValue(val)}
             />
-            <CommandList className="border-1 border-input-border bg-white rounded-b-lg ">
+            <CommandList className="bg-white border-1 border-input-border rounded-b-lg">
               {filteredBreed.map(
                 (breed: Pick<AnimalTrait, '_id' | 'breed'>) => (
                   <CommandItem
-                    className="text-base text-default-btn px-16 text-left "
+                    className="px-16 text-default-btn text-base text-left"
                     key={breed._id}
                     value={breed.breed}
                     onSelect={() => {
