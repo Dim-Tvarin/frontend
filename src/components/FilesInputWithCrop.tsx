@@ -134,14 +134,11 @@ export const FilesInput = ({
           {...getInputProps()}
           {...rest}
         />
-        <div className="flex items-center flex-col">
-          <p className="text-default-btn text-base lg:text-lg mb-16">
+        <div className="flex flex-col items-center">
+          <p className="mb-16 text-default-btn text-base lg:text-lg">
             {isDragActive ? 'Отпустите файл сюда...' : 'Перетягніть файл сюди'}
           </p>
-          <div
-            className="lg:w-[382px] h-[64px] border-2 border-border-file bg-main-pink-l flex items-center gap-[19px]
-          py-10 px-16 rounded-[8px]"
-          >
+          <div className="flex items-center gap-[19px] bg-main-pink-l px-16 py-10 border-2 border-border-file rounded-[8px] lg:w-[382px] h-[64px]">
             <Button
               type="button"
               className={cn(
@@ -158,14 +155,14 @@ export const FilesInput = ({
               Файл не вибрано
             </p>
           </div>
-          <p className="text-input-border text-sm mt-8">
+          <p className="mt-8 text-input-border text-sm">
             Загрузити можна максимум 4 фото
           </p>
         </div>
       </div>
 
       {imageData.length > 0 && (
-        <div className="grid grid-cols-2 gap-16 mt-8">
+        <div className="gap-16 grid grid-cols-1 xl:grid-cols-2 mt-16">
           {imageData.map((img, index) => (
             <PhotoPrev
               image={img}
@@ -184,7 +181,7 @@ export const FilesInput = ({
           onClose={() => setCropModalOpen(false)}
           title="Обрізати зображення"
         >
-          <div className="w-full h-[400px] relative">
+          <div className="relative w-full h-[400px]">
             <Cropper
               image={URL.createObjectURL(selectedImage)}
               crop={crop}
@@ -195,7 +192,7 @@ export const FilesInput = ({
               onCropComplete={onCropComplete}
             />
           </div>
-          <div className="flex gap-20 mt-32 ml-auto items-center justify-center">
+          <div className="flex justify-center items-center gap-20 mt-32 ml-auto">
             <CustomButton
               styleType="defaultButton"
               onClick={handleCropConfirm}
@@ -206,7 +203,7 @@ export const FilesInput = ({
             <CustomButton
               styleType="whiteButton"
               onClick={() => setCropModalOpen(false)}
-              className="m-0 w-[157px] bg-dialog"
+              className="bg-dialog m-0 w-[157px]"
             >
               Скасувати
             </CustomButton>

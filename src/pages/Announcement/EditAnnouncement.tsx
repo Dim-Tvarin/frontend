@@ -193,7 +193,7 @@ const EditAnnouncement = () => {
   return (
     <>
       <div className="z-10 relative gap-16 grid grid-cols-1 lg:grid-cols-[1fr_1fr] lg:grid-rows-[150px_1fr] lg:auto-rows-fr text-default-btn container">
-        <h2 className="z-10 order-1 lg:col-start-1 lg:row-span-1 lg:row-start-1 mt-72 lg:mt-100 mb-16 lg:mb-32 lg:text-[32px] text-lg">
+        <h2 className="z-10 order-1 lg:col-start-1 lg:row-span-1 lg:row-start-1 mt-40 lg:mt-100 mb-16 lg:mb-32 lg:text-[32px] text-lg">
           Редагування оголошення
         </h2>
         <div className="flex flex-col flex-1/2 order-3 lg:col-start-1 lg:row-span-1 lg:row-start-2 mb-100">
@@ -201,9 +201,7 @@ const EditAnnouncement = () => {
             className="flex flex-col items-start"
             onSubmit={handleSubmit(onSubmit)}
           >
-            <p className="z-10 mb-10 lg:mb-16 text-base">
-              Оберіть вид тварини *
-            </p>
+            <p className="z-10 mb-10 text-base">Оберіть вид тварини *</p>
             <Controller
               defaultValue={animal?.animalType}
               name="animalType"
@@ -222,7 +220,7 @@ const EditAnnouncement = () => {
               )}
             />
 
-            <p className="mt-16 lg:mt-32 mb-10 lg:mb-16 text-base">Стать</p>
+            <p className="mt-16 lg:mt-32 mb-10 text-base">Стать</p>
             <Controller
               defaultValue={animal?.gender}
               name="gender"
@@ -273,7 +271,7 @@ const EditAnnouncement = () => {
                       inputMode="numeric"
                       type="text"
                       placeholder="0 років"
-                      className="mt-16 mr-10 w-full lg:w-[150px] h-[40px] text-base"
+                      className="w-full lg:w-[150px] h-[40px] text-base"
                       label="Вік"
                       labelSize="base"
                     />
@@ -309,7 +307,7 @@ const EditAnnouncement = () => {
                       inputMode="numeric"
                       type="text"
                       placeholder="0 місяців"
-                      className="mt-16 mr-10 w-full lg:w-[150px] h-[40px] text-base"
+                      className="w-full lg:w-[150px] h-[40px] text-base"
                       label=" "
                     />
                   )}
@@ -322,9 +320,7 @@ const EditAnnouncement = () => {
                 )}
               </div>
               <div className="mt-16 md:mt-0 w-full md:w-[296px] lg:w-[305px]">
-                <p className="lg:mt-32 xl:mt-0 mb-5 text-base text-left">
-                  Порода *
-                </p>
+                <p className="mb-10 text-base text-left">Порода *</p>
                 <Controller
                   name="breed"
                   control={control}
@@ -341,18 +337,18 @@ const EditAnnouncement = () => {
               </div>
             </div>
 
-            <div className="gap-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-2 mt-16 lg:mt-32 w-full">
+            <div className="items-end gap-10 lg:gap-32 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-2 mt-16 lg:mt-32 w-full">
               <InputField
                 label="Ім’я тварини *"
                 id="animalName"
-                className="mt-16 w-full md:w-[296px] lg:w-[305px] h-[40px] text-base"
+                className="mt-10 w-full md:w-[296px] lg:w-[305px] h-[40px] text-base"
                 labelSize="base"
                 defaultValue={animal?.animalName}
                 {...register('animalName')}
                 error={errors.animalName?.message}
               />
               <div className="md:mt-4 w-full md:w-[296px] lg:w-[305px]">
-                <p className="mb-8 text-base text-left">Місто * </p>
+                <p className="mb-10 text-base text-left">Місто * </p>
                 <Controller
                   name="animalLocation"
                   control={control}
@@ -371,7 +367,7 @@ const EditAnnouncement = () => {
 
             <TextareaDemo
               id="announvementText"
-              className="mt-16 lg:mt-32 text-base text-left"
+              className="mt-10 lg:mt-32 text-base text-left"
               placeholder="Опишіть тварину, її характер, історію, забарвлення"
               label="Опис тварини: *"
               defaultValue={animal?.adText}
@@ -387,7 +383,7 @@ const EditAnnouncement = () => {
                 <FilesInput
                   ref={ref}
                   groupLabel="Додайте фото тварини та документи *"
-                  labelClass="mb-16 mt-16 lg:mt-32"
+                  labelClass="mb-16 mt-16"
                   labelSize="base"
                   className="w-full"
                   name={name}
