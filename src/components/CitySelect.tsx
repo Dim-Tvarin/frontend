@@ -115,7 +115,7 @@ export function CitySelect({
             '  p-0  border-1 border-input-border rounded-t-lg z-10'
           )}
         >
-          <Command>
+          <Command className="bg-white">
             <CommandInput
               placeholder="Пошук міста..."
               onValueChange={val => setSearchValue(val)}

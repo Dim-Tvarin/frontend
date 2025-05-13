@@ -25,11 +25,11 @@ const ImageCarousel = ({
   };
 
   return (
-    <div className="flex flex-col items-center gap-32">
+    <div className="flex flex-col items-center gap-32 w-full">
       <div className="relative min-w-[325px] h-[210px] w-[80%] md:h-[471px] lg:w-[466px] xl:w-[630px] rounded-[30px] bg-orange">
         {isDelete && (
           <div
-            className="absolute top-[52px] right-[42px] w-[36px] h-[36px] bg-default-btn rounded-full grid place-items-center hover:bg-orange transition-all duration-300 z-10 cursor-pointer"
+            className="absolute top-24 right-20 md:top-[52px] md:right-[42px] w-[36px] h-[36px] bg-default-btn rounded-full grid place-items-center hover:bg-orange transition-all duration-300 z-10 cursor-pointer"
             onClick={() => handleDeleteImage(images[activeIndex].publicId)}
           >
             <FaRegTrashAlt color="white" />

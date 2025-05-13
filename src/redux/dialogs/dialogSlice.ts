@@ -8,6 +8,7 @@ type DialogType =
   | 'editUser'
   | 'editAvatarUpload'
   | 'editAvatarCrop'
+  | 'modal'
   | { type: 'alertDelete'; entity: 'animal'; id: string }
   | { type: 'alertDelete'; entity: 'user' }
   | null;

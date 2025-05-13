@@ -1,21 +1,38 @@
-import { useGetAnimaltraitsQuery, type AnimalTrait } from 'src/redux/animals/addInfoApi';
-import { Popover, PopoverContent, PopoverTrigger } from "@radix-ui/react-popover";
-import { Command, CommandInput, CommandItem, CommandList } from "./components/ui/command";
+import {
+  useGetAnimaltraitsQuery,
+  type AnimalTrait,
+} from 'src/redux/animals/addInfoApi';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@radix-ui/react-popover';
+import {
+  Command,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from './components/ui/command';
 import { Button } from './components/ui/button';
 import { useEffect, useState } from 'react';
-import { BsCheckLg } from "react-icons/bs";
+import { BsCheckLg } from 'react-icons/bs';
 import FormError from './FormError';
 import { useDebounce } from '@uidotdev/usehooks';
 import { InputField } from './InputField';
 import { AnimalType, type AnimalTypeValues } from 'pages/Announcement/types';
 
+const getFilteredBreed = (
+  data: Pick<AnimalTrait, '_id' | 'breed'>[],
+  searchVal: string
+): Pick<AnimalTrait, '_id' | 'breed'>[] => {
+  const search = searchVal.toLocaleLowerCase();
+  return data.filter(i => i.breed.toLowerCase().startsWith(search));
+};
 
-const getFilteredBreed = (data:  Pick<AnimalTrait, '_id' | 'breed'>[], searchVal: string): Pick<AnimalTrait, '_id' | 'breed'>[] => {
-  const search = searchVal.toLocaleLowerCase()
-  return  data.filter(i => i.breed.toLowerCase().startsWith(search))
-}
-
-const defaultBreeds: Record<Exclude<AnimalType, AnimalType.other>, Pick<AnimalTrait, '_id' | 'breed'>[]> = {
+const defaultBreeds: Record<
+  Exclude<AnimalType, AnimalType.other>,
+  Pick<AnimalTrait, '_id' | 'breed'>[]
+> = {
   dogs: [
     { _id: '67fb8ea44b0d6673ac919d07', breed: 'Невідомо' },
     { _id: '67fb8ea44b0d6673ac919c3a', breed: "Австралійський тер'єр" },
@@ -50,24 +67,46 @@ const defaultBreeds: Record<Exclude<AnimalType, AnimalType.other>, Pick<AnimalTr
     { _id: '67fb8ea44b0d6673ac919d74', breed: 'Амазонський папуга' },
     { _id: '67fb8ea44b0d6673ac919d7d', breed: 'Какаду білоголовий' },
     { _id: '67fb8ea44b0d6673ac919d83', breed: 'Півень (декоративний)' },
-    {_id: '67fb8ea44b0d6673ac919d86',  breed: 'Голуб звичайний (поштова порода)',},
+    {
+      _id: '67fb8ea44b0d6673ac919d86',
+      breed: 'Голуб звичайний (поштова порода)',
+    },
     { _id: '67fb8ea44b0d6673ac919d8a', breed: 'Лебідь-шипун' },
   ],
 };
 
-const defaultTypes: Exclude<AnimalTypeValues, 'other'>[]= [AnimalType.dogs, AnimalType.cats, AnimalType.birds]
+const defaultTypes: Exclude<AnimalTypeValues, 'other'>[] = [
+  AnimalType.dogs,
+  AnimalType.cats,
+  AnimalType.birds,
+];
 
-  const isDefaultAnimalType = (value: string): value is Exclude<AnimalTypeValues, 'other'> => {
-    return defaultTypes.includes(value as Exclude<AnimalTypeValues, 'other'>);
-  }
+const isDefaultAnimalType = (
+  value: string
+): value is Exclude<AnimalTypeValues, 'other'> => {
+  return defaultTypes.includes(value as Exclude<AnimalTypeValues, 'other'>);
+};
 
-const BreedSelect = ({type, defaultValue, onChange, className, errorMess}: 
-  {type?: AnimalTypeValues | string; defaultValue?: string; onChange: (breed: string) => void; className?: string; errorMess?: string;}) => {
+const BreedSelect = ({
+  type,
+  defaultValue,
+  onChange,
+  className,
+  errorMess,
+}: {
+  type?: AnimalTypeValues | string;
+  defaultValue?: string;
+  onChange: (breed: string) => void;
+  className?: string;
+  errorMess?: string;
+}) => {
   const [open, setOpen] = useState(false);
-  const [selectedBreed, setSelectedBreed] = useState("");
-  const [filteredBreed, setFilteredBreed] = useState< Pick<AnimalTrait, '_id' | 'breed'>[]>([])
-  const [searchValue, setSearchValue] = useState("");
-  const {data, isLoading} = useGetAnimaltraitsQuery()
+  const [selectedBreed, setSelectedBreed] = useState('');
+  const [filteredBreed, setFilteredBreed] = useState<
+    Pick<AnimalTrait, '_id' | 'breed'>[]
+  >([]);
+  const [searchValue, setSearchValue] = useState('');
+  const { data, isLoading } = useGetAnimaltraitsQuery();
   const debouncedSearch = useDebounce(searchValue, 300);
 
   useEffect(() => {
@@ -76,45 +115,47 @@ const BreedSelect = ({type, defaultValue, onChange, className, errorMess}:
       onChange?.(defaultValue);
     }
   }, [defaultValue]);
-   useEffect(() => {
-     let animalBreed: Pick<AnimalTrait, '_id' | 'breed'>[] = [];
-     if (!data || !type || !isDefaultAnimalType(type)) {
-       return;
-     }
-     if (defaultTypes.includes(type)) {
-       const filteredByType: AnimalTrait[] = data?.[type ] || [];
-       const mapFilteredData = filteredByType.map(({ _id, breed }) => ({
-       _id,
-       breed,
-     }));
-    
-
-     if (
-       !isLoading &&
-       data &&
-       filteredByType?.length > 0 &&
-       searchValue.length > 2
-     ) {
-       animalBreed = getFilteredBreed(mapFilteredData, searchValue);
-     } else {
-       animalBreed = defaultBreeds[type ];
-     }
-     setFilteredBreed(animalBreed);
-     setSelectedBreed('') 
+  useEffect(() => {
+    let animalBreed: Pick<AnimalTrait, '_id' | 'breed'>[] = [];
+    if (!data || !type || !isDefaultAnimalType(type)) {
+      return;
     }
-   }, [debouncedSearch, data, isLoading, type]);
+    if (defaultTypes.includes(type)) {
+      const filteredByType: AnimalTrait[] = data?.[type] || [];
+      const mapFilteredData = filteredByType.map(({ _id, breed }) => ({
+        _id,
+        breed,
+      }));
 
-    if(type && !isDefaultAnimalType(type) ) {
-      return (
-        <InputField
-          defaultValue={defaultValue}
-          id="animBeed"
-          placeholder="Введіть породу"
-          className="w-[305px] h-[40px]"
-          onChange={(e) => {setSelectedBreed(e.target.value); onChange?.(e.target.value)}}
-        />
-      );
+      if (
+        !isLoading &&
+        data &&
+        filteredByType?.length > 0 &&
+        searchValue.length > 2
+      ) {
+        animalBreed = getFilteredBreed(mapFilteredData, searchValue);
+      } else {
+        animalBreed = defaultBreeds[type];
+      }
+      setFilteredBreed(animalBreed);
+      setSelectedBreed('');
     }
+  }, [debouncedSearch, data, isLoading, type]);
+
+  if (type && !isDefaultAnimalType(type)) {
+    return (
+      <InputField
+        defaultValue={defaultValue}
+        id="animBeed"
+        placeholder="Введіть породу"
+        className="w-full lg:w-[305px] h-[40px]"
+        onChange={e => {
+          setSelectedBreed(e.target.value);
+          onChange?.(e.target.value);
+        }}
+      />
+    );
+  }
 
   return (
     <>
@@ -123,13 +164,13 @@ const BreedSelect = ({type, defaultValue, onChange, className, errorMess}:
           <Button
             variant="outline"
             disabled={type === undefined}
-            className={`${className} w-[305px] justify-between border-input-border px-16 text-base text-medium text-default-btn`}
+            className={`${className} justify-between border-input-border px-16 text-base text-medium text-default-btn`}
           >
-            {selectedBreed || defaultValue ||  'Оберіть породу'}
+            {selectedBreed || defaultValue || 'Оберіть породу'}
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-[305px] p-0  border-1 border-input-border rounded-t-lg z-10">
-          <Command>
+        <PopoverContent className=" p-0  border-1 border-input-border rounded-t-lg z-10">
+          <Command className="bg-white">
             <CommandInput
               placeholder="Пошук ..."
               onValueChange={val => setSearchValue(val)}
@@ -159,6 +200,6 @@ const BreedSelect = ({type, defaultValue, onChange, className, errorMess}:
       {errorMess && <FormError error={errorMess} />}
     </>
   );
-}
+};
 
 export default BreedSelect;

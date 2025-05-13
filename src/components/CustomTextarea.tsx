@@ -4,7 +4,8 @@ import { CustomLabel } from './CustomLabel';
 import FormError from './FormError';
 import type { TextareaHTMLAttributes } from 'react';
 
-interface TextareaDemoProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+interface TextareaDemoProps
+  extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   id: string;
   placeholder: string;
   label?: string;
@@ -18,14 +19,14 @@ export const TextareaDemo = ({
   placeholder,
   label,
   labelClass,
-  labelSize = 'xl',
+  labelSize = 'base',
   id,
   className,
   error,
   ...rest
 }: TextareaDemoProps) => {
   return (
-    <div className={cn(className && className, 'w-full')}>
+    <div className={cn('w-full', className && className)}>
       {label && (
         <CustomLabel htmlFor={id} labelSize={labelSize} labelClass={labelClass}>
           {label}
