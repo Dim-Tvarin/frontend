@@ -30,12 +30,12 @@ export const Header = () => {
 
   return (
     <>
-      <header className="h-80 lg:h-100 bg-header flex items-center z-30">
+      <header className="z-30 flex items-center bg-header h-80 lg:h-100">
         {/* DESKTOP NAV */}
-        <nav className="xs:hidden container lg:flex items-center justify-between">
+        <nav className="xs:hidden lg:flex justify-between items-center container">
           <NavLink className="flex flex-col items-center gap-2" to="/" end>
             <img src={logo} alt="logo" className="w-46 h-46" />
-            <span className="text-sm hover:text-default-btn transition:all duration-300">
+            <span className="hover:text-default-btn text-sm duration-300 transition:all">
               Dim Tvaryn
             </span>
           </NavLink>
@@ -89,11 +89,6 @@ export const Header = () => {
               </NavLink>
             </li>
           </ul>
-          {/* {/* <li className="ml-auto mr-20">
-            <NavLink to="/favorite" end>
-              <img src={search} alt="search" />
-            </NavLink>
-          </li> */}
           <div className="flex items-center gap-28">
             <NavLink to="/favorite" className="relative" end>
               {favoritesCount > 0 ? (
@@ -102,7 +97,7 @@ export const Header = () => {
                 <FaRegHeart size={32} />
               )}
               {favoritesCount > 0 && (
-                <span className="absolute -top-5 -right-[3px] bg-none text-black rounded-full w-8 h-20 text-sm flex items-center justify-center">
+                <span className="-top-5 -right-[3px] absolute flex justify-center items-center bg-none rounded-full w-8 h-20 text-black text-sm">
                   {favoritesCount}
                 </span>
               )}
@@ -111,7 +106,7 @@ export const Header = () => {
             {isLoggedIn ? (
               <div className="flex flex-col items-center max-h-[54px]">
                 <Avatar
-                  className="size-9 text-[10px] p-0 m-4"
+                  className="m-4 p-0 size-9 text-[10px]"
                   onClick={() => navigate('/profile')}
                 >
                   <AvatarImage
@@ -122,11 +117,11 @@ export const Header = () => {
                     <img
                       src={fallbackIcon}
                       alt={`Аватар ${user.name}`}
-                      className="w-full h-full object-cover rounded-full m-0 p-0"
+                      className="m-0 p-0 rounded-full w-full h-full object-cover"
                     />
                   </AvatarFallback>
                 </Avatar>
-                <span className="text-[10px] leading-[140%] tracking-[0.01em] m-0">
+                <span className="m-0 text-[10px] leading-[140%] tracking-[0.01em]">
                   {user.name}
                 </span>
               </div>
@@ -135,7 +130,7 @@ export const Header = () => {
                 onClick={() => dispatch(openDialog('login'))}
                 type="button"
                 styleType="defaultButton"
-                className="w-[102px] m-auto"
+                className="m-auto w-[102px]"
               >
                 <CabinetSVG />
                 <span>Вхід</span>
@@ -145,7 +140,7 @@ export const Header = () => {
         </nav>
 
         {/* MOBILE HEADER */}
-        <div className="container xs:flex hidden items-center justify-between w-full px-4 lg:hidden z-30">
+        <div className="hidden lg:hidden z-30 xs:flex justify-between items-center px-4 w-full container">
           <button
             onClick={() => {
               setMobileMenuOpen(!isMobileMenuOpen);
@@ -174,7 +169,7 @@ export const Header = () => {
               {isLoggedIn ? (
                 <div className="flex flex-col items-center max-h-[54px]">
                   <Avatar
-                    className="size-9 text-[10px] p-0 m-4"
+                    className="m-4 p-0 size-9 text-[10px]"
                     onClick={() => navigate('/profile')}
                   >
                     <AvatarImage
@@ -185,11 +180,11 @@ export const Header = () => {
                       <img
                         src={fallbackIcon}
                         alt={`Аватар ${user.name}`}
-                        className="w-full h-full object-cover rounded-full m-0 p-0"
+                        className="m-0 p-0 rounded-full w-full h-full object-cover"
                       />
                     </AvatarFallback>
                   </Avatar>
-                  <span className="text-[10px] leading-[140%] tracking-[0.01em] m-0">
+                  <span className="m-0 text-[10px] leading-[140%] tracking-[0.01em]">
                     {user.name}
                   </span>
                 </div>
