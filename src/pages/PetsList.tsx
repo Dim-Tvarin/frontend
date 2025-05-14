@@ -120,11 +120,11 @@ const PetsList = () => {
 
   return (
     <div className="container">
-      <div className="relative flex justify-center mt-100 mb-50">
+      <div className="relative flex justify-center mt-72 lg:mt-100 mb-100 lg:mb-50">
         <CustomButton
           type="button"
           styleType="defaultButton"
-          className="top-0 left-0 absolute m-0 w-[121px] md:w-[129px]"
+          className="top-50 lg:top-0 left-0 absolute m-0 w-[121px] md:w-[129px]"
           onClick={() => setOpenFilters(prev => !prev)}
         >
           <FiFilter size={18} />
@@ -140,7 +140,7 @@ const PetsList = () => {
             </p>
           )}
         </div>
-        <div className="top-0 right-0 z-10 absolute flex flex-col items-end">
+        <div className="top-50 lg:top-0 right-0 z-10 absolute flex flex-col items-end">
           <CustomButton
             type="button"
             styleType="whiteButton"
@@ -176,7 +176,7 @@ const PetsList = () => {
       {isLoading ? (
         <PetsListSkeleton />
       ) : (
-        <div className="flex gap-20">
+        <div className="flex justify-between gap-20">
           {openFilters && (
             <form
               onSubmit={handleSubmit(onSubmit)}
@@ -255,7 +255,7 @@ const PetsList = () => {
           )}
 
           <div
-            className={`grid gap-20 mb-50 wrap transition-all duration-500 grid-cols-2 ${openFilters ? 'lg:grid-cols-3 w-3/4' : 'lg:grid-cols-4'}`}
+            className={`grid gap-16 lg:gap-20 mb-50 wrap transition-all duration-500 grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 ${openFilters ? 'xl:grid-cols-3 w-3/4' : 'xl:grid-cols-4'}`}
           >
             {data?.animals.map(item => (
               <AnimalCard

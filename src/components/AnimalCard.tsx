@@ -20,6 +20,7 @@ import { openDialog } from 'src/redux/dialogs/dialogSlice';
 import { selectIsLoggedIn } from 'src/redux/users/usersSlice';
 import { useLocation } from 'react-router';
 import { cn } from './lib/utils';
+import { Link } from 'react-router-dom';
 
 export const genderMapping: Record<string, string> = {
   male: 'Хлопчик',
@@ -64,20 +65,23 @@ const AnimalCard = ({
       toggleFavorite({ id: animal.id, favorite: shouldBeFavorite });
     }
   };
-  console.log('isAllPetsPage', isAllPetsPage);
+
   return (
     <div
       className={cn(
-        'relative flex items-end bg-white border-2 border-orange rounded-4xl lg:w-[305px]',
-        'max-w-sm h-[318px] md:h-[400px] overflow-hidden',
-        isAllPetsPage ? 'w-[156px]' : 'w-[242px] md:w-[294px]'
+        'relative flex items-end bg-white border-2 border-orange rounded-4xl overflow-hidden max-w-sm ',
+        isAllPetsPage
+          ? 'w-[156px] h-[198px] md:w-[242px] md:h-[318px] xl:w-[305px] xl:h-[400px]'
+          : 'w-[242px] h-[318px] md:w-[294px] md:h-[400px] lg:w-[305px]'
       )}
     >
-      <img
-        src={photoSrc}
-        alt={name}
-        className="z-1 absolute inset-0 w-full h-full object-cover"
-      />
+      <Link to={`/allpets/${id}`}>
+        <img
+          src={photoSrc}
+          alt={name}
+          className="z-1 absolute inset-0 w-full h-full object-cover"
+        />
+      </Link>
       {!visible && (
         <div className="z-19 absolute inset-0 flex justify-center items-center bg-white/60 rounded-4xl">
           <div className="top-[18px] absolute flex justify-center items-center bg-link/50 rounded-full w-[268px] h-[36px] font-bold text-white text-sm leading-[171%]">
@@ -85,7 +89,7 @@ const AnimalCard = ({
           </div>
         </div>
       )}
-      <div className="z-10 relative bg-main-pink-l/80 px-16 md:px-32 py-12 rounded-t-4xl w-full">
+      <div className="z-10 relative bg-main-pink-l/80 px-16 md:px-32 py-8 md:py-12 rounded-t-4xl w-full">
         <div className="text-left">
           <div className="flex justify-between">
             <h2 className="font-medium text-lg">{name}</h2>
@@ -95,7 +99,7 @@ const AnimalCard = ({
               </div>
             )}
           </div>
-          <div className="flex gap-1 font-medium text-lg">
+          <div className="flex gap-1 font-medium text-base lg:text-lg">
             {gender !== 'unknown' && <span>{genderMapping[gender]}</span>}
             {!!age.years && <span>{getYearDeclension(age.years)} </span>}
             {!!age.months && <span>{`${age.months}\u00A0міс.`}</span>}
@@ -105,7 +109,10 @@ const AnimalCard = ({
               className="top-[14px] right-[18px] absolute cursor-pointer"
               onClick={handleAddFavorite}
             >
-              <HartSVG hartFill={isInFavorites} />
+              <HartSVG
+                hartFill={isInFavorites}
+                className="w-24 lg:w-[36px] h-24 lg:h-[36px]"
+              />
             </div>
           )}
         </div>
@@ -113,7 +120,7 @@ const AnimalCard = ({
         <CustomButton
           type="button"
           styleType="defaultButton"
-          className="mt-28 w-[129px]"
+          className="hidden md:flex mt-28 w-[129px]"
           onClick={() => navigate(`/allpets/${id}`)}
         >
           Переглянути
