@@ -255,7 +255,7 @@ const PetsList = () => {
           )}
 
           <div
-            className={`grid gap-16 lg:gap-20 mb-50 wrap transition-all duration-500 grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 ${openFilters ? 'xl:grid-cols-3 w-3/4' : 'xl:grid-cols-4'}`}
+            className={`grid gap-16 lg:gap-20 mb-32 md:mb-50 wrap transition-all duration-500 grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 ${openFilters ? 'xl:grid-cols-3 w-3/4' : 'xl:grid-cols-4'}`}
           >
             {data?.animals.map(item => (
               <AnimalCard
@@ -277,7 +277,7 @@ const PetsList = () => {
           onPageChange={setPage}
           currentPage={page}
           totalPages={totalPages}
-          className="mb-100"
+          className="mb-50 lg:mb-100"
         />
       )}
     </div>
