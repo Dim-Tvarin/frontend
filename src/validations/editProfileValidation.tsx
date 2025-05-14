@@ -29,18 +29,6 @@ export const editUserSchema = z.object({
     .string()
     .regex(/^(\+?38)?0\d{9}$/, 'Невірний формат телефону')
     .nonempty('Телефон є обовʼязковим'),
-
-  avatar: z
-    .instanceof(File)
-    .refine(
-      file => ['image/jpeg', 'image/png', 'image/gif'].includes(file.type),
-      'Дозволені формати: JPG, PNG, GIF'
-    )
-    .refine(
-      file => file.size <= 2 * 1024 * 1024,
-      'Максимальний розмір файлу — 2 МБ'
-    )
-    .optional(),
 });
 
 export const changePasswordSchema = z
