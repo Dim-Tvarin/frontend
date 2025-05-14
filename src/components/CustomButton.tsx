@@ -6,6 +6,7 @@ interface CustomButtonProps extends React.ComponentProps<typeof Button> {
   children: React.ReactNode;
   className?: string;
   loading?: boolean;
+  as?: React.ElementType;
   type?: 'button' | 'submit' | 'reset';
   styleType?:
     | 'defaultButton'
@@ -20,6 +21,7 @@ export const CustomButton = ({
   styleType,
   className,
   loading,
+  as,
   ...props
 }: CustomButtonProps) => {
   return (

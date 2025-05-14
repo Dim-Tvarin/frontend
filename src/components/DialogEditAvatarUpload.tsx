@@ -8,10 +8,12 @@ import {
   DialogFooter,
 } from './components/ui/dialog';
 import { CustomButton } from './CustomButton';
-import { FiUpload } from 'react-icons/fi';
 import { useCallback, useState } from 'react';
 import type { RootState, AppDispatch } from 'src/redux/store';
 import { useImageCrop } from 'src/context/ImageCropContext';
+import PhotoPrev from './PhotoPrev';
+import FormError from './FormError';
+import CloseSVG from 'src/assets/CloseSVG';
 
 const MAX_SIZE_MB = 2;
 const ACCEPTED_TYPES = {
@@ -30,6 +32,7 @@ const DialogEditAvatarUpload: React.FC = () => {
 
   const { setCropFile } = useImageCrop();
   const [error, setError] = useState<string | null>(null);
+  const [file, setFile] = useState<File | null>(null);
 
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
@@ -47,14 +50,16 @@ const DialogEditAvatarUpload: React.FC = () => {
       }
 
       setError(null);
+      setFile(file);
       setCropFile(file);
-      dispatch(openDialog('editAvatarCrop'));
     },
-    [setCropFile, dispatch]
+    [setCropFile]
   );
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+  const { getRootProps, getInputProps, open, isDragActive } = useDropzone({
     onDrop,
+    noClick: true,
+    noKeyboard: true,
     multiple: false,
     accept: {
       'image/jpeg': [],
@@ -67,39 +72,82 @@ const DialogEditAvatarUpload: React.FC = () => {
   return (
     <Dialog.Root open={isOpen} onOpenChange={() => dispatch(closeDialog())}>
       <Dialog.Portal>
-        <DialogOverlay className="fixed inset-0 bg-black/70 z-40" />
+        <DialogOverlay className="fixed inset-0 bg-black/70" />
         <Dialog.Content
-          className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 bg-white p-50 rounded-2xl w-[560px]"
+          className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 bg-white p-50 align-center rounded-2xl w-[955px] max-h-[488px]"
           onPointerDownOutside={e => e.preventDefault()}
         >
-          <DialogHeader>
-            <Dialog.Title className="text-xl font-bold text-default-btn mb-30">
-              Додайте фото
-            </Dialog.Title>
-          </DialogHeader>
-
-          <div
-            {...getRootProps()}
-            className="border-2 border-dashed border-gray-400 rounded-xl p-30 text-center cursor-pointer bg-gray-50 hover:bg-gray-100"
-          >
-            <input {...getInputProps()} />
-            <FiUpload className="mx-auto mb-10" size={36} />
-            <p className="text-sm text-gray-600">
-              {isDragActive
-                ? 'Відпустіть файл тут...'
-                : 'Перетягніть файл сюди або натисніть, щоб вибрати'}
-            </p>
+          <Dialog.Close className="absolute top-30 right-30 ">
+            <CloseSVG size="24" />
+          </Dialog.Close>
+          <div className="px-[113px]">
+            <DialogHeader>
+              <Dialog.Title className="text-left text-default-btn leading-[150%] mb-10 ">
+                Додайте фото
+              </Dialog.Title>
+            </DialogHeader>
+            <div
+              {...getRootProps()}
+              className={`m-auto w-[630px] h-[190px] p-[42px] border-2 border-dashed  rounded-[10px] text-center mb-32 ${isDragActive ? 'border-default-btn bg-main-pink-d' : 'border-border-drag bg-main-pink-l'}`}
+            >
+              <p className="text-lg text-default-btn mb-16 pl-[82px] text-left">
+                {isDragActive ? (
+                  'Відпустіть файл тут...'
+                ) : (
+                  <>
+                    Перетягніть файл сюди{' '}
+                    <span className="ml-[18px] text-border-file">або</span>
+                  </>
+                )}
+              </p>
+              <div className="flex items-center gap-[19px] px-16 py-10 border-2 border-border-drag rounded-[8px] w-[382px] h-[64px] m-auto">
+                <label className="cursor-pointer">
+                  <CustomButton
+                    as="span"
+                    styleType="defaultButton"
+                    className="m-0 w-[149px]"
+                    onClick={open}
+                    disabled={!!file}
+                  >
+                    Вибрати файл
+                  </CustomButton>
+                  <input {...getInputProps()} hidden />
+                </label>
+                {!file && (
+                  <p className="flex text-border-file text-base shrink-0">
+                    Файл не вибрано
+                  </p>
+                )}
+              </div>
+            </div>
+            {file && (
+              <PhotoPrev
+                image={file}
+                index={0}
+                ondelete={() => setFile(null)}
+              />
+            )}
+            {error && <FormError error={error} />}
           </div>
 
-          {error && (
-            <p className="text-red-500 mt-10 text-sm text-center">{error}</p>
-          )}
-
-          <DialogFooter className="flex justify-end gap-20 mt-30">
+          <DialogFooter className="flex flex-row gap-20 justify-center mt-32">
+            <CustomButton
+              type="button"
+              styleType="defaultButton"
+              className="w-[236px] text-base m-0"
+              onClick={() => {
+                if (!file) return;
+                setError(null);
+                setCropFile(file);
+                dispatch(openDialog('editAvatarCrop'));
+              }}
+            >
+              Зберегти зміни
+            </CustomButton>
             <CustomButton
               type="button"
               styleType="whiteButton"
-              className="w-[140px]"
+              className="w-[157px] h-[44px] text-base m-0"
               onClick={() => dispatch(closeDialog())}
             >
               Скасувати

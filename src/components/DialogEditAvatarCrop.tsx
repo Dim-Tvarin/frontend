@@ -13,6 +13,7 @@ import Cropper, { type Area } from 'react-easy-crop';
 
 import type { RootState } from 'src/redux/store';
 import getCroppedImg from 'src/helpers/cropImage';
+import CloseSVG from 'src/assets/CloseSVG';
 
 const DialogEditAvatarCrop: React.FC = () => {
   const dispatch = useDispatch();
@@ -49,36 +50,39 @@ const DialogEditAvatarCrop: React.FC = () => {
     <Dialog.Root open={isOpen} onOpenChange={() => dispatch(closeDialog())}>
       <Dialog.Portal>
         <DialogOverlay className="fixed inset-0 bg-black/70 z-40" />
-        <Dialog.Content className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 bg-white p-50 rounded-2xl w-[620px]">
+        <Dialog.Content className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 bg-white p-32 rounded-[30px] w-[754px] max-h-[661px]">
+          <Dialog.Close className="absolute top-[38px] right-[38px] ">
+            <CloseSVG size="22" />
+          </Dialog.Close>
           <DialogHeader>
-            <Dialog.Title className="text-xl font-bold text-default-btn mb-30">
+            <Dialog.Title className="text-xl leading-[140%] text-default-btn mb-20">
               Обріжте фото
             </Dialog.Title>
           </DialogHeader>
           {file && (
-            <div className="relative w-[500px] h-[400px] bg-black rounded-md overflow-hidden">
+            <div className="relative w-[690px] h-[470px] bg-black rounded-md overflow-hidden">
               <Cropper
                 image={URL.createObjectURL(file)}
                 crop={crop}
                 onCropChange={setCrop}
                 zoom={zoom}
                 onZoomChange={setZoom}
-                aspect={4 / 3}
+                aspect={444 / 360}
                 onCropComplete={onCropComplete}
               />
             </div>
           )}
-          <DialogFooter className="flex justify-end gap-20 mt-30">
+          <DialogFooter className="flex flex-row justify-center gap-20 mt-32">
             <CustomButton
               styleType="whiteButton"
-              className="w-[140px]"
+              className="w-[157px] m-0"
               onClick={() => dispatch(closeDialog())}
             >
               Скасувати
             </CustomButton>
             <CustomButton
               styleType="defaultButton"
-              className="w-[140px]"
+              className="w-[157px] m-0"
               onClick={handleSave}
             >
               Зберегти
