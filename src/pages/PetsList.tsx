@@ -124,16 +124,16 @@ const PetsList = () => {
         <CustomButton
           type="button"
           styleType="defaultButton"
-          className="top-0 left-0 absolute m-0 w-[129px]"
+          className="top-0 left-0 absolute m-0 w-[121px] md:w-[129px]"
           onClick={() => setOpenFilters(prev => !prev)}
         >
           <FiFilter size={18} />
           <span className="text-base">Фільтр</span>
         </CustomButton>
         <div className="flex flex-col">
-          <h1 className="text-[32px]">{title}</h1>
+          <h1 className="md:text-[32px] text-lg">{title}</h1>
           {isFilterApplied && data && (
-            <p className="w-full text-default-btn text-lg text-center">
+            <p className="w-full text-default-btn text-base md:text-lg text-center">
               {data.total === 0
                 ? 'По вашому запиту нічого не знайдено'
                 : `По вашому запиту знайдено ${data.total} тварини`}
@@ -144,7 +144,7 @@ const PetsList = () => {
           <CustomButton
             type="button"
             styleType="whiteButton"
-            className="m-0 w-[217px] text-default-btn text-medium text-base"
+            className="m-0 w-[192px] md:w-[217px] text-default-btn text-medium text-base"
             onClick={() => setOpenSorting(prev => !prev)}
           >
             Сортування за датою
@@ -255,7 +255,7 @@ const PetsList = () => {
           )}
 
           <div
-            className={`grid gap-20 mb-50 wrap transition-all duration-500 ${openFilters ? 'grid-cols-3 w-3/4' : 'grid-cols-4'}`}
+            className={`grid gap-20 mb-50 wrap transition-all duration-500 grid-cols-2 ${openFilters ? 'lg:grid-cols-3 w-3/4' : 'lg:grid-cols-4'}`}
           >
             {data?.animals.map(item => (
               <AnimalCard
