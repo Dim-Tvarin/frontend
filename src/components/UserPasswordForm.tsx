@@ -40,39 +40,28 @@ const UserPasswordForm = () => {
     }
   };
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col gap-16 mt-32"
-    >
-      <PasswordField
-        label="Поточний пароль"
-        placeholder="12345678"
-        className="w-[530px] h-40 text-base"
-        labelClass="leading-[125%] mb-10"
-        labelSize="[16px]"
-        id="password"
-        {...register('password')}
-        error={errors.password?.message}
-      />
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
       <PasswordField
         label="Новий пароль"
         placeholder="********"
-        className="w-[530px] h-40 text-base"
-        labelClass="leading-[125%] mb-10  text-default-btn "
+        className="w-[530px] h-40 text-base "
+        labelClass="leading-[125%] text-default-btn "
         labelSize="[16px]"
         id="newPassword"
         {...register('newPassword')}
         error={errors.newPassword?.message}
       >
-        Пароль повинен містити не менше 8 символів. Для кращого пароля
-        використайте букви, великі букви та цифри. Новий пароль повинен
-        відрізнятися від старого.
+        <p className="leading-[107%]">
+          Пароль повинен містити не менше 8 символів. Для кращого пароля
+          використайте букви, великі букви та цифри. Новий пароль повинен
+          відрізнятися від старого.
+        </p>
       </PasswordField>
       <PasswordField
         label="Повторіть новий пароль для підтверждення"
         placeholder="********"
         className="w-[530px] h-40 text-base"
-        labelClass="leading-[125%] mb-10  text-default-btn "
+        labelClass="leading-[125%] text-default-btn mt-16"
         labelSize="[16px]"
         id="repeat_newPassword"
         {...register('repeat_newPassword')}
@@ -81,7 +70,7 @@ const UserPasswordForm = () => {
       <CustomButton
         type="submit"
         styleType="defaultButton"
-        className="w-[236px] h-[44px] text-base mb-0 my-0 mt-[35px]"
+        className="w-[236px] text-base mb-0 my-0 mt-50"
         disabled={isLoading}
       >
         {isLoading ? <Spinner /> : 'Оновити пароль'}

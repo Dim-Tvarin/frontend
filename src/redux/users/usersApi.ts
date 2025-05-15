@@ -57,7 +57,6 @@ export const usersApi = createApi({
     changePassword: builder.mutation<
       void,
       {
-        password: string;
         newPassword: string;
         repeat_newPassword: string;
       }
