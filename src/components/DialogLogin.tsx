@@ -105,7 +105,10 @@ const DialogLogin: React.FC = () => {
             labelClass="text-input-border mb-16"
             id="password"
             {...register('password')}
-            error={authError || errors.password?.message}
+            error={
+              (activeDialog === 'login' && authError) ||
+              errors.password?.message
+            }
           />
           <DialogFooter>
             <CustomButton
