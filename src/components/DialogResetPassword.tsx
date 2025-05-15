@@ -124,7 +124,7 @@ const DialogResetPassword: React.FC = () => {
           }}
           to="/register"
           end
-          className="mt-16 text-lg text-link hover:text-orange"
+          className="mt-16 text-lg text-default-btn hover:text-orange"
         >
           Зареєструватись
         </NavLink>

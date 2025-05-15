@@ -164,7 +164,7 @@ const DialogVerifyResetCode: React.FC = () => {
           }}
           to="/register"
           end
-          className="mt-16 text-link text-lg"
+          className="mt-16 text-default-btn text-lg"
         >
           Зареєструватись
         </NavLink>
