@@ -22,6 +22,7 @@ export interface Animal {
   status: string;
   size?: string;
   favorite: boolean;
+  isHidden: boolean;
   owner: string;
   createdAt: string;
   updatedAt: string;
@@ -137,6 +138,16 @@ export const animalsApi = createApi({
         method: 'DELETE',
       }),
     }),
+    toggleHideAnimal: build.mutation<
+      unknown,
+      { id: string; isHidden: boolean }
+    >({
+      query: ({ id, isHidden }) => ({
+        url: `/animals/${id}/hide`,
+        method: 'PATCH',
+        body: { isHidden },
+      }),
+    }),
   }),
 });
 
@@ -150,4 +161,5 @@ export const {
   useAddFavoriteAnimalMutation,
   useToggleFavoriteAnimalMutation,
   useDeleteMyAnimalsMutation,
+  useToggleHideAnimalMutation,
 } = animalsApi;
