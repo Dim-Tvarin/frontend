@@ -59,7 +59,7 @@ export const animalsApi = createApi({
       return headers;
     },
   }),
-
+  tagTypes: ['Animals', 'MyAnimals'],
   endpoints: build => ({
     getAnimals: build.query<AnimalsResponse, { page?: number; limit?: number }>(
       {
@@ -96,6 +96,7 @@ export const animalsApi = createApi({
         const url = `animals/filter?page=${page}&limit=${limit}&${queryString}`;
         return url;
       },
+      providesTags: ['Animals'],
     }),
     createAnimal: build.mutation<unknown, FormData>({
       query: formData => ({
@@ -114,6 +115,7 @@ export const animalsApi = createApi({
     >({
       query: ({ page = 1, limit = 9 }) =>
         `animals/my-animals?page=${page}&limit=${limit}`,
+      providesTags: ['MyAnimals'],
     }),
     addFavoriteAnimal: build.mutation<unknown, string>({
       query: animalId => ({
@@ -137,6 +139,7 @@ export const animalsApi = createApi({
         url: `/animals/${animalId}`,
         method: 'DELETE',
       }),
+      invalidatesTags: ['Animals', 'MyAnimals'],
     }),
     toggleHideAnimal: build.mutation<
       unknown,
@@ -147,6 +150,7 @@ export const animalsApi = createApi({
         method: 'PATCH',
         body: { isHidden },
       }),
+      invalidatesTags: ['Animals', 'MyAnimals'],
     }),
   }),
 });
