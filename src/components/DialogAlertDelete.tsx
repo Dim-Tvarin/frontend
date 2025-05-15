@@ -18,6 +18,8 @@ import CloseSVG from 'src/assets/CloseSVG';
 import { Spinner } from './Spinner';
 import { logoutThunk } from 'src/redux/users/usersOperations';
 import { useDeleteUserMutation } from 'src/redux/users/usersApi';
+import { removeAnimal } from 'src/redux/animals/favoriteAnimalsSlice';
+import { removeViewedAnimal } from 'src/redux/animals/viewedAnimalsSlice';
 
 const DialogAlertDelete = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -46,6 +48,8 @@ const DialogAlertDelete = () => {
     try {
       if (entity === 'animal' && id) {
         await deleteMyAnimal(id).unwrap();
+        dispatch(removeAnimal(id));
+        dispatch(removeViewedAnimal(id));
         await refetch();
         showToast({ title: 'Оголошення видалено', status: 'success' });
       } else if (entity === 'user') {
