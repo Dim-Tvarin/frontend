@@ -87,8 +87,8 @@ const DialogAlertDelete = () => {
         onPointerDownOutside={e => e.preventDefault()}
         aria-labelledby="dialog-content"
       >
-        <DialogClose className="absolute top-32 right-32">
-          <CloseSVG size="22" />
+        <DialogClose className="absolute top-24 right-24">
+          <CloseSVG />
         </DialogClose>
         <DialogHeader>
           <p className="text-[28px] leading-[150%] text-default-btn text-center mb-[47px]">

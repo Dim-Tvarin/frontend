@@ -70,7 +70,7 @@ const DialogResetPassword: React.FC = () => {
         aria-describedby="Забули пароль?"
       >
         <DialogClose className="absolute top-24 right-24 ">
-          <CloseSVG size="32" />
+          <CloseSVG />
         </DialogClose>
         <DialogHeader>
           <DialogTitle className="text-2xl leading-[140%] text-default-btn mb-30">

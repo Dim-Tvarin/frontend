@@ -76,7 +76,7 @@ const DialogLogin: React.FC = () => {
         aria-labelledby="dialog-content"
       >
         <DialogClose className="absolute top-24 right-24 ">
-          <CloseSVG size="32" />
+          <CloseSVG />
         </DialogClose>
         <DialogHeader>
           <DialogTitle className="text-2xl leading-[140%] text-default-btn mb-30">
