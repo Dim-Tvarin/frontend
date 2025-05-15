@@ -18,6 +18,8 @@ import CloseSVG from 'src/assets/CloseSVG';
 import { Spinner } from './Spinner';
 import { logoutThunk } from 'src/redux/users/usersOperations';
 import { useDeleteUserMutation } from 'src/redux/users/usersApi';
+import { removeAnimal } from 'src/redux/animals/favoriteAnimalsSlice';
+import { removeViewedAnimal } from 'src/redux/animals/viewedAnimalsSlice';
 
 const DialogAlertDelete = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -46,6 +48,8 @@ const DialogAlertDelete = () => {
     try {
       if (entity === 'animal' && id) {
         await deleteMyAnimal(id).unwrap();
+        dispatch(removeAnimal(id));
+        dispatch(removeViewedAnimal(id));
         await refetch();
         showToast({ title: 'Оголошення видалено', status: 'success' });
       } else if (entity === 'user') {
@@ -83,8 +87,8 @@ const DialogAlertDelete = () => {
         onPointerDownOutside={e => e.preventDefault()}
         aria-labelledby="dialog-content"
       >
-        <DialogClose className="absolute top-32 right-32">
-          <CloseSVG size="22" />
+        <DialogClose className="absolute top-24 right-24">
+          <CloseSVG />
         </DialogClose>
         <DialogHeader>
           <p className="text-[28px] leading-[150%] text-default-btn text-center mb-[47px]">

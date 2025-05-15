@@ -7,7 +7,7 @@ import { PasswordField } from 'components/PasswordField';
 import { CustomButton } from 'components/CustomButton';
 import { registerThunk } from '../redux/users/usersOperations';
 import { registrationSchema } from '../validations/authValidation';
-import type { AppDispatch } from '../redux/store';
+import type { AppDispatch, RootState } from '../redux/store';
 import { z } from 'zod';
 import { clearError, selectError } from '../redux/users/usersSlice';
 import CustomRadioGroup from './CustomRadioGroup';
@@ -20,6 +20,9 @@ type FormData = z.infer<typeof registrationSchema>;
 const RegistrationForm: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const emailError = useSelector(selectError);
+  const activeDialog = useSelector(
+    (state: RootState) => state.dialog.activeDialog
+  );
   useEffect(() => {
     dispatch(clearError());
   }, [dispatch]);
@@ -83,7 +86,9 @@ const RegistrationForm: React.FC = () => {
           labelSize="base"
           id="email"
           {...register('email')}
-          error={emailError || errors.email?.message}
+          error={
+            (activeDialog !== 'login' && emailError) || errors.email?.message
+          }
         />
         <div className="flex gap-20">
           <div className="flex flex-col text-[16px]">

@@ -4,6 +4,8 @@ import {
   useToggleFavoriteAnimalMutation,
   type Animal,
   type animalAge,
+  useToggleHideAnimalMutation,
+  useGetMyAnimalsQuery,
 } from 'src/redux/animals/animalsApi';
 import { getYearDeclension } from 'src/helpers/getYearDeclension';
 import { useNavigate } from 'react-router';
@@ -15,7 +17,6 @@ import {
 import type { AppDispatch } from 'src/redux/store';
 import { FiEdit, FiTrash2 } from 'react-icons/fi';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { useState } from 'react';
 import { openDialog } from 'src/redux/dialogs/dialogSlice';
 import { selectIsLoggedIn } from 'src/redux/users/usersSlice';
 
@@ -48,8 +49,9 @@ const AnimalCard = ({
   const isInFavorites = favAnimals.some(a => a.id === id);
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
-  const [visible, setVisible] = useState(true);
   const [toggleFavorite] = useToggleFavoriteAnimalMutation();
+  const [toggleHideAnimal] = useToggleHideAnimalMutation();
+  const { refetch } = useGetMyAnimalsQuery({ page: 1, limit: 9 });
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
   const handleAddFavorite = () => {
@@ -62,25 +64,37 @@ const AnimalCard = ({
     }
   };
 
+  const handleToggleHidden = async () => {
+    if (!animal) return;
+
+    try {
+      await toggleHideAnimal({
+        id: animal.id,
+        isHidden: !animal.isHidden,
+      }).unwrap();
+      refetch();
+    } catch (error) {
+      console.error('Не вдалося змінити видимість:', error);
+    }
+  };
+
   return (
-    <div className="w-[242px] h-[318px] md:w-[294px] md:h-[400px] relative lg:w-[305px]  border-2 border-orange rounded-4xl max-w-sm bg-white overflow-hidden flex items-end">
-      <img
-        src={photoSrc}
-        alt={name}
-        className="absolute inset-0 w-full h-full object-cover z-1"
-      />
-      {!visible && (
+    <div className="w-[242px] h-[318px] md:w-[294px] md:h-[400px] relative lg:w-[305px]  border-2 border-orange rounded-4xl max-w-sm bg-white flex items-end">
+      <div className="absolute inset-0 rounded-4xl overflow-hidden z-1">
+        <img src={photoSrc} alt={name} className="w-full h-full object-cover" />
+      </div>
+      {animal?.isHidden && (
         <div className="absolute inset-0 z-19 bg-white/60 flex items-center justify-center rounded-4xl ">
           <div className="absolute top-[18px] w-[268px] h-[36px] rounded-full bg-link/50 flex items-center justify-center font-bold text-sm leading-[171%] text-white">
             Оголошення приховано
           </div>
         </div>
       )}
-      <div className="bg-main-pink-l/80 relative rounded-t-4xl z-10 w-full px-16 md:px-32 py-12">
+      <div className="bg-main-pink-l/80 relative rounded-4xl z-10 w-full px-16 md:px-32 py-12 ">
         <div className="text-left">
           <div className="flex justify-between">
             <h2 className="text-lg font-medium">{name}</h2>
-            {status !== 'active' && (
+            {status === 'inactive' && (
               <div className="mt-2 w-[162px] h-[28px] rounded-full bg-orange text-center font-bold text-sm leading-[171%] text-white">
                 Знайшов родину
               </div>
@@ -111,39 +125,59 @@ const AnimalCard = ({
         </CustomButton>
       </div>
       {isMyProfile && (
-        <div className="absolute right-[18px] top-[18px] cursor-pointer flex flex-col gap-10 z-20">
-          <CustomButton
-            styleType="iconButton"
-            onClick={() => setVisible(!visible)}
-          >
-            {visible ? (
-              <FaEye className="text-white" size={22} />
-            ) : (
-              <FaEyeSlash className="text-white" size={24} />
-            )}
-          </CustomButton>
-          <CustomButton
-            styleType="iconButton"
-            onClick={() => navigate(`/editannouncement/${id}`)}
-          >
-            <FiEdit className="text-white" size={22} />
-          </CustomButton>
-
-          <CustomButton
-            styleType="iconButton"
-            onClick={() =>
-              dispatch(
-                openDialog({
-                  type: 'alertDelete',
-                  entity: 'animal',
-                  id: id,
-                })
-              )
-            }
-            className="hover:bg-error-input "
-          >
-            <FiTrash2 className="text-white" size={22} />
-          </CustomButton>
+        <div className="absolute right-[18px] top-[18px] cursor-pointer flex flex-col gap-10 z-20 overflow-visible">
+          <div className="group relative flex items-center">
+            <CustomButton styleType="iconButton" onClick={handleToggleHidden}>
+              {animal?.isHidden ? (
+                <FaEyeSlash className="text-white" size={24} />
+              ) : (
+                <FaEye className="text-white" size={22} />
+              )}
+            </CustomButton>
+            <span
+              className="absolute left-[40px] bg-dialog text-default-btn text-base rounded-[6px] opacity-0 translate-x-2
+                   group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200"
+            >
+              Приховати
+            </span>
+          </div>
+          <div className="group relative flex items-center">
+            <CustomButton
+              styleType="iconButton"
+              onClick={() => navigate(`/editannouncement/${id}`)}
+            >
+              <FiEdit className="text-white" size={22} />
+            </CustomButton>
+            <span
+              className="absolute left-[40px] bg-dialog text-default-btn text-base rounded-[6px] opacity-0 translate-x-2
+                   group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200"
+            >
+              Редагувати
+            </span>
+          </div>
+          <div className="group relative flex items-center">
+            <CustomButton
+              styleType="iconButton"
+              onClick={() =>
+                dispatch(
+                  openDialog({
+                    type: 'alertDelete',
+                    entity: 'animal',
+                    id: id,
+                  })
+                )
+              }
+              className="hover:bg-error-input"
+            >
+              <FiTrash2 className="text-white" size={22} />
+            </CustomButton>
+            <span
+              className="absolute left-[40px] bg-dialog text-default-btn text-base rounded-[6px] opacity-0 translate-x-2
+                   group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200"
+            >
+              Видалити
+            </span>
+          </div>
         </div>
       )}
     </div>

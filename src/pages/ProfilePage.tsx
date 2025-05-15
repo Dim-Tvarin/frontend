@@ -77,45 +77,48 @@ const ProfilePage = () => {
         className="pt-100 pb-100 grow flex-row gap-[18px]"
         data-orientation="vertical"
       >
-        <TabsList className="flex flex-col gap-32 h-[140px] p-0">
-          <TabsTrigger
-            value="main-info"
-            aria-orientation="vertical"
-            className="w-[307px] h-[54px] text-lg m-0 outline-none shadow-none rounded-[20px] py-[15px]
-          data-[state=active]:shadow-none 
-          data-[state=active]:outline-none 
-          text-white hover:text-default-btn bg-default-btn hover:bg-orange hover:border-default-btn hover:border-2 disabled:bg-disabled  
-          data-[state=active]:text-default-btn 
-          data-[state=active]:bg-white 
-          data-[state=active]:border-2
-          data-[state=active]:border-default-btn 
-          data-[state=active]:hover:border-orange"
-          >
-            Основна інформація
-          </TabsTrigger>
-
-          <TabsTrigger
-            value="my-adverts"
-            aria-orientation="vertical"
-            className="w-[307px] h-[54px] text-lg m-0 outline-none shadow-none rounded-[20px] py-[15px]
-          data-[state=active]:shadow-none 
-          data-[state=active]:outline-none 
-          text-white hover:text-default-btn bg-default-btn hover:bg-orange hover:border-default-btn hover:border-2 disabled:bg-disabled  
-          data-[state=active]:text-default-btn 
-          data-[state=active]:bg-white 
-          data-[state=active]:border-2
-          data-[state=active]:border-default-btn 
-          data-[state=active]:hover:border-orange"
-          >
-            Мої оголошення
-          </TabsTrigger>
-          {openFilters && (
+        <TabsList className="flex flex-col gap-32 h-full p-0">
+          {openFilters ? (
             <AdvertsFilter
               filters={filters}
               onChange={handleFilterChange}
               onReset={handleFilterReset}
               onSubmit={handleFilterSubmit}
             />
+          ) : (
+            <>
+              <TabsTrigger
+                value="main-info"
+                aria-orientation="vertical"
+                className="w-[307px] max-h-[54px] text-lg m-0 outline-none shadow-none rounded-[20px] py-[15px]
+          data-[state=active]:shadow-none 
+          data-[state=active]:outline-none 
+          text-white hover:text-default-btn bg-default-btn hover:bg-orange hover:border-default-btn hover:border-2 disabled:bg-disabled  
+          data-[state=active]:text-default-btn 
+          data-[state=active]:bg-white 
+          data-[state=active]:border-2
+          data-[state=active]:border-default-btn 
+          data-[state=active]:hover:border-orange"
+              >
+                Основна інформація
+              </TabsTrigger>
+
+              <TabsTrigger
+                value="my-adverts"
+                aria-orientation="vertical"
+                className="w-[307px] max-h-[54px] text-lg m-0 outline-none shadow-none rounded-[20px] py-[15px]
+          data-[state=active]:shadow-none 
+          data-[state=active]:outline-none 
+          text-white hover:text-default-btn bg-default-btn hover:bg-orange hover:border-default-btn hover:border-2 disabled:bg-disabled  
+          data-[state=active]:text-default-btn 
+          data-[state=active]:bg-white 
+          data-[state=active]:border-2
+          data-[state=active]:border-default-btn 
+          data-[state=active]:hover:border-orange"
+              >
+                Мої оголошення
+              </TabsTrigger>
+            </>
           )}
         </TabsList>
         <TabsContent value="main-info" data-orientation="vertical">

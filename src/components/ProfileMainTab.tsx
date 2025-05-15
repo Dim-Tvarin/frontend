@@ -27,6 +27,7 @@ const ProfileMainTab = () => {
 
   const favoriteAnimals = useSelector(selectFavoriteAnimals);
   const viewedAnimals = useSelector(selectViewedAnimals);
+  const visibleAnimals = viewedAnimals.filter(animal => !animal.isHidden);
 
   return (
     <>
@@ -111,7 +112,7 @@ const ProfileMainTab = () => {
             </p>
           ) : (
             <div className="h-[820px] grid grid-cols-3 gap-20 overflow-hidden">
-              {viewedAnimals
+              {visibleAnimals
                 .slice(0, 6)
                 .reverse()
                 .map(item => (
