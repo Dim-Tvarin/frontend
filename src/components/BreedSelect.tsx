@@ -93,12 +93,14 @@ const BreedSelect = ({
   onChange,
   className,
   errorMess,
+  placeholder,
 }: {
   type?: AnimalTypeValues | string;
   defaultValue?: string;
   onChange: (breed: string) => void;
   className?: string;
   errorMess?: string;
+  placeholder?: string;
 }) => {
   const [open, setOpen] = useState(false);
   const [selectedBreed, setSelectedBreed] = useState('');
@@ -169,7 +171,7 @@ const BreedSelect = ({
             disabled={type === undefined}
             className={`${className} justify-between border-input-border px-16 text-base text-medium text-default-btn`}
           >
-            {selectedBreed || defaultValue || 'Оберіть породу'}
+            {selectedBreed || defaultValue || placeholder || ''}
           </Button>
         </PopoverTrigger>
         <PopoverContent className="z-10 p-0 border-1 border-input-border rounded-t-lg">

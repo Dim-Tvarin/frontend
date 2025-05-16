@@ -1,45 +1,54 @@
-import { FaChevronDown } from "react-icons/fa6";
-import { Popover, PopoverContent, PopoverTrigger } from "./components/ui/popover";
-import { RadioGroup, RadioGroupItem } from "./components/ui/radio-group";
-import { Label } from "./components/ui/label";
-import { Button } from "./components/ui/button";
+import { FaChevronDown } from 'react-icons/fa6';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from './components/ui/popover';
+import { RadioGroup, RadioGroupItem } from './components/ui/radio-group';
+import { Label } from './components/ui/label';
+import { Button } from './components/ui/button';
 
 type Item = {
-  value: string
-  label: string
-}
+  value: string;
+  label: string;
+};
 
-const FilterItem = ({ label,
+const FilterItem = ({
+  label,
   value,
   items,
-  onChange}: 
-  { label: string;
+  onChange,
+  className = '',
+}: {
+  label: string;
   value?: string;
+  className?: string;
   items: Item[];
-  onChange: (val: string) => void;}) => {
+  onChange: (val: string) => void;
+}) => {
   return (
     <Popover>
       <PopoverTrigger asChild>
         <Button
           variant="outline"
           role="combobox"
-          className="w-full max-w-[305px] justify-between border-1 border-input-border px-16 text-base text-medium rounded-lg text-default-btn"
+          className={`flex justify-between px-16 border-1 border-input-border rounded-lg w-full h-[40px] text-default-btn text-medium text-base ${className}`}
         >
           {items.find(i => i.value === value)?.label || label}
           <FaChevronDown color="#042D4A" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="p-4  border-1 border-input-border shadow-none text-default-btn w-[305px] bg-white">
+      <PopoverContent className="bg-white shadow-none p-4 border-1 border-input-border w-full text-default-btn">
         <RadioGroup value={value} onValueChange={onChange}>
           {items.map(item => (
             <div
               key={item.value}
-              className="w-full flex items-center gap-8 p-8 h-40"
+              className="flex items-center gap-8 p-8 w-full h-40"
             >
               <RadioGroupItem
                 value={item.value}
                 id={item.value}
-                className="ring-[1px] w-20 h-20 data-[state=checked]:ring-2 focus:outline-none text-default-btn"
+                className="focus:outline-none ring-[1px] data-[state=checked]:ring-2 w-20 h-20 text-default-btn"
               />
               <Label htmlFor={item.value} className="text-base">
                 {item.label}
@@ -50,6 +59,6 @@ const FilterItem = ({ label,
       </PopoverContent>
     </Popover>
   );
-}
+};
 
 export default FilterItem;

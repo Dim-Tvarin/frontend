@@ -176,86 +176,103 @@ const PetsList = () => {
       {isLoading ? (
         <PetsListSkeleton />
       ) : (
-        <div className="flex justify-between gap-20">
+        <div className="relative flex justify-around gap-20">
           {openFilters && (
-            <form
-              onSubmit={handleSubmit(onSubmit)}
-              className="flex flex-col gap-32 w-1/4 transition-all duration-500"
+            <div
+              className="xl:hidden z-50 fixed flex justify-center items-start bg-black/50"
+              onClick={() => setOpenFilters(false)}
             >
-              <Controller
-                name="animalType"
-                control={control}
-                render={({ field }) => (
-                  <FilterItem
-                    {...field}
-                    label="Вид тварини"
-                    items={animalTypeOptions}
-                  />
+              <form
+                onSubmit={e => {
+                  e.stopPropagation();
+                  handleSubmit(onSubmit);
+                }}
+                className={cn(
+                  'xl:flex flex-col transition-all duration-500 xl:bg-transparent',
+                  'xl:static xl:w-1/4 xl:gap-32',
+                  'flex flex-col  bg-dialog p-16 gap-16  rounded-4xl w-full t-[256px]'
                 )}
-              />
-              <Controller
-                name="gender"
-                control={control}
-                render={({ field }) => (
-                  <FilterItem {...field} label="Стать" items={genderOption} />
-                )}
-              />
-              <Controller
-                name="breed"
-                control={control}
-                render={({ field }) => (
-                  <BreedSelect
-                    {...field}
-                    className="w-[305px] h-[40px]"
-                    type={selectedAnimalType}
-                  />
-                )}
-              />
-              <Controller
-                name="location"
-                control={control}
-                render={({ field }) => (
-                  <CitySelect {...field} className="w-[305px] h-[40px]" />
-                )}
-              />
-              <Controller
-                name="age"
-                control={control}
-                render={({ field }) => (
-                  <FilterItem {...field} label="Вік" items={ageOption} />
-                )}
-              />
-
-              <Controller
-                name="size"
-                control={control}
-                render={({ field }) => (
-                  <FilterItem {...field} label="Розмір" items={size} />
-                )}
-              />
-
-              <CustomButton
-                type="submit"
-                styleType="defaultButton"
-                className="self-center m-0"
-                loading={isLoading || isFetching}
               >
-                Застосувати фільтр
-              </CustomButton>
-              <CustomButton
-                type="button"
-                styleType="whiteButton"
-                className="self-center m-0 mb-50 lgLmb-100"
-                onClick={handleClearFilter}
-                disabled={Object.keys(filtersParams).length === 0}
-              >
-                Очистити фільтр
-              </CustomButton>
-            </form>
+                <Controller
+                  name="animalType"
+                  control={control}
+                  render={({ field }) => (
+                    <FilterItem
+                      {...field}
+                      label="Вид тварини"
+                      items={animalTypeOptions}
+                    />
+                  )}
+                />
+                <Controller
+                  name="gender"
+                  control={control}
+                  render={({ field }) => (
+                    <FilterItem {...field} label="Стать" items={genderOption} />
+                  )}
+                />
+                <Controller
+                  name="breed"
+                  control={control}
+                  render={({ field }) => (
+                    <BreedSelect
+                      {...field}
+                      className="w-full h-[40px]"
+                      type={selectedAnimalType}
+                      placeholder="Порода"
+                    />
+                  )}
+                />
+                <Controller
+                  name="location"
+                  control={control}
+                  render={({ field }) => (
+                    <CitySelect
+                      {...field}
+                      className="w-full h-[40px]"
+                      placeholder="Місто"
+                    />
+                  )}
+                />
+                <Controller
+                  name="age"
+                  control={control}
+                  render={({ field }) => (
+                    <FilterItem {...field} label="Вік" items={ageOption} />
+                  )}
+                />
+
+                <Controller
+                  name="size"
+                  control={control}
+                  render={({ field }) => (
+                    <FilterItem {...field} label="Розмір" items={size} />
+                  )}
+                />
+
+                <CustomButton
+                  type="submit"
+                  styleType="defaultButton"
+                  className="self-center m-0"
+                  loading={isLoading || isFetching}
+                >
+                  Застосувати фільтр
+                </CustomButton>
+                <CustomButton
+                  type="button"
+                  styleType="whiteButton"
+                  className="self-center m-0 mb-50 lgLmb-100"
+                  onClick={handleClearFilter}
+                  disabled={Object.keys(filtersParams).length === 0}
+                >
+                  Очистити фільтр
+                </CustomButton>
+              </form>
+            </div>
           )}
 
           <div
-            className={`grid gap-16 lg:gap-20 mb-32 md:mb-50 wrap transition-all duration-500 grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 ${openFilters ? 'xl:grid-cols-3 w-3/4' : 'xl:grid-cols-4'}`}
+            className={`w-full grid gap-16 lg:gap-20 mb-32 md:mb-50 wrap transition-all duration-500 grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 ${openFilters ? 'xl:grid-cols-3 w-3/4' : 'xl:grid-cols-4'}`}
           >
             {data?.animals.map(item => (
               <AnimalCard

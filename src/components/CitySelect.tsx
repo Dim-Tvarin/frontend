@@ -55,12 +55,14 @@ export function CitySelect({
   value,
   className,
   errorMess,
+  placeholder,
 }: {
   onChange: (city: string) => void;
   defaultValue?: string;
   value?: string;
   className?: string;
   errorMess?: string;
+  placeholder?: string;
 }) {
   const [open, setOpen] = useState(false);
   const [selectedCity, setSelectedCity] = useState(value || '');
@@ -99,19 +101,19 @@ export function CitySelect({
             variant="outline"
             className={`${className} justify-between border-input-border px-16 text-base text-medium text-default-btn`}
           >
-            {selectedCity || value || 'Оберіть населенний пункт'}
+            {selectedCity || value || placeholder || ''}
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="p-0  border-1 border-input-border rounded-t-lg z-10">
+        <PopoverContent className="z-10 p-0 border-1 border-input-border rounded-t-lg">
           <Command className="bg-white">
             <CommandInput
               placeholder="Пошук міста..."
               onValueChange={val => setSearchValue(val)}
             />
-            <CommandList className="border-1 border-input-border bg-white rounded-b-lg ">
+            <CommandList className="bg-white border-1 border-input-border rounded-b-lg">
               {filteredData.map(city => (
                 <CommandItem
-                  className="text-base text-default-btn px-16 text-left "
+                  className="px-16 text-default-btn text-base text-left"
                   key={city._id}
                   value={city.name}
                   onSelect={() => {
