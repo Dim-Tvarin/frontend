@@ -95,7 +95,7 @@ export const Home = () => {
         </h3>
         <AnimalsCarousel />
         <CustomButton
-          className="z-10 flex gap-10 bg-default-btn mt-50 rounded-[20px] w-[236px] h-[44px]"
+          className="z-10 flex gap-10 bg-default-btn mt-50 rounded-[20px] w-[236px] h-[44px] text-base"
           onClick={() => navigate('/allpets')}
         >
           Переглянути всіх
