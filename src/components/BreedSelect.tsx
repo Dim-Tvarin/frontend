@@ -26,7 +26,7 @@ const getFilteredBreed = (
   searchVal: string
 ): Pick<AnimalTrait, '_id' | 'breed'>[] => {
   const search = searchVal.toLocaleLowerCase();
-  return data.filter(i => i.breed.toLowerCase().startsWith(search));
+  return data.filter(i => i.breed.toLowerCase().includes(search));
 };
 
 const defaultBreeds: Record<

@@ -24,7 +24,7 @@ interface CityType {
 
 const getFilteredCities = (data: CityType[], searchVal: string): CityType[] => {
   const search = searchVal.toLocaleLowerCase();
-  return data.filter(i => i.name.toLowerCase().startsWith(search));
+  return data.filter(i => i.name.toLowerCase().includes(search));
 };
 
 const defaultCities: CityType[] = [
@@ -120,10 +120,10 @@ export function CitySelect({
               placeholder="Пошук міста..."
               onValueChange={val => setSearchValue(val)}
             />
-            <CommandList className="border-1 border-input-border bg-white rounded-b-lg ">
+            <CommandList className="bg-white border-1 border-input-border rounded-b-lg">
               {filteredData.map(city => (
                 <CommandItem
-                  className="text-base text-default-btn px-16 text-left "
+                  className="px-16 text-default-btn text-base text-left"
                   key={city._id}
                   value={city.name}
                   onSelect={() => {
