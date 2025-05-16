@@ -110,11 +110,22 @@ const BreedSelect = ({
   const debouncedSearch = useDebounce(searchValue, 300);
 
   useEffect(() => {
+    if (type === 'other') {
+      setSelectedBreed('');
+    } else {
+      setSelectedBreed(
+        defaultBreeds[type as Exclude<AnimalType, 'other'>][0].breed
+      );
+    }
+  }, [type]);
+
+  useEffect(() => {
     if (defaultValue) {
       setSelectedBreed(defaultValue);
       onChange?.(defaultValue);
     }
   }, [defaultValue]);
+
   useEffect(() => {
     let animalBreed: Pick<AnimalTrait, '_id' | 'breed'>[] = [];
     if (!data || !type || !isDefaultAnimalType(type)) {
@@ -138,7 +149,6 @@ const BreedSelect = ({
         animalBreed = defaultBreeds[type];
       }
       setFilteredBreed(animalBreed);
-      setSelectedBreed('');
     }
   }, [debouncedSearch, data, isLoading, type]);
 
@@ -146,7 +156,8 @@ const BreedSelect = ({
     return (
       <>
         <InputField
-          defaultValue={defaultValue}
+          defaultValue={selectedBreed}
+          value={selectedBreed}
           id="animBeed"
           placeholder="Введіть породу"
           className="w-full lg:w-[305px] h-[40px]"
@@ -169,7 +180,7 @@ const BreedSelect = ({
             disabled={type === undefined}
             className={`${className} justify-between border-input-border px-16 text-base text-medium text-default-btn`}
           >
-            {selectedBreed || defaultValue || 'Оберіть породу'}
+            {selectedBreed || 'Оберіть породу'}
           </Button>
         </PopoverTrigger>
         <PopoverContent className="z-10 p-0 border-1 border-input-border rounded-t-lg">
