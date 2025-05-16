@@ -79,35 +79,35 @@ const AnimalCard = ({
   };
 
   return (
-    <div className="w-[242px] h-[318px] md:w-[294px] md:h-[400px] relative lg:w-[305px]  border-2 border-orange rounded-4xl max-w-sm bg-white flex items-end">
-      <div className="absolute inset-0 rounded-4xl overflow-hidden z-1">
+    <div className="relative flex items-end bg-white border-2 border-orange rounded-4xl w-[242px] md:w-[294px] lg:w-[305px] max-w-sm h-[318px] md:h-[400px]">
+      <div className="z-1 absolute inset-0 rounded-4xl overflow-hidden">
         <img src={photoSrc} alt={name} className="w-full h-full object-cover" />
       </div>
       {animal?.isHidden && (
-        <div className="absolute inset-0 z-19 bg-white/60 flex items-center justify-center rounded-4xl ">
-          <div className="absolute top-[18px] w-[268px] h-[36px] rounded-full bg-link/50 flex items-center justify-center font-bold text-sm leading-[171%] text-white">
+        <div className="z-19 absolute inset-0 flex justify-center items-center bg-white/60 rounded-4xl">
+          <div className="top-[18px] absolute flex justify-center items-center bg-link/50 rounded-full w-[268px] h-[36px] font-bold text-white text-sm leading-[171%]">
             Оголошення приховано
           </div>
         </div>
       )}
-      <div className="bg-main-pink-l/80 relative rounded-4xl z-10 w-full px-16 md:px-32 py-12 ">
+      <div className="z-10 relative bg-main-pink-l/80 px-16 md:px-32 py-12 rounded-4xl w-full">
         <div className="text-left">
           <div className="flex justify-between">
-            <h2 className="text-lg font-medium">{name}</h2>
+            <h2 className="font-medium text-lg">{name}</h2>
             {status === 'inactive' && (
-              <div className="mt-2 w-[162px] h-[28px] rounded-full bg-orange text-center font-bold text-sm leading-[171%] text-white">
+              <div className="bg-orange mt-2 rounded-full w-[162px] h-[28px] font-bold text-white text-sm text-center leading-[171%]">
                 Знайшов родину
               </div>
             )}
           </div>
-          <div className="text-lg font-medium flex gap-1">
+          <div className="flex gap-1 font-medium text-lg">
             {gender !== 'unknown' && <span>{genderMapping[gender]}</span>}
             {!!age.years && <span>{getYearDeclension(age.years)} </span>}
             {!!age.months && <span>{`${age.months}\u00A0міс.`}</span>}
           </div>
           {!isMyProfile && animal && (
             <div
-              className="absolute right-[18px] top-[14px] cursor-pointer"
+              className="top-[14px] right-[18px] absolute cursor-pointer"
               onClick={handleAddFavorite}
             >
               <HartSVG hartFill={isInFavorites} />
@@ -118,14 +118,14 @@ const AnimalCard = ({
         <CustomButton
           type="button"
           styleType="defaultButton"
-          className="w-[129px] mt-28"
+          className="mt-28 w-[149px] h-[36px]"
           onClick={() => navigate(`/allpets/${id}`)}
         >
           Переглянути
         </CustomButton>
       </div>
       {isMyProfile && (
-        <div className="absolute right-[18px] top-[18px] cursor-pointer flex flex-col gap-10 z-20 overflow-visible">
+        <div className="top-[18px] right-[18px] z-20 absolute flex flex-col gap-10 overflow-visible cursor-pointer">
           <div className="group relative flex items-center">
             <CustomButton styleType="iconButton" onClick={handleToggleHidden}>
               {animal?.isHidden ? (
@@ -134,10 +134,7 @@ const AnimalCard = ({
                 <FaEye className="text-white" size={22} />
               )}
             </CustomButton>
-            <span
-              className="absolute left-[40px] bg-dialog text-default-btn text-base rounded-[6px] opacity-0 translate-x-2
-                   group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200"
-            >
+            <span className="left-[40px] absolute bg-dialog opacity-0 group-hover:opacity-100 rounded-[6px] text-default-btn text-base transition-all translate-x-2 group-hover:translate-x-0 duration-200">
               Приховати
             </span>
           </div>
@@ -148,10 +145,7 @@ const AnimalCard = ({
             >
               <FiEdit className="text-white" size={22} />
             </CustomButton>
-            <span
-              className="absolute left-[40px] bg-dialog text-default-btn text-base rounded-[6px] opacity-0 translate-x-2
-                   group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200"
-            >
+            <span className="left-[40px] absolute bg-dialog opacity-0 group-hover:opacity-100 rounded-[6px] text-default-btn text-base transition-all translate-x-2 group-hover:translate-x-0 duration-200">
               Редагувати
             </span>
           </div>
@@ -171,10 +165,7 @@ const AnimalCard = ({
             >
               <FiTrash2 className="text-white" size={22} />
             </CustomButton>
-            <span
-              className="absolute left-[40px] bg-dialog text-default-btn text-base rounded-[6px] opacity-0 translate-x-2
-                   group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200"
-            >
+            <span className="left-[40px] absolute bg-dialog opacity-0 group-hover:opacity-100 rounded-[6px] text-default-btn text-base transition-all translate-x-2 group-hover:translate-x-0 duration-200">
               Видалити
             </span>
           </div>
