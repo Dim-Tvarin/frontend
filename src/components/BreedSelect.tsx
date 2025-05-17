@@ -16,6 +16,7 @@ import {
 import { Button } from './components/ui/button';
 import { useEffect, useState } from 'react';
 import { BsCheckLg } from 'react-icons/bs';
+import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import FormError from './FormError';
 import { useDebounce } from '@uidotdev/usehooks';
 import { InputField } from './InputField';
@@ -113,9 +114,11 @@ const BreedSelect = ({
     if (type === 'other') {
       setSelectedBreed('');
     } else {
-      setSelectedBreed(
-        defaultBreeds[type as Exclude<AnimalType, 'other'>][0].breed
-      );
+      if (selectedBreed) {
+        setSelectedBreed(
+          defaultBreeds[type as Exclude<AnimalType, 'other'>][0].breed
+        );
+      }
     }
   }, [type]);
 
@@ -181,6 +184,7 @@ const BreedSelect = ({
             className={`${className} justify-between border-input-border px-16 text-base text-medium text-default-btn`}
           >
             {selectedBreed || 'Оберіть породу'}
+            {open ? <IoIosArrowUp size={24} /> : <IoIosArrowDown size={24} />}
           </Button>
         </PopoverTrigger>
         <PopoverContent className="z-10 p-0 border-1 border-input-border rounded-t-lg">

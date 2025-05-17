@@ -79,7 +79,7 @@ const AnimalCard = ({
   };
 
   return (
-    <div className="relative flex items-end bg-white border-2 border-orange rounded-4xl w-[242px] md:w-[294px] lg:w-[305px] max-w-sm h-[318px] md:h-[400px]">
+    <div className="relative flex items-end bg-white border-2 border-orange rounded-4xl w-[242px] md:w-[294px] lg:w-[305px] max-w-sm h-[318px] md:h-[400px] hover:scale-110 transition-all duration-300">
       <div className="z-1 absolute inset-0 rounded-4xl overflow-hidden">
         <img src={photoSrc} alt={name} className="w-full h-full object-cover" />
       </div>

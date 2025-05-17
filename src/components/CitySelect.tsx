@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { BsCheckLg } from 'react-icons/bs';
+import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import {
   Popover,
   PopoverContent,
@@ -107,6 +108,7 @@ export function CitySelect({
             )}
           >
             {selectedCity || value || 'Оберіть населенний пункт'}
+            {open ? <IoIosArrowUp size={24} /> : <IoIosArrowDown size={24} />}
           </Button>
         </PopoverTrigger>
         <PopoverContent
