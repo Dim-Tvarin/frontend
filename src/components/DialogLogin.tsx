@@ -76,7 +76,7 @@ const DialogLogin: React.FC = () => {
         aria-labelledby="dialog-content"
       >
         <DialogClose className="absolute top-24 right-24 ">
-          <CloseSVG size="32" />
+          <CloseSVG />
         </DialogClose>
         <DialogHeader>
           <DialogTitle className="text-2xl leading-[140%] text-default-btn mb-30">
@@ -105,7 +105,10 @@ const DialogLogin: React.FC = () => {
             labelClass="text-input-border mb-16"
             id="password"
             {...register('password')}
-            error={authError || errors.password?.message}
+            error={
+              (activeDialog === 'login' && authError) ||
+              errors.password?.message
+            }
           />
           <DialogFooter>
             <CustomButton
@@ -124,7 +127,7 @@ const DialogLogin: React.FC = () => {
           }}
           to="/register"
           end
-          className="mt-16 text-lg text-link hover:text-orange"
+          className="mt-16 text-lg text-default-btn hover:text-orange"
         >
           Зареєструватися
         </NavLink>

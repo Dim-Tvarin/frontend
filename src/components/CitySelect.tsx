@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { BsCheckLg } from 'react-icons/bs';
+import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import {
   Popover,
   PopoverContent,
@@ -15,6 +16,7 @@ import {
 import FormError from './FormError';
 import { useGetCitiesQuery } from 'src/redux/animals/addInfoApi';
 import { useDebounce } from '@uidotdev/usehooks';
+import { cn } from './lib/utils';
 
 interface CityType {
   _id: string;
@@ -23,7 +25,7 @@ interface CityType {
 
 const getFilteredCities = (data: CityType[], searchVal: string): CityType[] => {
   const search = searchVal.toLocaleLowerCase();
-  return data.filter(i => i.name.toLowerCase().startsWith(search));
+  return data.filter(i => i.name.toLowerCase().includes(search));
 };
 
 const defaultCities: CityType[] = [
@@ -54,6 +56,7 @@ export function CitySelect({
   defaultValue,
   value,
   className,
+  widthClass = 'w-[305px]',
   errorMess,
   placeholder,
 }: {
@@ -61,6 +64,7 @@ export function CitySelect({
   defaultValue?: string;
   value?: string;
   className?: string;
+  widthClass?: string;
   errorMess?: string;
   placeholder?: string;
 }) {
@@ -99,12 +103,22 @@ export function CitySelect({
         <PopoverTrigger asChild>
           <Button
             variant="outline"
-            className={`${className} justify-between border-input-border px-16 text-base text-medium text-default-btn`}
+            className={cn(
+              className,
+              widthClass,
+              ' justify-between border-input-border px-16 text-base text-medium text-default-btn'
+            )}
           >
-            {selectedCity || value || placeholder || ''}
+            {selectedCity || value || 'Оберіть населенний пункт'}
+            {open ? <IoIosArrowUp size={24} /> : <IoIosArrowDown size={24} />}
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="z-10 p-0 border-1 border-input-border rounded-t-lg w-(--radix-popover-trigger-width)">
+        <PopoverContent
+          className={cn(
+            widthClass,
+            'z-10 p-0 border-1 border-input-border rounded-t-lg w-(--radix-popover-trigger-width)'
+          )}
+        >
           <Command className="bg-white">
             <CommandInput
               placeholder="Пошук міста..."

@@ -53,8 +53,8 @@ const Modal = ({
           src={tracks4}
           alt="background"
         />
-        <DialogClose className="top-32 right-32 absolute">
-          <CloseSVG size="22" />
+        <DialogClose className="top-24 right-24 absolute">
+          <CloseSVG />
         </DialogClose>
         <DialogHeader>
           <DialogTitle className="sr-only">Confirmation</DialogTitle>

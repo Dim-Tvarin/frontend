@@ -22,6 +22,7 @@ export interface Animal {
   status: string;
   size?: string;
   favorite: boolean;
+  isHidden: boolean;
   owner: string;
   createdAt: string;
   updatedAt: string;
@@ -58,7 +59,7 @@ export const animalsApi = createApi({
       return headers;
     },
   }),
-
+  tagTypes: ['Animals', 'MyAnimals'],
   endpoints: build => ({
     getAnimals: build.query<AnimalsResponse, { page?: number; limit?: number }>(
       {
@@ -95,6 +96,7 @@ export const animalsApi = createApi({
         const url = `animals/filter?page=${page}&limit=${limit}&${queryString}`;
         return url;
       },
+      providesTags: ['Animals'],
     }),
     createAnimal: build.mutation<unknown, FormData>({
       query: formData => ({
@@ -113,6 +115,7 @@ export const animalsApi = createApi({
     >({
       query: ({ page = 1, limit = 9 }) =>
         `animals/my-animals?page=${page}&limit=${limit}`,
+      providesTags: ['MyAnimals'],
     }),
     addFavoriteAnimal: build.mutation<unknown, string>({
       query: animalId => ({
@@ -136,6 +139,18 @@ export const animalsApi = createApi({
         url: `/animals/${animalId}`,
         method: 'DELETE',
       }),
+      invalidatesTags: ['Animals', 'MyAnimals'],
+    }),
+    toggleHideAnimal: build.mutation<
+      unknown,
+      { id: string; isHidden: boolean }
+    >({
+      query: ({ id, isHidden }) => ({
+        url: `/animals/${id}/hide`,
+        method: 'PATCH',
+        body: { isHidden },
+      }),
+      invalidatesTags: ['Animals', 'MyAnimals'],
     }),
   }),
 });
@@ -150,4 +165,5 @@ export const {
   useAddFavoriteAnimalMutation,
   useToggleFavoriteAnimalMutation,
   useDeleteMyAnimalsMutation,
+  useToggleHideAnimalMutation,
 } = animalsApi;

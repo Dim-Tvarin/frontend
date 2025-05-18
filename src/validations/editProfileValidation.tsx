@@ -29,34 +29,10 @@ export const editUserSchema = z.object({
     .string()
     .regex(/^(\+?38)?0\d{9}$/, 'Невірний формат телефону')
     .nonempty('Телефон є обовʼязковим'),
-
-  avatar: z
-    .instanceof(File)
-    .refine(
-      file => ['image/jpeg', 'image/png', 'image/gif'].includes(file.type),
-      'Дозволені формати: JPG, PNG, GIF'
-    )
-    .refine(
-      file => file.size <= 2 * 1024 * 1024,
-      'Максимальний розмір файлу — 2 МБ'
-    )
-    .optional(),
 });
 
 export const changePasswordSchema = z
   .object({
-    password: z
-      .string()
-      .min(8, 'Пароль має бути щонайменше 8 символів латиницею')
-      .max(30, 'Пароль не може перевищувати 30 символів')
-      .regex(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#_\\$%\\^&\\*])(?=.{8,128})/,
-        {
-          message:
-            'Пароль має містити хоча б одну маленьку літеру, одну велику літеру, одну цифру і один спеціальний символ',
-        }
-      )
-      .nonempty('Пароль є обовʼязковим'),
     newPassword: z
       .string()
       .min(8, 'Пароль має бути щонайменше 8 символів латиницею')

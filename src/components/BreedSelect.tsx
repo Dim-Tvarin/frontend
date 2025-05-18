@@ -16,6 +16,7 @@ import {
 import { Button } from './components/ui/button';
 import { useEffect, useState } from 'react';
 import { BsCheckLg } from 'react-icons/bs';
+import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import FormError from './FormError';
 import { useDebounce } from '@uidotdev/usehooks';
 import { InputField } from './InputField';
@@ -26,7 +27,7 @@ const getFilteredBreed = (
   searchVal: string
 ): Pick<AnimalTrait, '_id' | 'breed'>[] => {
   const search = searchVal.toLocaleLowerCase();
-  return data.filter(i => i.breed.toLowerCase().startsWith(search));
+  return data.filter(i => i.breed.toLowerCase().includes(search));
 };
 
 const defaultBreeds: Record<
@@ -112,11 +113,24 @@ const BreedSelect = ({
   const debouncedSearch = useDebounce(searchValue, 300);
 
   useEffect(() => {
+    if (type === 'other') {
+      setSelectedBreed('');
+    } else {
+      if (selectedBreed) {
+        setSelectedBreed(
+          defaultBreeds[type as Exclude<AnimalType, 'other'>][0].breed
+        );
+      }
+    }
+  }, [type]);
+
+  useEffect(() => {
     if (defaultValue) {
       setSelectedBreed(defaultValue);
       onChange?.(defaultValue);
     }
   }, [defaultValue]);
+
   useEffect(() => {
     let animalBreed: Pick<AnimalTrait, '_id' | 'breed'>[] = [];
     if (!data || !type || !isDefaultAnimalType(type)) {
@@ -140,7 +154,6 @@ const BreedSelect = ({
         animalBreed = defaultBreeds[type];
       }
       setFilteredBreed(animalBreed);
-      setSelectedBreed('');
     }
   }, [debouncedSearch, data, isLoading, type]);
 
@@ -148,7 +161,8 @@ const BreedSelect = ({
     return (
       <>
         <InputField
-          defaultValue={defaultValue}
+          defaultValue={selectedBreed}
+          value={selectedBreed}
           id="animBeed"
           placeholder="Введіть породу"
           className="w-full lg:w-[305px] h-[40px]"
@@ -171,7 +185,8 @@ const BreedSelect = ({
             disabled={type === undefined}
             className={`${className} justify-between border-input-border px-16 text-base text-medium text-default-btn`}
           >
-            {selectedBreed || defaultValue || placeholder || ''}
+            {selectedBreed || 'Оберіть породу'}
+            {open ? <IoIosArrowUp size={24} /> : <IoIosArrowDown size={24} />}
           </Button>
         </PopoverTrigger>
         <PopoverContent className="z-10 p-0 border-1 border-input-border rounded-t-lg w-(--radix-popover-trigger-width)">

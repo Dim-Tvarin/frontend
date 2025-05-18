@@ -20,13 +20,17 @@ const viewedAnimalsSlice = createSlice({
         state.animals.shift();
       }
     },
+    removeViewedAnimal: (state, action: PayloadAction<string>) => {
+      const animalId = action.payload;
+      state.animals = state.animals.filter(a => a.id !== animalId);
+    },
     clearViewedAnimals: state => {
       state.animals = [];
     },
   },
 });
 
-export const { addViewedAnimal, clearViewedAnimals } =
+export const { addViewedAnimal, removeViewedAnimal, clearViewedAnimals } =
   viewedAnimalsSlice.actions;
 export const { selectViewedAnimals } = viewedAnimalsSlice.selectors;
 export const viewedAnimalsReducer = viewedAnimalsSlice.reducer;

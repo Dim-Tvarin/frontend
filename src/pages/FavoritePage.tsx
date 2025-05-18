@@ -1,15 +1,20 @@
 import AnimalCard from 'components/AnimalCard';
 import Pagination from 'components/Pagination';
+import ResponsiveImage from 'components/ResponsiveImage';
 import { PetsListSkeleton } from 'components/sceletons/PetsListSkeleton';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useSearchParams } from 'react-router';
+import { useNavigate, useSearchParams } from 'react-router';
 import {
   selectFavoriteAnimals,
   selectFavoritesLoading,
 } from 'src/redux/animals/favoriteAnimalsSlice';
+import emptyFavoriteMax from '../assets/empty-favorites@2x.png';
+import emptyFavoriteMin from '../assets/empty-favorites@1x.png';
+import { CustomButton } from 'components/CustomButton';
 
 const FavoritePage = () => {
+  const navigate = useNavigate();
   const isLoading = useSelector(selectFavoritesLoading);
   const favorites = useSelector(selectFavoriteAnimals);
   const perPage = 16;
@@ -40,7 +45,24 @@ const FavoritePage = () => {
       <div className="relative text-center mt-100 mb-50">
         <h1 className="text-[32px] text-default-btn w-full">Обрані</h1>
         {favorites.length === 0 && (
-          <p className="text-lg text-default-btn">Поки немає обраних</p>
+          <div className="flex flex-col align-center justify-center text-lg text-default-btn">
+            <div className="w-[332px] h-[375px] mt-40 self-center">
+              <ResponsiveImage
+                urlMax={emptyFavoriteMax}
+                urlMin={emptyFavoriteMin}
+                alt="собака визирає з коробки"
+              />
+            </div>
+            <p className="mt-40">Ой! Тут поки пусто</p>
+            <p className="mt-25">Зазирніть у каталог, щоб обрати улюбленця!</p>
+            <CustomButton
+              styleType="defaultButton"
+              className="mt-80 text-base w-[197px]"
+              onClick={() => navigate('/allpets')}
+            >
+              До списку тварин
+            </CustomButton>
+          </div>
         )}
       </div>
 
