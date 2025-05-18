@@ -190,7 +190,7 @@ const PetsList = () => {
                 className={cn(
                   'xl:flex flex-col transition-all duration-500 xl:bg-transparent',
                   'xl:static  xl:gap-32',
-                  'flex flex-col bg-dialog p-16 gap-16 rounded-4xl w-[95%] sm:w-[344px] ml-16 mt-[260px] xl:mt-0 xl:ml-0'
+                  'flex flex-col bg-dialog p-16 gap-16 rounded-4xl w-[95%] sm:w-[344px] ml-16 mt-[260px] xl:mt-0 xl:ml-0 xl:p-0'
                 )}
               >
                 <Controller
@@ -261,7 +261,7 @@ const PetsList = () => {
                 <CustomButton
                   type="button"
                   styleType="whiteButton"
-                  className="self-center m-0 mb-50 lgLmb-100"
+                  className="self-center m-0 xl:-mt-12 mb-50 lg:mb-100"
                   onClick={handleClearFilter}
                   disabled={Object.keys(filtersParams).length === 0}
                 >
