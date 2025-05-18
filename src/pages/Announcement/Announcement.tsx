@@ -222,7 +222,7 @@ const Announcement = () => {
               {...register('animalName')}
               error={errors.animalName?.message}
             />
-            <div className="md:mt-4 w-full md:w-[296px] lg:w-[305px]">
+            <div className="md:mt-4 lg:-ml-5 w-full md:w-[296px] lg:w-[305px]">
               <p className="mb-10 text-base text-left">Місто * </p>
               <Controller
                 name="animalLocation"

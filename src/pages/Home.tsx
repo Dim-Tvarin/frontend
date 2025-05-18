@@ -30,7 +30,7 @@ export const Home = () => {
           <img src={track} alt="track" />
         </div>
         <div className="z-10 flex flex-col justify-center items-center gap-30 lg:gap-50 order-2 md:order-1 sm:w-full md:w-2/4">
-          <p className="z-10 px-[35px] md:px-0 font-normal lg:text-[32px] text-base md:text-xl">
+          <p className="z-10 md:px-0 lg:px-10 font-normal lg:text-[32px] text-base md:text-xl">
             Оберіть для себе ідеального домашнього улюбленця, або допоможіть
             безпритульним тваринам знайти свій дім
           </p>
@@ -73,7 +73,7 @@ export const Home = () => {
           <h3 className="font-semibold lg:text-[32px] text-base">
             Чому саме ми?
           </h3>
-          <p className="font-normal text-sm lg:text-2xl">
+          <p className="lg:pr-30 font-normal text-sm lg:text-2xl">
             Ми та платформа, що об&#39;єднує людей, яким небайдужа доля тварин!
             Ми створили цей сервіс для того, щоб повертати загублених
             улюбленців, знаходити новий дім для тварин, а також забезпечувати
@@ -81,8 +81,8 @@ export const Home = () => {
           </p>
           <p className="z-10 font-normal text-sm lg:text-2xl">
             Ми прагнемо створити суспільство відповідальних власників, де кожен
-            чотирилапий друг отримає шанс на щасливе життя. Долучайтеся до нас,
-            разом ми зможемо більше!
+            чотирилапий друг отримає шанс на щасливе життя. <br /> Долучайтеся
+            до нас, разом ми зможемо більше!
           </p>
         </div>
       </section>
@@ -95,7 +95,7 @@ export const Home = () => {
         </h3>
         <AnimalsCarousel />
         <CustomButton
-          className="z-10 flex gap-10 bg-default-btn mt-50 rounded-[20px] w-[236px] h-[44px]"
+          className="z-10 flex gap-10 bg-default-btn mt-50 rounded-[20px] w-[236px] h-[44px] text-base"
           onClick={() => navigate('/allpets')}
         >
           Переглянути всіх
