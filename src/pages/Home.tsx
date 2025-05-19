@@ -35,7 +35,7 @@ export const Home = () => {
             безпритульним тваринам знайти свій дім
           </p>
           <CustomButton
-            className="z-10 flex gap-8 bg-default-btn rounded-[20px] w-[236px] h-[44px]"
+            className="z-10 flex gap-8 bg-default-btn rounded-[20px] w-[236px] h-[44px] text-base"
             onClick={handleNavigateAnnouncement}
           >
             <LuCirclePlus size={20} />
@@ -56,7 +56,7 @@ export const Home = () => {
         </div>
       </section>
 
-      <section className="relative flex md:flex-row flex-col items-center gap-[20px] mt-32 md:mt-80 lg:mt-100p mb-32 md:mb-80 lg:mb-100">
+      <section className="relative flex md:flex-row flex-col items-center gap-[20px] mt-32 md:mt-80 lg:mt-100 mb-32 md:mb-80 lg:mb-100">
         <div className="hidden md:block -top-72 right-[10px] z-1 absolute w-[136px] lg:w-[210px] h-[133px] lg:h-[205px]">
           <img src={track} alt="track" />
         </div>
@@ -90,7 +90,7 @@ export const Home = () => {
         <div className="hidden md:block -top-[92px] right-16 z-1 absolute w-[172px] lg:w-[260px] h-[168px] lg:h-[270px] rotate-[57deg]">
           <img src={track} alt="track" />
         </div>
-        <h3 className="z-10 relative mb-12 lg:mb-50 font-semibold text-base md:text-2xl lg:text-5xl">
+        <h3 className="z-10 relative mb-12 lg:mb-50 font-semibold text-base md:text-2xl lg:text-5xl leading-[1.4]">
           Тварини, які шукають дім
         </h3>
         <AnimalsCarousel />
