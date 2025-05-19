@@ -357,7 +357,8 @@ const EditAnnouncement = () => {
                       defaultValue={animal?.animalLocation}
                       onChange={field.onChange}
                       value={animal?.animalLocation}
-                      className="w-full h-[40px]"
+                      className="h-[40px]"
+                      widthClass="w-full"
                       errorMess={errors?.animalLocation?.message}
                     />
                   )}
