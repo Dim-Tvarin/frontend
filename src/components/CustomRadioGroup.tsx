@@ -58,7 +58,7 @@ const CustomRadioGroup: FC<RadioProps> = ({
           <Label
             htmlFor={item.value}
             className={cn(
-              'flex items-center gap-8 rounded-lg p-8 border-1 border-input-border h-40 text-base w-full md:w-[300px] lg:w-[305px]',
+              'flex items-center gap-8 rounded-lg py-8 px-16 border-1 border-input-border h-40 text-base w-full md:w-[300px] lg:w-[305px]',
               itemWidth ? `w-[${itemWidth}px]` : 'w-full',
               { 'border-error-input': error }
             )}
