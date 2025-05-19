@@ -58,6 +58,7 @@ export function CitySelect({
   className,
   widthClass = 'w-[305px]',
   errorMess,
+  placeholder,
 }: {
   onChange: (city: string) => void;
   defaultValue?: string;
@@ -65,6 +66,7 @@ export function CitySelect({
   className?: string;
   widthClass?: string;
   errorMess?: string;
+  placeholder?: string;
 }) {
   const [open, setOpen] = useState(false);
   const [selectedCity, setSelectedCity] = useState(value || '');
@@ -107,14 +109,14 @@ export function CitySelect({
               ' justify-between border-input-border px-16 text-base text-medium text-default-btn'
             )}
           >
-            {selectedCity || value || 'Оберіть населенний пункт'}
+            {selectedCity || value || placeholder || 'Оберіть населенний пункт'}
             {open ? <IoIosArrowUp size={24} /> : <IoIosArrowDown size={24} />}
           </Button>
         </PopoverTrigger>
         <PopoverContent
           className={cn(
             widthClass,
-            '  p-0  border-1 border-input-border rounded-t-lg z-10'
+            'z-10 p-0 border-1 border-input-border rounded-t-lg w-(--radix-popover-trigger-width)'
           )}
         >
           <Command className="bg-white">

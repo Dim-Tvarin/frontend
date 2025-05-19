@@ -230,7 +230,8 @@ const Announcement = () => {
                 render={({ field }) => (
                   <CitySelect
                     onChange={field.onChange}
-                    className="w-full h-[40px]"
+                    className="h-[40px]"
+                    widthClass="w-full"
                     errorMess={errors?.animalLocation?.message}
                   />
                 )}
