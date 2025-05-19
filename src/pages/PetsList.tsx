@@ -22,6 +22,7 @@ import BreedSelect from 'components/BreedSelect';
 import { CitySelect } from 'components/CitySelect';
 import { Controller, useForm } from 'react-hook-form';
 import { cn } from 'components/lib/utils';
+import { useWindowSize } from '@uidotdev/usehooks';
 
 const limit = 12;
 
@@ -55,6 +56,7 @@ const PetsList = () => {
   const [sorting, setSorting] = useState<SortOrder>('newest');
 
   const navigate = useNavigate();
+  const windowSize = useWindowSize();
 
   const { data, isLoading, isFetching, error } = useGetFilteredAnimalsQuery(
     { page, limit, ...filtersParams },
@@ -101,6 +103,7 @@ const PetsList = () => {
   const onSubmit = (formData: FilterFormValues) => {
     const filters = { ...formData, sortByDate: sorting };
     setFiltersParams(filters);
+    if (windowSize.width && windowSize.width < 1280) setOpenFilters(false);
   };
 
   const handleAscSorting = () => {
@@ -121,17 +124,8 @@ const PetsList = () => {
   return (
     <div className="container">
       <div className="relative flex justify-center mt-72 lg:mt-100 mb-100 lg:mb-50">
-        <CustomButton
-          type="button"
-          styleType="defaultButton"
-          className="top-50 lg:top-0 left-0 absolute m-0 w-[121px] md:w-[129px]"
-          onClick={() => setOpenFilters(prev => !prev)}
-        >
-          <FiFilter size={18} />
-          <span className="text-base">Фільтр</span>
-        </CustomButton>
         <div className="flex flex-col">
-          <h1 className="md:text-[32px] text-lg">{title}</h1>
+          <h1 className="mb-10 md:text-[32px] text-lg">{title}</h1>
           {isFilterApplied && data && (
             <p className="w-full text-default-btn text-base md:text-lg text-center">
               {data.total === 0
@@ -140,39 +134,62 @@ const PetsList = () => {
             </p>
           )}
         </div>
-        <div className="top-50 lg:top-0 right-0 z-10 absolute flex flex-col items-end">
+        {data?.total === 0 ? (
           <CustomButton
             type="button"
-            styleType="whiteButton"
-            className="m-0 w-[192px] md:w-[217px] text-default-btn text-medium text-base"
-            onClick={() => setOpenSorting(prev => !prev)}
+            styleType="defaultButton"
+            className="top-[95px] md:top-[135px] left-[calc(50%-98px)] z-50 absolute m-0 w-[196px]"
+            onClick={handleClearFilter}
           >
-            Сортування за датою
+            До списку тварин
           </CustomButton>
-          {openSorting && (
-            <div className="flex flex-col gap-4 bg-dialog px-16 py-10 border-1 border-default-btn rounded-xl">
-              <button
-                onClick={handleAscSorting}
-                className={cn(
-                  'text-default-btn text-left text-lg focus:outline-none hover:text-orange transition-all duration-300',
-                  sorting === 'newest' && 'text-orange'
-                )}
+        ) : (
+          <>
+            <CustomButton
+              type="button"
+              styleType="defaultButton"
+              className="top-50 lg:top-0 left-0 absolute m-0 w-[121px] md:w-[129px]"
+              onClick={() => setOpenFilters(prev => !prev)}
+            >
+              <FiFilter size={18} />
+              <span className="text-base">Фільтр</span>
+            </CustomButton>
+            <div className="top-50 lg:top-0 right-0 z-10 absolute flex flex-col items-end">
+              <CustomButton
+                type="button"
+                styleType="whiteButton"
+                className="m-0 w-[192px] md:w-[217px] text-default-btn text-medium text-base"
+                onClick={() => setOpenSorting(prev => !prev)}
               >
-                Останні оголошення
-              </button>
-              <button
-                onClick={handleDescSorting}
-                className={cn(
-                  'text-default-btn text-left text-lg focus:outline-none hover:text-orange transition-all duration-300',
-                  sorting === 'oldest' && 'text-orange'
-                )}
-              >
-                Давні оголошення
-              </button>
+                Сортування за датою
+              </CustomButton>
+              {openSorting && (
+                <div className="flex flex-col gap-4 bg-dialog px-16 py-10 border-1 border-default-btn rounded-xl">
+                  <button
+                    onClick={handleAscSorting}
+                    className={cn(
+                      'text-default-btn text-left text-lg focus:outline-none hover:text-orange transition-all duration-300',
+                      sorting === 'newest' && 'text-orange'
+                    )}
+                  >
+                    Останні оголошення
+                  </button>
+                  <button
+                    onClick={handleDescSorting}
+                    className={cn(
+                      'text-default-btn text-left text-lg focus:outline-none hover:text-orange transition-all duration-300',
+                      sorting === 'oldest' && 'text-orange'
+                    )}
+                  >
+                    Давні оголошення
+                  </button>
+                </div>
+              )}
             </div>
-          )}
-        </div>
+          </>
+        )}
       </div>
+
       {isLoading ? (
         <PetsListSkeleton />
       ) : (
@@ -229,7 +246,8 @@ const PetsList = () => {
                   render={({ field }) => (
                     <CitySelect
                       {...field}
-                      className="w-full h-[40px]"
+                      className="h-[40px]"
+                      widthClass="w-full"
                       placeholder="Місто"
                     />
                   )}
