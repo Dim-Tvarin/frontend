@@ -144,21 +144,23 @@ const PetsList = () => {
             До списку тварин
           </CustomButton>
         ) : (
-          <>
+          <div
+            className={` lg:top-0 absolute flex justify-between m-0 w-full ${isFilterApplied ? 'top-80' : 'top-50'}`}
+          >
             <CustomButton
               type="button"
               styleType="defaultButton"
-              className="top-50 lg:top-0 left-0 absolute m-0 w-[121px] md:w-[129px]"
+              className="m-0 mt-0 w-[121px] md:w-[129px]"
               onClick={() => setOpenFilters(prev => !prev)}
             >
               <FiFilter size={18} />
               <span className="text-base">Фільтр</span>
             </CustomButton>
-            <div className="top-50 lg:top-0 right-0 z-10 absolute flex flex-col items-end">
+            <div className="z-10 flex flex-col items-end">
               <CustomButton
                 type="button"
                 styleType="whiteButton"
-                className="m-0 w-[192px] md:w-[217px] text-default-btn text-medium text-base"
+                className="w-[192px] md:w-[217px] text-default-btn text-medium text-base"
                 onClick={() => setOpenSorting(prev => !prev)}
               >
                 Сортування за датою
@@ -186,7 +188,7 @@ const PetsList = () => {
                 </div>
               )}
             </div>
-          </>
+          </div>
         )}
       </div>
 
