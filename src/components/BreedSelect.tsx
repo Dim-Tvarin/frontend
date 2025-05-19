@@ -185,7 +185,7 @@ const BreedSelect = ({
             disabled={type === undefined}
             className={`${className} justify-between border-input-border px-16 text-base text-medium text-default-btn`}
           >
-            {selectedBreed || 'Оберіть породу'}
+            {selectedBreed || placeholder || 'Оберіть породу'}
             {open ? <IoIosArrowUp size={24} /> : <IoIosArrowDown size={24} />}
           </Button>
         </PopoverTrigger>

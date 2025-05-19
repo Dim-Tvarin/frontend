@@ -98,7 +98,7 @@ const AnimalCard = ({
           className="z-1 absolute inset-0 w-full h-full object-cover"
         />
       </Link>
-      {!visible && (
+      {animal?.isHidden && (
         <div className="z-19 absolute inset-0 flex justify-center items-center bg-white/60 rounded-4xl">
           <div className="top-[18px] absolute flex justify-center items-center bg-link/50 rounded-full w-[268px] h-[36px] font-bold text-white text-sm leading-[171%]">
             Оголошення приховано
@@ -122,7 +122,6 @@ const AnimalCard = ({
           </div>
           {!isMyProfile && animal && (
             <div
-              className="top-[14px] right-[18px] absolute cursor-pointer"
               className="top-[14px] right-[18px] absolute cursor-pointer"
               onClick={handleAddFavorite}
             >

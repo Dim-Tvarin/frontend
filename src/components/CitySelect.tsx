@@ -109,7 +109,7 @@ export function CitySelect({
               ' justify-between border-input-border px-16 text-base text-medium text-default-btn'
             )}
           >
-            {selectedCity || value || 'Оберіть населенний пункт'}
+            {selectedCity || value || placeholder || 'Оберіть населенний пункт'}
             {open ? <IoIosArrowUp size={24} /> : <IoIosArrowDown size={24} />}
           </Button>
         </PopoverTrigger>
