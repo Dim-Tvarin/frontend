@@ -3,7 +3,7 @@ import {
   createSlice,
   type PayloadAction,
 } from '@reduxjs/toolkit';
-import type { Animal } from './animalsApi';
+import { animalsApi, type Animal } from './animalsApi';
 import type { RootState } from '../store';
 import { logoutThunk } from '../users/usersOperations';
 
@@ -47,9 +47,17 @@ const favoriteAnimalsSlice = createSlice({
     },
   },
   extraReducers: builder => {
-    builder.addCase(logoutThunk.fulfilled, state => {
-      favoriteAnimalsSlice.caseReducers.clearFavorites(state);
-    });
+    builder
+      .addCase(logoutThunk.fulfilled, state => {
+        favoriteAnimalsSlice.caseReducers.clearFavorites(state);
+      })
+      .addMatcher(
+        animalsApi.endpoints.deleteMyAnimals.matchFulfilled,
+        (state, action) => {
+          const deletedId = action.meta.arg.originalArgs;
+          state.animals = state.animals.filter(a => a.id !== deletedId);
+        }
+      );
   },
 });
 
