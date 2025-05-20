@@ -5,6 +5,7 @@ import {
 } from '@reduxjs/toolkit';
 import type { Animal } from './animalsApi';
 import type { RootState } from '../store';
+import { logoutThunk } from '../users/usersOperations';
 
 export type FavoriteAnimalsState = {
   animals: Animal[];
@@ -44,6 +45,11 @@ const favoriteAnimalsSlice = createSlice({
     clearFavorites: state => {
       state.animals = [];
     },
+  },
+  extraReducers: builder => {
+    builder.addCase(logoutThunk.fulfilled, state => {
+      favoriteAnimalsSlice.caseReducers.clearFavorites(state);
+    });
   },
 });
 
