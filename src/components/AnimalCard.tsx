@@ -85,7 +85,7 @@ const AnimalCard = ({
   return (
     <div
       className={cn(
-        'relative flex items-end bg-white border-2 border-orange rounded-4xl overflow-hidden max-w-sm xl:scale-90 2xl:scale-100',
+        'relative flex items-end bg-white border-2 border-orange rounded-4xl max-w-sm xl:scale-90 2xl:scale-100',
         isAllPetsPage
           ? 'w-[156px] h-[198px] md:w-[242px] md:h-[318px] xl:w-[305px] xl:h-[400px]'
           : 'w-[242px] h-[318px] md:w-[294px] md:h-[400px] lg:w-[305px]'
@@ -95,7 +95,7 @@ const AnimalCard = ({
         <img
           src={photoSrc}
           alt={name}
-          className="z-1 absolute inset-0 w-full h-full object-cover"
+          className="z-1 absolute inset-0 w-full h-full object-cover rounded-4xl"
         />
       </Link>
       {animal?.isHidden && (
@@ -105,7 +105,7 @@ const AnimalCard = ({
           </div>
         </div>
       )}
-      <div className="z-10 relative bg-main-pink-l/80 px-16 md:px-32 py-8 md:py-12 rounded-t-4xl w-full">
+      <div className="z-10 relative bg-main-pink-l/80 px-16 md:px-32 py-8 md:py-12 rounded-4xl w-full">
         <div className="text-left">
           <div className="flex justify-between">
             <h2 className="font-medium text-lg">{name}</h2>
