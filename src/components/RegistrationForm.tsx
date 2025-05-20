@@ -62,19 +62,19 @@ const RegistrationForm: React.FC = () => {
   ];
 
   return (
-    <div className=" flex flex-col xs:px-16 sm:w-full lg:max-w-[630px]">
-      <h1 className="text-default-btn xs:mb-[16px] xs:text-[18px] lg:mb-[41px] lg:text-[32px]">
+    <div className=" flex flex-col xs:px-16 sm:w-full 2xl:max-w-[630px]">
+      <h1 className="text-default-btn xs:mb-[16px] xs:text-[18px] 2xl:mb-[41px] 2xl:text-[32px]">
         Реєстрація акаунту
       </h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col text-left xs:gap-16 lg:gap-32"
+        className="flex flex-col text-left xs:gap-16 2xl:gap-32"
       >
         <InputField
           label="Ім’я або назва організації"
           placeholder="Введіть ваше імʼя"
-          className="h-40 xs:w-full lg:w-[630px]"
-          labelClass="text-default-btn xs:mb-10 lg:mb-16"
+          className="h-40 xs:w-full 2xl:w-[630px]"
+          labelClass="text-default-btn xs:mb-10 2xl:mb-16"
           labelSize="base"
           id="name"
           {...register('name')}
@@ -83,8 +83,8 @@ const RegistrationForm: React.FC = () => {
         <InputField
           label="Адреса електронної пошти"
           placeholder="Введіть адресу електронної пошти"
-          className="h-40 xs:w-full lg:w-[630px]"
-          labelClass="text-default-btn xs:mb-10 lg:mb-16"
+          className="h-40 xs:w-full 2xl:w-[630px]"
+          labelClass="text-default-btn xs:mb-10 2xl:mb-16"
           labelSize="base"
           id="email"
           {...register('email')}
@@ -92,11 +92,11 @@ const RegistrationForm: React.FC = () => {
             (activeDialog !== 'login' && emailError) || errors.email?.message
           }
         />
-        <div className="flex gap-20 xs:flex-col lg:flex-row">
+        <div className="flex gap-20 xs:flex-col 2xl:flex-row">
           <div className="flex flex-col text-[16px]">
             <label
               htmlFor="location"
-              className="text-base text-left text-default-btn leading-[125%] xs:mb-10 lg:mb-16"
+              className="text-base text-left text-default-btn leading-[125%] xs:mb-10 2xl:mb-16"
             >
               Місто
             </label>
@@ -107,7 +107,7 @@ const RegistrationForm: React.FC = () => {
                 <CitySelect
                   value={field.value}
                   onChange={field.onChange}
-                  className="h-40 text-[16px] hover:border-input-border xs:w-full lg:w-[305px]"
+                  className="h-40 text-[16px] hover:border-input-border xs:w-full 2xl:w-[305px]"
                   errorMess={errors.location?.message}
                 />
               )}
@@ -116,8 +116,8 @@ const RegistrationForm: React.FC = () => {
           <PhoneInput
             label="Номер телефону"
             placeholder="+380"
-            className="h-40 xs:w-full lg:w-[305px]"
-            labelClass="text-default-btn xs:mb-10 lg:mb-16"
+            className="h-40 xs:w-full 2xl:w-[305px]"
+            labelClass="text-default-btn xs:mb-10 2xl:mb-16"
             labelSize="base"
             id="phone"
             {...register('phone')}
@@ -127,7 +127,7 @@ const RegistrationForm: React.FC = () => {
         <CustomRadioGroup
           groupLabel="Оберіть хто Ви"
           labelSize="base"
-          labelClass="text-default-btn xs:mb-10 lg:mb-16"
+          labelClass="text-default-btn xs:mb-10 2xl:mb-16"
           className="text-[16px] text-default-btn xs:flex-col xs:gap-10 sm:flex-row sm:gap-20"
           itemWidth="xs:w-full"
           items={userTypeOptions}
@@ -141,8 +141,8 @@ const RegistrationForm: React.FC = () => {
         <PasswordField
           label="Пароль"
           placeholder="Введіть надійний пароль"
-          className="h-40 xs:w-fulll g:w-[630px]"
-          labelClass="leading-[125%] text-default-btn xs:mb-10 lg:mb-16"
+          className="h-40 xs:w-fulll 2xl:w-[630px]"
+          labelClass="leading-[125%] text-default-btn xs:mb-10 2xl:mb-[16px]"
           labelSize="base"
           id="password"
           {...register('password')}
@@ -154,8 +154,8 @@ const RegistrationForm: React.FC = () => {
         <PasswordField
           label="Повторіть пароль"
           placeholder="Введіть пароль повторно"
-          className="h-40 xs:w-full lg:w-[630px]"
-          labelClass="leading-[125%] text-default-btn xs:mb-10 lg:mb-16"
+          className="h-40 xs:w-full 2xl:w-[630px]"
+          labelClass="leading-[125%] text-default-btn xs:mb-10 2xl:mb-16"
           labelSize="base"
           id="repeat_password"
           {...register('repeat_password')}
@@ -164,7 +164,7 @@ const RegistrationForm: React.FC = () => {
         <CustomButton
           type="submit"
           styleType="defaultButton"
-          className="text-[16px] xs:mt-4 lg:mt-50"
+          className="text-[16px] xs:mt-4 2xl:mt-50"
         >
           Зареєструватися
         </CustomButton>
