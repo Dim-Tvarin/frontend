@@ -12,7 +12,7 @@ const Registration = () => {
   return (
     <div className="container relative h-full">
       <div className="absolute top-[13px] right-[80px] w-[771px] h-[1078px] bg-[url('./src/assets/backgrounds/bg-paws-register.png')] bg-contain bg-no-repeat " />
-      <div className="grid grid-cols-2 gap-20 leading-[140%] tracking-[0.01em] pt-100 relative ">
+      <div className="grid grid-cols-2 gap-20 leading-[140%] tracking-[0.01em] pt-100 relative text-default-btn">
         <div>
           <h2 className="text-[32px] mb-32">Ласкаво просимо</h2>
           <p className="text-2xl text-left mb-50">

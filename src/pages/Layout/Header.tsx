@@ -4,7 +4,11 @@ import { CustomButton } from 'components/CustomButton';
 import { GoHeart } from 'react-icons/go';
 import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch } from '../../redux/store';
-import { selectIsLoggedIn, selectUser } from '../../redux/users/usersSlice';
+import {
+  selectIsLoggedIn,
+  selectUser,
+  selectUserTheme,
+} from '../../redux/users/usersSlice';
 import CabinetSVG from '../../assets/CabinetSVG';
 import { openDialog } from '../../redux/dialogs/dialogSlice';
 import {
@@ -18,6 +22,7 @@ import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import { RxCross2, RxHamburgerMenu } from 'react-icons/rx';
 import { cn } from 'components/lib/utils';
 import { useState } from 'react';
+import { changeThemeThunk } from 'src/redux/users/usersOperations';
 
 export const Header = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -27,6 +32,12 @@ export const Header = () => {
   const user = useSelector(selectUser);
   const favoriteAnimals = useSelector(selectFavoriteAnimals);
   const favoritesCount = favoriteAnimals.length;
+
+  const currentTheme = useSelector(selectUserTheme);
+  const newTheme: 'light' | 'dark' = currentTheme === 'dark' ? 'light' : 'dark';
+  const handleToggleTheme = () => {
+    dispatch(changeThemeThunk({ theme: newTheme }));
+  };
 
   return (
     <>
@@ -90,6 +101,13 @@ export const Header = () => {
             </li>
           </ul>
           <div className="flex items-center gap-28">
+            <CustomButton
+              styleType="whiteButton"
+              onClick={handleToggleTheme}
+              className="w-100 rounded-full"
+            >
+              Theme: {currentTheme === 'dark' ? '🌙' : '☀️'}
+            </CustomButton>
             <NavLink to="/favorite" className="relative" end>
               {favoritesCount > 0 ? (
                 <FaHeart size={32} className="text-error-input" />
