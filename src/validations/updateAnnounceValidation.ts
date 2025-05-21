@@ -69,6 +69,7 @@ export const updateAnnounceSchema = z.object({
     )
     .trim()
     .optional(),
+  status: z.enum(['active', 'inactive']).optional(),
   images: z
     .custom<
       File[]
