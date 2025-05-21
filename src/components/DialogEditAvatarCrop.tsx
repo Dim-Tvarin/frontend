@@ -51,7 +51,7 @@ const DialogEditAvatarCrop: React.FC = () => {
       <Dialog.Portal>
         <DialogOverlay className="fixed inset-0 bg-black/70 z-40" />
         <Dialog.Content className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 bg-white p-32 rounded-[30px] w-[754px] max-h-[661px]">
-          <Dialog.Close className="absolute top-24 right-24 ">
+          <Dialog.Close className="absolute top-24 right-24 focus:outline-none focus-visible:outline-none">
             <CloseSVG />
           </Dialog.Close>
           <DialogHeader>

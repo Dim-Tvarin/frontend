@@ -1,5 +1,7 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { Animal } from './animalsApi';
+import { type Animal } from './animalsApi';
+import { animalsApi } from './animalsApi';
+
 export interface ViewedAnimalsState {
   animals: Animal[];
 }
@@ -27,6 +29,15 @@ const viewedAnimalsSlice = createSlice({
     clearViewedAnimals: state => {
       state.animals = [];
     },
+  },
+  extraReducers: builder => {
+    builder.addMatcher(
+      animalsApi.endpoints.deleteMyAnimals.matchFulfilled,
+      (state, action) => {
+        const deletedId = action.meta.arg.originalArgs;
+        state.animals = state.animals.filter(a => a.id !== deletedId);
+      }
+    );
   },
 });
 

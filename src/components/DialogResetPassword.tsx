@@ -69,7 +69,7 @@ const DialogResetPassword: React.FC = () => {
         onPointerDownOutside={e => e.preventDefault()}
         aria-describedby="Забули пароль?"
       >
-        <DialogClose className="absolute top-24 right-24 ">
+        <DialogClose className="absolute top-24 right-24 focus:outline-none focus-visible:outline-none">
           <CloseSVG />
         </DialogClose>
         <DialogHeader>
