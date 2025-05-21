@@ -81,18 +81,22 @@ const ProfileMainTab = () => {
           ) : (
             <>
               <div className="grid grid-cols-3 gap-20">
-                {favoriteAnimals.slice(0, 3).map(item => (
-                  <AnimalCard
-                    key={item.id}
-                    id={item.id}
-                    name={item.animalName}
-                    gender={item.gender}
-                    age={item.age}
-                    photoSrc={item.animalImages[0].url}
-                    status={item.status}
-                    animal={item}
-                  />
-                ))}
+                {favoriteAnimals
+
+                  .map(item => (
+                    <AnimalCard
+                      key={item.id}
+                      id={item.id}
+                      name={item.animalName}
+                      gender={item.gender}
+                      age={item.age}
+                      photoSrc={item.animalImages[0].url}
+                      status={item.status}
+                      animal={item}
+                    />
+                  ))
+                  .reverse()
+                  .slice(0, 3)}
               </div>
               <CustomButton
                 styleType="defaultButton"
