@@ -53,7 +53,7 @@ const Modal = ({
           src={tracks4}
           alt="background"
         />
-        <DialogClose className="top-24 right-24 absolute">
+        <DialogClose className="top-24 right-24 absolute focus:outline-none focus-visible:outline-none">
           <CloseSVG />
         </DialogClose>
         <DialogHeader>

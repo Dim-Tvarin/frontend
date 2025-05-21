@@ -77,7 +77,7 @@ const DialogEditAvatarUpload: React.FC = () => {
           className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 bg-white p-50 align-center rounded-2xl w-[955px] max-h-[488px]"
           onPointerDownOutside={e => e.preventDefault()}
         >
-          <Dialog.Close className="absolute top-24 right-24 ">
+          <Dialog.Close className="absolute top-24 right-24 focus:outline-none focus-visible:outline-none">
             <CloseSVG />
           </Dialog.Close>
           <div className="px-[113px]">
