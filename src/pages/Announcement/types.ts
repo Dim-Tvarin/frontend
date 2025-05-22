@@ -25,7 +25,17 @@ export const genderOption = [
   {
     value: 'female',
     label: 'Дівчинка',
-  }
+  },
+];
+export const statusOptions = [
+  {
+    value: 'active',
+    label: 'В пошуках дому',
+  },
+  {
+    value: 'inactive',
+    label: 'Знайшов родину',
+  },
 ];
 
 export const ageOption = [
@@ -37,11 +47,11 @@ export const ageOption = [
     value: '1-3 роки',
     label: '1-3 роки',
   },
-   {
+  {
     value: '3-5 років',
     label: '3-5 років',
   },
-   {
+  {
     value: 'Старше 5 років',
     label: 'Старше 5 років',
   },
@@ -56,27 +66,32 @@ export const size = [
     value: 'Середній',
     label: 'середній',
   },
-    {
+  {
     value: 'Великий',
     label: 'великий',
-  }
+  },
 ];
 
-
 export const AnimalTypeEnum = {
-  cats: "cats",
-  dogs: "dogs",
-  birds: "birds",
-  other: "other",
-} as const
+  cats: 'cats',
+  dogs: 'dogs',
+  birds: 'birds',
+  other: 'other',
+} as const;
 
-export type AnimalTypeEnum = (typeof AnimalTypeEnum)[keyof typeof AnimalTypeEnum]
+export type AnimalTypeEnum =
+  (typeof AnimalTypeEnum)[keyof typeof AnimalTypeEnum];
 
 export enum AnimalType {
-  cats = "cats",
-  dogs = "dogs",
-  birds = "birds",
-  other = "other",
+  cats = 'cats',
+  dogs = 'dogs',
+  birds = 'birds',
+  other = 'other',
 }
 
 export type AnimalTypeValues = `${AnimalType}`; // "cats" | "dogs" | "birds" | "other"
+
+export enum StatusType {
+  active = 'active',
+  inactive = 'inactive',
+}

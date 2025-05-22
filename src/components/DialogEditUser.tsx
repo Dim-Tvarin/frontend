@@ -29,7 +29,7 @@ const DialogEditUser: React.FC = () => {
           onPointerDownOutside={e => e.preventDefault()}
           aria-describedby="Забули пароль?"
         >
-          <Dialog.Close className="absolute top-24 right-24 ">
+          <Dialog.Close className="absolute top-24 right-24 focus:outline-none focus-visible:outline-none">
             <CloseSVG />
           </Dialog.Close>
           <DialogHeader>

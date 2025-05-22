@@ -158,7 +158,7 @@ export const Header = () => {
         </nav>
 
         {/* MOBILE HEADER */}
-        <div className="hidden lg:hidden z-30 xs:flex justify-between items-center px-4 w-full container">
+        <div className="hidden lg:hidden z-30 relative xs:flex justify-between items-center px-4 w-full container">
           <button
             onClick={() => {
               setMobileMenuOpen(!isMobileMenuOpen);
@@ -172,7 +172,10 @@ export const Header = () => {
             )}
           </button>
 
-          <NavLink to="/" className="flex flex-col items-center gap-1">
+          <NavLink
+            to="/"
+            className="left-[calc(50%-41px)] absolute flex flex-col items-center gap-1"
+          >
             <img src={logo} alt="logo" className="w-40 h-40" />
             <span className="text-sm">Dim Tvaryn</span>
           </NavLink>

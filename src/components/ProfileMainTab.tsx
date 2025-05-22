@@ -9,14 +9,29 @@ import { logoutThunk } from 'src/redux/users/usersOperations';
 import { showToast } from './Toast';
 import { CustomButton } from './CustomButton';
 import AnimalCard from './AnimalCard';
-import { selectFavoriteAnimals } from 'src/redux/animals/favoriteAnimalsSlice';
 import { useNavigate } from 'react-router';
+import { selectFavoriteAnimals } from 'src/redux/animals/favoriteAnimalsSlice';
 import { selectViewedAnimals } from 'src/redux/animals/viewedAnimalsSlice';
+import { useGetFilteredAnimalsQuery } from 'src/redux/animals/animalsApi';
 
 const ProfileMainTab = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const user = useSelector(selectUser);
+  const favoriteAnimals = useSelector(selectFavoriteAnimals);
+  const viewedAnimals = useSelector(selectViewedAnimals);
+  const { data: animalsData } = useGetFilteredAnimalsQuery({
+    page: 1,
+    limit: 10,
+  });
+  const actualAnimalIds = animalsData?.animals.map(a => a.id) ?? [];
+  const filteredFavorites = favoriteAnimals.filter(
+    animal => actualAnimalIds.includes(animal.id) && !animal.isHidden
+  );
+  const visibleViewedAnimals = viewedAnimals.filter(
+    animal => actualAnimalIds.includes(animal.id) && !animal.isHidden
+  );
+
   const handleClick = () => {
     dispatch(logoutThunk());
     showToast({
@@ -24,10 +39,6 @@ const ProfileMainTab = () => {
       status: 'success',
     });
   };
-
-  const favoriteAnimals = useSelector(selectFavoriteAnimals);
-  const viewedAnimals = useSelector(selectViewedAnimals);
-  const visibleAnimals = viewedAnimals.filter(animal => !animal.isHidden);
 
   return (
     <>
@@ -74,7 +85,7 @@ const ProfileMainTab = () => {
           <h2 className="text-[28px] text-left mt-[43px] mb-[60px] text-default-btn">
             Обрані
           </h2>
-          {favoriteAnimals.length === 0 ? (
+          {filteredFavorites.length === 0 ? (
             <p className="text-center text-lg text-gray-500 mt-10">
               У вас поки немає обраних.
             </p>
@@ -82,7 +93,6 @@ const ProfileMainTab = () => {
             <>
               <div className="grid grid-cols-3 gap-20">
                 {favoriteAnimals
-
                   .map(item => (
                     <AnimalCard
                       key={item.id}
@@ -110,15 +120,15 @@ const ProfileMainTab = () => {
           <h2 className="text-[28px] text-left mb-[60px] text-default-btn mt-100">
             Історія переглядів
           </h2>
-          {viewedAnimals.length === 0 ? (
+          {visibleViewedAnimals.length === 0 ? (
             <p className="text-center text-lg text-gray-500 mt-10">
               У вас поки немає історії переглядів.
             </p>
           ) : (
             <div className="h-[820px] grid grid-cols-3 gap-20 overflow-hidden">
-              {visibleAnimals
-                .slice(0, 6)
+              {visibleViewedAnimals
                 .reverse()
+                .slice(0, 6)
                 .map(item => (
                   <AnimalCard
                     key={item.id}
