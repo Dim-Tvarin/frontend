@@ -307,3 +307,44 @@ export const resetPasswordThunk = createAsyncThunk<
     );
   }
 });
+
+export const changeThemeThunk = createAsyncThunk<
+  { message: string },
+  { theme: 'dark' | 'light' },
+  { state: RootState; rejectValue: string }
+>('changeTheme', async (credentials, thunkAPI) => {
+  const token = thunkAPI.getState().users.token;
+
+  if (!token) {
+    return thunkAPI.rejectWithValue('Token does not exist');
+  }
+
+  setToken(token);
+
+  try {
+    const { data } = await marketplaceApiUsers.patch<{ message: string }>(
+      'theme',
+      credentials,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return data;
+  } catch (err) {
+    const error = err as AxiosError<ErrorResponse>;
+
+    const errorMessages: Record<number, string> = {
+      400: 'Помилка в запиті',
+      401: 'Невірний токен. Будь ласка, увійдіть знову',
+      500: 'Помилка сервера. Спробуйте пізніше',
+    };
+
+    return thunkAPI.rejectWithValue(
+      error.response?.status
+        ? errorMessages[error.response.status]
+        : 'Failed to change theme'
+    );
+  }
+});

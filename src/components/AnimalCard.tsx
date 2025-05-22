@@ -22,6 +22,12 @@ import { selectIsLoggedIn } from 'src/redux/users/usersSlice';
 import { useLocation } from 'react-router';
 import { cn } from './lib/utils';
 import { Link } from 'react-router-dom';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from './components/ui/tooltip';
 
 export const genderMapping: Record<string, string> = {
   male: 'Хлопчик',
@@ -85,7 +91,7 @@ const AnimalCard = ({
   return (
     <div
       className={cn(
-        'relative flex items-end bg-white border-2 border-orange rounded-4xl max-w-sm xl:scale-90 2xl:scale-100',
+        'relative flex items-end overflow-visible bg-white border-2 border-orange rounded-4xl z-1 max-w-sm xl:scale-90 2xl:scale-100',
         isAllPetsPage
           ? 'w-[156px] h-[198px] md:w-[242px] md:h-[318px] xl:w-[305px] xl:h-[400px]'
           : 'w-[242px] h-[318px] md:w-[294px] md:h-[400px] lg:w-[305px]'
@@ -143,51 +149,79 @@ const AnimalCard = ({
         </CustomButton>
       </div>
       {isMyProfile && (
-        <div className="top-[18px] right-[18px] z-20 absolute flex flex-col gap-10 overflow-visible cursor-pointer">
-          <div className="group relative flex items-center">
-            <CustomButton styleType="iconButton" onClick={handleToggleHidden}>
-              {animal?.isHidden ? (
-                <FaEyeSlash className="text-white" size={24} />
-              ) : (
-                <FaEye className="text-white" size={22} />
-              )}
-            </CustomButton>
-            <span className="left-[40px] absolute bg-dialog opacity-0 group-hover:opacity-100 rounded-[6px] text-default-btn text-base transition-all translate-x-2 group-hover:translate-x-0 duration-200">
-              Приховати
-            </span>
+        <TooltipProvider>
+          <div className="top-[18px] right-[18px] z-20 absolute flex flex-col gap-10 overflow-visible cursor-pointer">
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <CustomButton
+                  styleType="iconButton"
+                  onClick={handleToggleHidden}
+                >
+                  {animal?.isHidden ? (
+                    <FaEyeSlash className="text-white" size={24} />
+                  ) : (
+                    <FaEye className="text-white" size={22} />
+                  )}
+                </CustomButton>
+              </TooltipTrigger>
+              <TooltipContent
+                side="right"
+                align="center"
+                className="bg-dialog text-default-btn text-base rounded-[6px] px-8 py-[1px] fill-none"
+                sideOffset={4}
+              >
+                Приховати
+              </TooltipContent>
+            </Tooltip>
+
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <CustomButton
+                  styleType="iconButton"
+                  onClick={() => navigate(`/editannouncement/${id}`)}
+                >
+                  <FiEdit className="text-white" size={22} />
+                </CustomButton>
+              </TooltipTrigger>
+              <TooltipContent
+                side="right"
+                align="center"
+                className="bg-dialog text-default-btn text-base rounded-[6px] px-8 py-[1px] fill-none"
+                sideOffset={4}
+              >
+                Редагувати
+              </TooltipContent>
+            </Tooltip>
+
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <CustomButton
+                  styleType="iconButton"
+                  onClick={() =>
+                    dispatch(
+                      openDialog({
+                        type: 'alertDelete',
+                        entity: 'animal',
+                        id: id,
+                      })
+                    )
+                  }
+                  className="hover:bg-error-input"
+                >
+                  <FiTrash2 className="text-white" size={22} />
+                </CustomButton>
+              </TooltipTrigger>
+              <TooltipContent
+                side="right"
+                align="center"
+                className="bg-dialog text-default-btn text-base rounded-[6px] px-8 py-[1px] fill-none"
+                sideOffset={4}
+              >
+                Видалити
+              </TooltipContent>
+            </Tooltip>
           </div>
-          <div className="group relative flex items-center">
-            <CustomButton
-              styleType="iconButton"
-              onClick={() => navigate(`/editannouncement/${id}`)}
-            >
-              <FiEdit className="text-white" size={22} />
-            </CustomButton>
-            <span className="left-[40px] absolute bg-dialog opacity-0 group-hover:opacity-100 rounded-[6px] text-default-btn text-base transition-all translate-x-2 group-hover:translate-x-0 duration-200">
-              Редагувати
-            </span>
-          </div>
-          <div className="group relative flex items-center">
-            <CustomButton
-              styleType="iconButton"
-              onClick={() =>
-                dispatch(
-                  openDialog({
-                    type: 'alertDelete',
-                    entity: 'animal',
-                    id: id,
-                  })
-                )
-              }
-              className="hover:bg-error-input"
-            >
-              <FiTrash2 className="text-white" size={22} />
-            </CustomButton>
-            <span className="left-[40px] absolute bg-dialog opacity-0 group-hover:opacity-100 rounded-[6px] text-default-btn text-base transition-all translate-x-2 group-hover:translate-x-0 duration-200">
-              Видалити
-            </span>
-          </div>
-        </div>
+        </TooltipProvider>
       )}
     </div>
   );

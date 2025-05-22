@@ -1,5 +1,6 @@
 import { createSlice, isAnyOf, type PayloadAction } from '@reduxjs/toolkit';
 import {
+  changeThemeThunk,
   forgotPasswordThunk,
   loginThunk,
   logoutThunk,
@@ -106,6 +107,9 @@ const slice = createSlice({
       })
       .addCase(resetPasswordThunk.fulfilled, state => {
         state.isLoading = false;
+      })
+      .addCase(changeThemeThunk.fulfilled, (state, action) => {
+        state.user.theme = action.meta.arg.theme;
       })
       .addMatcher(
         isAnyOf(
