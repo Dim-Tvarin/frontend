@@ -257,7 +257,7 @@ const Announcement = () => {
               <FilesInput
                 ref={ref}
                 groupLabel="Додайте фото *"
-                labelClass="mb-16 mt-16"
+                labelClass="mb-10 mt-16 lg:mt-32"
                 labelSize="base"
                 className="w-full"
                 name={name}

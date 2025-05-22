@@ -39,7 +39,7 @@ export const announceSchema = z.object({
   age: ageSchema,
   breed: z
     .string({ required_error: 'Спочатку оберіть вид тварини, а потім породу' })
-    .max(50, 'Порода не може перевищувати 30 символів')
+    .max(50, 'Порода не може перевищувати 50 символів')
     .trim(),
   animalName: z
     .string()

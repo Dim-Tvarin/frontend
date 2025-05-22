@@ -142,7 +142,7 @@ const AnimalCard = ({
         <CustomButton
           type="button"
           styleType="defaultButton"
-          className="hidden md:flex mt-28 w-[129px]"
+          className="hidden md:flex mt-28 w-[149px]"
           onClick={() => navigate(`/allpets/${id}`)}
         >
           Переглянути
@@ -167,7 +167,7 @@ const AnimalCard = ({
               <TooltipContent
                 side="right"
                 align="center"
-                className="bg-dialog text-default-btn text-base rounded-[6px] px-8 py-[1px] fill-none"
+                className="bg-dialog fill-none px-8 py-[1px] rounded-[6px] text-default-btn text-base"
                 sideOffset={4}
               >
                 Приховати
@@ -186,7 +186,7 @@ const AnimalCard = ({
               <TooltipContent
                 side="right"
                 align="center"
-                className="bg-dialog text-default-btn text-base rounded-[6px] px-8 py-[1px] fill-none"
+                className="bg-dialog fill-none px-8 py-[1px] rounded-[6px] text-default-btn text-base"
                 sideOffset={4}
               >
                 Редагувати
@@ -214,7 +214,7 @@ const AnimalCard = ({
               <TooltipContent
                 side="right"
                 align="center"
-                className="bg-dialog text-default-btn text-base rounded-[6px] px-8 py-[1px] fill-none"
+                className="bg-dialog fill-none px-8 py-[1px] rounded-[6px] text-default-btn text-base"
                 sideOffset={4}
               >
                 Видалити
