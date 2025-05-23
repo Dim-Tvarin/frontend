@@ -57,7 +57,7 @@ export const Home = () => {
       </section>
 
       <section className="relative flex md:flex-row flex-col items-center gap-[20px] mt-32 md:mt-80 lg:mt-100 mb-32 md:mb-80 lg:mb-100">
-        <div className="hidden md:block -top-72 right-[10px] z-1 absolute w-[136px] lg:w-[210px] h-[133px] lg:h-[205px]">
+        <div className="-top-[175px] lg:-top-72 right-[10px] z-1 absolute w-[136px] lg:w-[210px] h-[133px] lg:h-[205px]">
           <img src={track} alt="track" />
         </div>
         <div className="z-10 relative bg-orange rounded-[30px] w-[293px] md:w-[293px] lg:w-[630px] h-[202px] md:h-[315px] lg:h-[500px] overflow-hidden">
@@ -87,7 +87,7 @@ export const Home = () => {
         </div>
       </section>
       <section className="relative flex flex-col justify-center items-center mb-50 lg:mb-100">
-        <div className="hidden md:block -top-[92px] right-16 z-1 absolute w-[172px] lg:w-[260px] h-[168px] lg:h-[270px] rotate-[57deg]">
+        <div className="-top-72 md:-top-[92px] right-0 md:right-16 z-1 absolute w-[103px] md:w-[172px] lg:w-[260px] h-[105px] md:h-[168px] lg:h-[270px] rotate-90 md:rotate-[57deg]">
           <img src={track} alt="track" />
         </div>
         <h3 className="z-10 relative mb-12 lg:mb-50 font-semibold text-base md:text-2xl lg:text-5xl leading-[1.4]">
