@@ -134,39 +134,30 @@ export const FilesInput = ({
           {...getInputProps()}
           {...rest}
         />
-        <div className="flex justify-center">
-          <div className="flex flex-col items-start">
-            <p className="mb-16 text-default-btn text-base lg:text-lg">
-              {isDragActive ? (
-                'Отпустите файл сюда...'
-              ) : (
-                <>
-                  Перетягніть файл сюди
-                  <span className="ml-16 text-border-file">або</span>
-                </>
+        <div className="flex flex-col justify-center items-center">
+          <p className="mb-16 text-default-btn text-base lg:text-lg">
+            {isDragActive ? 'Отпустите файл сюда...' : 'Перетягніть файл сюди'}
+          </p>
+          <div className="flex items-center gap-12 lg:gap-[19px] bg-main-pink-l px-16 py-10 border-2 border-border-file rounded-[8px] lg:w-[382px] h-[64px]">
+            <Button
+              type="button"
+              className={cn(
+                'bg-default-btn text-white px-20 py-10 rounded-[10px] w-[149px] text-sm',
+                {
+                  'bg-btn-disabled/50 cursor-default focus:outline-none':
+                    isDisabled,
+                }
               )}
-            </p>
-            <div className="flex items-center gap-12 lg:gap-[19px] bg-main-pink-l px-16 py-10 border-2 border-border-file rounded-[8px] lg:w-[382px] h-[64px]">
-              <Button
-                type="button"
-                className={cn(
-                  'bg-default-btn text-white px-20 py-10 rounded-[10px] w-[149px] text-sm',
-                  {
-                    'bg-btn-disabled/50 cursor-default focus:outline-none':
-                      isDisabled,
-                  }
-                )}
-              >
-                Вибрати файл
-              </Button>
-              <p className="text-border-file text-sm lg:text-base">
-                Файл не вибрано
-              </p>
-            </div>
-            <p className="mt-8 text-input-border text-sm">
-              Загрузити можна максимум 4 фото
+            >
+              Вибрати файл
+            </Button>
+            <p className="text-border-file text-sm lg:text-base">
+              Файл не вибрано
             </p>
           </div>
+          <p className="mt-8 text-input-border text-sm">
+            Загрузити можна максимум 4 фото
+          </p>
         </div>
       </div>
 
