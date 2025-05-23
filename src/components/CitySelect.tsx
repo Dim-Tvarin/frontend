@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { BsCheckLg } from 'react-icons/bs';
-import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import {
   Popover,
   PopoverContent,
@@ -109,8 +108,12 @@ export function CitySelect({
               ' justify-between border-input-border px-16 text-base text-medium text-default-btn'
             )}
           >
-            {selectedCity || value || placeholder || 'Оберіть населенний пункт'}
-            {open ? <IoIosArrowUp size={24} /> : <IoIosArrowDown size={24} />}
+            <span className="block max-w-[305px] overflow-hidden truncate whitespace-nowrap">
+              {selectedCity ||
+                value ||
+                placeholder ||
+                'Оберіть населенний пункт'}
+            </span>
           </Button>
         </PopoverTrigger>
         <PopoverContent

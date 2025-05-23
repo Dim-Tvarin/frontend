@@ -16,7 +16,6 @@ import {
 import { Button } from './components/ui/button';
 import { useEffect, useState } from 'react';
 import { BsCheckLg } from 'react-icons/bs';
-import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import FormError from './FormError';
 import { useDebounce } from '@uidotdev/usehooks';
 import { InputField } from './InputField';
@@ -185,8 +184,9 @@ const BreedSelect = ({
             disabled={type === undefined}
             className={`${className} justify-between border-input-border px-16 text-base text-medium text-default-btn`}
           >
-            {selectedBreed || placeholder || 'Оберіть породу'}
-            {open ? <IoIosArrowUp size={24} /> : <IoIosArrowDown size={24} />}
+            <span className="block max-w-[305px] overflow-hidden truncate whitespace-nowrap">
+              {selectedBreed || placeholder || 'Оберіть породу'}
+            </span>
           </Button>
         </PopoverTrigger>
         <PopoverContent className="z-10 p-0 border-1 border-input-border rounded-t-lg w-(--radix-popover-trigger-width)">

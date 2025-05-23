@@ -31,26 +31,34 @@ const ageSchema = z
     path: ['months'],
   });
 
-
 export const announceSchema = z.object({
   animalType: z.nativeEnum(AnimalType, {
     required_error: 'Оберіть вид тварини',
   }),
-  gender: z.enum(['male', 'female', "unknown"]).optional(),
+  gender: z.enum(['male', 'female', 'unknown']).optional(),
   age: ageSchema,
   breed: z
-    .string({ required_error: "Спочатку оберіть вид тварини, а потім породу" })
-    .max(30, 'Порода не може перевищувати 30 символів')
+    .string({ required_error: 'Спочатку оберіть вид тварини, а потім породу' })
+    .max(50, 'Порода не може перевищувати 30 символів')
     .trim(),
-  animalName: z.string().min(2, "Мінімум 2 символи").max(50, 'Максимум 50 символів').nonempty("Введіть ім'я тварини").trim(),
-  animalLocation: z.string({ required_error: "Оберіть населенний пункт"}).min(2, 'Введіть назву населенного пункту').trim(),
+  animalName: z
+    .string()
+    .min(2, 'Мінімум 2 символи')
+    .max(50, 'Максимум 50 символів')
+    .nonempty("Введіть ім'я тварини")
+    .trim(),
+  animalLocation: z
+    .string({ required_error: 'Оберіть населенний пункт' })
+    .min(2, 'Введіть назву населенного пункту')
+    .trim(),
   adText: z
     .string()
     .min(50, 'Текст оголошення повинен мати мінімум 50 символів')
     .max(500, 'Текст оголошення повинен мати максимум 500 символів')
     .regex(
-     /^[A-Za-zА-Яа-яЇїЄєІіҐґ0-9\s'’\-–.,!?():;"&\u{1F1E0}-\u{1F9FF}\u{2600}-\u{26FF}]+$/u,
-    'Невалідний текст. Допустимі букви, цифри, пробіли, апострофи та розділові знаки.')
+      /^[A-Za-zА-Яа-яЇїЄєІіҐґ0-9\s'’\-–.,!?():;"&\u{1F1E0}-\u{1F9FF}\u{2600}-\u{26FF}]+$/u,
+      'Невалідний текст. Допустимі букви, цифри, пробіли, апострофи та розділові знаки.'
+    )
     .nonempty("Поле обов'язкове")
     .trim(),
   images: z
