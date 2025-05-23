@@ -122,7 +122,7 @@ const Announcement = () => {
   };
 
   return (
-    <div className="z-10 relative flex flex-row gap-16 text-default-btn container">
+    <div className="z-10 relative flex flex-row items-start gap-16 text-default-btn container">
       <div className="top-20 lg:top-[27px] left-10 lg:left-[84px] z-1 absolute">
         <img src={track} alt="track" className="w-[105px] lg:w-[180px]" />
       </div>
@@ -280,20 +280,22 @@ const Announcement = () => {
         </form>
       </div>
 
-      <div className="hidden z-20 lg:flex flex-col items-end gap-32 bg-orange my-100 py-32 rounded-[30px] w-1/2 h-full">
-        <div className="ml-30 rounded-l-[30px] w-[95%] max-w-[600px] overflow-hidden">
-          <img src={announce4} alt="хлопець з лабродором" />
+      <div className="hidden z-20 lg:flex my-100 w-full lg:w-[50%] max-w-[600px]">
+        <div className="flex flex-col items-end gap-32 bg-orange py-32 rounded-[30px] w-full 2xl:w-[85%]">
+          <div className="ml-30 rounded-l-[30px] w-[95%] max-w-[600px] overflow-hidden">
+            <img src={announce4} alt="хлопець з лабродором" />
+          </div>
+          <div className="rounded-l-[30px] w-[95%] max-w-[600px] overflow-hidden">
+            <img src={announce2} alt="дівчина з собакою" />
+          </div>
+          <div className="rounded-l-[30px] w-[95%] max-w-[600px] overflow-hidden">
+            <img src={announce3} alt="дівчина з котом" />
+          </div>
         </div>
-        <div className="rounded-l-[30px] w-[95%] max-w-[600px] overflow-hidden">
-          <img src={announce2} alt="дівчина з собакою" />
-        </div>
-        <div className="rounded-l-[30px] w-[95%] max-w-[600px] overflow-hidden">
-          <img src={announce3} alt="дівчина з котом" />
-        </div>
-      </div>
 
-      <div className="hidden lg:block -bottom-[16px] left-[43%] z-1 absolute rotate-[57deg]">
-        <img src={track} alt="track" className="w-[180px]" />
+        <div className="hidden lg:block -bottom-[16px] left-[43%] z-1 absolute rotate-[57deg]">
+          <img src={track} alt="track" className="w-[180px]" />
+        </div>
       </div>
     </div>
   );
