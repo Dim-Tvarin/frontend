@@ -92,9 +92,7 @@ const ProfileMainTab = () => {
           ) : (
             <>
               <div className="grid grid-cols-3 gap-20">
-                {filteredFavorites
-                  .reverse()
-                  .slice(0, 3)
+                {favoriteAnimals
                   .map(item => (
                     <AnimalCard
                       key={item.id}
@@ -106,7 +104,9 @@ const ProfileMainTab = () => {
                       status={item.status}
                       animal={item}
                     />
-                  ))}
+                  ))
+                  .reverse()
+                  .slice(0, 3)}
               </div>
               <CustomButton
                 styleType="defaultButton"

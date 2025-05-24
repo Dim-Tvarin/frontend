@@ -30,7 +30,6 @@ const Registration = () => {
               Вхід в особистий кабінет
             </CustomButton>
           </div>
-
           <div className="relative bg-orange rounded-[30px] m-auto w-full h-[210px] 2xl:w-[630px] 2xl:h-[571px]">
             <div className="absolute bottom-0 left-0 bg-main-pink-l rounded-[20px] overflow-hidden w-full h-[194px] md:w-full 2xl:w-[598px] 2xl:h-[539px]">
               <ResponsiveImage
