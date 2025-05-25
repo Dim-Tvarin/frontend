@@ -122,7 +122,7 @@ const Announcement = () => {
   };
 
   return (
-    <div className="z-10 relative flex flex-row gap-16 text-default-btn container">
+    <div className="z-10 relative flex flex-row items-start gap-16 text-default-btn container">
       <div className="top-20 lg:top-[27px] left-10 lg:left-[84px] z-1 absolute">
         <img src={track} alt="track" className="w-[105px] lg:w-[180px]" />
       </div>
@@ -256,8 +256,8 @@ const Announcement = () => {
             render={({ field: { ref, name, onChange, value } }) => (
               <FilesInput
                 ref={ref}
-                groupLabel="Додайте фото тварини та документи *"
-                labelClass="mb-16 mt-16"
+                groupLabel="Додайте фото *"
+                labelClass="mb-10 mt-16 lg:mt-32"
                 labelSize="base"
                 className="w-full"
                 name={name}
@@ -280,20 +280,34 @@ const Announcement = () => {
         </form>
       </div>
 
-      <div className="hidden z-20 lg:flex flex-col items-end gap-32 bg-orange my-100 py-32 rounded-[30px] w-1/2 h-full">
-        <div className="ml-30 rounded-l-[30px] w-[95%] max-w-[600px] overflow-hidden">
-          <img src={announce4} alt="хлопець з лабродором" />
+      <div className="hidden z-20 lg:flex my-100 w-full lg:w-[50%]">
+        <div className="z-20 flex flex-col items-end gap-16 bg-orange py-16 pl-16 rounded-[30px] w-full overflow-hidden">
+          <div className="rounded-l-[30px] overflow-hidden">
+            <img
+              src={announce4}
+              alt="хлопець з лабродором"
+              className="w-[615px] h-[334px]"
+            />
+          </div>
+          <div className="rounded-l-[30px] overflow-hidden">
+            <img
+              src={announce2}
+              alt="дівчина з собакою"
+              className="w-[615px] h-[334px]"
+            />
+          </div>
+          <div className="z-20 rounded-l-[30px] overflow-hidden">
+            <img
+              src={announce3}
+              alt="дівчина з котом"
+              className="w-[615px] h-[334px]"
+            />
+          </div>
         </div>
-        <div className="rounded-l-[30px] w-[95%] max-w-[600px] overflow-hidden">
-          <img src={announce2} alt="дівчина з собакою" />
-        </div>
-        <div className="rounded-l-[30px] w-[95%] max-w-[600px] overflow-hidden">
-          <img src={announce3} alt="дівчина з котом" />
-        </div>
-      </div>
 
-      <div className="hidden lg:block -bottom-[16px] left-[43%] z-1 absolute rotate-[57deg]">
-        <img src={track} alt="track" className="w-[180px]" />
+        <div className="hidden lg:block -bottom-[16px] left-[43%] z-1 absolute rotate-[57deg]">
+          <img src={track} alt="track" className="w-[180px]" />
+        </div>
       </div>
     </div>
   );

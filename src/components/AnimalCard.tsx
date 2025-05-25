@@ -101,7 +101,7 @@ const AnimalCard = ({
         <img
           src={photoSrc}
           alt={name}
-          className="z-1 absolute inset-0 w-full h-full object-cover rounded-4xl"
+          className="z-1 absolute inset-0 rounded-4xl w-full h-full object-cover"
         />
       </Link>
       {animal?.isHidden && (
@@ -121,7 +121,7 @@ const AnimalCard = ({
               </div>
             )}
           </div>
-          <div className="flex gap-1 font-medium text-base lg:text-lg">
+          <div className="flex gap-1 overflow-hidden font-medium text-base lg:text-lg">
             {gender !== 'unknown' && <span>{genderMapping[gender]}</span>}
             {!!age.years && <span>{getYearDeclension(age.years)} </span>}
             {!!age.months && <span>{`${age.months}\u00A0міс.`}</span>}
@@ -142,7 +142,7 @@ const AnimalCard = ({
         <CustomButton
           type="button"
           styleType="defaultButton"
-          className="hidden md:flex mt-28 w-[129px]"
+          className="hidden md:flex mt-28 w-[149px]"
           onClick={() => navigate(`/allpets/${id}`)}
         >
           Переглянути
@@ -167,7 +167,7 @@ const AnimalCard = ({
               <TooltipContent
                 side="right"
                 align="center"
-                className="bg-dialog text-default-btn text-base rounded-[6px] px-8 py-[1px] fill-none"
+                className="bg-dialog fill-none px-8 py-[1px] rounded-[6px] text-default-btn text-base"
                 sideOffset={4}
               >
                 Приховати
@@ -186,7 +186,7 @@ const AnimalCard = ({
               <TooltipContent
                 side="right"
                 align="center"
-                className="bg-dialog text-default-btn text-base rounded-[6px] px-8 py-[1px] fill-none"
+                className="bg-dialog fill-none px-8 py-[1px] rounded-[6px] text-default-btn text-base"
                 sideOffset={4}
               >
                 Редагувати
@@ -214,7 +214,7 @@ const AnimalCard = ({
               <TooltipContent
                 side="right"
                 align="center"
-                className="bg-dialog text-default-btn text-base rounded-[6px] px-8 py-[1px] fill-none"
+                className="bg-dialog fill-none px-8 py-[1px] rounded-[6px] text-default-btn text-base"
                 sideOffset={4}
               >
                 Видалити
