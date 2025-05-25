@@ -256,7 +256,7 @@ const Announcement = () => {
             render={({ field: { ref, name, onChange, value } }) => (
               <FilesInput
                 ref={ref}
-                groupLabel="Додайте фото тварини та документи *"
+                groupLabel="Додайте фото *"
                 labelClass="mb-16 mt-16"
                 labelSize="base"
                 className="w-full"
@@ -280,16 +280,28 @@ const Announcement = () => {
         </form>
       </div>
 
-      <div className="hidden z-20 lg:flex my-100 w-full lg:w-[50%] max-w-[600px]">
-        <div className="flex flex-col items-end gap-32 bg-orange py-32 rounded-[30px] w-full 2xl:w-[85%]">
-          <div className="ml-30 rounded-l-[30px] w-[95%] max-w-[600px] overflow-hidden">
-            <img src={announce4} alt="хлопець з лабродором" />
+      <div className="hidden z-20 lg:flex my-100 w-full lg:w-[50%]">
+        <div className="z-20 flex flex-col items-end gap-16 bg-orange py-16 pl-16 rounded-[30px] w-full overflow-hidden">
+          <div className="rounded-l-[30px] overflow-hidden">
+            <img
+              src={announce4}
+              alt="хлопець з лабродором"
+              className="w-[615px] h-[334px]"
+            />
           </div>
-          <div className="rounded-l-[30px] w-[95%] max-w-[600px] overflow-hidden">
-            <img src={announce2} alt="дівчина з собакою" />
+          <div className="rounded-l-[30px] overflow-hidden">
+            <img
+              src={announce2}
+              alt="дівчина з собакою"
+              className="w-[615px] h-[334px]"
+            />
           </div>
-          <div className="rounded-l-[30px] w-[95%] max-w-[600px] overflow-hidden">
-            <img src={announce3} alt="дівчина з котом" />
+          <div className="z-20 rounded-l-[30px] overflow-hidden">
+            <img
+              src={announce3}
+              alt="дівчина з котом"
+              className="w-[615px] h-[334px]"
+            />
           </div>
         </div>
 
