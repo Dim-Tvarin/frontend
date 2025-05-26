@@ -23,6 +23,7 @@ import { CitySelect } from 'components/CitySelect';
 import { Controller, useForm } from 'react-hook-form';
 import { cn } from 'components/lib/utils';
 import { useWindowSize } from '@uidotdev/usehooks';
+import FileterLabel from 'components/FileterLabel';
 
 const limit = 12;
 
@@ -120,7 +121,7 @@ const PetsList = () => {
     setFiltersParams({});
     reset();
   };
-
+  console.log('filtersParams', filtersParams);
   return (
     <div className="container">
       <div className="relative flex justify-center mt-72 lg:mt-100 mb-100 lg:mb-50">
@@ -198,11 +199,12 @@ const PetsList = () => {
         <div className="relative flex justify-around gap-20">
           {openFilters && (
             <div
-              className="z-50 fixed xl:relative inset-0 flex items-start bg-black/50 xl:bg-transparent xl:w-1/4 xl:h-fit"
+              className="z-50 fixed xl:relative inset-0 flex flex-col items-start gap-24 bg-black/50 xl:bg-transparent xl:w-1/4 xl:h-fit"
               onClick={() => {
                 setOpenFilters(false);
               }}
             >
+              <FileterLabel label="Фільтр" onRemove={handleClearFilter} />
               <form
                 onSubmit={handleSubmit(onSubmit)}
                 onClick={e => e.stopPropagation()}
