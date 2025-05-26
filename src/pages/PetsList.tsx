@@ -7,7 +7,7 @@ import {
 import AnimalCard from 'components/AnimalCard';
 import { PetsListSkeleton } from 'components/sceletons/PetsListSkeleton';
 import Pagination from 'components/Pagination';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router';
 import { showToast } from 'components/Toast';
 import FilterItem from 'components/FilterItem';
@@ -45,7 +45,7 @@ const mapAnimalType = {
 };
 
 const PetsList = () => {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const rawPage = Number(searchParams.get('page'));
   const [page, setPage] = useState(rawPage === 0 ? 1 : rawPage);
   const [openFilters, setOpenFilters] = useState(false);
@@ -53,6 +53,7 @@ const PetsList = () => {
   const [filtersParams, setFiltersParams] = useState<Partial<FilterFormValues>>(
     {}
   );
+  const [activeFilters, setActiveFilters] = useState(['Собака']);
   const [isFilterApplied, setIsFilterApplied] = useState(false);
   const [sorting, setSorting] = useState<SortOrder>('newest');
 
@@ -102,8 +103,20 @@ const PetsList = () => {
   }, [isFetching, filtersParams, isLoading]);
 
   const onSubmit = (formData: FilterFormValues) => {
-    const filters = { ...formData, sortByDate: sorting };
-    setFiltersParams(filters);
+    const cleanedData = Object.fromEntries(
+      Object.entries({ ...formData, sortByDate: sorting }).filter(([, v]) => v)
+    );
+
+    setFiltersParams(cleanedData);
+
+    const newParams = new URLSearchParams();
+    Object.entries(cleanedData).forEach(([key, value]) => {
+      newParams.set(key, value as string);
+    });
+    newParams.set('page', '1');
+    setSearchParams(newParams);
+    const newLabels = Object.values(cleanedData).map(String);
+    setActiveFilters(newLabels);
     if (windowSize.width && windowSize.width < 1280) setOpenFilters(false);
   };
 
@@ -121,7 +134,22 @@ const PetsList = () => {
     setFiltersParams({});
     reset();
   };
-  console.log('filtersParams', filtersParams);
+  const handleDeleteFilterItem = useCallback(
+    (item: string) => {
+      const updated = activeFilters.filter(label => label !== item);
+      setActiveFilters(updated);
+
+      const newParams = new URLSearchParams(searchParams.toString());
+      for (const [key, value] of newParams.entries()) {
+        if (value === item) {
+          newParams.delete(key);
+        }
+      }
+      setSearchParams(newParams);
+    },
+    [activeFilters, searchParams]
+  );
+
   return (
     <div className="container">
       <div className="relative flex justify-center mt-72 lg:mt-100 mb-100 lg:mb-50">
@@ -204,14 +232,23 @@ const PetsList = () => {
                 setOpenFilters(false);
               }}
             >
-              <FileterLabel label="Фільтр" onRemove={handleClearFilter} />
+              <div className="flex flex-wrap gap-x-16 gap-y-10">
+                {activeFilters &&
+                  activeFilters.map(label => (
+                    <FileterLabel
+                      key={label}
+                      label={label}
+                      onRemove={() => handleDeleteFilterItem(label)}
+                    />
+                  ))}
+              </div>
               <form
                 onSubmit={handleSubmit(onSubmit)}
                 onClick={e => e.stopPropagation()}
                 className={cn(
                   'xl:flex flex-col transition-all duration-500 xl:bg-transparent',
                   'xl:static  xl:gap-32',
-                  'flex flex-col bg-dialog p-16 gap-16 rounded-4xl w-[95%] sm:w-[344px] ml-16 mt-[260px] xl:mt-0 xl:ml-0 xl:p-0'
+                  'flex flex-col bg-dialog p-16 gap-16 rounded-4xl w-[344px] xl:w-[306px] ml-16 mt-[260px] xl:mt-0 xl:ml-0 xl:p-0'
                 )}
               >
                 <Controller
@@ -294,7 +331,7 @@ const PetsList = () => {
           )}
 
           <div
-            className={`w-full grid gap-16 lg:gap-20 mb-32 md:mb-50 wrap justify-center transition-all duration-500 grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 ${openFilters ? 'xl:grid-cols-3 w-3/4' : 'xl:grid-cols-4'}`}
+            className={`grid gap-16 lg:gap-20 mb-32 md:mb-50 wrap justify-center transition-all duration-500 grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 ${openFilters ? 'xl:grid-cols-3 w-3/4' : 'xl:grid-cols-4'}`}
           >
             {data?.animals.map(item => (
               <AnimalCard
