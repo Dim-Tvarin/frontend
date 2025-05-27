@@ -10,7 +10,7 @@ import { refreshThunk } from './redux/users/usersOperations';
 import type { AppDispatch } from './redux/store';
 import VerifyPage from 'pages/Auth/VerifyPage';
 import Announcement from 'pages/Announcement/Announcement';
-import PetsList from 'pages/PetsList';
+import PetsList from 'pages/PetsList/PetsList';
 import PetPage from 'pages/PetPage';
 import ProfilePage from 'pages/ProfilePage';
 import PrivateRoute from 'components/routes/PrivateRoute';

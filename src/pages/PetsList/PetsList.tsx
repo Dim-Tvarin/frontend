@@ -17,13 +17,14 @@ import {
   AnimalType,
   genderOption,
   size,
-} from './Announcement/types';
+} from '../Announcement/types';
 import BreedSelect from 'components/BreedSelect';
 import { CitySelect } from 'components/CitySelect';
 import { Controller, useForm } from 'react-hook-form';
 import { cn } from 'components/lib/utils';
 import { useWindowSize } from '@uidotdev/usehooks';
 import FileterLabel from 'components/FileterLabel';
+import { getActiveFilters, mapAnimalType } from './mapping';
 
 const limit = 12;
 
@@ -37,13 +38,6 @@ interface FilterFormValues {
   sortByDate?: 'newest' | 'oldest';
 }
 
-const mapAnimalType = {
-  cats: 'Котики',
-  dogs: 'Собаки',
-  birds: 'Пташки',
-  other: 'Інші тварини',
-};
-
 const PetsList = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const rawPage = Number(searchParams.get('page'));
@@ -53,7 +47,7 @@ const PetsList = () => {
   const [filtersParams, setFiltersParams] = useState<Partial<FilterFormValues>>(
     {}
   );
-  const [activeFilters, setActiveFilters] = useState(['Собака']);
+  const [activeFilters, setActiveFilters] = useState<string[]>([]);
   const [isFilterApplied, setIsFilterApplied] = useState(false);
   const [sorting, setSorting] = useState<SortOrder>('newest');
 
@@ -80,7 +74,7 @@ const PetsList = () => {
     filtersParams && filtersParams?.animalType
       ? mapAnimalType[filtersParams?.animalType]
       : 'Всі тварини';
-
+  console.log('filtersParams', filtersParams);
   useEffect(() => {
     if (error) {
       showToast({
@@ -101,12 +95,22 @@ const PetsList = () => {
     if (Object.keys(filtersParams).length > 0 && !isLoading && !isFetching)
       setIsFilterApplied(true);
   }, [isFetching, filtersParams, isLoading]);
+  console.log('searchParams', searchParams);
+  useEffect(() => {
+    // const newParams = new URLSearchParams(searchParams.toString());
+    // for (const [key, value] of newParams.entries()) {
+    //   if (value === item) {
+    //     newParams.delete(key);
+    //   }
+    // }
+    setSearchParams(filtersParams);
+  }, [filtersParams]);
 
   const onSubmit = (formData: FilterFormValues) => {
     const cleanedData = Object.fromEntries(
       Object.entries({ ...formData, sortByDate: sorting }).filter(([, v]) => v)
     );
-
+    console.log('cleanedData', cleanedData, formData);
     setFiltersParams(cleanedData);
 
     const newParams = new URLSearchParams();
@@ -134,22 +138,15 @@ const PetsList = () => {
     setFiltersParams({});
     reset();
   };
-  const handleDeleteFilterItem = useCallback(
-    (item: string) => {
-      const updated = activeFilters.filter(label => label !== item);
-      setActiveFilters(updated);
-
-      const newParams = new URLSearchParams(searchParams.toString());
-      for (const [key, value] of newParams.entries()) {
-        if (value === item) {
-          newParams.delete(key);
-        }
-      }
-      setSearchParams(newParams);
-    },
-    [activeFilters, searchParams]
-  );
-
+  const handleDeleteFilterItem = useCallback((item: string) => {
+    setFiltersParams(prev => {
+      const newParams = { ...prev };
+      delete newParams[item];
+      return newParams;
+    });
+  }, []);
+  const activeFilterItems = getActiveFilters(filtersParams);
+  console.log('activeFilterItems', activeFilterItems);
   return (
     <div className="container">
       <div className="relative flex justify-center mt-72 lg:mt-100 mb-100 lg:mb-50">
@@ -174,7 +171,7 @@ const PetsList = () => {
           </CustomButton>
         ) : (
           <div
-            className={` lg:top-0 absolute flex justify-between m-0 w-full ${isFilterApplied ? 'top-80' : 'top-50'}`}
+            className={`lg:top-0 absolute flex justify-between m-0 w-full ${isFilterApplied ? 'top-80' : 'top-50'}`}
           >
             <CustomButton
               type="button"
@@ -233,12 +230,12 @@ const PetsList = () => {
               }}
             >
               <div className="flex flex-wrap gap-x-16 gap-y-10">
-                {activeFilters &&
-                  activeFilters.map(label => (
+                {activeFilterItems.length > 0 &&
+                  activeFilterItems.map(({ key, value }) => (
                     <FileterLabel
-                      key={label}
-                      label={label}
-                      onRemove={() => handleDeleteFilterItem(label)}
+                      key={key}
+                      label={value}
+                      onRemove={() => handleDeleteFilterItem(key)}
                     />
                   ))}
               </div>
