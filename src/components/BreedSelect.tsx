@@ -112,7 +112,7 @@ const BreedSelect = ({
   const debouncedSearch = useDebounce(searchValue, 300);
 
   useEffect(() => {
-    if (type === 'other') {
+    if (type === 'other' || type === undefined) {
       setSelectedBreed('');
     } else {
       if (selectedBreed) {
