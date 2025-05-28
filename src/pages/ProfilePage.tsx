@@ -90,7 +90,7 @@ const ProfilePage = () => {
               <TabsTrigger
                 value="main-info"
                 aria-orientation="vertical"
-                className="w-[307px] max-h-[54px] text-lg m-0 outline-none shadow-none rounded-[20px] py-[15px]
+                className="w-[307px] max-h-[54px] text-base m-0 outline-none shadow-none rounded-[20px] py-[15px]
           data-[state=active]:shadow-none 
           data-[state=active]:outline-none 
           text-white hover:text-default-btn bg-default-btn hover:bg-orange hover:border-default-btn hover:border-2 disabled:bg-disabled  
@@ -106,7 +106,7 @@ const ProfilePage = () => {
               <TabsTrigger
                 value="my-adverts"
                 aria-orientation="vertical"
-                className="w-[307px] max-h-[54px] text-lg m-0 outline-none shadow-none rounded-[20px] py-[15px]
+                className="w-[307px] max-h-[54px] text-base m-0 outline-none shadow-none rounded-[20px] py-[15px]
           data-[state=active]:shadow-none 
           data-[state=active]:outline-none 
           text-white hover:text-default-btn bg-default-btn hover:bg-orange hover:border-default-btn hover:border-2 disabled:bg-disabled  

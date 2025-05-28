@@ -20,7 +20,7 @@ const ProfileMainTab = () => {
   const user = useSelector(selectUser);
   const favoriteAnimals = useSelector(selectFavoriteAnimals);
   const viewedAnimals = useSelector(selectViewedAnimals);
-  const { data: animalsData } = useGetFilteredAnimalsQuery({
+  const { data: animalsData, refetch } = useGetFilteredAnimalsQuery({
     page: 1,
     limit: 10,
   });
@@ -54,15 +54,16 @@ const ProfileMainTab = () => {
           className="flex flex-col w-full
           "
         >
-          <div className="flex flex-col gap-10 text-left text-default-btn text-lg">
+          <div className="flex flex-col gap-10 text-left text-default-btn text-lg font-normal">
             <p className="text-[28px] font-bold">{user.name}</p>
             <p>
               {user.userType === 'guardian' ? 'Опікун' : 'Майбутній господар'}
             </p>
             <p>{user.location}</p>
             <p>{user.phone}</p>
+            <p>{user.email}</p>
           </div>
-          <div className="flex gap-20 ml-auto mt-auto">
+          <div className="flex gap-20 mr-auto mt-auto">
             <CustomButton
               onClick={() => dispatch(openDialog('editUser'))}
               styleType="defaultButton"
@@ -103,6 +104,7 @@ const ProfileMainTab = () => {
                       photoSrc={item.animalImages[0].url}
                       status={item.status}
                       animal={item}
+                      onRefetchMyAnimals={refetch}
                     />
                   ))
                   .reverse()
@@ -139,6 +141,7 @@ const ProfileMainTab = () => {
                     photoSrc={item.animalImages[0].url}
                     status={item.status}
                     animal={item}
+                    onRefetchMyAnimals={refetch}
                   />
                 ))}
             </div>
