@@ -57,17 +57,18 @@ const PetsList = () => {
     { page, limit, ...filtersParams, sortByDate: sorting },
     { skip: !filtersParams }
   );
-  console.log('filtersParams', filtersParams);
-  const { control, handleSubmit, watch, reset } = useForm<FilterFormValues>({
-    defaultValues: {
-      animalType: undefined,
-      gender: '',
-      breed: '',
-      location: '',
-      age: '',
-      size: '',
-    },
-  });
+
+  const { control, handleSubmit, watch, reset, resetField } =
+    useForm<FilterFormValues>({
+      defaultValues: {
+        animalType: undefined,
+        gender: '',
+        breed: '',
+        location: '',
+        age: '',
+        size: '',
+      },
+    });
   const selectedAnimalType = watch('animalType');
   const totalPages = data && Math.ceil(data?.total / limit);
   const title =
@@ -129,13 +130,17 @@ const PetsList = () => {
     setFiltersParams({});
     reset();
   };
-  const handleDeleteFilterItem = useCallback((item: keyof FilterFormValues) => {
-    setFiltersParams(prev => {
-      const newParams = { ...prev };
-      delete newParams[item];
-      return newParams;
-    });
-  }, []);
+  const handleDeleteFilterItem = useCallback(
+    (item: keyof FilterFormValues) => {
+      setFiltersParams(prev => {
+        const newParams = { ...prev };
+        delete newParams[item];
+        return newParams;
+      });
+      resetField(item);
+    },
+    [resetField]
+  );
   const activeFilterItems = getActiveFilters(filtersParams);
 
   return (
