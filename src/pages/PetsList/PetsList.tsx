@@ -25,6 +25,7 @@ import { cn } from 'components/lib/utils';
 import { useWindowSize } from '@uidotdev/usehooks';
 import FileterLabel from 'components/FileterLabel';
 import { getActiveFilters, mapAnimalType } from './mapping';
+import { Spinner } from 'components/Spinner';
 
 const limit = 12;
 
@@ -138,6 +139,7 @@ const PetsList = () => {
         return newParams;
       });
       resetField(item);
+      setOpenFilters(false);
     },
     [resetField]
   );
@@ -220,7 +222,7 @@ const PetsList = () => {
         <div className="relative flex justify-around gap-20">
           {openFilters && (
             <div
-              className="z-50 fixed xl:relative inset-0 flex flex-col items-start gap-24 bg-black/50 xl:bg-transparent xl:w-1/4 xl:h-fit"
+              className="z-50 fixed xl:relative inset-0 flex flex-col items-start gap-24 bg-black/50 xl:bg-transparent pt-100 xl:pt-0 pl-16 xl:pl-0 xl:w-1/4 xl:h-fit"
               onClick={() => {
                 setOpenFilters(false);
               }}
@@ -244,7 +246,7 @@ const PetsList = () => {
                 className={cn(
                   'xl:flex flex-col transition-all duration-500 xl:bg-transparent',
                   'xl:static  xl:gap-32',
-                  'flex flex-col bg-dialog p-16 gap-16 rounded-4xl w-[344px] xl:w-[306px] ml-16 mt-[260px] xl:mt-0 xl:ml-0 xl:p-0'
+                  'flex flex-col bg-dialog p-16 gap-16 rounded-4xl w-[344px] xl:w-[306px]  xl:mt-0  xl:p-0'
                 )}
               >
                 <Controller
@@ -325,23 +327,28 @@ const PetsList = () => {
               </form>
             </div>
           )}
-
-          <div
-            className={`grid gap-16 lg:gap-20 mb-32 md:mb-50 wrap justify-center transition-all duration-500 grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 ${openFilters ? 'xl:grid-cols-3 w-3/4' : 'xl:grid-cols-4'}`}
-          >
-            {data?.animals.map(item => (
-              <AnimalCard
-                key={item.id}
-                id={item.id}
-                name={item.animalName}
-                gender={item.gender}
-                age={item.age}
-                photoSrc={item.animalImages[0].url}
-                status={item.status}
-                animal={item}
-              />
-            ))}
-          </div>
+          {isLoading || isFetching ? (
+            <div className="flex justify-center w-full h-[50vh]">
+              <Spinner size="100" />
+            </div>
+          ) : (
+            <div
+              className={`grid gap-16 lg:gap-20 mb-32 md:mb-50 wrap justify-center transition-all duration-500 grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 ${openFilters ? 'w-full xl:grid-cols-3 xl:w-3/4' : 'xl:grid-cols-4'}`}
+            >
+              {data?.animals.map(item => (
+                <AnimalCard
+                  key={item.id}
+                  id={item.id}
+                  name={item.animalName}
+                  gender={item.gender}
+                  age={item.age}
+                  photoSrc={item.animalImages[0].url}
+                  status={item.status}
+                  animal={item}
+                />
+              ))}
+            </div>
+          )}
         </div>
       )}
       {!isLoading && data && !!totalPages && totalPages > 1 && (

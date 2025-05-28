@@ -1,12 +1,12 @@
-export const Spinner = () => {
+export const Spinner = ({ size = '30' }: { size?: string }) => {
   return (
     <div>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 100 100"
         preserveAspectRatio="xMidYMid"
-        width="30"
-        height="30"
+        width={size}
+        height={size}
         style={{
           shapeRendering: 'auto',
           display: 'block',
