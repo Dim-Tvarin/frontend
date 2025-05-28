@@ -7,7 +7,7 @@ import {
 import AnimalCard from 'components/AnimalCard';
 import { PetsListSkeleton } from 'components/sceletons/PetsListSkeleton';
 import Pagination from 'components/Pagination';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router';
 import { showToast } from 'components/Toast';
 import FilterItem from 'components/FilterItem';
@@ -17,12 +17,14 @@ import {
   AnimalType,
   genderOption,
   size,
-} from './Announcement/types';
+} from '../Announcement/types';
 import BreedSelect from 'components/BreedSelect';
 import { CitySelect } from 'components/CitySelect';
 import { Controller, useForm } from 'react-hook-form';
 import { cn } from 'components/lib/utils';
 import { useWindowSize } from '@uidotdev/usehooks';
+import FileterLabel from 'components/FileterLabel';
+import { getActiveFilters, mapAnimalType } from './mapping';
 
 const limit = 12;
 
@@ -36,15 +38,8 @@ interface FilterFormValues {
   sortByDate?: 'newest' | 'oldest';
 }
 
-const mapAnimalType = {
-  cats: 'Котики',
-  dogs: 'Собаки',
-  birds: 'Пташки',
-  other: 'Інші тварини',
-};
-
 const PetsList = () => {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const rawPage = Number(searchParams.get('page'));
   const [page, setPage] = useState(rawPage === 0 ? 1 : rawPage);
   const [openFilters, setOpenFilters] = useState(false);
@@ -59,19 +54,21 @@ const PetsList = () => {
   const windowSize = useWindowSize();
 
   const { data, isLoading, isFetching, error } = useGetFilteredAnimalsQuery(
-    { page, limit, ...filtersParams },
+    { page, limit, ...filtersParams, sortByDate: sorting },
     { skip: !filtersParams }
   );
-  const { control, handleSubmit, watch, reset } = useForm<FilterFormValues>({
-    defaultValues: {
-      animalType: undefined,
-      gender: '',
-      breed: '',
-      location: '',
-      age: '',
-      size: '',
-    },
-  });
+
+  const { control, handleSubmit, watch, reset, resetField } =
+    useForm<FilterFormValues>({
+      defaultValues: {
+        animalType: undefined,
+        gender: '',
+        breed: '',
+        location: '',
+        age: '',
+        size: '',
+      },
+    });
   const selectedAnimalType = watch('animalType');
   const totalPages = data && Math.ceil(data?.total / limit);
   const title =
@@ -100,9 +97,22 @@ const PetsList = () => {
       setIsFilterApplied(true);
   }, [isFetching, filtersParams, isLoading]);
 
+  useEffect(() => {
+    setSearchParams(filtersParams);
+  }, [filtersParams]);
+
   const onSubmit = (formData: FilterFormValues) => {
-    const filters = { ...formData, sortByDate: sorting };
-    setFiltersParams(filters);
+    const cleanedData = Object.fromEntries(
+      Object.entries({ ...formData }).filter(([, v]) => v)
+    );
+    setFiltersParams(cleanedData);
+
+    const newParams = new URLSearchParams();
+    Object.entries(cleanedData).forEach(([key, value]) => {
+      newParams.set(key, value as string);
+    });
+    newParams.set('page', '1');
+    setSearchParams(newParams);
     if (windowSize.width && windowSize.width < 1280) setOpenFilters(false);
   };
 
@@ -120,6 +130,18 @@ const PetsList = () => {
     setFiltersParams({});
     reset();
   };
+  const handleDeleteFilterItem = useCallback(
+    (item: keyof FilterFormValues) => {
+      setFiltersParams(prev => {
+        const newParams = { ...prev };
+        delete newParams[item];
+        return newParams;
+      });
+      resetField(item);
+    },
+    [resetField]
+  );
+  const activeFilterItems = getActiveFilters(filtersParams);
 
   return (
     <div className="container">
@@ -145,7 +167,7 @@ const PetsList = () => {
           </CustomButton>
         ) : (
           <div
-            className={` lg:top-0 absolute flex justify-between m-0 w-full ${isFilterApplied ? 'top-80' : 'top-50'}`}
+            className={`lg:top-0 absolute flex justify-between m-0 w-full ${isFilterApplied ? 'top-80' : 'top-50'}`}
           >
             <CustomButton
               type="button"
@@ -198,18 +220,31 @@ const PetsList = () => {
         <div className="relative flex justify-around gap-20">
           {openFilters && (
             <div
-              className="z-50 fixed xl:relative inset-0 flex items-start bg-black/50 xl:bg-transparent xl:w-1/4 xl:h-fit"
+              className="z-50 fixed xl:relative inset-0 flex flex-col items-start gap-24 bg-black/50 xl:bg-transparent xl:w-1/4 xl:h-fit"
               onClick={() => {
                 setOpenFilters(false);
               }}
             >
+              <div className="flex flex-wrap gap-x-16 gap-y-10">
+                {activeFilterItems.length > 0 &&
+                  activeFilterItems.map(({ key, value }) => (
+                    <FileterLabel
+                      key={key}
+                      label={value}
+                      onRemove={(e: React.MouseEvent<HTMLButtonElement>) => {
+                        e.stopPropagation();
+                        handleDeleteFilterItem(key as keyof FilterFormValues);
+                      }}
+                    />
+                  ))}
+              </div>
               <form
                 onSubmit={handleSubmit(onSubmit)}
                 onClick={e => e.stopPropagation()}
                 className={cn(
                   'xl:flex flex-col transition-all duration-500 xl:bg-transparent',
                   'xl:static  xl:gap-32',
-                  'flex flex-col bg-dialog p-16 gap-16 rounded-4xl w-[95%] sm:w-[344px] ml-16 mt-[260px] xl:mt-0 xl:ml-0 xl:p-0'
+                  'flex flex-col bg-dialog p-16 gap-16 rounded-4xl w-[344px] xl:w-[306px] ml-16 mt-[260px] xl:mt-0 xl:ml-0 xl:p-0'
                 )}
               >
                 <Controller
@@ -292,7 +327,7 @@ const PetsList = () => {
           )}
 
           <div
-            className={`w-full grid gap-16 lg:gap-20 mb-32 md:mb-50 wrap justify-center transition-all duration-500 grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 ${openFilters ? 'xl:grid-cols-3 w-3/4' : 'xl:grid-cols-4'}`}
+            className={`grid gap-16 lg:gap-20 mb-32 md:mb-50 wrap justify-center transition-all duration-500 grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 ${openFilters ? 'xl:grid-cols-3 w-3/4' : 'xl:grid-cols-4'}`}
           >
             {data?.animals.map(item => (
               <AnimalCard

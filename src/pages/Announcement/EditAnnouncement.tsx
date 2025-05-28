@@ -23,6 +23,7 @@ import {
   statusOptions,
   StatusType,
   type AnimalTypeValues,
+  type ErrorResponse,
 } from './types';
 import {
   getMonthDeclension,
@@ -36,6 +37,7 @@ import { FilesInput } from 'components/FilesInputWithCrop';
 import { openDialog } from 'src/redux/dialogs/dialogSlice';
 import type { AppDispatch } from 'src/redux/store';
 import { useDispatch } from 'react-redux';
+import type { AxiosError } from 'axios';
 
 type AnnouncementForm = z.infer<typeof updateAnnounceSchema>;
 
@@ -146,7 +148,8 @@ const EditAnnouncement = () => {
       });
       resetField('images');
       await refetch();
-    } catch (error: any) {
+    } catch (err) {
+      const error = err as AxiosError<ErrorResponse>;
       if ('status' in error) {
         switch (error.status) {
           case 400:

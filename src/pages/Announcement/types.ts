@@ -95,3 +95,9 @@ export enum StatusType {
   active = 'active',
   inactive = 'inactive',
 }
+
+export interface ErrorResponse {
+  message?: string;
+  status?: number;
+  error?: string;
+}

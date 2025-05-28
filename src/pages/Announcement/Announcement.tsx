@@ -9,7 +9,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { TextareaDemo } from 'components/CustomTextarea';
 
 import { announceSchema } from '../../validations/announceValidation';
-import { animalTypeOptions, genderOption } from './types';
+import { animalTypeOptions, genderOption, type ErrorResponse } from './types';
 import track from '../../../public/track.png';
 import { LuCirclePlus } from 'react-icons/lu';
 import { CitySelect } from 'components/CitySelect';
@@ -24,6 +24,7 @@ import { showToast } from 'components/Toast';
 import BreedSelect from 'components/BreedSelect';
 import { FilesInput } from 'components/FilesInputWithCrop';
 import { useEffect } from 'react';
+import type { AxiosError } from 'axios';
 
 type AnnouncementForm = z.infer<typeof announceSchema>;
 
@@ -91,7 +92,8 @@ const Announcement = () => {
       });
 
       reset();
-    } catch (error: any) {
+    } catch (err) {
+      const error = err as AxiosError<ErrorResponse>;
       if (error?.status === 400) {
         showToast({
           title: 'Невірний формат даних',
