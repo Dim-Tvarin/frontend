@@ -54,10 +54,10 @@ const PetsList = () => {
   const windowSize = useWindowSize();
 
   const { data, isLoading, isFetching, error } = useGetFilteredAnimalsQuery(
-    { page, limit, ...filtersParams },
+    { page, limit, ...filtersParams, sortByDate: sorting },
     { skip: !filtersParams }
   );
-
+  console.log('filtersParams', filtersParams);
   const { control, handleSubmit, watch, reset } = useForm<FilterFormValues>({
     defaultValues: {
       animalType: undefined,
@@ -102,7 +102,7 @@ const PetsList = () => {
 
   const onSubmit = (formData: FilterFormValues) => {
     const cleanedData = Object.fromEntries(
-      Object.entries({ ...formData, sortByDate: sorting }).filter(([, v]) => v)
+      Object.entries({ ...formData }).filter(([, v]) => v)
     );
     setFiltersParams(cleanedData);
 
@@ -129,7 +129,7 @@ const PetsList = () => {
     setFiltersParams({});
     reset();
   };
-  const handleDeleteFilterItem = useCallback((item: string) => {
+  const handleDeleteFilterItem = useCallback((item: keyof FilterFormValues) => {
     setFiltersParams(prev => {
       const newParams = { ...prev };
       delete newParams[item];
@@ -217,7 +217,6 @@ const PetsList = () => {
             <div
               className="z-50 fixed xl:relative inset-0 flex flex-col items-start gap-24 bg-black/50 xl:bg-transparent xl:w-1/4 xl:h-fit"
               onClick={() => {
-                console.log('clicked outside filter');
                 setOpenFilters(false);
               }}
             >
@@ -229,7 +228,7 @@ const PetsList = () => {
                       label={value}
                       onRemove={(e: React.MouseEvent<HTMLButtonElement>) => {
                         e.stopPropagation();
-                        handleDeleteFilterItem(key);
+                        handleDeleteFilterItem(key as keyof FilterFormValues);
                       }}
                     />
                   ))}
