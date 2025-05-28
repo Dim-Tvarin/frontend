@@ -86,6 +86,7 @@ const DialogAlertDelete = () => {
         className="w-[800px] min-h-[300px] rounded-[30px] py-[62px] px-[86px] bg-dialog text-center gap-0"
         onPointerDownOutside={e => e.preventDefault()}
         aria-labelledby="dialog-content"
+        aria-describedby={undefined}
       >
         <DialogClose className="absolute top-24 right-24 focus:outline-none focus-visible:outline-none">
           <CloseSVG />
