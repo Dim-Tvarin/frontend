@@ -7,6 +7,7 @@ import {
 import { RadioGroup, RadioGroupItem } from './components/ui/radio-group';
 import { Label } from './components/ui/label';
 import { Button } from './components/ui/button';
+import { useState } from 'react';
 
 type Item = {
   value: string;
@@ -26,8 +27,15 @@ const FilterItem = ({
   items: Item[];
   onChange: (val: string) => void;
 }) => {
+  const [open, setOpen] = useState(false);
+
+  const handleValueChange = (val: string) => {
+    onChange(val);
+    setOpen(false);
+  };
+
   return (
-    <Popover>
+    <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
           variant="outline"
@@ -39,7 +47,7 @@ const FilterItem = ({
         </Button>
       </PopoverTrigger>
       <PopoverContent className="bg-white shadow-none p-4 border-1 border-input-border w-(--radix-popover-trigger-width) text-default-btn">
-        <RadioGroup value={value} onValueChange={onChange}>
+        <RadioGroup value={value} onValueChange={handleValueChange}>
           {items.map(item => (
             <div
               key={item.value}
