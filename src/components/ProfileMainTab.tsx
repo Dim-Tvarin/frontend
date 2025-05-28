@@ -20,7 +20,7 @@ const ProfileMainTab = () => {
   const user = useSelector(selectUser);
   const favoriteAnimals = useSelector(selectFavoriteAnimals);
   const viewedAnimals = useSelector(selectViewedAnimals);
-  const { data: animalsData } = useGetFilteredAnimalsQuery({
+  const { data: animalsData, refetch } = useGetFilteredAnimalsQuery({
     page: 1,
     limit: 10,
   });
@@ -103,6 +103,7 @@ const ProfileMainTab = () => {
                       photoSrc={item.animalImages[0].url}
                       status={item.status}
                       animal={item}
+                      onRefetchMyAnimals={refetch}
                     />
                   ))
                   .reverse()
@@ -139,6 +140,7 @@ const ProfileMainTab = () => {
                     photoSrc={item.animalImages[0].url}
                     status={item.status}
                     animal={item}
+                    onRefetchMyAnimals={refetch}
                   />
                 ))}
             </div>
