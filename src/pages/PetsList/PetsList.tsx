@@ -47,7 +47,6 @@ const PetsList = () => {
   const [filtersParams, setFiltersParams] = useState<Partial<FilterFormValues>>(
     {}
   );
-  const [activeFilters, setActiveFilters] = useState<string[]>([]);
   const [isFilterApplied, setIsFilterApplied] = useState(false);
   const [sorting, setSorting] = useState<SortOrder>('newest');
 
@@ -58,6 +57,7 @@ const PetsList = () => {
     { page, limit, ...filtersParams },
     { skip: !filtersParams }
   );
+
   const { control, handleSubmit, watch, reset } = useForm<FilterFormValues>({
     defaultValues: {
       animalType: undefined,
@@ -74,7 +74,7 @@ const PetsList = () => {
     filtersParams && filtersParams?.animalType
       ? mapAnimalType[filtersParams?.animalType]
       : 'Всі тварини';
-  console.log('filtersParams', filtersParams);
+
   useEffect(() => {
     if (error) {
       showToast({
@@ -95,14 +95,8 @@ const PetsList = () => {
     if (Object.keys(filtersParams).length > 0 && !isLoading && !isFetching)
       setIsFilterApplied(true);
   }, [isFetching, filtersParams, isLoading]);
-  console.log('searchParams', searchParams);
+
   useEffect(() => {
-    // const newParams = new URLSearchParams(searchParams.toString());
-    // for (const [key, value] of newParams.entries()) {
-    //   if (value === item) {
-    //     newParams.delete(key);
-    //   }
-    // }
     setSearchParams(filtersParams);
   }, [filtersParams]);
 
@@ -110,7 +104,6 @@ const PetsList = () => {
     const cleanedData = Object.fromEntries(
       Object.entries({ ...formData, sortByDate: sorting }).filter(([, v]) => v)
     );
-    console.log('cleanedData', cleanedData, formData);
     setFiltersParams(cleanedData);
 
     const newParams = new URLSearchParams();
@@ -119,8 +112,6 @@ const PetsList = () => {
     });
     newParams.set('page', '1');
     setSearchParams(newParams);
-    const newLabels = Object.values(cleanedData).map(String);
-    setActiveFilters(newLabels);
     if (windowSize.width && windowSize.width < 1280) setOpenFilters(false);
   };
 
@@ -146,7 +137,7 @@ const PetsList = () => {
     });
   }, []);
   const activeFilterItems = getActiveFilters(filtersParams);
-  console.log('activeFilterItems', activeFilterItems);
+
   return (
     <div className="container">
       <div className="relative flex justify-center mt-72 lg:mt-100 mb-100 lg:mb-50">
@@ -226,6 +217,7 @@ const PetsList = () => {
             <div
               className="z-50 fixed xl:relative inset-0 flex flex-col items-start gap-24 bg-black/50 xl:bg-transparent xl:w-1/4 xl:h-fit"
               onClick={() => {
+                console.log('clicked outside filter');
                 setOpenFilters(false);
               }}
             >
@@ -235,7 +227,10 @@ const PetsList = () => {
                     <FileterLabel
                       key={key}
                       label={value}
-                      onRemove={() => handleDeleteFilterItem(key)}
+                      onRemove={(e: React.MouseEvent<HTMLButtonElement>) => {
+                        e.stopPropagation();
+                        handleDeleteFilterItem(key);
+                      }}
                     />
                   ))}
               </div>

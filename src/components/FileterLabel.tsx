@@ -1,9 +1,9 @@
-import type { FC } from 'react';
+import type { FC, MouseEvent } from 'react';
 import CloseSVG from 'src/assets/CloseSVG';
 
 interface LabelFilterProps {
   label: string;
-  onRemove: () => void;
+  onRemove: (e: MouseEvent<HTMLButtonElement>) => void;
 }
 
 const FileterLabel: FC<LabelFilterProps> = ({ label, onRemove }) => {
