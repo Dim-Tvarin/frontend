@@ -26,6 +26,7 @@ import { useWindowSize } from '@uidotdev/usehooks';
 import FileterLabel from 'components/FileterLabel';
 import { getActiveFilters, mapAnimalType } from './mapping';
 import { Spinner } from 'components/Spinner';
+import CloseSVG from 'src/assets/CloseSVG';
 
 const limit = 12;
 
@@ -227,104 +228,116 @@ const PetsList = () => {
                 setOpenFilters(false);
               }}
             >
-              <div className="flex flex-wrap gap-x-16 gap-y-10">
-                {activeFilterItems.length > 0 &&
-                  activeFilterItems.map(({ key, value }) => (
-                    <FileterLabel
-                      key={key}
-                      label={value}
-                      onRemove={(e: React.MouseEvent<HTMLButtonElement>) => {
-                        e.stopPropagation();
-                        handleDeleteFilterItem(key as keyof FilterFormValues);
-                      }}
-                    />
-                  ))}
+              <div className="relative flex flex-col bg-dialog xl:bg-transparent xl:p-0 pt-32 rounded-4xl">
+                <div
+                  className="xl:hidden top-16 right-16 absolute"
+                  onClick={() => setOpenFilters(false)}
+                >
+                  <CloseSVG />
+                </div>
+                <div className="flex flex-wrap gap-x-16 gap-y-10 xl:mb-32 ml-16 xl:ml-0 max-w-[344px]">
+                  {activeFilterItems.length > 0 &&
+                    activeFilterItems.map(({ key, value }) => (
+                      <FileterLabel
+                        key={key}
+                        label={value}
+                        onRemove={(e: React.MouseEvent<HTMLButtonElement>) => {
+                          e.stopPropagation();
+                          handleDeleteFilterItem(key as keyof FilterFormValues);
+                        }}
+                      />
+                    ))}
+                </div>
+                <form
+                  onSubmit={handleSubmit(onSubmit)}
+                  onClick={e => e.stopPropagation()}
+                  className={cn(
+                    'xl:flex flex-col transition-all duration-500 xl:bg-transparent',
+                    'xl:static  xl:gap-32',
+                    'flex flex-col bg-dialog p-16 gap-16 rounded-4xl w-[344px] xl:w-[306px]  xl:mt-0  xl:p-0'
+                  )}
+                >
+                  <Controller
+                    name="animalType"
+                    control={control}
+                    render={({ field }) => (
+                      <FilterItem
+                        {...field}
+                        label="Вид тварини"
+                        items={animalTypeOptions}
+                      />
+                    )}
+                  />
+                  <Controller
+                    name="gender"
+                    control={control}
+                    render={({ field }) => (
+                      <FilterItem
+                        {...field}
+                        label="Стать"
+                        items={genderOption}
+                      />
+                    )}
+                  />
+                  <Controller
+                    name="breed"
+                    control={control}
+                    render={({ field }) => (
+                      <BreedSelect
+                        {...field}
+                        className="w-full h-[40px]"
+                        type={selectedAnimalType}
+                        placeholder="Порода"
+                      />
+                    )}
+                  />
+                  <Controller
+                    name="location"
+                    control={control}
+                    render={({ field }) => (
+                      <CitySelect
+                        {...field}
+                        className="h-[40px]"
+                        widthClass="w-full"
+                        placeholder="Місто"
+                      />
+                    )}
+                  />
+                  <Controller
+                    name="age"
+                    control={control}
+                    render={({ field }) => (
+                      <FilterItem {...field} label="Вік" items={ageOption} />
+                    )}
+                  />
+
+                  <Controller
+                    name="size"
+                    control={control}
+                    render={({ field }) => (
+                      <FilterItem {...field} label="Розмір" items={size} />
+                    )}
+                  />
+
+                  <CustomButton
+                    type="submit"
+                    styleType="defaultButton"
+                    className="self-center m-0"
+                    loading={isLoading || isFetching}
+                  >
+                    Застосувати фільтр
+                  </CustomButton>
+                  <CustomButton
+                    type="button"
+                    styleType="whiteButton"
+                    className="self-center m-0 xl:-mt-12 mb-50 lg:mb-100"
+                    onClick={handleClearFilter}
+                    disabled={Object.keys(filtersParams).length === 0}
+                  >
+                    Очистити фільтр
+                  </CustomButton>
+                </form>
               </div>
-              <form
-                onSubmit={handleSubmit(onSubmit)}
-                onClick={e => e.stopPropagation()}
-                className={cn(
-                  'xl:flex flex-col transition-all duration-500 xl:bg-transparent',
-                  'xl:static  xl:gap-32',
-                  'flex flex-col bg-dialog p-16 gap-16 rounded-4xl w-[344px] xl:w-[306px]  xl:mt-0  xl:p-0'
-                )}
-              >
-                <Controller
-                  name="animalType"
-                  control={control}
-                  render={({ field }) => (
-                    <FilterItem
-                      {...field}
-                      label="Вид тварини"
-                      items={animalTypeOptions}
-                    />
-                  )}
-                />
-                <Controller
-                  name="gender"
-                  control={control}
-                  render={({ field }) => (
-                    <FilterItem {...field} label="Стать" items={genderOption} />
-                  )}
-                />
-                <Controller
-                  name="breed"
-                  control={control}
-                  render={({ field }) => (
-                    <BreedSelect
-                      {...field}
-                      className="w-full h-[40px]"
-                      type={selectedAnimalType}
-                      placeholder="Порода"
-                    />
-                  )}
-                />
-                <Controller
-                  name="location"
-                  control={control}
-                  render={({ field }) => (
-                    <CitySelect
-                      {...field}
-                      className="h-[40px]"
-                      widthClass="w-full"
-                      placeholder="Місто"
-                    />
-                  )}
-                />
-                <Controller
-                  name="age"
-                  control={control}
-                  render={({ field }) => (
-                    <FilterItem {...field} label="Вік" items={ageOption} />
-                  )}
-                />
-
-                <Controller
-                  name="size"
-                  control={control}
-                  render={({ field }) => (
-                    <FilterItem {...field} label="Розмір" items={size} />
-                  )}
-                />
-
-                <CustomButton
-                  type="submit"
-                  styleType="defaultButton"
-                  className="self-center m-0"
-                  loading={isLoading || isFetching}
-                >
-                  Застосувати фільтр
-                </CustomButton>
-                <CustomButton
-                  type="button"
-                  styleType="whiteButton"
-                  className="self-center m-0 xl:-mt-12 mb-50 lg:mb-100"
-                  onClick={handleClearFilter}
-                  disabled={Object.keys(filtersParams).length === 0}
-                >
-                  Очистити фільтр
-                </CustomButton>
-              </form>
             </div>
           )}
           {isLoading || isFetching ? (
