@@ -90,14 +90,11 @@ const DialogEditAvatarUpload: React.FC = () => {
               {...getRootProps()}
               className={`m-auto w-[630px] h-[190px] p-[42px] border-2 border-dashed  rounded-[10px] text-center mb-32 ${isDragActive ? 'border-default-btn bg-main-pink-d' : 'border-border-drag bg-main-pink-l'}`}
             >
-              <p className="text-lg text-default-btn mb-16 pl-[82px] text-left">
+              <p className="text-lg text-default-btn mb-16">
                 {isDragActive ? (
                   'Відпустіть файл тут...'
                 ) : (
-                  <>
-                    Перетягніть файл сюди{' '}
-                    <span className="ml-[18px] text-border-file">або</span>
-                  </>
+                  <>Перетягніть файл сюди</>
                 )}
               </p>
               <div className="flex items-center gap-[19px] px-16 py-10 border-2 border-border-drag rounded-[8px] w-[382px] h-[64px] m-auto">
@@ -130,7 +127,7 @@ const DialogEditAvatarUpload: React.FC = () => {
             {error && <FormError error={error} />}
           </div>
 
-          <DialogFooter className="flex flex-row gap-20 justify-center mt-32">
+          <DialogFooter className="flex flex-row gap-20 sm:justify-center mt-32">
             <CustomButton
               type="button"
               styleType="defaultButton"

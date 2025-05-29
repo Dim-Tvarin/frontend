@@ -210,7 +210,13 @@ export const Header = () => {
                   </span>
                 </div>
               ) : (
-                <CabinetSVG color="black" />
+                <CustomButton
+                  onClick={() => dispatch(openDialog('login'))}
+                  type="button"
+                  className="m-auto focus:outline-none focus-visible:outline-none focus:shadow-none focus-visible:shadow-none focus-visible:ring-0"
+                >
+                  <CabinetSVG color="black" />
+                </CustomButton>
               )}
             </button>
           </div>

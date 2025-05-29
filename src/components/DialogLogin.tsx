@@ -74,6 +74,7 @@ const DialogLogin: React.FC = () => {
         className="w-[413px] min-h-[463px] rounded-[30px] p-32 bg-dialog text-center gap-0"
         onPointerDownOutside={e => e.preventDefault()}
         aria-labelledby="dialog-content"
+        aria-describedby={undefined}
       >
         <DialogClose className="absolute top-24 right-24 focus:outline-none focus-visible:outline-none">
           <CloseSVG />

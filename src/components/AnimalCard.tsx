@@ -5,7 +5,6 @@ import {
   type Animal,
   type animalAge,
   useToggleHideAnimalMutation,
-  useGetMyAnimalsQuery,
 } from 'src/redux/animals/animalsApi';
 import { getYearDeclension } from 'src/helpers/getYearDeclension';
 import { useNavigate } from 'react-router';
@@ -44,6 +43,7 @@ const AnimalCard = ({
   status,
   isMyProfile = false,
   animal,
+  onRefetchMyAnimals,
 }: {
   id: string;
   name: string;
@@ -53,6 +53,7 @@ const AnimalCard = ({
   status?: string;
   isMyProfile?: boolean;
   animal?: Animal;
+  onRefetchMyAnimals?: () => void;
 }) => {
   const favAnimals = useSelector(selectFavoriteAnimals);
   const isInFavorites = favAnimals.some(a => a.id === id);
@@ -60,7 +61,6 @@ const AnimalCard = ({
   const dispatch = useDispatch<AppDispatch>();
   const [toggleFavorite] = useToggleFavoriteAnimalMutation();
   const [toggleHideAnimal] = useToggleHideAnimalMutation();
-  const { refetch } = useGetMyAnimalsQuery({ page: 1, limit: 9 });
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const location = useLocation();
   const isAllPetsPage = location.pathname.includes('/allpets');
@@ -82,7 +82,7 @@ const AnimalCard = ({
         id: animal.id,
         isHidden: !animal.isHidden,
       }).unwrap();
-      refetch();
+      onRefetchMyAnimals?.();
     } catch (error) {
       console.error('Не вдалося змінити видимість:', error);
     }

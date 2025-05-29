@@ -108,7 +108,8 @@ const DialogVerifyResetCode: React.FC = () => {
       <DialogContent
         className="w-[413px] min-h-[432px] rounded-[30px] p-32 bg-dialog text-center gap-0"
         onPointerDownOutside={e => e.preventDefault()}
-        aria-describedby="Забули пароль?"
+        aria-labelledby="Забули пароль?"
+        aria-describedby={undefined}
       >
         <DialogClose className="absolute top-24 right-24 focus:outline-none focus-visible:outline-none">
           <CloseSVG />
