@@ -142,7 +142,7 @@ const AnimalCard = ({
         <CustomButton
           type="button"
           styleType="defaultButton"
-          className="hidden md:flex mt-28 w-[149px]"
+          className="hidden md:flex mt-28 w-[149px] h-[46px]"
           onClick={() => navigate(`/allpets/${id}`)}
         >
           Переглянути
