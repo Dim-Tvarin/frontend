@@ -258,7 +258,7 @@ const Announcement = () => {
             render={({ field: { ref, name, onChange, value } }) => (
               <FilesInput
                 ref={ref}
-                groupLabel="Додайте фото *"
+                groupLabel="Добавте фото *"
                 labelClass="mb-10 mt-16 lg:mt-32"
                 labelSize="base"
                 className="w-full"
