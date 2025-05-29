@@ -30,7 +30,7 @@ const ImageCarousel = ({
 
   return (
     <div className="flex flex-col items-center gap-32 w-full">
-      <div className="relative bg-orange rounded-[30px] w-[95%] lg:w-[466px] xl:w-[630px] min-w-[325px] h-[210px] md:h-[471px]">
+      <div className="relative bg-orange rounded-[30px] w-[95%] lg:w-[466px] xl:w-[630px] min-w-[325px] h-[210px] md:h-[471px] xl:h-[460px]">
         {isDelete && (
           <div
             className="top-24 md:top-[52px] right-20 md:right-[42px] z-10 absolute place-items-center grid bg-default-btn hover:bg-orange rounded-full w-[36px] h-[36px] transition-all duration-300 cursor-pointer"
@@ -41,7 +41,7 @@ const ImageCarousel = ({
         )}
         <div
           className={cn(
-            'bottom-0 absolute rounded-[30px] w-[95%] lg:w-[442px] xl:w-[598px] min-w-[310px] h-[194px] md:h-[428px] overflow-hidden',
+            'bottom-0 absolute rounded-[30px] w-[95%] lg:w-[442px] xl:w-[615px] min-w-[310px] h-[194px] md:h-[428px] overflow-hidden xl:h-[444px]',
             isEditAnnouncement ? 'right-0' : 'left-0'
           )}
         >
