@@ -155,7 +155,7 @@ const Announcement = () => {
             )}
           />
 
-          <p className="mt-16 lg:mt-32 mb-10 text-base">Стать</p>
+          <p className="mt-16 lg:mt-32 mb-10 text-base">Стать *</p>
           <Controller
             name="gender"
             control={control}
