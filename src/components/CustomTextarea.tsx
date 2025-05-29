@@ -37,6 +37,7 @@ export const TextareaDemo = ({
         id={id}
         className={cn(
           'mt-16 min-h-[80px] px-[21px] py-[14px] rounded-[10px] border-input-border outline-0',
+          'wrap-break-word',
           { 'border-error-input text-error-input': error }
         )}
         {...rest}
