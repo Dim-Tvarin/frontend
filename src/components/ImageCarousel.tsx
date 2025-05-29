@@ -48,7 +48,7 @@ const ImageCarousel = ({
           <img
             src={images[activeIndex]?.url}
             alt="Selected"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover object-top"
           />
         </div>
       </div>
@@ -77,7 +77,7 @@ const ImageCarousel = ({
                 <img
                   src={src.url}
                   alt={`Thumbnail ${idx}`}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover object-top"
                 />
               </button>
             )

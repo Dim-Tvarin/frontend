@@ -101,7 +101,7 @@ const AnimalCard = ({
         <img
           src={photoSrc}
           alt={name}
-          className="z-1 absolute inset-0 rounded-4xl w-full h-full object-cover"
+          className="z-1 absolute inset-0 rounded-4xl w-full h-full object-cover object-top"
         />
       </Link>
       {animal?.isHidden && (
