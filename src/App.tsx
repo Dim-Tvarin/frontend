@@ -18,6 +18,7 @@ import EditAnnouncement from 'pages/Announcement/EditAnnouncement';
 import { selectToken } from './redux/users/usersSlice';
 import FavoritePage from 'pages/FavoritePage';
 import { useSyncFavoritesOnLogin } from 'hooks/useSyncFavoritesOnLogin';
+import BlogMain from 'pages/Blog/BlogMain';
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -38,6 +39,7 @@ function App() {
         <Route path="allpets" element={<PetsList />} />
         <Route path="allpets/:id" element={<PetPage />} />
         <Route path="favorite" element={<FavoritePage />} />
+        <Route path="blog" element={<BlogMain />} />
         <Route
           path="profile"
           element={

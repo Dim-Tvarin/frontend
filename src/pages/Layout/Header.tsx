@@ -87,7 +87,7 @@ export const Header = () => {
             </li>
             <li>
               <NavLink
-                to="/lookfor"
+                to="/blog"
                 className={({ isActive }) =>
                   cn(
                     'hover:text-default-btn transition-all duration-300',
@@ -104,7 +104,7 @@ export const Header = () => {
             <CustomButton
               styleType="whiteButton"
               onClick={handleToggleTheme}
-              className="w-100 rounded-full"
+              className="rounded-full w-100"
             >
               Theme: {currentTheme === 'dark' ? '🌙' : '☀️'}
             </CustomButton>
@@ -213,7 +213,7 @@ export const Header = () => {
                 <CustomButton
                   onClick={() => dispatch(openDialog('login'))}
                   type="button"
-                  className="m-auto focus:outline-none focus-visible:outline-none focus:shadow-none focus-visible:shadow-none focus-visible:ring-0"
+                  className="focus-visible:shadow-none focus:shadow-none m-auto focus-visible:outline-none focus:outline-none focus-visible:ring-0"
                 >
                   <CabinetSVG color="black" />
                 </CustomButton>
@@ -240,7 +240,7 @@ export const Header = () => {
           <NavLink to="/announcement" onClick={() => setMobileMenuOpen(false)}>
             Віддати в добрі руки
           </NavLink>
-          <NavLink to="/lookfor" onClick={() => setMobileMenuOpen(false)}>
+          <NavLink to="/blog" onClick={() => setMobileMenuOpen(false)}>
             Догляд за твариною
           </NavLink>
         </div>
