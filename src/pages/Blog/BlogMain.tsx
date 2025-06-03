@@ -16,27 +16,27 @@ const BlogMain = () => {
         <BlogCard
           title="Адаптація до нового дому"
           image="/blog/blog-2.jpg"
-          link="/blog/1"
+          link="/blog/2"
         />
         <BlogCard
           title="Особливості здоров'я"
           image="/blog/blog-3.jpg"
-          link="/blog/1"
+          link="/blog/3"
         />
         <BlogCard
           title="Створення щасливого та здорового середовища для вашого нового улюбленця"
           image="/blog/blog-4.jpg"
-          link="/blog/1"
+          link="/blog/4"
         />
         <BlogCard
           title="ТЕСТ: Знайди звіра, який впишеться в твій лайфстайл!"
           image="/blog/blog-5.jpg"
-          link="/blog/1"
+          link="/blog/5"
         />
         <BlogCard
           title="Сила лап і сердець: як тварини змінюють життя людей"
           image="/blog/blog-6.jpg"
-          link="/blog/1"
+          link="/blog/6"
         />
       </div>
       <CustomButton
