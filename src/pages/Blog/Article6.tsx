@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router';
 import articleImg from '../../assets/article-6.1.jpg';
+import articleImg1 from '../../assets/article-6.2.jpg';
 import { CustomButton } from 'components/CustomButton';
 
 const Article6 = () => {
@@ -8,11 +9,11 @@ const Article6 = () => {
     <div className="container">
       <article className="gap-20 grid grid-cols-1 md:grid-cols-2 mt-100 mb-64">
         <div className="font-normal text-base text-left">
-          <div className="relative bg-orange mb-40 rounded-[30px] w-[627px] h-[431px]">
+          <div className="relative bg-orange mb-40 rounded-[30px] w-[348px] md:w-[627px] h-[240px] md:h-[431px]">
             <img
               src={articleImg}
-              alt="дівчата градять котика"
-              className="bottom-0 left-0 absolute rounded-[30px] w-[611px] h-[415px]"
+              alt="дівчата тримає собаку за лапу"
+              className="bottom-0 left-0 absolute rounded-[30px] w-[332px] md:w-[611px] h-[224px] md:h-[415px]"
             />
           </div>
           <h2 className="mb-16 font-semibold text-xl">Терапевтична роль</h2>
@@ -42,7 +43,7 @@ const Article6 = () => {
         </div>
 
         <div className="font-normal text-base text-left">
-          <h1 className="md:mt-[320px] 2xl:mt-0 mb-16 font-bold text-3xl">
+          <h1 className="md:mt-[465px] 2xl:mt-0 mb-16 font-bold text-3xl">
             Сила лап і сердець: як тварини змінюють життя людей
           </h1>
           <p>
@@ -62,11 +63,11 @@ const Article6 = () => {
             спілкування з тваринами стимулює вироблення «гормону щастя» —
             окситоцину, що покращує настрій і сприяє відчуттю прив’язаності.
           </p>
-          <div className="relative bg-orange mt-50 mb-40 rounded-[30px] w-[630px] h-[500px]">
+          <div className="relative bg-orange mt-50 mb-40 rounded-[30px] w-[346px] xl:w-[630px] h-[275px] xl:h-[500px]">
             <img
-              src={articleImg}
-              alt="дівчата градять котика"
-              className="bottom-0 left-0 absolute rounded-[30px] w-[615px] h-[484px]"
+              src={articleImg1}
+              alt="діти обіймаюсь собаку"
+              className="bottom-0 left-0 absolute rounded-[30px] w-[338px] xl:w-[615px] h-[266px] xl:h-[484px]"
             />
           </div>
         </div>
