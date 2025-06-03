@@ -6,13 +6,13 @@ const Article1 = () => {
   const navigate = useNavigate();
   return (
     <div className="container">
-      <article className="gap-20 grid grid-cols-2 mt-100 mb-64">
+      <article className="gap-20 grid grid-cols-1 md:grid-cols-2 mt-100 mb-64">
         <div className="font-normal text-base text-left">
-          <div className="relative bg-orange mb-40 rounded-[30px] w-[627px] h-[287px]">
+          <div className="relative bg-orange mb-40 rounded-[30px] w-[345px] md:w-[627px] h-[158px] md:h-[287px]">
             <img
               src={articleImg}
               alt="дівчата градять котика"
-              className="bottom-0 left-0 absolute w-[611px] h-[271px]"
+              className="bottom-0 left-0 absolute w-[336px] md:w-[611px] h-[150px] md:h-[271px]"
             />
           </div>
           <h2 className="mb-16 font-semibold text-xl">Вибір виду тварини:</h2>
@@ -99,7 +99,7 @@ const Article1 = () => {
         </div>
 
         <div className="font-normal text-base text-left">
-          <h1 className="mb-16 font-bold text-3xl">
+          <h1 className="md:mt-[320px] 2xl:mt-0 mb-16 font-bold text-3xl">
             Знайдіть свого ідеального компаньйона: Поради щодо вибору тварини
           </h1>
           <p className="mb-32">
