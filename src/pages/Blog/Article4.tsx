@@ -1,6 +1,9 @@
+import { useNavigate } from 'react-router';
 import articleImg from '../../assets/article-4.jpg';
+import { CustomButton } from 'components/CustomButton';
 
 const Article4 = () => {
+  const navigate = useNavigate();
   return (
     <div className="container">
       <article className="gap-20 grid grid-cols-1 md:grid-cols-2 mt-100 mb-64">
@@ -253,6 +256,12 @@ const Article4 = () => {
           </ul>
         </div>
       </article>
+      <CustomButton
+        className="z-10 bg-default-btn mb-100 rounded-[20px] w-[356px] h-[44px]"
+        onClick={() => navigate(-1)}
+      >
+        Повернутися до попередньої сторінки
+      </CustomButton>
     </div>
   );
 };
