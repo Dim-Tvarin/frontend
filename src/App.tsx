@@ -20,6 +20,7 @@ import FavoritePage from 'pages/FavoritePage';
 import { useSyncFavoritesOnLogin } from 'hooks/useSyncFavoritesOnLogin';
 import BlogMain from 'pages/Blog/BlogMain';
 import Article1 from 'pages/Blog/Article1';
+import Article2 from 'pages/Blog/Article2';
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -45,6 +46,7 @@ function App() {
           path="blog/porady-shchodo-vyboru-tvaryny"
           element={<Article1 />}
         />
+        <Route path="blog/adaptatsiya-do-novoho-domu" element={<Article2 />} />
         <Route
           path="profile"
           element={
