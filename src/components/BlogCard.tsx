@@ -10,7 +10,7 @@ const BlogCard = ({
   link: string;
 }) => {
   return (
-    <div className="flex flex-col text-left">
+    <div className="z-10 flex flex-col text-left">
       <Link to={link} className="block mb-4">
         <img
           src={image}
