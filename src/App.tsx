@@ -23,6 +23,7 @@ import Article1 from 'pages/Blog/Article1';
 import Article2 from 'pages/Blog/Article2';
 import Article3 from 'pages/Blog/Article3';
 import Article4 from 'pages/Blog/Article4';
+import Article5 from 'pages/Blog/Article5';
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -55,6 +56,7 @@ function App() {
           path="blog/stvoryennya-zdorovoho-seredovyshcha-dlya-uliublentsya"
           element={<Article4 />}
         />
+        <Route path="blog/test-znajdy-zvira" element={<Article5 />} />
 
         <Route
           path="profile"
