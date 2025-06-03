@@ -8,14 +8,14 @@ const Article4 = () => {
     <div className="container">
       <article className="gap-20 grid grid-cols-1 md:grid-cols-2 mt-100 mb-64">
         <div className="font-normal text-base text-left">
-          <div className="relative bg-orange mb-40 rounded-[30px] w-[345px] md:w-[630px] h-[158px] md:h-[481px]">
+          <div className="relative bg-orange mb-40 rounded-[30px] w-[346px] md:w-[630px] h-[264px] md:h-[481px]">
             <img
               src={articleImg}
               alt="дівчата градять котика"
-              className="bottom-0 left-0 absolute w-[336px] md:w-[614px] h-[150px] md:h-[465px]"
+              className="bottom-0 left-0 absolute rounded-[30px] w-[331px] md:w-[614px] h-[248px] md:h-[465px]"
             />
           </div>
-          <h1 className="md:mt-[320px] 2xl:mt-0 mb-16 font-bold text-3xl">
+          <h1 className="mb-16 font-bold text-3xl">
             Емоційний добробут: Створення щасливого та здорового середовища для
             вашого нового улюбленця
           </h1>
@@ -108,7 +108,7 @@ const Article4 = () => {
         </div>
 
         <div className="font-normal text-base text-left">
-          <h2 className="mb-16 font-semibold text-xl">
+          <h2 className="md:mt-[520px] 2xl:mt-0 mb-16 font-semibold text-xl">
             Встановлення зв&#39;язку з людиною:
           </h2>
           <p>
