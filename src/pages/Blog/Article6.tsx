@@ -9,7 +9,7 @@ const Article6 = () => {
             <img
               src={articleImg}
               alt="дівчата градять котика"
-              className="bottom-0 left-0 absolute w-[611px] h-[415px]"
+              className="bottom-0 left-0 absolute rounded-[30px] w-[611px] h-[415px]"
             />
           </div>
           <h2 className="mb-16 font-semibold text-xl">Терапевтична роль</h2>
@@ -38,7 +38,35 @@ const Article6 = () => {
           </p>
         </div>
 
-        <div className="font-normal text-base text-left"></div>
+        <div className="font-normal text-base text-left">
+          <h1 className="md:mt-[320px] 2xl:mt-0 mb-16 font-bold text-3xl">
+            Сила лап і сердець: як тварини змінюють життя людей
+          </h1>
+          <p>
+            У сучасному світі взаємодія людини з тваринами набуває все більшого
+            значення. Домашні улюбленці, дикі тварини, а також терапевтичні й
+            службові тварини відіграють важливу роль у фізичному й
+            психологічному добробуті людей. Цей взаємозв’язок не лише дарує
+            радість, але й має глибокий вплив на наше ментальне здоров’я.
+          </p>
+          <h2 className="mt-32 mb-16 font-semibold text-xl">
+            Емоційна підтримка та психічне здоров’я
+          </h2>
+          <p>
+            Домашні тварини, особливо собаки та коти, часто стають для людей
+            джерелом емоційної підтримки. Вони здатні знижувати рівень стресу,
+            тривожності та навіть симптоми депресії. Дослідження показують, що
+            спілкування з тваринами стимулює вироблення «гормону щастя» —
+            окситоцину, що покращує настрій і сприяє відчуттю прив’язаності.
+          </p>
+          <div className="relative bg-orange mt-50 mb-40 rounded-[30px] w-[630px] h-[500px]">
+            <img
+              src={articleImg}
+              alt="дівчата градять котика"
+              className="bottom-0 left-0 absolute rounded-[30px] w-[615px] h-[484px]"
+            />
+          </div>
+        </div>
       </article>
     </div>
   );
