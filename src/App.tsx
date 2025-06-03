@@ -19,7 +19,7 @@ import { selectToken } from './redux/users/usersSlice';
 import FavoritePage from 'pages/FavoritePage';
 import { useSyncFavoritesOnLogin } from 'hooks/useSyncFavoritesOnLogin';
 import BlogMain from 'pages/Blog/BlogMain';
-import BlogPage from 'pages/Blog/BlogPage';
+import Article1 from 'pages/Blog/Article1';
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -41,7 +41,10 @@ function App() {
         <Route path="allpets/:id" element={<PetPage />} />
         <Route path="favorite" element={<FavoritePage />} />
         <Route path="blog" element={<BlogMain />} />
-        <Route path="blog/:id" element={<BlogPage />} />
+        <Route
+          path="blog/porady-shchodo-vyboru-tvaryny"
+          element={<Article1 />}
+        />
         <Route
           path="profile"
           element={
