@@ -1,3 +1,5 @@
+import articleImg from '../../assets/article-5.jpg';
+
 const Article5 = () => {
   return (
     <div className="container">
@@ -77,7 +79,66 @@ const Article5 = () => {
           </ol>
         </div>
 
-        <div className="font-normal text-base text-left"></div>
+        <div className="font-normal text-base text-left">
+          <div className="relative justify-self-center bg-orange mb-40 rounded-[30px] w-[345px] md:w-[630px] h-[247px] md:h-[398px]">
+            <img
+              src={articleImg}
+              alt="дівчина з хаски"
+              className="bottom-0 left-0 absolute rounded-[30px] w-[335px] md:w-[614px] h-[231px] md:h-[382px]"
+            />
+          </div>
+          <p className="font-semibold text-xl">Результати:</p>
+          <ul className="flex flex-col mt-16 ml-16 pl-5 list-disc">
+            <li className="font-bold">
+              Переважно A: Ти - Диванний Король (або Королева)!
+              <ul className="flex flex-col space-y-1 mt-2 ml-12 pl-5 font-normal list-disc">
+                <li>
+                  Тобі потрібен Звіро-Бро, який розділить твою любов до затишку
+                  та лінощів. Кіт - твій ідеальний партнер для дрімоти та
+                  перегляду серіалів. Пам&#39;ятай, навіть королям потрібна
+                  трохи уваги (і лоток!).
+                </li>
+              </ul>
+            </li>
+            <li className="mt-16 font-bold">
+              Переважно B: Ти - Соціальний Метелик з Лапками (або Крильцями)!
+              <ul className="flex flex-col space-y-1 mt-2 ml-12 pl-5 font-normal list-disc">
+                <li>
+                  Тобі потрібен Звіро-Бро, з яким можна буде і потусити, і
+                  відпочити. Собака середнього розміру або активний кіт - твій
+                  вибір. Вони будуть раді твоїй компанії, але і дадуть тобі
+                  трохи особистого простору.
+                </li>
+              </ul>
+            </li>
+            <li className="mt-16 font-bold">
+              Переважно C: Ти - Танцюючий Ураган (з Хвостом)!
+              <ul className="flex flex-col space-y-1 mt-2 ml-12 pl-5 font-normal list-disc">
+                <li>
+                  Тобі потрібен Звіро-Бро, який зможе витримати твою енергію!
+                  Енергійний собака - твій найкращий партнер для тренувань,
+                  походів та інших шалених пригод. Головне - не забудь його
+                  вчасно годувати, бо він, на відміну від тебе, не працює на
+                  адреналіні!
+                </li>
+              </ul>
+            </li>
+            <li className="mt-16 font-bold">
+              Переважно D: Ти - Ніжний Опікун (з Дбайливим Серцем)!
+              <ul className="flex flex-col space-y-1 mt-2 ml-12 pl-5 font-normal list-disc">
+                <li>
+                  Тобі потрібен Звіро-Друг, який буде радувати тебе своєю
+                  ніжністю та потребуватиме твоєї турботи. Пташка або
+                  хом&#39;ячок - твій найкращий компаньйон. Їхні маленькі
+                  розміри, м&#39;які пір&#39;я (або пухнасті щічки) та милі
+                  звички розтоплять твоє серце. Ти станеш для них джерелом
+                  безпеки та любові, а вони подарують тобі безліч позитивних
+                  емоцій.
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
       </article>
     </div>
   );
