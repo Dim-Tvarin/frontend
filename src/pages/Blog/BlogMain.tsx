@@ -7,36 +7,36 @@ const BlogMain = () => {
   const navigate = useNavigate();
   return (
     <div className="relative container">
-      <div className="gap-x-20 gap-y-32 grid grid-cols-3 mt-100 mb-50">
+      <div className="gap-x-20 gap-y-32 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-100 mb-50">
         <BlogCard
           title="Знайдіть свого ідеального компаньйона: Поради щодо вибору тварини"
           image="/blog/blog-1.jpg"
-          link="/blog/1"
+          link="/blog/porady-shchodo-vyboru-tvaryny"
         />
         <BlogCard
           title="Адаптація до нового дому"
           image="/blog/blog-2.jpg"
-          link="/blog/2"
+          link="/blog/adaptatsiya-do-novoho-domu"
         />
         <BlogCard
           title="Особливості здоров'я"
           image="/blog/blog-3.jpg"
-          link="/blog/3"
+          link="/blog/osoblyvosti-zdorovya"
         />
         <BlogCard
           title="Створення щасливого та здорового середовища для вашого нового улюбленця"
           image="/blog/blog-4.jpg"
-          link="/blog/4"
+          link="/blog/stvoryennya-zdorovoho-seredovyshcha-dlya-uliublentsya"
         />
         <BlogCard
           title="ТЕСТ: Знайди звіра, який впишеться в твій лайфстайл!"
           image="/blog/blog-5.jpg"
-          link="/blog/5"
+          link="/blog/test-znajdy-zvira"
         />
         <BlogCard
           title="Сила лап і сердець: як тварини змінюють життя людей"
           image="/blog/blog-6.jpg"
-          link="/blog/6"
+          link="/blog/yak-tvaryny-zminyuyut-zhyttya"
         />
       </div>
       <CustomButton
@@ -45,7 +45,7 @@ const BlogMain = () => {
       >
         Повернутися на головну сторінку
       </CustomButton>
-      <div className="right-100 -bottom-[118px] z-1 z-1 absolute rotate-[32deg]">
+      <div className="hidden lg:block right-100 -bottom-[118px] z-1 absolute rotate-[32deg]">
         <img src={tracks4} className="w-[270px] h-[515px]" alt="track" />
       </div>
     </div>
