@@ -8,16 +8,16 @@ const Article2 = () => {
   const navigate = useNavigate();
   return (
     <div className="container">
-      <article className="gap-20 grid grid-cols-1 md:grid-cols-2 mt-100 mb-50">
+      <article className="gap-20 grid grid-cols-1 xl:grid-cols-2 mt-100 mb-50">
         <div className="font-normal text-base text-left">
-          <div className="relative bg-orange mb-40 rounded-[30px] w-[345px] md:w-[627px] h-[158px] md:h-[390px]">
+          <div className="relative justify-self-center bg-orange mb-40 rounded-[30px] w-[345px] md:w-[627px] h-[247px] md:h-[390px]">
             <img
               src={articleImg}
               alt="дівчина тримає кролика"
-              className="bottom-0 left-0 absolute rounded-[30px] w-[336px] md:w-[611px] h-[150px] md:h-[374px]"
+              className="bottom-0 left-0 absolute rounded-[30px] w-[335px] md:w-[611px] h-[231px] md:h-[374px]"
             />
           </div>
-          <h1 className="md:mt-[320px] 2xl:mt-0 mb-16 font-semibold text-3xl">
+          <h1 className="mb-16 font-semibold text-3xl">
             Адаптація до нового дому
           </h1>
           <p className="indent-24">
@@ -69,7 +69,7 @@ const Article2 = () => {
         </div>
 
         <div className="font-normal text-base text-left">
-          <div className="flex justify-between mb-[30px]">
+          <div className="flex md:flex-row flex-col justify-between items-center gap-8 mb-[30px]">
             <img
               src={articleCat}
               alt="котик"
