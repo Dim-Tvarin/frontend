@@ -1,3 +1,5 @@
+import articleImg from '../../assets/article-3.jpg';
+
 const Article3 = () => {
   return (
     <div className="container">
@@ -107,7 +109,87 @@ const Article3 = () => {
             </li>
           </ul>
         </div>
-        <div className="font-normal text-base text-left"></div>
+        <div className="font-normal text-base text-left">
+          <div className="relative justify-self-center bg-orange mb-40 rounded-[30px] w-[345px] md:w-[627px] h-[247px] md:h-[390px]">
+            <img
+              src={articleImg}
+              alt="дівчина з хаски"
+              className="bottom-0 left-0 absolute rounded-[30px] w-[335px] md:w-[611px] h-[231px] md:h-[374px]"
+            />
+          </div>
+          <h2 className="mt-32 mb-16 font-semibold text-xl">
+            Харчування для відновлення:
+          </h2>
+          <p>
+            Правильне харчування відіграє ключову роль у відновленні
+            здоров&#39;я тварини з притулку.
+          </p>
+          <ul className="flex flex-col mt-16 ml-16 pl-5 list-disc">
+            <li>
+              Поступове введення нового корму:
+              <ul className="flex flex-col space-y-1 mt-2 ml-12 pl-5 list-disc">
+                <li>Не змінюйте різко раціон тварини.</li>
+                <li>
+                  Поступово додавайте новий корм до старого, збільшуючи його
+                  кількість з кожним днем.
+                </li>
+                <li>Це допоможе уникнути розладів травлення.</li>
+              </ul>
+            </li>
+            <li className="mt-16">
+              Вітаміни та добавки для зміцнення імунітету:
+              <ul className="flex flex-col space-y-1 mt-2 ml-12 pl-5 list-disc">
+                <li>
+                  Після консультації з ветеринаром можна давати тварині вітаміни
+                  та добавки для зміцнення імунітету.
+                </li>
+                <li>
+                  Особливо корисні вітаміни групи B, вітамін C та антиоксиданти.
+                </li>
+                <li>
+                  Пробіотики також можуть бути корисними для відновлення
+                  мікрофлори кишечника.
+                </li>
+              </ul>
+            </li>
+
+            <li className="mt-16">
+              Режим харчування:
+              <ul className="flex flex-col space-y-1 mt-2 ml-12 pl-5 list-disc">
+                <li>Дотримуйтесь чіткого режиму годування.</li>
+                <li>Не перегодовуйте тварину.</li>
+                <li>Забезпечте постійний доступ до свіжої води.</li>
+              </ul>
+            </li>
+            <li className="mt-16">
+              Паразити:
+              <ul className="flex flex-col space-y-1 mt-2 ml-12 pl-5 list-disc">
+                <li>
+                  Переконайтеся, що тварина пройшла обробку від паразитів у
+                  притулку.
+                </li>
+                <li>Повторіть обробку вдома за рекомендацією ветеринара.</li>
+                <li>
+                  Дотримуйтесь профілактичних заходів для запобігання повторному
+                  зараженню.
+                </li>
+              </ul>
+            </li>
+            <li className="mt-16">
+              Індивідуальні потреби:
+              <ul className="flex flex-col space-y-1 mt-2 ml-12 pl-5 list-disc">
+                <li>
+                  Пам&#39;ятайте, що кожна тварина має індивідуальні потреби в
+                  харчуванні.
+                </li>
+                <li>
+                  Проконсультуйтеся з ветеринаром, щоб визначити найкращий
+                  раціон для вашого нового улюбленця.
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
       </article>
     </div>
   );
