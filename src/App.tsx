@@ -41,12 +41,14 @@ function App() {
         <Route path="allpets" element={<PetsList />} />
         <Route path="allpets/:id" element={<PetPage />} />
         <Route path="favorite" element={<FavoritePage />} />
+
         <Route path="blog" element={<BlogMain />} />
         <Route
           path="blog/porady-shchodo-vyboru-tvaryny"
           element={<Article1 />}
         />
         <Route path="blog/adaptatsiya-do-novoho-domu" element={<Article2 />} />
+
         <Route
           path="profile"
           element={
