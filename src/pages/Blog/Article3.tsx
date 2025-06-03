@@ -6,10 +6,11 @@ const Article3 = () => {
   const navigate = useNavigate();
   return (
     <div className="container">
-      <article className="gap-20 grid grid-cols-1 md:grid-cols-2 mt-100 mb-64">
+      <article className="gap-20 grid grid-cols-1 xl:grid-cols-2 mt-100 mb-64">
         <div className="font-normal text-base text-left">
           <h1 className="mb-16 font-bold text-3xl">
-            Знайдіть свого ідеального компаньйона: Поради щодо вибору тварини
+            ЗОсобливості здоров&#39;я та важливі аспекти, які потрібно знати при
+            усиновленні тваринки
           </h1>
           <p>
             Усиновлюючи тварину з притулку, важливо пам&#39;ятати, що її
