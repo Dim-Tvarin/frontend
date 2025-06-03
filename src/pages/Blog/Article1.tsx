@@ -12,7 +12,7 @@ const Article1 = () => {
             <img
               src={articleImg}
               alt="дівчата градять котика"
-              className="bottom-0 left-0 absolute w-[336px] md:w-[611px] h-[150px] md:h-[271px]"
+              className="bottom-0 left-0 absolute rounded-[30px] w-[336px] md:w-[611px] h-[150px] md:h-[271px]"
             />
           </div>
           <h2 className="mb-16 font-semibold text-xl">Вибір виду тварини:</h2>
