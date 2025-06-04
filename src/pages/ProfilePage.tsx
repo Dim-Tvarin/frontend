@@ -109,12 +109,12 @@ const ProfilePage = () => {
                 className="w-[307px] max-h-[54px] text-base m-0 outline-none shadow-none rounded-[20px] py-[15px]
           data-[state=active]:shadow-none 
           data-[state=active]:outline-none 
-          text-white hover:text-default-btn bg-default-btn hover:bg-orange hover:border-default-btn hover:border-2 disabled:bg-disabled  
-          data-[state=active]:text-default-btn 
-          data-[state=active]:bg-white 
-          data-[state=active]:border-2
-          data-[state=active]:border-default-btn 
-          data-[state=active]:hover:border-orange"
+          text-default-btn bg-white  border-default-btn  hover:border-orange border-2 disabled:bg-disabled  
+          data-[state=active]:text-white
+          data-[state=active]:hover:text-default-btn
+          data-[state=active]:bg-default-btn
+          data-[state=active]:hover:bg-orange
+          data-[state=active]:hover:border-default-btn"
               >
                 Основна інформація
               </TabsTrigger>
@@ -125,12 +125,12 @@ const ProfilePage = () => {
                 className="w-[307px] max-h-[54px] text-base m-0 outline-none shadow-none rounded-[20px] py-[15px]
           data-[state=active]:shadow-none 
           data-[state=active]:outline-none 
-          text-white hover:text-default-btn bg-default-btn hover:bg-orange hover:border-default-btn hover:border-2 disabled:bg-disabled  
-          data-[state=active]:text-default-btn 
-          data-[state=active]:bg-white 
-          data-[state=active]:border-2
-          data-[state=active]:border-default-btn 
-          data-[state=active]:hover:border-orange"
+          text-default-btn bg-white  border-default-btn  hover:border-orange border-2 disabled:bg-disabled  
+          data-[state=active]:text-white
+          data-[state=active]:hover:text-default-btn
+          data-[state=active]:bg-default-btn
+          data-[state=active]:hover:bg-orange
+          data-[state=active]:hover:border-default-btn"
               >
                 Мої оголошення
               </TabsTrigger>
