@@ -11,6 +11,7 @@ import {
   type AnimalsResponse,
 } from 'src/redux/animals/animalsApi';
 import { useSearchParams } from 'react-router';
+import { useLocation, useNavigate } from 'react-router-dom';
 import AdvertsFilter from 'components/AdvertsFilter';
 import ProfileMainTab from 'components/ProfileMainTab';
 import ProfileMyAdvertsTab from 'components/ProfileMyAdvertsTab';
@@ -27,11 +28,25 @@ export interface AnimalsFilters {
 }
 
 const ProfilePage = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const rawPage = Number(searchParams.get('page'));
   const [page, setPage] = useState(rawPage === 0 ? 1 : rawPage);
   const [filters, setFilters] = useState<AnimalsFilters>({});
   const [openFilters, setOpenFilters] = useState(false);
+
+  const currentTab = location.pathname.includes('/profile/ads')
+    ? 'my-adverts'
+    : 'main-info';
+  const handleTabChange = (value: string) => {
+    if (value === 'my-adverts') {
+      navigate('/profile/ads');
+    } else {
+      navigate('/profile/info');
+    }
+  };
+
   const { data, isLoading, error, refetch } = useGetMyAnimalsQuery({
     page,
     limit: 9,
@@ -73,7 +88,8 @@ const ProfilePage = () => {
   return (
     <div className="container">
       <Tabs
-        defaultValue="main-info"
+        value={currentTab}
+        onValueChange={handleTabChange}
         className="pt-100 pb-100 grow flex-row gap-[18px]"
         data-orientation="vertical"
       >
