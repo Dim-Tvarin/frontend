@@ -374,7 +374,7 @@ const EditAnnouncement = () => {
 
             <TextareaDemo
               id="announvementText"
-              className="mt-10 lg:mt-32 text-base text-left"
+              className="mt-10 lg:mt-32 max-w-[328px] sm:max-w-[608px] lg:max-w-[424px] 2xl:max-w-[630px] xl:max-w-[552px] text-base text-left"
               placeholder="Опишіть тварину, її характер, історію, забарвлення"
               label="Опис тварини: *"
               defaultValue={animal?.adText}
@@ -409,7 +409,7 @@ const EditAnnouncement = () => {
               render={({ field: { ref, name, onChange, value } }) => (
                 <FilesInput
                   ref={ref}
-                  groupLabel="Додайте фото тварини та документи *"
+                  groupLabel="Додайте фото *"
                   labelClass="mb-16 mt-16"
                   labelSize="base"
                   className="w-full"

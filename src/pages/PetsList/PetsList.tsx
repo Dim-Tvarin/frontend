@@ -25,6 +25,8 @@ import { cn } from 'components/lib/utils';
 import { useWindowSize } from '@uidotdev/usehooks';
 import FileterLabel from 'components/FileterLabel';
 import { getActiveFilters, mapAnimalType } from './mapping';
+import { Spinner } from 'components/Spinner';
+import CloseSVG from 'src/assets/CloseSVG';
 
 const limit = 12;
 
@@ -138,6 +140,7 @@ const PetsList = () => {
         return newParams;
       });
       resetField(item);
+      setOpenFilters(false);
     },
     [resetField]
   );
@@ -220,128 +223,145 @@ const PetsList = () => {
         <div className="relative flex justify-around gap-20">
           {openFilters && (
             <div
-              className="z-50 fixed xl:relative inset-0 flex flex-col items-start gap-24 bg-black/50 xl:bg-transparent xl:w-1/4 xl:h-fit"
+              className="z-50 fixed xl:relative inset-0 flex flex-col items-start gap-24 bg-black/50 xl:bg-transparent pt-100 xl:pt-0 pl-16 xl:pl-0 xl:w-1/4 xl:h-fit"
               onClick={() => {
                 setOpenFilters(false);
               }}
             >
-              <div className="flex flex-wrap gap-x-16 gap-y-10">
-                {activeFilterItems.length > 0 &&
-                  activeFilterItems.map(({ key, value }) => (
-                    <FileterLabel
-                      key={key}
-                      label={value}
-                      onRemove={(e: React.MouseEvent<HTMLButtonElement>) => {
-                        e.stopPropagation();
-                        handleDeleteFilterItem(key as keyof FilterFormValues);
-                      }}
-                    />
-                  ))}
+              <div className="relative flex flex-col bg-dialog xl:bg-transparent xl:p-0 pt-32 rounded-4xl">
+                <div
+                  className="xl:hidden top-16 right-16 absolute"
+                  onClick={() => setOpenFilters(false)}
+                >
+                  <CloseSVG />
+                </div>
+                <div className="flex flex-wrap gap-x-16 gap-y-10 xl:mb-32 ml-16 xl:ml-0 max-w-[344px]">
+                  {activeFilterItems.length > 0 &&
+                    activeFilterItems.map(({ key, value }) => (
+                      <FileterLabel
+                        key={key}
+                        label={value}
+                        onRemove={(e: React.MouseEvent<HTMLButtonElement>) => {
+                          e.stopPropagation();
+                          handleDeleteFilterItem(key as keyof FilterFormValues);
+                        }}
+                      />
+                    ))}
+                </div>
+                <form
+                  onSubmit={handleSubmit(onSubmit)}
+                  onClick={e => e.stopPropagation()}
+                  className={cn(
+                    'xl:flex flex-col transition-all duration-500 xl:bg-transparent',
+                    'xl:static  xl:gap-32',
+                    'flex flex-col bg-dialog p-16 gap-16 rounded-4xl w-[344px] xl:w-[306px]  xl:mt-0  xl:p-0'
+                  )}
+                >
+                  <Controller
+                    name="animalType"
+                    control={control}
+                    render={({ field }) => (
+                      <FilterItem
+                        {...field}
+                        label="Вид тварини"
+                        items={animalTypeOptions}
+                      />
+                    )}
+                  />
+                  <Controller
+                    name="gender"
+                    control={control}
+                    render={({ field }) => (
+                      <FilterItem
+                        {...field}
+                        label="Стать"
+                        items={genderOption}
+                      />
+                    )}
+                  />
+                  <Controller
+                    name="breed"
+                    control={control}
+                    render={({ field }) => (
+                      <BreedSelect
+                        {...field}
+                        className="w-full h-[40px]"
+                        type={selectedAnimalType}
+                        placeholder="Порода"
+                      />
+                    )}
+                  />
+                  <Controller
+                    name="location"
+                    control={control}
+                    render={({ field }) => (
+                      <CitySelect
+                        {...field}
+                        className="h-[40px]"
+                        widthClass="w-full"
+                        placeholder="Місто"
+                      />
+                    )}
+                  />
+                  <Controller
+                    name="age"
+                    control={control}
+                    render={({ field }) => (
+                      <FilterItem {...field} label="Вік" items={ageOption} />
+                    )}
+                  />
+
+                  <Controller
+                    name="size"
+                    control={control}
+                    render={({ field }) => (
+                      <FilterItem {...field} label="Розмір" items={size} />
+                    )}
+                  />
+
+                  <CustomButton
+                    type="submit"
+                    styleType="defaultButton"
+                    className="self-center m-0"
+                    loading={isLoading || isFetching}
+                  >
+                    Застосувати фільтр
+                  </CustomButton>
+                  <CustomButton
+                    type="button"
+                    styleType="whiteButton"
+                    className="self-center m-0 xl:-mt-12 mb-50 lg:mb-100"
+                    onClick={handleClearFilter}
+                    disabled={Object.keys(filtersParams).length === 0}
+                  >
+                    Очистити фільтр
+                  </CustomButton>
+                </form>
               </div>
-              <form
-                onSubmit={handleSubmit(onSubmit)}
-                onClick={e => e.stopPropagation()}
-                className={cn(
-                  'xl:flex flex-col transition-all duration-500 xl:bg-transparent',
-                  'xl:static  xl:gap-32',
-                  'flex flex-col bg-dialog p-16 gap-16 rounded-4xl w-[344px] xl:w-[306px] ml-16 mt-[260px] xl:mt-0 xl:ml-0 xl:p-0'
-                )}
-              >
-                <Controller
-                  name="animalType"
-                  control={control}
-                  render={({ field }) => (
-                    <FilterItem
-                      {...field}
-                      label="Вид тварини"
-                      items={animalTypeOptions}
-                    />
-                  )}
-                />
-                <Controller
-                  name="gender"
-                  control={control}
-                  render={({ field }) => (
-                    <FilterItem {...field} label="Стать" items={genderOption} />
-                  )}
-                />
-                <Controller
-                  name="breed"
-                  control={control}
-                  render={({ field }) => (
-                    <BreedSelect
-                      {...field}
-                      className="w-full h-[40px]"
-                      type={selectedAnimalType}
-                      placeholder="Порода"
-                    />
-                  )}
-                />
-                <Controller
-                  name="location"
-                  control={control}
-                  render={({ field }) => (
-                    <CitySelect
-                      {...field}
-                      className="h-[40px]"
-                      widthClass="w-full"
-                      placeholder="Місто"
-                    />
-                  )}
-                />
-                <Controller
-                  name="age"
-                  control={control}
-                  render={({ field }) => (
-                    <FilterItem {...field} label="Вік" items={ageOption} />
-                  )}
-                />
-
-                <Controller
-                  name="size"
-                  control={control}
-                  render={({ field }) => (
-                    <FilterItem {...field} label="Розмір" items={size} />
-                  )}
-                />
-
-                <CustomButton
-                  type="submit"
-                  styleType="defaultButton"
-                  className="self-center m-0"
-                  loading={isLoading || isFetching}
-                >
-                  Застосувати фільтр
-                </CustomButton>
-                <CustomButton
-                  type="button"
-                  styleType="whiteButton"
-                  className="self-center m-0 xl:-mt-12 mb-50 lg:mb-100"
-                  onClick={handleClearFilter}
-                  disabled={Object.keys(filtersParams).length === 0}
-                >
-                  Очистити фільтр
-                </CustomButton>
-              </form>
             </div>
           )}
-
-          <div
-            className={`grid gap-16 lg:gap-20 mb-32 md:mb-50 wrap justify-center transition-all duration-500 grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 ${openFilters ? 'xl:grid-cols-3 w-3/4' : 'xl:grid-cols-4'}`}
-          >
-            {data?.animals.map(item => (
-              <AnimalCard
-                key={item.id}
-                id={item.id}
-                name={item.animalName}
-                gender={item.gender}
-                age={item.age}
-                photoSrc={item.animalImages[0].url}
-                status={item.status}
-                animal={item}
-              />
-            ))}
-          </div>
+          {isLoading || isFetching ? (
+            <div className="flex justify-center w-full h-[50vh]">
+              <Spinner size="100" />
+            </div>
+          ) : (
+            <div
+              className={`grid gap-16 lg:gap-20 mb-32 md:mb-50 wrap justify-center transition-all duration-500 grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 ${openFilters ? 'w-full xl:grid-cols-3 xl:w-3/4' : 'xl:grid-cols-4'}`}
+            >
+              {data?.animals.map(item => (
+                <AnimalCard
+                  key={item.id}
+                  id={item.id}
+                  name={item.animalName}
+                  gender={item.gender}
+                  age={item.age}
+                  photoSrc={item.animalImages[0].url}
+                  status={item.status}
+                  animal={item}
+                />
+              ))}
+            </div>
+          )}
         </div>
       )}
       {!isLoading && data && !!totalPages && totalPages > 1 && (

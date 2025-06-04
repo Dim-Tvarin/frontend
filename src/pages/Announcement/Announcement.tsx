@@ -155,7 +155,7 @@ const Announcement = () => {
             )}
           />
 
-          <p className="mt-16 lg:mt-32 mb-10 text-base">Стать</p>
+          <p className="mt-16 lg:mt-32 mb-10 text-base">Стать *</p>
           <Controller
             name="gender"
             control={control}
@@ -243,7 +243,7 @@ const Announcement = () => {
 
           <TextareaDemo
             id="announvementText"
-            className="mt-10 lg:mt-32 text-base text-left"
+            className="mt-10 lg:mt-32 max-w-[328px] sm:max-w-[608px] lg:max-w-[424px] 2xl:max-w-[630px] xl:max-w-[552px] text-base text-left mg:"
             placeholder="Опишіть тварину, її характер, історію, забарвлення"
             label="Опис тварини: *"
             labelSize="base"
