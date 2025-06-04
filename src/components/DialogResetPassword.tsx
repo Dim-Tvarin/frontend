@@ -74,7 +74,7 @@ const DialogResetPassword: React.FC = () => {
           <CloseSVG />
         </DialogClose>
         <DialogHeader>
-          <DialogTitle className="text-2xl leading-[140%] text-default-btn mb-30">
+          <DialogTitle className="text-2xl leading-[140%] text-default-btn mb-30 text-center">
             Забули пароль?
           </DialogTitle>
         </DialogHeader>
