@@ -82,8 +82,8 @@ const UserProfileForm = () => {
       <div className="w-[305px] h-[305px] mr-30 shrink-0 relative">
         <div className=" rounded-[20px] overflow-hidden">
           <ResponsiveImage
-            urlMin={user.avatarURL || avatarStubMin}
-            urlMax={user.avatarURL || avatarStubMax}
+            urlMin1x={user.avatarURL || avatarStubMin}
+            urlMax1x={user.avatarURL || avatarStubMax}
             alt="Аватар"
           />
         </div>

@@ -45,8 +45,8 @@ const ProfileMainTab = () => {
       <div className="flex">
         <div className="w-[305px] h-[305px] mr-30 shrink-0 rounded-[20px] overflow-hidden">
           <ResponsiveImage
-            urlMax={user.avatarURL || avatarStubMax}
-            urlMin={user.avatarURL || avatarStubMin}
+            urlMax1x={user.avatarURL || avatarStubMax}
+            urlMin1x={user.avatarURL || avatarStubMin}
             alt="аватар"
           />
         </div>
