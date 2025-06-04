@@ -80,16 +80,18 @@ const UserProfileForm = () => {
   return (
     <form ref={formRef} onSubmit={handleSubmit(onSubmit)} className="flex">
       <div className="w-[305px] h-[305px] mr-30 shrink-0 relative">
-        <ResponsiveImage
-          urlMin={user.avatarURL || avatarStubMin}
-          urlMax={user.avatarURL || avatarStubMax}
-          alt="Аватар"
-        />
+        <div className=" rounded-[20px] overflow-hidden">
+          <ResponsiveImage
+            urlMin={user.avatarURL || avatarStubMin}
+            urlMax={user.avatarURL || avatarStubMax}
+            alt="Аватар"
+          />
+        </div>
         <LuCirclePlus
           onClick={handleClick}
           size={36}
           fill="white"
-          className="absolute bottom-0 right-0  cursor-pointer"
+          className="absolute bottom-[3px] right-[3px] cursor-pointer"
         />
         <ul className="flex flex-col text-xs text-input-border mt-20">
           <li>Формати: JPG, PNG, GIF</li>
@@ -151,11 +153,11 @@ const UserProfileForm = () => {
             error={errors.phone?.message}
           />
         </div>
-        <DialogFooter className="flex flex-row gap-20 ml-0 mt-30">
+        <DialogFooter className="flex flex-row gap-20 sm:justify-start ml-[19px] mt-30">
           <CustomButton
             type="submit"
             styleType="defaultButton"
-            className="mt-32 w-[196px] h-[44px] text-base m-0"
+            className="mt-32 h-[44px] text-base m-0"
             disabled={isLoading}
           >
             {isLoading ? <Spinner /> : 'Зберегти зміни'}
@@ -163,7 +165,7 @@ const UserProfileForm = () => {
           <CustomButton
             type="button"
             styleType="whiteButton"
-            className="mt-32 w-[196px] h-[44px] text-base m-0"
+            className="mt-32 w-[219px] h-[44px] text-base m-0"
             onClick={() =>
               dispatch(openDialog({ type: 'alertDelete', entity: 'user' }))
             }
