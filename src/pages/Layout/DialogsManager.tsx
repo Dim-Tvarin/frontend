@@ -8,6 +8,7 @@ import DialogAlertDelete from 'components/DialogAlertDelete';
 import DialogEditUser from 'components/DialogEditUser';
 import DialogEditAvatarUpload from 'components/DialogEditAvatarUpload';
 import DialogEditAvatarCrop from 'components/DialogEditAvatarCrop';
+import DialogFeedbackForm from 'components/DialogFeedbackForm';
 
 const DialogsManager = () => {
   const activeDialog = useSelector(
@@ -25,6 +26,7 @@ const DialogsManager = () => {
       {activeDialog === 'editAvatarCrop' && <DialogEditAvatarCrop />}
       {typeof activeDialog === 'object' &&
         activeDialog?.type === 'alertDelete' && <DialogAlertDelete />}
+      {activeDialog === 'feedback' && <DialogFeedbackForm />}
     </>
   );
 };
