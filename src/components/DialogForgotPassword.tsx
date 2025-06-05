@@ -91,7 +91,7 @@ const DialogForgotPassword: React.FC = () => {
           <InputField
             label="Електронна пошта"
             placeholder="user@gmail.com"
-            className="w-[349px] h-40 text-base"
+            className="h-40 text-base"
             labelSize="base"
             labelClass="text-input-border mb-16"
             id="forgotEmail"

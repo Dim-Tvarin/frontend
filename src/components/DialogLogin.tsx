@@ -91,7 +91,7 @@ const DialogLogin: React.FC = () => {
           <InputField
             label="Електронна пошта"
             placeholder="user@gmail.com"
-            className="h-40 w-[349px] text-[16px] mb-16"
+            className="h-40 text-[16px] mb-16"
             labelSize="base"
             labelClass="text-input-border mb-16"
             id="email"
@@ -101,7 +101,7 @@ const DialogLogin: React.FC = () => {
           <PasswordField
             label="Пароль"
             placeholder="********"
-            className="h-40 w-[349px] text-[16px]"
+            className="h-40 text-[16px]"
             labelSize="base"
             labelClass="text-input-border mb-16"
             id="password"
