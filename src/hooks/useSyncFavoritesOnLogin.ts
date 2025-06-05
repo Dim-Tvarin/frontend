@@ -21,7 +21,7 @@ export const useSyncFavoritesOnLogin = () => {
   const wasLoggedInRef = useRef(false);
 
   useEffect(() => {
-    if (!wasLoggedInRef.current && isLoggedIn && !hasSyncedRef.current) {
+    if (!wasLoggedInRef.current && !hasSyncedRef.current) {
       (async () => {
         const validIds: string[] = [];
 
@@ -37,17 +37,9 @@ export const useSyncFavoritesOnLogin = () => {
               throw new Error('Not found or hidden');
             }
 
-            await addFavorite(id).unwrap();
             validIds.push(id);
           } catch (error) {
-            if (
-              typeof error === 'object' &&
-              error !== null &&
-              'status' in error &&
-              error.status === 404
-            ) {
-              dispatch(removeAnimal(id));
-            }
+            dispatch(removeAnimal(id));
           }
         }
 
@@ -55,6 +47,15 @@ export const useSyncFavoritesOnLogin = () => {
           localStorage.setItem('favorites', JSON.stringify(validIds));
         } else {
           localStorage.removeItem('favorites');
+        }
+
+        if (isLoggedIn) {
+          for (const id of validIds) {
+            try {
+              await addFavorite(id).unwrap();
+            } catch {
+  localStorage.removeItem('favorites');
+          }
         }
 
         hasSyncedRef.current = true;
