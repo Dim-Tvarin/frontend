@@ -53,8 +53,7 @@ export const useSyncFavoritesOnLogin = () => {
           for (const id of validIds) {
             try {
               await addFavorite(id).unwrap();
-            } catch {
-  localStorage.removeItem('favorites');
+            } catch {}
           }
         }
 

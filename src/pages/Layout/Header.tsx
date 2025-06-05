@@ -192,7 +192,8 @@ export const Header = () => {
                 </span>
               )}
             </NavLink>
-            <button
+            <div
+              className="cursor-pointer"
               onClick={() => navigate(isLoggedIn ? '/profile' : '/login')}
             >
               {isLoggedIn ? (
@@ -226,7 +227,7 @@ export const Header = () => {
                   <CabinetSVG color="black" />
                 </CustomButton>
               )}
-            </button>
+            </div>
           </div>
         </div>
 
