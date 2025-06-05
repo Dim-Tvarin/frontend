@@ -12,6 +12,7 @@ interface CheckboxProps {
   labelSize?: string;
   labelClass?: string;
   error?: string;
+  children?: React.ReactNode;
 }
 
 const CustomCheckbox: FC<CheckboxProps> = ({
@@ -22,6 +23,8 @@ const CustomCheckbox: FC<CheckboxProps> = ({
   labelClass = 'ml-8',
   labelSize,
   error,
+  children,
+  ...rest
 }) => {
   return (
     <div>
@@ -31,15 +34,21 @@ const CustomCheckbox: FC<CheckboxProps> = ({
           {label}
         </CustomLabel>
       )}
-      <Checkbox
-        id={id}
-        disabled={disabled}
-        className={cn(
-          'w-24 h-24 rounded-full',
-          { 'border-error-input': error },
-          className
-        )}
-      />
+      <div className="flex items-center gap-10">
+        <div className="flex w-[24px] h-[27px] outline-none">
+          <Checkbox
+            id={id}
+            disabled={disabled}
+            className={cn(
+              'w-16 h-18',
+              { 'border-error-input': error },
+              className
+            )}
+            {...rest}
+          />
+        </div>
+        {children && <div className="text-sm text-default-btn">{children}</div>}
+      </div>
       {error && <FormError error={error} />}
     </div>
   );
