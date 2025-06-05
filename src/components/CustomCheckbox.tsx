@@ -12,6 +12,8 @@ interface CheckboxProps {
   labelSize?: string;
   labelClass?: string;
   error?: string;
+  checked?: boolean;
+  onCheckedChange?: (checked: boolean) => void;
   children?: React.ReactNode;
 }
 
@@ -23,31 +25,36 @@ const CustomCheckbox: FC<CheckboxProps> = ({
   labelClass = 'ml-8',
   labelSize,
   error,
+  checked,
+  onCheckedChange,
   children,
   ...rest
 }) => {
   return (
     <div>
-      {' '}
       {label && (
         <CustomLabel htmlFor={id} labelSize={labelSize} labelClass={labelClass}>
           {label}
         </CustomLabel>
       )}
-      <div className="flex items-center gap-10">
-        <div className="flex w-[24px] h-[27px] outline-none">
+      <div className="flex align-center gap-10 ">
+        <div className="flex w-[24px] h-[27px] items-center justify-center  outline-none">
           <Checkbox
             id={id}
+            checked={checked}
+            onCheckedChange={onCheckedChange}
             disabled={disabled}
             className={cn(
-              'w-16 h-18',
+              'w-16 h-[18px] border-2 border-default-btn hover:border-orange',
               { 'border-error-input': error },
               className
             )}
             {...rest}
           />
         </div>
-        {children && <div className="text-sm text-default-btn">{children}</div>}
+        {children && (
+          <span className="text-sm text-light-gray">{children}</span>
+        )}
       </div>
       {error && <FormError error={error} />}
     </div>
