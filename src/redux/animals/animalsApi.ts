@@ -161,6 +161,7 @@ export const {
   useEditAnimalMutation,
   useGetFilteredAnimalsQuery,
   useGetAnimalByIdQuery,
+  useLazyGetAnimalByIdQuery,
   useGetMyAnimalsQuery,
   useAddFavoriteAnimalMutation,
   useToggleFavoriteAnimalMutation,

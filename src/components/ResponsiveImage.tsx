@@ -1,23 +1,32 @@
-const ResponsiveImage = ({
-  urlMin,
-  urlMax,
-  alt,
-}: {
-  urlMin?: string;
-  urlMax: string;
+interface ResponsiveImageProps {
+  urlMin1x: string;
+  urlMin2x?: string;
+  urlMax1x: string;
+  urlMax2x?: string;
   alt: string;
-}) => {
+  className?: string;
+}
+
+const ResponsiveImage = ({
+  urlMin1x,
+  urlMin2x,
+  urlMax1x,
+  urlMax2x,
+  alt,
+  className = 'w-full h-full object-cover',
+}: ResponsiveImageProps) => {
   return (
     <picture>
-      {urlMin && (
-        <source
-          media="(max-width: 768px)"
-          srcSet={`${urlMin} 768w`}
-          sizes="768px"
-        />
-      )}
-      <source srcSet={`${urlMax} 1280w`} sizes="1280px" />
-      <img src={urlMax} alt={alt} className="w-full h-full object-cover" />
+      <source
+        media="(min-width: 640px)"
+        srcSet={urlMax2x ? `${urlMax1x} 1x, ${urlMax2x} 2x` : `${urlMax1x} 1x`}
+      />
+      <img
+        src={urlMin1x}
+        srcSet={urlMin2x ? `${urlMin1x} 1x, ${urlMin2x} 2x` : undefined}
+        alt={alt}
+        className={className}
+      />
     </picture>
   );
 };

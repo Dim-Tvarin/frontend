@@ -5,6 +5,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogOverlay,
+  DialogTitle,
 } from './components/ui/dialog';
 import type { AppDispatch, RootState } from '../redux/store';
 import { closeDialog } from 'src/redux/dialogs/dialogSlice';
@@ -92,6 +93,7 @@ const DialogAlertDelete = () => {
           <CloseSVG />
         </DialogClose>
         <DialogHeader>
+          <DialogTitle className="sr-only">Confirmation</DialogTitle>
           <p className="text-[28px] leading-[150%] text-default-btn text-center mb-[47px]">
             {description}
           </p>

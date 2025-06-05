@@ -48,8 +48,8 @@ const FavoritePage = () => {
           <div className="flex flex-col align-center justify-center text-lg text-default-btn">
             <div className="w-[332px] h-[375px] mt-40 self-center">
               <ResponsiveImage
-                urlMax={emptyFavoriteMax}
-                urlMin={emptyFavoriteMin}
+                urlMax1x={emptyFavoriteMax}
+                urlMin1x={emptyFavoriteMin}
                 alt="собака визирає з коробки"
               />
             </div>

@@ -59,7 +59,9 @@ const EditAnnouncement = () => {
     setTimeout(() => navigate(`/allpets/${id}`), 1000);
     return;
   }
-  const { data, refetch, error, isLoading } = useGetAnimalByIdQuery(id);
+  const { data, refetch, error, isLoading } = useGetAnimalByIdQuery(id, {
+    skip: !id,
+  });
   const [editAnimal, { isLoading: isEditingAnimal }] = useEditAnimalMutation();
   const { animal } = data || {};
 
