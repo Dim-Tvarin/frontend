@@ -10,7 +10,9 @@ export const feedbackSchema = z.object({
     .string()
     .nonempty('Повідомлення є обовʼязковим')
     .min(5, 'Повідомлення має бути довшим'),
-  checkbox: z.boolean().refine(val => val === true, {
-    message: 'Потрібно прийняти політику конфіденційності',
-  }),
+  checkbox: z
+    .boolean({ message: 'Потрібно погодитися з умовами' })
+    .refine(val => val === true, {
+      message: 'Потрібно погодитися з умовами',
+    }),
 });

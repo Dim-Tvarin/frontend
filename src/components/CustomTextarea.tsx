@@ -26,7 +26,7 @@ export const TextareaDemo = ({
   ...rest
 }: TextareaDemoProps) => {
   return (
-    <div className={cn('w-full', className && className)}>
+    <div className={cn('w-full')}>
       {label && (
         <CustomLabel htmlFor={id} labelSize={labelSize} labelClass={labelClass}>
           {label}
@@ -38,7 +38,8 @@ export const TextareaDemo = ({
         className={cn(
           'mt-16 min-h-[80px] px-[21px] py-[14px] rounded-[10px] border-input-border outline-0',
           'wrap-break-word',
-          { 'border-error-input text-error-input': error }
+          className,
+          { 'border-error-input': error }
         )}
         {...rest}
       />

@@ -3,7 +3,7 @@ import { InputField } from 'components/InputField';
 import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch, RootState } from '../redux/store';
 import { z } from 'zod';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from 'react-router';
 import { clearError } from '../redux/users/usersSlice';
@@ -23,8 +23,9 @@ import { showToast } from './Toast';
 import CustomCheckbox from './CustomCheckbox';
 import { TextareaDemo } from './CustomTextarea';
 import { useSendFeedbackMutation } from 'src/redux/feedback/feedbackApi';
-import { feedbackSchema } from 'validations/feedbackValidation';
+import { feedbackSchema } from '../validations/feedbackValidation';
 import { Link } from 'react-router-dom';
+import { Spinner } from './Spinner';
 type FormData = z.infer<typeof feedbackSchema>;
 
 const DialogFeedbackForm: React.FC = () => {
@@ -39,6 +40,7 @@ const DialogFeedbackForm: React.FC = () => {
 
   const {
     register,
+    control,
     handleSubmit,
     reset,
     formState: { errors },
@@ -47,29 +49,34 @@ const DialogFeedbackForm: React.FC = () => {
     mode: 'onChange',
   });
 
-  const [sendFeedback] = useSendFeedbackMutation();
+  const [sendFeedback, { isLoading }] = useSendFeedbackMutation();
 
   const onSubmit = async (data: FormData) => {
+    const { email, feedback } = data;
     try {
-      await sendFeedback(data).unwrap();
+      await sendFeedback({ email, feedback }).unwrap();
+
       showToast({
         title: 'Ваше повідомлення відправлено',
         description: 'Відповідь прийде на пошту',
         status: 'success',
       });
+
+      reset();
+      navigate('/');
+      dispatch(clearError());
+      dispatch(closeDialog());
     } catch (err) {
+      console.error('❌ sendFeedback error:', err);
+
       showToast({
         title: 'Щось пішло не так',
         description: 'Помилка при надсиланні відгуку',
         status: 'error',
       });
-    } finally {
-      reset();
-      navigate('/');
-      dispatch(clearError());
-      dispatch(closeDialog());
     }
   };
+
   return (
     <Dialog
       open={activeDialog === 'feedback'}
@@ -80,61 +87,76 @@ const DialogFeedbackForm: React.FC = () => {
     >
       <DialogOverlay className="bg-black/70" />
       <DialogContent
-        className="w-[413px] min-h-[463px] rounded-[30px] p-32 bg-dialog text-center gap-0"
+        className="w-[455px] min-h-[503px] rounded-[30px] p-0 bg-white text-center gap-0 overflow-hidden"
         onPointerDownOutside={e => e.preventDefault()}
         aria-labelledby="dialog-content"
         aria-describedby={undefined}
       >
-        <DialogClose className="absolute top-24 right-24 focus:outline-none focus-visible:outline-none">
+        <DialogClose className="absolute top-[13px] right-[13px] focus:outline-none focus-visible:outline-none">
           <CloseSVG />
         </DialogClose>
-        <DialogHeader>
-          <DialogTitle className="text-2xl leading-[140%] text-default-btn mb-30">
+        <DialogHeader className="h-[52px] bg-default-btn p-16">
+          <DialogTitle className="text-sm leading-[140%] text-white">
             Dim Tvaryn
           </DialogTitle>
         </DialogHeader>
-        <p>
-          Добрий день! Раді вітати Вас на нашому сайті. Якщо у Вас є запитання
-          чи пропозиції напишіть нам.
-        </p>
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col text-left m-0"
-        >
-          <InputField
-            label="Електронна пошта"
-            placeholder="Email*"
-            className="h-40 w-[349px] text-[16px] mb-16"
-            labelSize="base"
-            labelClass="text-input-border mb-16"
-            id="email"
-            {...register('email')}
-            error={errors.email?.message}
-          />
-          <TextareaDemo
-            id="feedback"
-            placeholder="Повідомлення*"
-            {...register('feedback')}
-            error={errors.feedback?.message}
-          />
-          <CustomCheckbox
-            id="checkbox"
-            label="Я згоден на обробку моїх персональних даних"
-            {...register('checkbox')}
-            error={errors.checkbox?.message}
+        <div className="px-16 py-32">
+          <p className="rounded-[20px] bg-dialog px-12 py-16 text-sm text-left mb-16">
+            Добрий день! Раді вітати Вас на нашому сайті. <br />
+            Якщо у Вас є запитання чи пропозиції напишіть нам.
+          </p>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex flex-col text-left m-0"
           >
-            <Link to="/privacy-policy">Політика конфіденційності</Link>
-          </CustomCheckbox>
-          <DialogFooter>
-            <CustomButton
-              type="submit"
-              styleType="defaultButton"
-              className="mt-32 w-[196px] h-[44px] text-base"
-            >
-              Відправити
-            </CustomButton>
-          </DialogFooter>
-        </form>
+            <InputField
+              placeholder="Email*"
+              className="h-40 text-[16px]"
+              labelSize="base"
+              id="email"
+              {...register('email')}
+              error={errors.email?.message}
+            />
+            <TextareaDemo
+              id="feedback"
+              placeholder="Повідомлення*"
+              {...register('feedback')}
+              error={errors.feedback?.message}
+              className="mb-16 h-[115px] text-[16px]"
+            />
+            <Controller
+              name="checkbox"
+              control={control}
+              render={({ field }) => (
+                <CustomCheckbox
+                  id="checkbox"
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                  error={errors.checkbox?.message}
+                  className="mt-16"
+                >
+                  <p>Я згоден на обробку моїх персональних даних</p>
+                  <Link
+                    to="/privacy-policy"
+                    className="cursor-pointer underline"
+                  >
+                    Політика конфіденційності
+                  </Link>
+                </CustomCheckbox>
+              )}
+            />
+
+            <DialogFooter>
+              <CustomButton
+                type="submit"
+                styleType="defaultButton"
+                className="mt-32 text-base"
+              >
+                {isLoading ? <Spinner /> : 'Відправити'}
+              </CustomButton>
+            </DialogFooter>
+          </form>
+        </div>
       </DialogContent>
     </Dialog>
   );
