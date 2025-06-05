@@ -67,8 +67,6 @@ const DialogFeedbackForm: React.FC = () => {
       dispatch(clearError());
       dispatch(closeDialog());
     } catch (err) {
-      console.error('❌ sendFeedback error:', err);
-
       showToast({
         title: 'Щось пішло не так',
         description: 'Помилка при надсиланні відгуку',
@@ -138,6 +136,7 @@ const DialogFeedbackForm: React.FC = () => {
                   <p>Я згоден на обробку моїх персональних даних</p>
                   <Link
                     to="/privacy-policy"
+                    onClick={() => dispatch(closeDialog())}
                     className="cursor-pointer underline"
                   >
                     Політика конфіденційності
