@@ -30,7 +30,7 @@ function App() {
     }
   }, [dispatch, token]);
   useSyncFavoritesOnLogin();
-  console.log('week-17.1');
+  console.log('week-18');
   return (
     <Routes>
       <Route path="/" element={<Main />}>
@@ -46,7 +46,7 @@ function App() {
           element={<Article1 />}
         />
         <Route
-          path="profile"
+          path="profile/:tab?"
           element={
             <PrivateRoute>
               <ProfilePage />

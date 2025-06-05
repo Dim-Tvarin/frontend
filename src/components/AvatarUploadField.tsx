@@ -46,8 +46,8 @@ const AvatarUploadField: React.FC<Props> = ({
   return (
     <div className="w-[305px] h-[305px] mr-30 shrink-0 relative">
       <ResponsiveImage
-        urlMin={avatarUrlMin}
-        urlMax={avatarUrlMax}
+        urlMin1x={avatarUrlMin}
+        urlMax1x={avatarUrlMax}
         alt="Аватар"
       />
       <LuCirclePlus

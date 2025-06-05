@@ -11,6 +11,7 @@ import {
   type AnimalsResponse,
 } from 'src/redux/animals/animalsApi';
 import { useSearchParams } from 'react-router';
+import { useLocation, useNavigate } from 'react-router-dom';
 import AdvertsFilter from 'components/AdvertsFilter';
 import ProfileMainTab from 'components/ProfileMainTab';
 import ProfileMyAdvertsTab from 'components/ProfileMyAdvertsTab';
@@ -27,11 +28,25 @@ export interface AnimalsFilters {
 }
 
 const ProfilePage = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const rawPage = Number(searchParams.get('page'));
   const [page, setPage] = useState(rawPage === 0 ? 1 : rawPage);
   const [filters, setFilters] = useState<AnimalsFilters>({});
   const [openFilters, setOpenFilters] = useState(false);
+
+  const currentTab = location.pathname.includes('/profile/ads')
+    ? 'my-adverts'
+    : 'main-info';
+  const handleTabChange = (value: string) => {
+    if (value === 'my-adverts') {
+      navigate('/profile/ads');
+    } else {
+      navigate('/profile/info');
+    }
+  };
+
   const { data, isLoading, error, refetch } = useGetMyAnimalsQuery({
     page,
     limit: 9,
@@ -73,7 +88,8 @@ const ProfilePage = () => {
   return (
     <div className="container">
       <Tabs
-        defaultValue="main-info"
+        value={currentTab}
+        onValueChange={handleTabChange}
         className="pt-100 pb-100 grow flex-row gap-[18px]"
         data-orientation="vertical"
       >
@@ -93,12 +109,12 @@ const ProfilePage = () => {
                 className="w-[307px] max-h-[54px] text-base m-0 outline-none shadow-none rounded-[20px] py-[15px]
           data-[state=active]:shadow-none 
           data-[state=active]:outline-none 
-          text-white hover:text-default-btn bg-default-btn hover:bg-orange hover:border-default-btn hover:border-2 disabled:bg-disabled  
-          data-[state=active]:text-default-btn 
-          data-[state=active]:bg-white 
-          data-[state=active]:border-2
-          data-[state=active]:border-default-btn 
-          data-[state=active]:hover:border-orange"
+          text-default-btn bg-white  border-default-btn  hover:border-orange border-2 disabled:bg-disabled  
+          data-[state=active]:text-white
+          data-[state=active]:hover:text-default-btn
+          data-[state=active]:bg-default-btn
+          data-[state=active]:hover:bg-orange
+          data-[state=active]:hover:border-default-btn"
               >
                 Основна інформація
               </TabsTrigger>
@@ -109,12 +125,12 @@ const ProfilePage = () => {
                 className="w-[307px] max-h-[54px] text-base m-0 outline-none shadow-none rounded-[20px] py-[15px]
           data-[state=active]:shadow-none 
           data-[state=active]:outline-none 
-          text-white hover:text-default-btn bg-default-btn hover:bg-orange hover:border-default-btn hover:border-2 disabled:bg-disabled  
-          data-[state=active]:text-default-btn 
-          data-[state=active]:bg-white 
-          data-[state=active]:border-2
-          data-[state=active]:border-default-btn 
-          data-[state=active]:hover:border-orange"
+          text-default-btn bg-white  border-default-btn  hover:border-orange border-2 disabled:bg-disabled  
+          data-[state=active]:text-white
+          data-[state=active]:hover:text-default-btn
+          data-[state=active]:bg-default-btn
+          data-[state=active]:hover:bg-orange
+          data-[state=active]:hover:border-default-btn"
               >
                 Мої оголошення
               </TabsTrigger>
