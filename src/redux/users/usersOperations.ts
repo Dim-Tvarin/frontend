@@ -4,6 +4,7 @@ import type { AppDispatch, RootState } from '../store';
 import { AxiosError } from 'axios';
 import { showToast } from 'components/Toast';
 import type { Animal } from '../animals/animalsApi';
+import { setFavorites } from '../animals/favoriteAnimalsSlice';
 
 interface RegisterCredentials {
   name: string;
@@ -88,14 +89,18 @@ export const registerThunk = createAsyncThunk<
 
 export const loginThunk = createAsyncThunk<
   UsersLoginResponse,
-  LoginCredentials
+  LoginCredentials,
+  { dispatch: AppDispatch }
 >('login', async (credentials, thunkAPI) => {
+  const { dispatch } = thunkAPI;
   try {
     const { data } = await marketplaceApiUsers.post<UsersVerificationResponse>(
       'login',
       credentials
     );
     setToken(data.token);
+    dispatch(setFavorites(data.user.favorites));
+    localStorage.removeItem('favorites');
     return data;
   } catch (err) {
     const error = err as AxiosError<ErrorResponse>;
@@ -159,6 +164,7 @@ export const refreshThunk = createAsyncThunk<
   try {
     const { data } =
       await marketplaceApiUsers.get<UsersRefreshResponse>('current');
+    thunkAPI.dispatch(setFavorites(data.user.favorites));
     return data;
   } catch (err) {
     const error = err as AxiosError<ErrorResponse>;

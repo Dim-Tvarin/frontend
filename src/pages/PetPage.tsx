@@ -42,7 +42,7 @@ const PetPage = () => {
 
     return;
   }
-  const { data, error, isLoading } = useGetAnimalByIdQuery(id);
+  const { data, error, isLoading } = useGetAnimalByIdQuery(id, { skip: !id });
   useEffect(() => {
     if (data?.animal) {
       dispatch(addViewedAnimal(data.animal));

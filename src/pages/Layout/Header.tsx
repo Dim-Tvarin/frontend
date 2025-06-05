@@ -1,7 +1,6 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 import logo from '../../assets/color-logo.svg';
 import { CustomButton } from 'components/CustomButton';
-import { GoHeart } from 'react-icons/go';
 import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch } from '../../redux/store';
 import {
@@ -180,11 +179,21 @@ export const Header = () => {
             <span className="text-sm">Dim Tvaryn</span>
           </NavLink>
 
-          <div className="flex gap-4">
-            <button onClick={() => navigate('/favorite')}>
-              <GoHeart size={24} />
-            </button>
-            <button
+          <div className="flex gap-4 items-center">
+            <NavLink to="/favorite" className="relative" end>
+              {favoritesCount > 0 ? (
+                <FaHeart size={24} className="text-error-input" />
+              ) : (
+                <FaRegHeart size={24} />
+              )}
+              {favoritesCount > 0 && (
+                <span className="-top-5 -right-[3px] absolute flex justify-center items-center bg-none rounded-full w-8 h-20 text-black text-sm">
+                  {favoritesCount}
+                </span>
+              )}
+            </NavLink>
+            <div
+              className="cursor-pointer"
               onClick={() => navigate(isLoggedIn ? '/profile' : '/login')}
             >
               {isLoggedIn ? (
@@ -218,7 +227,7 @@ export const Header = () => {
                   <CabinetSVG color="black" />
                 </CustomButton>
               )}
-            </button>
+            </div>
           </div>
         </div>
 

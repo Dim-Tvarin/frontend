@@ -25,6 +25,9 @@ const favoriteAnimalsSlice = createSlice({
     selectFavoritesLoading: state => state.isLoading,
   },
   reducers: {
+    setFavorites(state, action: PayloadAction<Animal[]>) {
+      state.animals = action.payload;
+    },
     addAnimal: (state, action: PayloadAction<Animal>) => {
       const exists = state.animals.find(a => a.id === action.payload.id);
       if (!exists) {
@@ -61,8 +64,13 @@ const favoriteAnimalsSlice = createSlice({
   },
 });
 
-export const { addAnimal, removeAnimal, toggleAnimal, clearFavorites } =
-  favoriteAnimalsSlice.actions;
+export const {
+  setFavorites,
+  addAnimal,
+  removeAnimal,
+  toggleAnimal,
+  clearFavorites,
+} = favoriteAnimalsSlice.actions;
 export const favoriteAnimalsReducer = favoriteAnimalsSlice.reducer;
 export const { selectFavoriteAnimals, selectFavoritesLoading } =
   favoriteAnimalsSlice.selectors;
