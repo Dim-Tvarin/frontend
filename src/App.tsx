@@ -20,6 +20,7 @@ import FavoritePage from 'pages/FavoritePage';
 import { useSyncFavoritesOnLogin } from 'hooks/useSyncFavoritesOnLogin';
 import BlogMain from 'pages/Blog/BlogMain';
 import Article1 from 'pages/Blog/Article1';
+import PrivacyPolicyPage from 'pages/PrivacyPolicyPage';
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -53,6 +54,7 @@ function App() {
             </PrivateRoute>
           }
         />
+        <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
         <Route path="register" element={<Registration />} />
         <Route path="verify/:verifyToken" element={<VerifyPage />} />
         <Route path="*" element={<Error />} />

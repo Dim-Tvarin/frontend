@@ -25,6 +25,7 @@ import {
   viewedAnimalsReducer,
   type ViewedAnimalsState,
 } from './animals/viewedAnimalsSlice';
+import { feedbackApi } from './feedback/feedbackApi.ts';
 
 const persistConfig = {
   key: 'users',
@@ -59,6 +60,7 @@ export const store = configureStore({
       persistConfigViewedAnimals,
       viewedAnimalsReducer
     ),
+    [feedbackApi.reducerPath]: feedbackApi.reducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
@@ -69,6 +71,7 @@ export const store = configureStore({
       animalsApi.middleware,
       addInfoApi.middleware,
       usersApi.middleware,
+      feedbackApi.middleware,
     ]),
 });
 
