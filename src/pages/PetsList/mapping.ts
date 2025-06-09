@@ -1,10 +1,10 @@
 import type { AnimalType } from 'pages/Announcement/types';
 
 export const mapAnimalType: Record<AnimalType, string> = {
-  cats: 'Котики',
+  cats: 'Кіт',
   dogs: 'Собаки',
-  birds: 'Пташки',
-  other: 'Інші тварини',
+  birds: 'Птах',
+  other: 'Інша тварина',
 };
 
 export const mapGender = {
