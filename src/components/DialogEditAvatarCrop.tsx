@@ -67,8 +67,9 @@ const DialogEditAvatarCrop: React.FC = () => {
                 onCropChange={setCrop}
                 zoom={zoom}
                 onZoomChange={setZoom}
-                aspect={444 / 360}
+                aspect={1}
                 onCropComplete={onCropComplete}
+                cropSize={{ width: 305, height: 305 }}
               />
             </div>
           )}

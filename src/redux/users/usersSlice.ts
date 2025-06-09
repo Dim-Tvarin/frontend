@@ -23,6 +23,8 @@ interface User {
   favorites: Animal[];
 }
 
+type PartialUser = Partial<User>;
+
 export interface UserState {
   user: User;
   token: string | null;
@@ -71,7 +73,7 @@ const slice = createSlice({
     clearError: state => {
       state.error = null;
     },
-    updateUserLocally: (state, action: PayloadAction<User>) => {
+    updateUserLocally: (state, action: PayloadAction<PartialUser>) => {
       state.user = {
         ...state.user,
         ...action.payload,
@@ -90,16 +92,26 @@ const slice = createSlice({
         state.isLoggedIn = true;
       })
       .addCase(loginThunk.fulfilled, (state, action) => {
+        const previousTheme = state.user.theme;
         state.user = action.payload.user;
         state.token = action.payload.token;
         state.isLoggedIn = true;
+
+        if (previousTheme && previousTheme !== 'light') {
+          state.user.theme = previousTheme;
+        }
       })
       .addCase(logoutThunk.fulfilled, state => {
         Object.assign(state, initialState);
       })
       .addCase(refreshThunk.fulfilled, (state, action) => {
+        const previousTheme = state.user.theme;
         state.user = action.payload.user;
         state.isLoggedIn = true;
+
+        if (previousTheme && previousTheme !== 'light') {
+          state.user.theme = previousTheme;
+        }
       })
       .addCase(verifyResetPasswordThunk.fulfilled, (state, action) => {
         state.token = action.payload.token;
@@ -165,7 +177,7 @@ const slice = createSlice({
 });
 
 export const usersReducer = slice.reducer;
-export const { setUserEmail, clearError } = slice.actions;
+export const { setUserEmail, clearError, updateUserLocally } = slice.actions;
 export const {
   selectUser,
   selectUserName,

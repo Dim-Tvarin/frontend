@@ -67,13 +67,13 @@ const ProfileMainTab = () => {
             <CustomButton
               onClick={() => dispatch(openDialog('editUser'))}
               styleType="defaultButton"
-              className="m-0 w-[210px] h-[45px]"
+              className="m-0 w-[196px] h-[45px]"
             >
               Редагувати профіль
             </CustomButton>
             <CustomButton
               styleType="whiteButton"
-              className="w-[130px] h-[45px]"
+              className="w-[108px] h-[45px]"
               onClick={handleClick}
             >
               Вийти

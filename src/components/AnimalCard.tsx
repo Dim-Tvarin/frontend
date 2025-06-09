@@ -82,6 +82,11 @@ const AnimalCard = ({
         id: animal.id,
         isHidden: !animal.isHidden,
       }).unwrap();
+
+      if (animal.isHidden === false) {
+        dispatch(toggleAnimal(animal));
+      }
+
       onRefetchMyAnimals?.();
     } catch (error) {
       console.error('Не вдалося змінити видимість:', error);

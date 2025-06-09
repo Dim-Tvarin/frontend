@@ -26,7 +26,7 @@ const favoriteAnimalsSlice = createSlice({
   },
   reducers: {
     setFavorites(state, action: PayloadAction<Animal[]>) {
-      state.animals = action.payload;
+      state.animals = action.payload.filter(animal => !animal.isHidden);
     },
     addAnimal: (state, action: PayloadAction<Animal>) => {
       const exists = state.animals.find(a => a.id === action.payload.id);

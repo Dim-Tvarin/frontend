@@ -22,6 +22,7 @@ import { RxCross2, RxHamburgerMenu } from 'react-icons/rx';
 import { cn } from 'components/lib/utils';
 import { useState } from 'react';
 import { changeThemeThunk } from 'src/redux/users/usersOperations';
+import { updateUserLocally } from '../../redux/users/usersSlice';
 
 export const Header = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -35,7 +36,15 @@ export const Header = () => {
   const currentTheme = useSelector(selectUserTheme);
   const newTheme: 'light' | 'dark' = currentTheme === 'dark' ? 'light' : 'dark';
   const handleToggleTheme = () => {
-    dispatch(changeThemeThunk({ theme: newTheme }));
+    if (isLoggedIn) {
+      dispatch(changeThemeThunk({ theme: newTheme }));
+    } else {
+      dispatch(updateUserLocally({ theme: newTheme }));
+      document.documentElement.classList.remove(
+        currentTheme as 'light' | 'dark'
+      );
+      document.documentElement.classList.add(newTheme);
+    }
   };
 
   return (
