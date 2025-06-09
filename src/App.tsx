@@ -25,6 +25,8 @@ import Article3 from 'pages/Blog/Article3';
 import Article4 from 'pages/Blog/Article4';
 import Article5 from 'pages/Blog/Article5';
 import Article6 from 'pages/Blog/Article6';
+import PrivacyPolicyPage from 'pages/PrivacyPolicyPage';
+
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -71,6 +73,7 @@ function App() {
             </PrivateRoute>
           }
         />
+        <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
         <Route path="register" element={<Registration />} />
         <Route path="verify/:verifyToken" element={<VerifyPage />} />
         <Route path="*" element={<Error />} />

@@ -37,6 +37,7 @@
   --color-link: #4154bb;
   --color-link-hov: #535bf2;
   --color-gray: #83818b;
+  --color-light-gray: #818688;
 
   /* Spacing for padding, margin, width, ... */
   --spacing-0: 0px;
@@ -111,6 +112,7 @@
   --color-link: #93c5fd;
   --color-link-hov: #60a5fa;
   --color-gray: #a1a1aa;
+  --color-light-gray: #83818b;
 }
 
 body {
