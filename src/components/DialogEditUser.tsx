@@ -44,11 +44,11 @@ const DialogEditUser: React.FC = () => {
                     : 'w-[630px] min-h-[481px] p-50'
                 }`}
               >
-                <TabsList className="felx gap-20 h-[44px]">
+                <TabsList className="gap-20 h-[44px]">
                   <TabsTrigger
                     value="account"
                     aria-orientation="vertical"
-                    className="w-[185px] h-[44px] m-0 outline-none shadow-none rounded-[20px]
+                    className="w-[219px] h-[44px] m-0 outline-none shadow-none rounded-[20px]
           data-[state=active]:shadow-none 
           data-[state=active]:outline-none 
           text-white hover:text-default-btn bg-default-btn hover:bg-orange hover:border-default-btn hover:border-2 disabled:bg-disabled  
@@ -63,7 +63,7 @@ const DialogEditUser: React.FC = () => {
                   <TabsTrigger
                     value="password"
                     aria-orientation="vertical"
-                    className="w-[185px] h-[44px] m-0 outline-none shadow-none rounded-[20px]
+                    className="w-[236px] h-[44px] m-0 outline-none shadow-none rounded-[20px]
           data-[state=active]:shadow-none 
           data-[state=active]:outline-none 
           text-white hover:text-default-btn bg-default-btn hover:bg-orange hover:border-default-btn hover:border-2 disabled:bg-disabled  
