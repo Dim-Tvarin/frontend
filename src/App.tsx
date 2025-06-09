@@ -20,7 +20,13 @@ import FavoritePage from 'pages/FavoritePage';
 import { useSyncFavoritesOnLogin } from 'hooks/useSyncFavoritesOnLogin';
 import BlogMain from 'pages/Blog/BlogMain';
 import Article1 from 'pages/Blog/Article1';
+import Article2 from 'pages/Blog/Article2';
+import Article3 from 'pages/Blog/Article3';
+import Article4 from 'pages/Blog/Article4';
+import Article5 from 'pages/Blog/Article5';
+import Article6 from 'pages/Blog/Article6';
 import PrivacyPolicyPage from 'pages/PrivacyPolicyPage';
+
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -31,7 +37,7 @@ function App() {
     }
   }, [dispatch, token]);
   useSyncFavoritesOnLogin();
-  console.log('week-18');
+  console.log('week-18.1');
   return (
     <Routes>
       <Route path="/" element={<Main />}>
@@ -41,11 +47,24 @@ function App() {
         <Route path="allpets" element={<PetsList />} />
         <Route path="allpets/:id" element={<PetPage />} />
         <Route path="favorite" element={<FavoritePage />} />
+
         <Route path="blog" element={<BlogMain />} />
         <Route
           path="blog/porady-shchodo-vyboru-tvaryny"
           element={<Article1 />}
         />
+        <Route path="blog/adaptatsiya-do-novoho-domu" element={<Article2 />} />
+        <Route path="blog/osoblyvosti-zdorovya" element={<Article3 />} />
+        <Route
+          path="blog/stvoryennya-zdorovoho-seredovyshcha-dlya-uliublentsya"
+          element={<Article4 />}
+        />
+        <Route path="blog/test-znajdy-zvira" element={<Article5 />} />
+        <Route
+          path="blog/yak-tvaryny-zminyuyut-zhyttya"
+          element={<Article6 />}
+        />
+
         <Route
           path="profile/:tab?"
           element={
