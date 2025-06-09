@@ -35,7 +35,7 @@ function App() {
     }
   }, [dispatch, token]);
   useSyncFavoritesOnLogin();
-  console.log('week-18');
+  console.log('week-18.1');
   return (
     <Routes>
       <Route path="/" element={<Main />}>
