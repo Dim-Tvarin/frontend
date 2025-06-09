@@ -15,7 +15,7 @@ import PetPage from 'pages/PetPage';
 import ProfilePage from 'pages/ProfilePage';
 import PrivateRoute from 'components/routes/PrivateRoute';
 import EditAnnouncement from 'pages/Announcement/EditAnnouncement';
-import { selectToken } from './redux/users/usersSlice';
+import { selectToken, selectUserTheme } from './redux/users/usersSlice';
 import FavoritePage from 'pages/FavoritePage';
 import { useSyncFavoritesOnLogin } from 'hooks/useSyncFavoritesOnLogin';
 import BlogMain from 'pages/Blog/BlogMain';
@@ -25,11 +25,18 @@ import PrivacyPolicyPage from 'pages/PrivacyPolicyPage';
 function App() {
   const dispatch = useDispatch<AppDispatch>();
   const token = useSelector(selectToken);
+  const theme = useSelector(selectUserTheme);
   useEffect(() => {
     if (token) {
       dispatch(refreshThunk());
     }
   }, [dispatch, token]);
+  useEffect(() => {
+    if (theme === 'dark' || theme === 'light') {
+      document.documentElement.classList.remove('light', 'dark');
+      document.documentElement.classList.add(theme);
+    }
+  }, [theme]);
   useSyncFavoritesOnLogin();
   console.log('week-18');
   return (
