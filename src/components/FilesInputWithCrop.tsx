@@ -142,7 +142,7 @@ export const FilesInput = ({
             <Button
               type="button"
               className={cn(
-                'bg-default-btn text-white px-20 py-10 rounded-[10px] w-[149px] text-sm',
+                'bg-default-btn text-white px-20 py-10 rounded-[10px] w-[149px] h-[44px] text-sm',
                 {
                   'bg-btn-disabled/50 cursor-default focus:outline-none':
                     isDisabled,
