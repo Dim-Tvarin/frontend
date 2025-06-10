@@ -135,7 +135,7 @@ export const FilesInput = ({
           {...rest}
         />
         <div className="flex flex-col justify-center items-center">
-          <p className="mb-16 text-default-btn text-base lg:text-lg">
+          <p className="mb-16 text-default-btn text-base">
             {isDragActive ? 'Отпустите файл сюда...' : 'Перетягніть файл сюди'}
           </p>
           <div className="flex items-center gap-12 lg:gap-[19px] bg-main-pink-l px-16 py-10 border-2 border-border-file rounded-[8px] lg:w-[382px] h-[64px]">
