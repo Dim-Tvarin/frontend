@@ -27,7 +27,6 @@ import Article5 from 'pages/Blog/Article5';
 import Article6 from 'pages/Blog/Article6';
 import PrivacyPolicyPage from 'pages/PrivacyPolicyPage';
 
-
 function App() {
   const dispatch = useDispatch<AppDispatch>();
   const token = useSelector(selectToken);
@@ -44,13 +43,20 @@ function App() {
     }
   }, [theme]);
   useSyncFavoritesOnLogin();
-  console.log('week-18.1');
+  console.log('week-19');
   return (
     <Routes>
       <Route path="/" element={<Main />}>
         <Route index element={<Home />} />
         <Route path="announcement" element={<Announcement />} />
-        <Route path="editannouncement/:id" element={<EditAnnouncement />} />
+        <Route
+          path="editannouncement/:id"
+          element={
+            <PrivateRoute>
+              <EditAnnouncement />
+            </PrivateRoute>
+          }
+        />
         <Route path="allpets" element={<PetsList />} />
         <Route path="allpets/:id" element={<PetPage />} />
         <Route path="favorite" element={<FavoritePage />} />
