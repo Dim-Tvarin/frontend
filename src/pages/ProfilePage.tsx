@@ -60,6 +60,12 @@ const ProfilePage = () => {
   const totalPages = data ? Math.ceil(data.total / 9) : 1;
 
   useEffect(() => {
+    if (currentTab === 'my-adverts') {
+      refetch();
+    }
+  }, [currentTab]);
+
+  useEffect(() => {
     if (error) {
       showToast({
         title: 'Щось пішло не по плану',
