@@ -13,7 +13,7 @@ const Registration = () => {
   const dispatch = useDispatch<AppDispatch>();
   return (
     <div className="container relative h-full">
-      <div className="absolute bg-[url('./src/assets/backgrounds/bg-paws-register-mob.png')] top-[1254px] right-[12px] w-[133px] h-[113px] md:top-[13px] md:right-[80px] md:w-[771px] md:h-[1078px] md:bg-[url('./src/assets/backgrounds/bg-paws-register.png')] bg-contain bg-no-repeat " />
+      <div className="absolute bg-[url('./src/assets/bg-paws-register-mob.png')] top-[1254px] right-[12px] w-[133px] h-[113px] md:top-[13px] md:right-[80px] md:w-[771px] md:h-[1078px] md:bg-[url('./src/assets/bg-paws-register.png')] bg-contain bg-no-repeat " />
       <div className="grid leading-[140%] tracking-[0.01em] text-default-btn relative items-center text-center grid-cols-1 gap-32 pt-40 pb-80 2xl:grid-cols-2 2xl:gap-20 2xl:pt-100 2xl:pb-0">
         <div className="flex flex-col-reverse sm:flex-row sm:gap-20 2xl:flex-col 2xl:gap-0">
           <div>

@@ -89,6 +89,8 @@ const DialogAlertDelete = () => {
         aria-labelledby="dialog-content"
         aria-describedby={undefined}
       >
+        <div className="absolute top-[25px] left-[94px] w-40 h-[180px] bg-[url('./src/assets/bg-paws-alert.png')] bg-contain bg-no-repeat " />
+        <div className="absolute bottom-[25px] left-[54px] w-40 h-[180px] bg-[url('./src/assets/bg-paws-alert.png')] bg-contain bg-no-repeat " />
         <DialogClose className="absolute top-24 right-24 focus:outline-none focus-visible:outline-none">
           <CloseSVG />
         </DialogClose>
