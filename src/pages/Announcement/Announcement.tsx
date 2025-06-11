@@ -243,10 +243,11 @@ const Announcement = () => {
 
           <TextareaDemo
             id="announvementText"
-            className="mt-10 lg:mt-32 max-w-[328px] sm:max-w-[608px] lg:max-w-[424px] 2xl:max-w-[630px] xl:max-w-[552px] text-base text-left mg:"
+            className="mt-10 max-w-[328px] sm:max-w-[608px] lg:max-w-[424px] 2xl:max-w-[630px] xl:max-w-[552px] text-base text-left"
             placeholder="Опишіть тварину, її характер, історію, забарвлення"
             label="Опис тварини: *"
             labelSize="base"
+            labelClass="mt-16 lg:mt-32"
             {...register('adText')}
             error={errors.adText?.message}
           />
