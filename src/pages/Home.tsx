@@ -73,13 +73,13 @@ export const Home = () => {
           <h3 className="font-semibold lg:text-[32px] text-base">
             Чому саме ми?
           </h3>
-          <p className="lg:pr-30 font-normal text-sm lg:text-2xl">
+          <p className="lg:pr-30 font-normal text-sm lg:text-2xl leading-[150%]">
             Ми та платформа, що об&#39;єднує людей, яким небайдужа доля тварин!
             Ми створили цей сервіс для того, щоб повертати загублених
             улюбленців, знаходити новий дім для тварин, а також забезпечувати
             безпечний та відповідальний пошук чотирилапих друзів.
           </p>
-          <p className="z-10 lg:pr-16 font-normal text-sm lg:text-2xl">
+          <p className="z-10 lg:pr-16 font-normal text-sm lg:text-2xl leading-[150%]">
             Ми прагнемо створити суспільство відповідальних власників, де кожен
             чотирилапий друг отримає шанс на щасливе життя. <br /> Долучайтеся
             до нас, разом ми зможемо більше!
