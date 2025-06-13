@@ -132,7 +132,7 @@ export const Header = () => {
             {isLoggedIn ? (
               <div className="flex flex-col items-center max-h-[54px]">
                 <Avatar
-                  className="m-4 p-0 size-9 text-[10px]"
+                  className="m-4 p-0 size-9 text-[10px] cursor-pointer"
                   onClick={() => navigate('/profile')}
                 >
                   <AvatarImage
