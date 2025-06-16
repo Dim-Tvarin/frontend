@@ -178,7 +178,7 @@ const BreedSelect = ({
   return (
     <>
       <Popover open={open} onOpenChange={setOpen}>
-        <PopoverTrigger asChild>
+        <PopoverTrigger asChild className="hover:border-input-border">
           <Button
             variant="outline"
             disabled={type === undefined}

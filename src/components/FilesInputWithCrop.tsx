@@ -1,4 +1,4 @@
-import { useState, useEffect, type Ref } from 'react';
+import { useState, useEffect, type Ref, useMemo } from 'react';
 import Cropper, { type Area } from 'react-easy-crop';
 import { Input } from './components/ui/input';
 import { Button } from './components/ui/button';
@@ -110,6 +110,11 @@ export const FilesInput = ({
     (defaultValue &&
       defaultValue?.length + imageData.length - imagesForDelete >= 4);
 
+  const memoImage = useMemo(() => {
+    if (!selectedImage) return '';
+    return URL.createObjectURL(selectedImage);
+  }, [selectedImage]);
+
   return (
     <div className={`${className}`}>
       {groupLabel && (
@@ -183,7 +188,7 @@ export const FilesInput = ({
         >
           <div className="relative w-full h-[400px]">
             <Cropper
-              image={URL.createObjectURL(selectedImage)}
+              image={memoImage}
               crop={crop}
               zoom={zoom}
               aspect={4 / 3}

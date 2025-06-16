@@ -1,9 +1,8 @@
 import { NavLink } from 'react-router-dom';
 import logo from '../../assets/color-logo.svg';
+import linkedin from '../../assets/linkedin.svg';
 import { Link } from 'react-router-dom';
-import { CiFacebook } from 'react-icons/ci';
 import { LuClipboardList } from 'react-icons/lu';
-import insta from '../../../public/assets/instagram.svg';
 import { CustomButton } from 'components/CustomButton';
 import { useDispatch } from 'react-redux';
 import type { AppDispatch } from '../../redux/store';
@@ -15,11 +14,8 @@ const Footer = () => {
   return (
     <footer className="flex justify-center items-center bg-header px-16 py-5 lg:py-16">
       <div className="flex gap-[20px] items-center mr-50 sm:mr-[84px]">
-        <Link to="/">
-          <CiFacebook size={29} />
-        </Link>
-        <Link to="/">
-          <img src={insta} alt="instagram" />
+        <Link to="https://www.linkedin.com/company/dim-tvaryn/posts/?feedView=all">
+          <img src={linkedin} alt="linkedin" />
         </Link>
       </div>
       <NavLink className="flex flex-col items-center gap-2" to="/" end>
@@ -28,7 +24,7 @@ const Footer = () => {
       </NavLink>
       <CustomButton
         styleType="linkButton"
-        className="w-[26px] sm:w-[165px] text-sm ml-[90px] sm:ml-80 focus:outline-none focus-visible:border-none focus-visible:outline-none focus-visible:ring-0"
+        className="text-black w-[26px] sm:w-[165px] text-sm ml-[90px] sm:ml-80 focus:outline-none focus-visible:border-none focus-visible:outline-none focus-visible:ring-0"
         onClick={() => {
           dispatch(clearError());
           dispatch(openDialog('feedback'));

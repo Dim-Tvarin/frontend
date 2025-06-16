@@ -265,6 +265,7 @@ const PetsList = () => {
                         {...field}
                         label="Вид тварини"
                         items={animalTypeOptions}
+                        className="text-default-btn"
                       />
                     )}
                   />
@@ -276,6 +277,7 @@ const PetsList = () => {
                         {...field}
                         label="Стать"
                         items={genderOption}
+                        className="text-default-btn"
                       />
                     )}
                   />
@@ -307,7 +309,12 @@ const PetsList = () => {
                     name="age"
                     control={control}
                     render={({ field }) => (
-                      <FilterItem {...field} label="Вік" items={ageOption} />
+                      <FilterItem
+                        {...field}
+                        label="Вік"
+                        items={ageOption}
+                        className="text-default-btn"
+                      />
                     )}
                   />
 
@@ -315,7 +322,12 @@ const PetsList = () => {
                     name="size"
                     control={control}
                     render={({ field }) => (
-                      <FilterItem {...field} label="Розмір" items={size} />
+                      <FilterItem
+                        {...field}
+                        label="Розмір"
+                        items={size}
+                        className="text-default-btn"
+                      />
                     )}
                   />
 

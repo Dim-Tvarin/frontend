@@ -96,7 +96,7 @@ const AnimalCard = ({
   return (
     <div
       className={cn(
-        'relative flex items-end overflow-visible bg-white border-2 border-orange rounded-4xl z-1 max-w-sm xl:scale-90 2xl:scale-100',
+        'relative flex items-end overflow-visible bg-white border-2 border-orange rounded-4xl z-1 max-w-sm xl:scale-90 2xl:scale-100 text-black hover:scale-102 transition-transform duration-300',
         isAllPetsPage
           ? 'w-[156px] h-[198px] md:w-[242px] md:h-[318px] xl:w-[305px] xl:h-[400px]'
           : 'w-[242px] h-[318px] md:w-[294px] md:h-[400px] lg:w-[305px]'
@@ -117,7 +117,7 @@ const AnimalCard = ({
         </div>
       )}
       <div className="z-10 relative bg-main-pink-l/80 px-16 md:px-32 py-8 md:py-12 rounded-4xl w-full">
-        <div className="text-left">
+        <div className="text-left flex flex-col gap-2.5">
           <div className="flex justify-between">
             <h2 className="font-medium text-lg">{name}</h2>
             {status === 'inactive' && (
@@ -147,7 +147,7 @@ const AnimalCard = ({
         <CustomButton
           type="button"
           styleType="defaultButton"
-          className="hidden md:flex mt-28 w-[149px] h-[46px]"
+          className="hidden md:flex mt-28 w-[149px] h-[36px]"
           onClick={() => navigate(`/allpets/${id}`)}
         >
           Переглянути
