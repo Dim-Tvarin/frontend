@@ -58,7 +58,6 @@ export const FilesInput = ({
   };
 
   const onCropComplete = (_: unknown, croppedAreaPixels: Area) => {
-    console.log('1', croppedAreaPixels);
     setCroppedAreaPixels(croppedAreaPixels);
   };
 
