@@ -144,7 +144,7 @@ const Article5 = () => {
         </div>
       </article>
       <CustomButton
-        className="z-10 bg-default-btn mb-100 rounded-[20px] w-[356px] h-[44px]"
+        className="z-10 bg-default-btn mb-100 rounded-[20px] w-[356px] h-[44px] text-base"
         onClick={() => navigate(-1)}
       >
         Повернутися до попередньої сторінки
