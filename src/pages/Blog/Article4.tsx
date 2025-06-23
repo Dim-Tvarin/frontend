@@ -15,7 +15,7 @@ const Article4 = () => {
               className="bottom-0 left-0 absolute rounded-[30px] w-[331px] md:w-[614px] h-[248px] md:h-[465px]"
             />
           </div>
-          <h1 className="mb-16 font-bold text-3xl">
+          <h1 className="mb-16 font-bold text-title leading-40">
             Емоційний добробут: Створення щасливого та здорового середовища для
             вашого нового улюбленця
           </h1>
