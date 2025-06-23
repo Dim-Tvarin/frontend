@@ -73,12 +73,12 @@ const Article2 = () => {
             <img
               src={articleCat}
               alt="котик"
-              className="rounded-[30px] w-[303px] h-[213px]"
+              className="rounded-[20px] w-[303px] h-[213px]"
             />
             <img
               src={articleDog}
               alt="собака розірвав подушку"
-              className="rounded-[30px] w-[303px] h-[213px]"
+              className="rounded-[20px] w-[303px] h-[213px]"
             />
           </div>
           <p className="indent-24">
