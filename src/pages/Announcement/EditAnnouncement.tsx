@@ -201,7 +201,7 @@ const EditAnnouncement = () => {
   return (
     <>
       <div className="z-10 relative gap-x-[18px] gap-y-16 lg:gap-y-[32px] grid grid-cols-1 lg:grid-cols-[1fr_1fr] lg:grid-rows-[150px_1fr] lg:auto-rows-fr text-default-btn container">
-        <h2 className="z-10 order-1 lg:col-start-1 lg:row-span-1 lg:row-start-1 mt-40 lg:mt-100 mb-16 lg:mb-32 h-48 lg:text-[32px] text-lg">
+        <h2 className="z-10 order-1 lg:col-start-1 lg:row-span-1 lg:row-start-1 mt-40 lg:mt-100 lg:mb-32 lg:h-48 lg:text-[32px] text-lg">
           Редагувати оголошення
         </h2>
         <div className="flex flex-col flex-1/2 order-3 lg:col-start-1 lg:row-span-1 lg:row-start-2 mb-100">
