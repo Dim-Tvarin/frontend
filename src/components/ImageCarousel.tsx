@@ -59,7 +59,7 @@ const ImageCarousel = ({
               <button
                 key={idx}
                 onClick={() => setActiveIndex(idx)}
-                className={`w-100 h-100 md:w-[198px] md:h-[157px] rounded-[20px] overflow-hidden transition ring-2 relative ${
+                className={`w-100 h-80 md:w-[198px] md:h-[157px] rounded-[20px] overflow-hidden transition ring-2 relative ${
                   idx === activeIndex ? 'ring-orange-400' : 'ring-transparent'
                 }`}
               >
