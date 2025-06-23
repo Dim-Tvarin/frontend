@@ -29,7 +29,7 @@ const ImageCarousel = ({
   };
 
   return (
-    <div className="flex flex-col items-center gap-32 w-full">
+    <div className="flex flex-col items-center gap-16 lg:gap-32 w-full">
       <div className="relative bg-orange rounded-[30px] w-[95%] lg:w-[466px] xl:w-[630px] min-w-[325px] h-[210px] md:h-[471px] xl:h-[460px]">
         {isDelete && (
           <div
