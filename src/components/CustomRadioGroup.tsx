@@ -50,7 +50,7 @@ const CustomRadioGroup: FC<RadioProps> = ({
         ref={ref}
         name={name}
         value={value}
-        className={cn('flex gap-20', className)}
+        className={cn('flex gap-10 lg:gap-20', className)}
         onBlur={onBlur}
         onValueChange={onChange}
       >
