@@ -29,7 +29,7 @@ const ImageCarousel = ({
   };
 
   return (
-    <div className="flex flex-col items-center gap-32 w-full">
+    <div className="flex flex-col items-center gap-16 lg:gap-32 w-full mb-16">
       <div className="relative bg-orange rounded-[30px] w-[95%] lg:w-[466px] xl:w-[630px] min-w-[325px] h-[210px] md:h-[471px] xl:h-[460px]">
         {isDelete && (
           <div
@@ -59,7 +59,7 @@ const ImageCarousel = ({
               <button
                 key={idx}
                 onClick={() => setActiveIndex(idx)}
-                className={`w-100 h-100 md:w-[198px] md:h-[157px] rounded-[20px] overflow-hidden transition ring-2 relative ${
+                className={`w-100 h-80 md:w-[198px] md:h-[157px] rounded-[20px] overflow-hidden transition ring-2 relative ${
                   idx === activeIndex ? 'ring-orange-400' : 'ring-transparent'
                 }`}
               >

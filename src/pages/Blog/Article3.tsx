@@ -8,8 +8,8 @@ const Article3 = () => {
     <div className="container">
       <article className="gap-20 grid grid-cols-1 xl:grid-cols-2 mt-100 mb-64">
         <div className="font-normal text-base text-left">
-          <h1 className="mb-16 font-bold text-3xl">
-            ЗОсобливості здоров&#39;я та важливі аспекти, які потрібно знати при
+          <h1 className="mb-16 font-bold text-title leading-40">
+            Особливості здоров&#39;я та важливі аспекти, які потрібно знати при
             усиновленні тваринки
           </h1>
           <p>
@@ -114,11 +114,11 @@ const Article3 = () => {
           </ul>
         </div>
         <div className="font-normal text-base text-left">
-          <div className="relative justify-self-center bg-orange mb-40 rounded-[30px] w-[345px] md:w-[627px] h-[247px] md:h-[390px]">
+          <div className="relative justify-self-center bg-orange mb-40 rounded-[30px] w-[345px] md:w-[630px] h-[247px] md:h-[398px]">
             <img
               src={articleImg}
               alt="дівчина з хаски"
-              className="bottom-0 left-0 absolute rounded-[30px] w-[335px] md:w-[611px] h-[231px] md:h-[374px]"
+              className="bottom-0 left-0 absolute rounded-[30px] w-[335px] md:w-[611px] h-[231px] md:h-[382px]"
             />
           </div>
           <h2 className="mt-32 mb-16 font-semibold text-xl">
@@ -196,7 +196,7 @@ const Article3 = () => {
         </div>
       </article>
       <CustomButton
-        className="z-10 bg-default-btn mb-100 rounded-[20px] w-[356px] h-[44px]"
+        className="z-10 bg-default-btn mb-100 rounded-[20px] w-[356px] h-[44px] text-base"
         onClick={() => navigate(-1)}
       >
         Повернутися до попередньої сторінки

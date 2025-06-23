@@ -17,7 +17,7 @@ const Article2 = () => {
               className="bottom-0 left-0 absolute rounded-[30px] w-[335px] md:w-[611px] h-[231px] md:h-[374px]"
             />
           </div>
-          <h1 className="mb-16 font-semibold text-3xl">
+          <h1 className="mb-16 font-semibold text-title">
             Адаптація до нового дому
           </h1>
           <p className="indent-24">
@@ -73,12 +73,12 @@ const Article2 = () => {
             <img
               src={articleCat}
               alt="котик"
-              className="rounded-[30px] w-[303px] h-[213px]"
+              className="rounded-[20px] w-[303px] h-[213px]"
             />
             <img
               src={articleDog}
               alt="собака розірвав подушку"
-              className="rounded-[30px] w-[303px] h-[213px]"
+              className="rounded-[20px] w-[303px] h-[213px]"
             />
           </div>
           <p className="indent-24">
@@ -108,6 +108,7 @@ const Article2 = () => {
           </p>
           <p className="indent-24">
             Знайомте собаку з різними звуками, запахами та людьми.
+            <br />
             Використовуйте позитивне підкріплення (ласощі, похвала) за спокійну
             поведінку.
           </p>
@@ -121,7 +122,7 @@ const Article2 = () => {
           <p className="indent-24">
             <strong>Поведінкові проблеми</strong>
           </p>
-          <p>
+          <p className="indent-24">
             Тварини з притулку можуть мати різні поведінкові проблеми,
             пов&#39;язані з минулим досвідом. Важливо розуміти причини цих
             проблем та знати, як їх вирішувати.
@@ -154,7 +155,7 @@ const Article2 = () => {
         </div>
       </article>
       <CustomButton
-        className="z-10 bg-default-btn mb-100 rounded-[20px] w-[356px] h-[44px]"
+        className="z-10 bg-default-btn mb-100 rounded-[20px] w-[356px] h-[44px] text-base"
         onClick={() => navigate(-1)}
       >
         Повернутися до попередньої сторінки

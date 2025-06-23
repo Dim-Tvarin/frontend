@@ -8,7 +8,7 @@ const Article5 = () => {
     <div className="container">
       <article className="gap-20 grid grid-cols-1 xl:grid-cols-2 mt-100 mb-64">
         <div className="font-normal text-base text-left">
-          <h1 className="mb-16 font-bold text-3xl">
+          <h1 className="mb-16 font-bold text-xl">
             ТЕСТ Знайди звіра, який впишеться в твій лайфстайл!
           </h1>
           <ol className="flex flex-col mt-16 ml-16 pl-5 list-decimal">
@@ -144,7 +144,7 @@ const Article5 = () => {
         </div>
       </article>
       <CustomButton
-        className="z-10 bg-default-btn mb-100 rounded-[20px] w-[356px] h-[44px]"
+        className="z-10 bg-default-btn mb-100 rounded-[20px] w-[356px] h-[44px] text-base"
         onClick={() => navigate(-1)}
       >
         Повернутися до попередньої сторінки

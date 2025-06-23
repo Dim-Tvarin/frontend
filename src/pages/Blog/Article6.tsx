@@ -43,7 +43,7 @@ const Article6 = () => {
         </div>
 
         <div className="font-normal text-base text-left">
-          <h1 className="md:mt-[465px] 2xl:mt-0 mb-16 font-bold text-3xl">
+          <h1 className="md:mt-[465px] 2xl:mt-0 mb-16 font-bold text-title leading-40">
             Сила лап і сердець: як тварини змінюють життя людей
           </h1>
           <p>
@@ -67,13 +67,13 @@ const Article6 = () => {
             <img
               src={articleImg1}
               alt="діти обіймаюсь собаку"
-              className="bottom-0 left-0 absolute rounded-[30px] w-[338px] xl:w-[615px] h-[266px] xl:h-[484px]"
+              className="bottom-0 right-0 absolute rounded-[30px] w-[338px] xl:w-[615px] h-[266px] xl:h-[484px]"
             />
           </div>
         </div>
       </article>
       <CustomButton
-        className="z-10 bg-default-btn mb-100 rounded-[20px] w-[356px] h-[44px]"
+        className="z-10 bg-default-btn mb-100 rounded-[20px] w-[356px] h-[44px] text-base"
         onClick={() => navigate(-1)}
       >
         Повернутися до попередньої сторінки
