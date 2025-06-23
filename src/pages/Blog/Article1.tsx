@@ -99,7 +99,7 @@ const Article1 = () => {
         </div>
 
         <div className="font-normal text-base text-left">
-          <h1 className="md:mt-[320px] 2xl:mt-0 mb-16 font-bold text-3xl">
+          <h1 className="md:mt-[320px] 2xl:mt-0 mb-16 font-bold text-title">
             Знайдіть свого ідеального компаньйона: Поради щодо вибору тварини
           </h1>
           <p className="mb-32">
