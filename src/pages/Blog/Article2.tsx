@@ -17,7 +17,7 @@ const Article2 = () => {
               className="bottom-0 left-0 absolute rounded-[30px] w-[335px] md:w-[611px] h-[231px] md:h-[374px]"
             />
           </div>
-          <h1 className="mb-16 font-semibold text-3xl">
+          <h1 className="mb-16 font-semibold text-title">
             Адаптація до нового дому
           </h1>
           <p className="indent-24">
