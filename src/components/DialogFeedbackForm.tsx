@@ -120,7 +120,7 @@ const DialogFeedbackForm: React.FC = () => {
               placeholder="Повідомлення*"
               {...register('feedback')}
               error={errors.feedback?.message}
-              className="mb-16 h-[115px] text-[16px]"
+              className="max-w-[423px] mb-16 h-[115px] text-[16px] text-wrap"
             />
             <Controller
               name="checkbox"
