@@ -91,7 +91,7 @@ const DialogFeedbackForm: React.FC = () => {
         aria-describedby={undefined}
       >
         <DialogClose className="absolute top-[13px] right-[13px] focus:outline-none focus-visible:outline-none">
-          <CloseSVG />
+          <CloseSVG fill="white" size="30" />
         </DialogClose>
         <DialogHeader className="h-[52px] bg-default-btn p-16">
           <DialogTitle className="text-sm leading-[140%] text-white">
@@ -99,7 +99,7 @@ const DialogFeedbackForm: React.FC = () => {
           </DialogTitle>
         </DialogHeader>
         <div className="px-16 py-32">
-          <p className="rounded-[20px] bg-dialog px-12 py-16 text-sm text-left mb-16">
+          <p className="text-default-btn rounded-[20px] bg-dialog px-12 py-16 text-sm text-left mb-16">
             Добрий день! Раді вітати Вас на нашому сайті. <br />
             Якщо у Вас є запитання чи пропозиції напишіть нам.
           </p>

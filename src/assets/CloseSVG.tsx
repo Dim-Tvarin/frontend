@@ -3,9 +3,11 @@ import type { ReactElement } from 'react';
 const CloseSVG = ({
   color,
   size,
+  fill = 'none',
 }: {
   color?: string;
   size?: string;
+  fill?: string;
 }): ReactElement => {
   return (
     <div className="w-32 h-32 flex items-center justify-center focus-visible:outline-none">
@@ -13,7 +15,7 @@ const CloseSVG = ({
         width={size || '24'}
         height={size || '24'}
         viewBox="0 0 24 24"
-        fill="none"
+        fill={fill}
         className="focus:outline-none"
       >
         <path
