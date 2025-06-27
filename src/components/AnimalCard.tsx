@@ -63,7 +63,7 @@ const AnimalCard = ({
   const [toggleHideAnimal] = useToggleHideAnimalMutation();
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const location = useLocation();
-  const isAllPetsPage = location.pathname.includes('/allpets');
+  const isHomePage = location.pathname === '/';
 
   const handleAddFavorite = () => {
     if (!animal) return;
@@ -97,9 +97,9 @@ const AnimalCard = ({
     <div
       className={cn(
         'relative flex items-end overflow-visible bg-white border-2 border-orange rounded-4xl z-1 max-w-sm xl:scale-90 2xl:scale-100 text-black hover:scale-102 transition-transform duration-300',
-        isAllPetsPage
-          ? 'w-[156px] h-[198px] md:w-[242px] md:h-[318px] xl:w-[305px] xl:h-[400px]'
-          : 'w-[242px] h-[318px] md:w-[294px] md:h-[400px] lg:w-[305px]'
+        isHomePage
+          ? 'w-[242px] h-[318px] md:w-[294px] md:h-[400px] lg:w-[305px]'
+          : 'w-[156px] h-[198px] md:w-[242px] md:h-[318px] xl:w-[305px] xl:h-[400px]'
       )}
     >
       <Link to={`/allpets/${id}`}>
@@ -119,14 +119,14 @@ const AnimalCard = ({
       <div className="z-10 relative bg-main-pink-l/80 px-16 md:px-32 py-8 md:py-12 rounded-4xl w-full">
         <div className="text-left flex flex-col gap-2.5">
           <div className="flex justify-between">
-            <h2 className="font-medium text-lg">{name}</h2>
+            <h2 className="font-medium text-base lg:text-lg">{name}</h2>
             {status === 'inactive' && (
               <div className="bg-orange mt-2 rounded-full w-[162px] h-[28px] font-bold text-white text-sm text-center leading-[171%]">
                 Знайшов родину
               </div>
             )}
           </div>
-          <div className="flex gap-1 overflow-hidden font-medium text-base lg:text-lg">
+          <div className="flex gap-1 overflow-hidden font-medium text-sm lg:text-lg">
             {gender !== 'unknown' && <span>{genderMapping[gender]}</span>}
             {!!age.years && <span>{getYearDeclension(age.years)} </span>}
             {!!age.months && <span>{`${age.months}\u00A0міс.`}</span>}

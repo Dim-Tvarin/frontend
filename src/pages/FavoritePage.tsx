@@ -74,17 +74,17 @@ const FavoritePage = () => {
 
   return (
     <div className="container flex flex-col h-full grow">
-      <div className="relative mt-100 mb-50">
+      <div className="relative mt-[32px] lg:mt-100 mb-[98px] lg:mb-50">
         <div className="flex">
-          <h1 className="text-[32px] text-center text-default-btn w-full">
+          <h1 className="text-[32px] lg:text-lg text-center text-default-btn w-full">
             Обрані
           </h1>
-          {!favorites && (
-            <div className="absolute z-10 flex flex-col right-0">
+          {favorites.length > 1 && (
+            <div className="absolute z-10 flex flex-col top-[50px] lg:top-0 right-0">
               <CustomButton
                 type="button"
                 styleType="whiteButton"
-                className="m-0 w-[192px] md:w-[227px] text-default-btn text-medium text-base"
+                className="m-0 w-[192px] md:w-[227px] text-default-btn text-base"
                 onClick={() => setOpenSorting(prev => !prev)}
               >
                 {sorting === 'none' && 'Сортування за датою'}
@@ -96,7 +96,7 @@ const FavoritePage = () => {
                   <button
                     onClick={handleAscSorting}
                     className={cn(
-                      'text-default-btn text-left text-lg focus:outline-none hover:text-orange transition-all duration-300',
+                      'text-default-btn text-left text-base lg:text-lg focus:outline-none hover:text-orange transition-all duration-300',
                       sorting === 'newest' && 'text-orange'
                     )}
                   >
@@ -105,7 +105,7 @@ const FavoritePage = () => {
                   <button
                     onClick={handleDescSorting}
                     className={cn(
-                      'text-default-btn text-left text-lg focus:outline-none hover:text-orange transition-all duration-300',
+                      'text-default-btn text-left text-base lg:text-lg focus:outline-none hover:text-orange transition-all duration-300',
                       sorting === 'oldest' && 'text-orange'
                     )}
                   >
@@ -114,7 +114,7 @@ const FavoritePage = () => {
                   <button
                     onClick={handleClearFilter}
                     className={cn(
-                      'text-default-btn text-left text-lg focus:outline-none hover:text-orange transition-all duration-300',
+                      'text-default-btn text-left text-base lg:text-lg focus:outline-none hover:text-orange transition-all duration-300',
                       sorting === 'none' && 'text-orange'
                     )}
                   >
@@ -151,8 +151,8 @@ const FavoritePage = () => {
         <PetsListSkeleton />
       ) : (
         <>
-          <div className="flex gap-50 flex-col grow">
-            <div className="grid gap-20 wrap transition-all duration-500 grid-cols-4">
+          <div className="flex gap-[32px] lg:gap-[50px] flex-col grow">
+            <div className="grid gap-[16px] lg:gap-[20px] wrap transition-all duration-500 grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
               {paginatedFavorites.map(item => (
                 <AnimalCard
                   key={item.id}
@@ -172,7 +172,7 @@ const FavoritePage = () => {
                 onPageChange={onPageChange}
                 currentPage={page}
                 totalPages={totalPages}
-                className="mb-100 mt-auto"
+                className="mb-50 lg:mb-100 mt-auto"
               />
             )}
           </div>
