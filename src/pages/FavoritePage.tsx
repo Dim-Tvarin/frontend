@@ -22,7 +22,7 @@ const FavoritePage = () => {
   const favorites = useSelector(selectFavoriteAnimals);
   const perPage = 12;
 
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const rawPage = Number(searchParams.get('page')) || 1;
   const [page, setPage] = useState(rawPage);
 
@@ -45,7 +45,11 @@ const FavoritePage = () => {
     () => sortedFavorites.slice((page - 1) * perPage, page * perPage),
     [sortedFavorites, page]
   );
-  console.log(paginatedFavorites);
+
+  const onPageChange = (newPage: number) => {
+    setSearchParams({ page: String(newPage) });
+  };
+
   useEffect(() => {
     if (rawPage > 0 && rawPage !== page) {
       setPage(rawPage);
@@ -75,49 +79,51 @@ const FavoritePage = () => {
           <h1 className="text-[32px] text-center text-default-btn w-full">
             Обрані
           </h1>
-          <div className="absolute z-10 flex flex-col right-0">
-            <CustomButton
-              type="button"
-              styleType="whiteButton"
-              className="m-0 w-[192px] md:w-[227px] text-default-btn text-medium text-base"
-              onClick={() => setOpenSorting(prev => !prev)}
-            >
-              {sorting === 'none' && 'Сортування за датою'}
-              {sorting === 'newest' && 'Останні оголошення'}
-              {sorting === 'oldest' && 'Давні оголошення'}
-            </CustomButton>
-            {openSorting && (
-              <div className="w-[192px] md:w-[227px] flex flex-col gap-4 bg-dialog px-16 py-10 border-1 border-default-btn rounded-xl">
-                <button
-                  onClick={handleAscSorting}
-                  className={cn(
-                    'text-default-btn text-left text-lg focus:outline-none hover:text-orange transition-all duration-300',
-                    sorting === 'newest' && 'text-orange'
-                  )}
-                >
-                  Останні оголошення
-                </button>
-                <button
-                  onClick={handleDescSorting}
-                  className={cn(
-                    'text-default-btn text-left text-lg focus:outline-none hover:text-orange transition-all duration-300',
-                    sorting === 'oldest' && 'text-orange'
-                  )}
-                >
-                  Давні оголошення
-                </button>
-                <button
-                  onClick={handleClearFilter}
-                  className={cn(
-                    'text-default-btn text-left text-lg focus:outline-none hover:text-orange transition-all duration-300',
-                    sorting === 'none' && 'text-orange'
-                  )}
-                >
-                  Очистити фільтр
-                </button>
-              </div>
-            )}
-          </div>
+          {!favorites && (
+            <div className="absolute z-10 flex flex-col right-0">
+              <CustomButton
+                type="button"
+                styleType="whiteButton"
+                className="m-0 w-[192px] md:w-[227px] text-default-btn text-medium text-base"
+                onClick={() => setOpenSorting(prev => !prev)}
+              >
+                {sorting === 'none' && 'Сортування за датою'}
+                {sorting === 'newest' && 'Останні оголошення'}
+                {sorting === 'oldest' && 'Давні оголошення'}
+              </CustomButton>
+              {openSorting && (
+                <div className="w-[192px] md:w-[227px] flex flex-col gap-4 bg-dialog px-16 py-10 border-1 border-default-btn rounded-xl">
+                  <button
+                    onClick={handleAscSorting}
+                    className={cn(
+                      'text-default-btn text-left text-lg focus:outline-none hover:text-orange transition-all duration-300',
+                      sorting === 'newest' && 'text-orange'
+                    )}
+                  >
+                    Останні оголошення
+                  </button>
+                  <button
+                    onClick={handleDescSorting}
+                    className={cn(
+                      'text-default-btn text-left text-lg focus:outline-none hover:text-orange transition-all duration-300',
+                      sorting === 'oldest' && 'text-orange'
+                    )}
+                  >
+                    Давні оголошення
+                  </button>
+                  <button
+                    onClick={handleClearFilter}
+                    className={cn(
+                      'text-default-btn text-left text-lg focus:outline-none hover:text-orange transition-all duration-300',
+                      sorting === 'none' && 'text-orange'
+                    )}
+                  >
+                    Очистити фільтр
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
         </div>
         {favorites.length === 0 && (
           <div className="flex flex-col align-center justify-center text-lg text-default-btn">
@@ -163,7 +169,7 @@ const FavoritePage = () => {
 
             {favorites && !!totalPages && totalPages > 1 && (
               <Pagination
-                onPageChange={setPage}
+                onPageChange={onPageChange}
                 currentPage={page}
                 totalPages={totalPages}
                 className="mb-100 mt-auto"
