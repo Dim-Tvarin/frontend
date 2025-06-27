@@ -76,7 +76,12 @@ const FavoritePage = () => {
     <div className="container flex flex-col h-full grow">
       <div className="relative mt-[32px] lg:mt-100 mb-[98px] lg:mb-50">
         <div className="flex">
-          <h1 className="text-[32px] lg:text-lg text-center text-default-btn w-full">
+          <h1
+            className={cn(
+              favorites.length > 0 ? 'text-lg' : 'text-[32px]',
+              'lg:text-lg text-center text-default-btn w-full'
+            )}
+          >
             Обрані
           </h1>
           {favorites.length > 1 && (
@@ -151,7 +156,12 @@ const FavoritePage = () => {
         <PetsListSkeleton />
       ) : (
         <>
-          <div className="flex gap-[32px] lg:gap-[50px] flex-col grow">
+          <div
+            className={cn(
+              favorites.length < perPage && 'mb-50 lg:mb-100',
+              'flex gap-[32px] lg:gap-[50px] flex-col grow'
+            )}
+          >
             <div className="grid gap-[16px] lg:gap-[20px] wrap transition-all duration-500 grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
               {paginatedFavorites.map(item => (
                 <AnimalCard
