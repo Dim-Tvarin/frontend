@@ -11,6 +11,7 @@ import { NavLink } from 'react-router-dom';
 import {
   clearError,
   selectError,
+  selectLoading,
   setUserEmail,
 } from '../redux/users/usersSlice';
 import CloseSVG from '../assets/CloseSVG';
@@ -34,6 +35,7 @@ const DialogForgotPassword: React.FC = () => {
     (state: RootState) => state.dialog.activeDialog
   );
   const emailError = useSelector(selectError);
+  const isLoading = useSelector(selectLoading);
 
   const {
     register,
@@ -104,6 +106,7 @@ const DialogForgotPassword: React.FC = () => {
               type="submit"
               styleType="defaultButton"
               className="mt-32 w-[196px] h-[44px] text-base"
+              disabled={isLoading}
             >
               Підтвердити
             </CustomButton>

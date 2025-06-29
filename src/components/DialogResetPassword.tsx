@@ -46,12 +46,12 @@ const DialogResetPassword: React.FC = () => {
     if (resetPasswordThunk.fulfilled.match(result)) {
       showToast({
         title: 'Успіх',
-        description: 'Пароль успішно змінено! Увійдіть з новим паролем',
+        description: 'Пароль успішно відновлено!',
         status: 'success',
       });
       reset();
       dispatch(clearError());
-      dispatch(openDialog('login'));
+      dispatch(closeDialog());
     }
   };
 
