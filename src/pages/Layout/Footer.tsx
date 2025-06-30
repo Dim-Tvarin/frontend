@@ -14,7 +14,10 @@ const Footer = () => {
   return (
     <footer className="flex justify-center items-center bg-header px-16 py-5 lg:py-16">
       <div className="flex gap-[20px] items-center mr-50 sm:mr-[84px]">
-        <Link to="https://www.linkedin.com/company/dim-tvaryn/posts/?feedView=all">
+        <Link
+          to="https://www.linkedin.com/company/dim-tvaryn/posts/?feedView=all"
+          target="_blank"
+        >
           <img src={linkedin} alt="linkedin" />
         </Link>
       </div>
