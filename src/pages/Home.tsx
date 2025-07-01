@@ -5,7 +5,7 @@ import homeDogMin from '../assets/home-dog1.jpg';
 import homeDogMax from '../assets/home-dog2.png';
 import homeGirlDogMin from '../assets/home-girl&dog1.jpg';
 import homeGirlDogMax from '../assets/home-girl&dog@2.jpg';
-import track from '../../public/track.png';
+import track from '/track.png?url';
 import { LuCirclePlus } from 'react-icons/lu';
 import AnimalsCarousel from 'components/AnimalsCarousel';
 import { useSelector } from 'react-redux';
