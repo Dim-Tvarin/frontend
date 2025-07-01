@@ -96,10 +96,10 @@ const ProfilePage = () => {
       <Tabs
         value={currentTab}
         onValueChange={handleTabChange}
-        className="pt-100 pb-100 grow flex-row gap-[18px]"
+        className="pt-32 lg:pt-100 pb-50 lg:pb-100 grow flex-col 2xl:flex-row gap-[37px] lg:gap-[18px]"
         data-orientation="vertical"
       >
-        <TabsList className="flex flex-col gap-32 h-full p-0">
+        <TabsList className="flex flex-col md:flex-row 2xl:flex-col gap-20 lg:gap-32 self-center md:self-auto h-full p-0">
           {openFilters ? (
             <AdvertsFilter
               filters={filters}
@@ -112,7 +112,7 @@ const ProfilePage = () => {
               <TabsTrigger
                 value="main-info"
                 aria-orientation="vertical"
-                className="w-[307px] max-h-[54px] text-base m-0 outline-none shadow-none rounded-[20px] py-[15px]
+                className="w-[304px] lg:w-[307px] max-h-[54px] text-base m-0 outline-none shadow-none rounded-[20px] py-[15px]
           data-[state=active]:shadow-none 
           data-[state=active]:outline-none 
           text-default-btn bg-white  border-default-btn  hover:border-orange border-2 disabled:bg-disabled  
@@ -128,7 +128,7 @@ const ProfilePage = () => {
               <TabsTrigger
                 value="my-adverts"
                 aria-orientation="vertical"
-                className="w-[307px] max-h-[54px] text-base m-0 outline-none shadow-none rounded-[20px] py-[15px]
+                className="w-[304px] lg:w-[307px] max-h-[54px] text-base m-0 outline-none shadow-none rounded-[20px] py-[15px]
           data-[state=active]:shadow-none 
           data-[state=active]:outline-none 
           text-default-btn bg-white  border-default-btn  hover:border-orange border-2 disabled:bg-disabled  
@@ -143,7 +143,11 @@ const ProfilePage = () => {
             </>
           )}
         </TabsList>
-        <TabsContent value="main-info" data-orientation="vertical">
+        <TabsContent
+          value="main-info"
+          data-orientation="vertical"
+          className="m-auto lg:m-0"
+        >
           <ProfileMainTab />
         </TabsContent>
         <TabsContent

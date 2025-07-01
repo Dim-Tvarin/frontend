@@ -42,8 +42,8 @@ const ProfileMainTab = () => {
 
   return (
     <>
-      <div className="flex">
-        <div className="w-[305px] h-[305px] mr-30 shrink-0 rounded-[20px] overflow-hidden">
+      <div className="flex flex-col md:flex-row">
+        <div className="w-[328px] h-[324px] lg:w-[305px] lg:h-[305px] mr-30 shrink-0 rounded-[20px] overflow-hidden">
           <ResponsiveImage
             urlMax1x={user.avatarURL || avatarStubMax}
             urlMin1x={user.avatarURL || avatarStubMin}
@@ -54,7 +54,7 @@ const ProfileMainTab = () => {
           className="flex flex-col w-full
           "
         >
-          <div className="flex flex-col gap-10 text-left text-default-btn text-lg font-normal">
+          <div className="flex flex-col mt-16 lg:mt-0 gap-10 text-left text-default-btn text-lg font-normal">
             <p className="text-[28px] font-bold">{user.name}</p>
             <p>
               {user.userType === 'guardian' ? 'Опікун' : 'Майбутній господар'}
@@ -63,17 +63,17 @@ const ProfileMainTab = () => {
             <p>{user.phone}</p>
             <p>{user.email}</p>
           </div>
-          <div className="flex gap-20 mr-auto mt-auto">
+          <div className="flex md:flex-col lg:flex-row gap-20 mr-auto mt-32 2xl:mt-auto">
             <CustomButton
               onClick={() => dispatch(openDialog('editUser'))}
               styleType="defaultButton"
-              className="m-0 w-[196px] h-[45px]"
+              className="m-0 w-[200px] md:w-[196px]"
             >
               Редагувати профіль
             </CustomButton>
             <CustomButton
               styleType="whiteButton"
-              className="w-[108px] h-[45px]"
+              className="m-0 w-[108px]"
               onClick={handleClick}
             >
               Вийти
