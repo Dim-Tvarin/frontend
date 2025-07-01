@@ -3,7 +3,10 @@ import { PhoneReveal } from 'components/PhoneReveal';
 import PetPageSceleton from 'components/sceletons/PetPageSceleton';
 import { useNavigate, useParams } from 'react-router';
 import { getYearDeclension } from 'src/helpers/getYearDeclension';
-import { useGetAnimalByIdQuery } from 'src/redux/animals/animalsApi';
+import {
+  useGetAnimalByIdQuery,
+  useToggleFavoriteAnimalMutation,
+} from 'src/redux/animals/animalsApi';
 import tracks4 from '../assets/tracks4.png';
 import ImageCarousel from 'components/ImageCarousel';
 import { showToast } from 'components/Toast';
@@ -11,9 +14,14 @@ import { AnimalType } from './Announcement/types';
 import { addViewedAnimal } from 'src/redux/animals/viewedAnimalsSlice';
 import { useEffect } from 'react';
 import type { AppDispatch } from 'src/redux/store';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import formatDate from 'src/helpers/converDate';
 import HartSVG from 'src/assets/HartSVG';
+import { selectIsLoggedIn } from 'src/redux/users/usersSlice';
+import {
+  selectFavoriteAnimals,
+  toggleAnimal,
+} from 'src/redux/animals/favoriteAnimalsSlice';
 
 const defaultTypes = [
   AnimalType.dogs,
@@ -33,6 +41,10 @@ const PetPage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const favAnimals = useSelector(selectFavoriteAnimals);
+  const isInFavorites = favAnimals.some(a => a.id === id);
+  const [toggleFavorite] = useToggleFavoriteAnimalMutation();
 
   if (!id) {
     showToast({
@@ -72,6 +84,16 @@ const PetPage = () => {
           .toLowerCase()
           .replace(/^./, char => char.toUpperCase());
 
+  console.log('isInFavorites:', isInFavorites);
+  const handleAddFavorite = () => {
+    if (!animal) return;
+    const shouldBeFavorite = !isInFavorites;
+    dispatch(toggleAnimal(animal));
+    if (isLoggedIn) {
+      toggleFavorite({ id: animal.id, favorite: shouldBeFavorite });
+    }
+  };
+
   return (
     <div className="container">
       <div className="relative flex lg:flex-row flex-col gap-20 mt-72 lg:mt-100 mb-100 text-default-btn">
@@ -87,8 +109,17 @@ const PetPage = () => {
             <h2 className="mb-16 lg:mb-24 font-bold text-2xl md:text-4xl lg:text-5xl mr-100">
               {animal?.animalName}
             </h2>
-            <div className="flex items-center">
-              <HartSVG fill="none" stroke="#042D4A" />{' '}
+            <div
+              className="flex items-center cursor-pointer"
+              onClick={handleAddFavorite}
+            >
+              <div>
+                <HartSVG
+                  fill="none"
+                  stroke="#042D4A"
+                  hartFill={isInFavorites}
+                />
+              </div>{' '}
               <p className=" text-base">До обраних</p>
             </div>
           </div>
