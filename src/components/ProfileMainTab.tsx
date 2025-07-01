@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router';
 import { selectFavoriteAnimals } from 'src/redux/animals/favoriteAnimalsSlice';
 import { selectViewedAnimals } from 'src/redux/animals/viewedAnimalsSlice';
 import { useGetFilteredAnimalsQuery } from 'src/redux/animals/animalsApi';
+import { cn } from './lib/utils';
 
 const ProfileMainTab = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -42,8 +43,14 @@ const ProfileMainTab = () => {
 
   return (
     <>
-      <div className="flex flex-col md:flex-row">
-        <div className="w-[328px] h-[324px] lg:w-[305px] lg:h-[305px] mr-30 shrink-0 rounded-[20px] overflow-hidden">
+      <div className="relative flex flex-col md:flex-row">
+        <div
+          className={cn(
+            'w-[328px] h-[324px] lg:w-[305px] lg:h-[305px] mr-30 shrink-0 rounded-[20px] overflow-hidden',
+            user.userType === 'adopter' &&
+              'max-lg:absolute top-0 left-0 w-[70px] h-[64px]'
+          )}
+        >
           <ResponsiveImage
             urlMax1x={user.avatarURL || avatarStubMax}
             urlMin1x={user.avatarURL || avatarStubMin}
@@ -54,8 +61,20 @@ const ProfileMainTab = () => {
           className="flex flex-col w-full
           "
         >
-          <div className="flex flex-col mt-16 lg:mt-0 gap-10 text-left text-default-btn text-lg font-normal">
-            <p className="text-[28px] font-bold">{user.name}</p>
+          <div
+            className={cn(
+              'flex flex-col mt-16 lg:mt-0 gap-10 text-left text-default-btn text-lg font-normal',
+              user.userType === 'adopter' && 'mt-0 ml-[86px]'
+            )}
+          >
+            <p
+              className={cn(
+                'text-[28px] font-bold',
+                user.userType === 'adopter' && 'text-xl'
+              )}
+            >
+              {user.name}
+            </p>
             <p>
               {user.userType === 'guardian' ? 'Опікун' : 'Майбутній господар'}
             </p>
@@ -63,7 +82,12 @@ const ProfileMainTab = () => {
             <p>{user.phone}</p>
             <p>{user.email}</p>
           </div>
-          <div className="flex md:flex-col lg:flex-row gap-20 mr-auto mt-32 2xl:mt-auto">
+          <div
+            className={cn(
+              'flex md:flex-col lg:flex-row gap-20 mr-auto mt-32 2xl:mt-auto',
+              user.userType === 'adopter' && 'mt-[44px]'
+            )}
+          >
             <CustomButton
               onClick={() => dispatch(openDialog('editUser'))}
               styleType="defaultButton"
@@ -83,7 +107,7 @@ const ProfileMainTab = () => {
       </div>
       {user.userType === 'adopter' && (
         <>
-          <h2 className="text-[28px] text-left mt-[43px] mb-[60px] text-default-btn">
+          <h2 className="text-xl lg:text-[28px] text-left mt-32 lg:mt-[43px] mb-16 lg:mb-[60px] text-default-btn">
             Обрані
           </h2>
           {filteredFavorites.length === 0 ? (
@@ -113,13 +137,13 @@ const ProfileMainTab = () => {
               <CustomButton
                 styleType="defaultButton"
                 onClick={() => navigate('/favorite')}
-                className="mt-50 text-base"
+                className="hidden lg:flex mt-50 text-base"
               >
                 Переглянути всіх
               </CustomButton>
             </>
           )}
-          <h2 className="text-[28px] text-left mb-[60px] text-default-btn mt-100">
+          <h2 className="text-xl lg:text-[28px] text-left mt-32 lg:mt-100 mb-16 lg:mb-[60px] text-default-btn ">
             Історія переглядів
           </h2>
           {visibleViewedAnimals.length === 0 ? (

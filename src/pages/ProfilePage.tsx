@@ -146,14 +146,14 @@ const ProfilePage = () => {
         <TabsContent
           value="main-info"
           data-orientation="vertical"
-          className="m-auto lg:m-0"
+          className="m-auto lg:m-0 w-full"
         >
           <ProfileMainTab />
         </TabsContent>
         <TabsContent
           value="my-adverts"
           data-orientation="vertical"
-          className="flex flex-col gap-[44px]"
+          className="flex flex-col gap-[44px] w-full"
         >
           <ProfileMyAdvertsTab
             setOpenFilters={setOpenFilters}
