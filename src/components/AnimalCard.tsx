@@ -64,6 +64,8 @@ const AnimalCard = ({
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const location = useLocation();
   const isHomePage = location.pathname === '/';
+  const isProfileAdsPage = location.pathname === '/profile/ads';
+  const isProfileInfoPage = location.pathname === '/profile/info';
 
   const handleAddFavorite = () => {
     if (!animal) return;
@@ -97,9 +99,11 @@ const AnimalCard = ({
     <div
       className={cn(
         'relative flex items-end overflow-visible bg-white border-2 border-orange rounded-4xl z-1 max-w-sm xl:scale-90 2xl:scale-100 text-black hover:scale-102 transition-transform duration-300',
-        isHomePage
-          ? 'w-[242px] h-[318px] md:w-[294px] md:h-[400px] lg:w-[305px]'
-          : 'w-[156px] h-[198px] md:w-[242px] md:h-[318px] xl:w-[305px] xl:h-[400px]'
+        'w-[156px] h-[198px] md:w-[242px] md:h-[318px] xl:w-[305px] xl:h-[400px]',
+        (isHomePage || isProfileInfoPage) &&
+          'w-[242px] h-[318px] md:w-[294px] md:h-[400px] lg:w-[305px]',
+        isProfileAdsPage &&
+          'w-[156px] h-[198px] md:w-[294px] md:h-[400px] lg:w-[305px]'
       )}
     >
       <Link to={`/allpets/${id}`}>
@@ -116,7 +120,7 @@ const AnimalCard = ({
           </div>
         </div>
       )}
-      <div className="z-10 relative bg-main-pink-l/80 px-16 md:px-32 py-8 md:py-12 rounded-4xl w-full">
+      <div className="z-10 relative bg-main-pink-l/80 px-16 md:px-32 pt-10 pb-[14px] md:py-12 rounded-4xl w-full">
         <div className="text-left flex flex-col gap-2.5">
           <div className="flex justify-between">
             <h2 className="font-medium text-base lg:text-lg">{name}</h2>
@@ -147,7 +151,10 @@ const AnimalCard = ({
         <CustomButton
           type="button"
           styleType="defaultButton"
-          className="hidden md:flex mt-28 w-[149px] h-[36px]"
+          className={cn(
+            'hidden md:flex mt-28 w-[149px] h-[36px]',
+            (isHomePage || isProfileInfoPage) && 'max-md:flex max-md:mt-[12px]'
+          )}
           onClick={() => navigate(`/allpets/${id}`)}
         >
           Переглянути

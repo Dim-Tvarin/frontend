@@ -6,13 +6,30 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from './components/ui/carousel';
-import { useGetAnimalsQuery } from 'src/redux/animals/animalsApi';
+import { useGetAnimalsQuery, type Animal } from 'src/redux/animals/animalsApi';
 import { CarouselSceleton } from 'components/sceletons/CarouselSceleton';
 
-const AnimalsCarousel = () => {
-  const { data, isLoading } = useGetAnimalsQuery({ page: 1, limit: 8 });
+interface AnimalsCarouselProps {
+  animals?: Animal[];
+  isLoading?: boolean;
+  onRefetch?: () => void;
+}
 
-  if (isLoading) {
+const AnimalsCarousel: React.FC<AnimalsCarouselProps> = ({
+  animals,
+  isLoading,
+  onRefetch,
+}) => {
+  const { data: paged, isLoading: loadingFromHook } = useGetAnimalsQuery({
+    page: 1,
+    limit: 8,
+  });
+
+  const list = animals ?? paged?.animals ?? [];
+  const loading = isLoading ?? loadingFromHook;
+  const refetch = onRefetch;
+
+  if (loading) {
     return <CarouselSceleton />;
   }
 
@@ -26,8 +43,8 @@ const AnimalsCarousel = () => {
       className="z-10 w-full"
     >
       <CarouselContent className="flex -ml-16">
-        {data &&
-          data?.animals.map(item => (
+        {list &&
+          list?.map(item => (
             <CarouselItem
               key={item.id}
               className="pl-20 basis-[73.6%] sm:basis-[42%] md:basis-[49%] lg:basis-[39%] xl:basis-[29%] 2xl:basis-[25%]"
@@ -41,6 +58,7 @@ const AnimalsCarousel = () => {
                 photoSrc={item.animalImages[0].url}
                 status={item.status}
                 animal={item}
+                onRefetchMyAnimals={refetch}
               />
             </CarouselItem>
           ))}

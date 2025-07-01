@@ -8,30 +8,40 @@ import type { AppDispatch } from 'src/redux/store';
 import { logoutThunk } from 'src/redux/users/usersOperations';
 import { showToast } from './Toast';
 import { CustomButton } from './CustomButton';
-import AnimalCard from './AnimalCard';
 import { useNavigate } from 'react-router';
 import { selectFavoriteAnimals } from 'src/redux/animals/favoriteAnimalsSlice';
 import { selectViewedAnimals } from 'src/redux/animals/viewedAnimalsSlice';
 import { useGetFilteredAnimalsQuery } from 'src/redux/animals/animalsApi';
 import { cn } from './lib/utils';
+import AnimalsCarousel from './AnimalsCarousel';
+import { useWindowSize } from '@uidotdev/usehooks';
+import AnimalCard from './AnimalCard';
 
 const ProfileMainTab = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
+  const windowSize = useWindowSize();
+  const tabletSize = windowSize.width !== null && windowSize.width < 1024;
   const user = useSelector(selectUser);
   const favoriteAnimals = useSelector(selectFavoriteAnimals);
   const viewedAnimals = useSelector(selectViewedAnimals);
-  const { data: animalsData, refetch } = useGetFilteredAnimalsQuery({
-    page: 1,
-    limit: 10,
-  });
+  const {
+    data: animalsData,
+    isLoading: animalsLoading,
+    refetch: animalsRefetch,
+  } = useGetFilteredAnimalsQuery({ page: 1, limit: 10 });
   const actualAnimalIds = animalsData?.animals.map(a => a.id) ?? [];
-  const filteredFavorites = favoriteAnimals.filter(
-    animal => actualAnimalIds.includes(animal.id) && !animal.isHidden
-  );
-  const visibleViewedAnimals = viewedAnimals.filter(
-    animal => actualAnimalIds.includes(animal.id) && !animal.isHidden
-  );
+  const filteredFavorites = favoriteAnimals
+    .filter(animal => actualAnimalIds.includes(animal.id) && !animal.isHidden)
+    .reverse()
+    .slice(0, 3);
+  const filteredFavoritesMobile = favoriteAnimals
+    .filter(animal => actualAnimalIds.includes(animal.id) && !animal.isHidden)
+    .reverse();
+  const visibleViewedAnimals = viewedAnimals
+    .filter(animal => actualAnimalIds.includes(animal.id) && !animal.isHidden)
+    .reverse()
+    .slice(0, 6);
 
   const handleClick = () => {
     dispatch(logoutThunk());
@@ -116,24 +126,34 @@ const ProfileMainTab = () => {
             </p>
           ) : (
             <>
-              <div className="grid grid-cols-3 gap-20">
-                {favoriteAnimals
-                  .map(item => (
-                    <AnimalCard
-                      key={item.id}
-                      id={item.id}
-                      name={item.animalName}
-                      gender={item.gender}
-                      age={item.age}
-                      photoSrc={item.animalImages[0].url}
-                      status={item.status}
-                      animal={item}
-                      onRefetchMyAnimals={refetch}
-                    />
-                  ))
-                  .reverse()
-                  .slice(0, 3)}
-              </div>
+              {tabletSize ? (
+                <AnimalsCarousel
+                  animals={
+                    tabletSize ? filteredFavoritesMobile : filteredFavorites
+                  }
+                  isLoading={animalsLoading}
+                  onRefetch={animalsRefetch}
+                />
+              ) : (
+                <div className="grid grid-cols-3 gap-20">
+                  {favoriteAnimals
+                    .map(item => (
+                      <AnimalCard
+                        key={item.id}
+                        id={item.id}
+                        name={item.animalName}
+                        gender={item.gender}
+                        age={item.age}
+                        photoSrc={item.animalImages[0].url}
+                        status={item.status}
+                        animal={item}
+                        onRefetchMyAnimals={animalsRefetch}
+                      />
+                    ))
+                    .reverse()
+                    .slice(0, 3)}
+                </div>
+              )}
               <CustomButton
                 styleType="defaultButton"
                 onClick={() => navigate('/favorite')}
@@ -150,6 +170,11 @@ const ProfileMainTab = () => {
             <p className="text-center text-lg text-gray-500 mt-10">
               У вас поки немає історії переглядів.
             </p>
+          ) : tabletSize ? (
+            <AnimalsCarousel
+              animals={visibleViewedAnimals}
+              isLoading={animalsLoading}
+            />
           ) : (
             <div className="h-[820px] grid grid-cols-3 gap-20 overflow-hidden">
               {visibleViewedAnimals
@@ -165,7 +190,7 @@ const ProfileMainTab = () => {
                     photoSrc={item.animalImages[0].url}
                     status={item.status}
                     animal={item}
-                    onRefetchMyAnimals={refetch}
+                    onRefetchMyAnimals={animalsRefetch}
                   />
                 ))}
             </div>

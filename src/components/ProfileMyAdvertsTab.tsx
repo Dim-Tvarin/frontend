@@ -1,29 +1,70 @@
+import { useEffect, useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router';
+import { showToast } from 'components/Toast';
+import AdvertsFilter from 'components/AdvertsFilter';
+import Pagination from 'components/Pagination';
+import AnimalCard from 'components/AnimalCard';
+import { PetsListSkeleton } from 'components/sceletons/PetsListSkeleton';
 import { CustomButton } from 'components/CustomButton';
 import { LuCirclePlus } from 'react-icons/lu';
 import { FiFilter } from 'react-icons/fi';
-import { PetsListSkeleton } from 'components/sceletons/PetsListSkeleton';
-import AnimalCard from 'components/AnimalCard';
-import Pagination from 'components/Pagination';
-import { useNavigate } from 'react-router';
-import type { AnimalsResponse } from 'src/redux/animals/animalsApi';
+import {
+  useGetMyAnimalsQuery,
+  type AnimalsResponse,
+} from 'src/redux/animals/animalsApi';
 
-interface ProfileMyAdvertsTabProps {
-  setOpenFilters: React.Dispatch<React.SetStateAction<boolean>>;
-  data?: AnimalsResponse;
-  isLoading: boolean;
-  totalPages: number;
-  page: number;
-  setPage: (page: number) => void;
+export interface AnimalsFilters {
+  animalType?: 'cats' | 'dogs' | 'birds' | 'other';
+  gender?: 'male' | 'female';
+  breed?: string;
+  location?: string;
+  age?: string;
+  size?: string;
+  status?: 'active' | 'inactive';
+  sortByDate?: 'newest' | 'oldest';
 }
-const ProfileMyAdvertsTab = ({
-  setOpenFilters,
-  data,
-  isLoading,
-  totalPages,
-  page,
-  setPage,
-}: ProfileMyAdvertsTabProps) => {
+
+const ProfileMyAdvertsTab = () => {
   const navigate = useNavigate();
+
+  const [searchParams] = useSearchParams();
+  const rawPage = Number(searchParams.get('page'));
+  const [page, setPage] = useState(rawPage === 0 ? 1 : rawPage);
+  const [filters, setFilters] = useState<AnimalsFilters>({});
+  const [openFilters, setOpenFilters] = useState(false);
+
+  const { data, isLoading, error, refetch } = useGetMyAnimalsQuery({
+    page,
+    limit: 9,
+    ...filters,
+  }) as {
+    data: AnimalsResponse;
+    isLoading: boolean;
+    error: any;
+    refetch(): void;
+  };
+  const totalPages = data ? Math.ceil(data.total / 9) : 1;
+
+  useEffect(() => {
+    if (error) {
+      showToast({
+        title: 'Щось пішло не по плану',
+        description: 'Виникла помилка при завантаженні даних',
+        status: 'error',
+      });
+    }
+  }, [error]);
+
+  const handleFilterChange = <K extends keyof AnimalsFilters>(
+    key: K,
+    value: AnimalsFilters[K]
+  ) => setFilters(prev => ({ ...prev, [key]: value }));
+
+  const handleFilterReset = () => setFilters({});
+  const handleFilterSubmit = () => {
+    setPage(1);
+    refetch();
+  };
 
   return (
     <>
@@ -49,6 +90,16 @@ const ProfileMyAdvertsTab = ({
           Фільтр
         </CustomButton>
       </div>
+
+      {openFilters && (
+        <AdvertsFilter
+          filters={filters}
+          onChange={handleFilterChange}
+          onReset={handleFilterReset}
+          onSubmit={handleFilterSubmit}
+        />
+      )}
+
       {data?.animals.length === 0 ? (
         <p className="text-center text-lg text-gray-500 mt-10">
           У вас поки немає оголошень.
