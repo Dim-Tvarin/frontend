@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Error from 'pages/Error';
 import Main from 'pages/Layout/Main';
@@ -12,7 +12,7 @@ import VerifyPage from 'pages/Auth/VerifyPage';
 import Announcement from 'pages/Announcement/Announcement';
 import PetsList from 'pages/PetsList/PetsList';
 import PetPage from 'pages/PetPage';
-import ProfilePage from 'pages/ProfilePage';
+// import ProfilePage from 'pages/ProfilePage';
 import PrivateRoute from 'components/routes/PrivateRoute';
 import EditAnnouncement from 'pages/Announcement/EditAnnouncement';
 import { selectToken, selectUserTheme } from './redux/users/usersSlice';
@@ -26,6 +26,9 @@ import Article4 from 'pages/Blog/Article4';
 import Article5 from 'pages/Blog/Article5';
 import Article6 from 'pages/Blog/Article6';
 import PrivacyPolicyPage from 'pages/PrivacyPolicyPage';
+import ProfileLayout from 'pages/ProfileLayout';
+import ProfileMainTab from 'components/ProfileMainTab';
+import ProfileMyAdvertsTab from 'components/ProfileMyAdvertsTab';
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -79,13 +82,18 @@ function App() {
         />
 
         <Route
-          path="profile/:tab?"
+          path="profile/*"
           element={
             <PrivateRoute>
-              <ProfilePage />
+              <ProfileLayout />
             </PrivateRoute>
           }
-        />
+        >
+          <Route index element={<Navigate to="info" replace />} />
+          <Route path="info" element={<ProfileMainTab />} />
+          <Route path="ads" element={<ProfileMyAdvertsTab />} />
+        </Route>
+
         <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
         <Route path="register" element={<Registration />} />
         <Route path="verify/:verifyToken" element={<VerifyPage />} />

@@ -1,0 +1,78 @@
+// pages/ProfileLayout.tsx
+import { useLocation, useNavigate, Outlet } from 'react-router-dom';
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from 'components/components/ui/tabs';
+
+export default function ProfileLayout() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const currentTab = location.pathname.endsWith('/ads') ? 'ads' : 'info';
+  const handleTabChange = (tab: string) => {
+    navigate(`/profile/${tab}`);
+  };
+
+  return (
+    <div className="container">
+      <Tabs
+        value={currentTab}
+        onValueChange={handleTabChange}
+        className="pt-32 lg:pt-100 pb-50 lg:pb-100 grow flex-col 2xl:flex-row gap-[37px] lg:gap-[18px]"
+        data-orientation="vertical"
+      >
+        <TabsList className="flex flex-col md:flex-row 2xl:flex-col gap-20 lg:gap-32 self-center md:self-auto h-full p-0">
+          <TabsTrigger
+            value="info"
+            aria-orientation="vertical"
+            className="w-[304px] lg:w-[307px] max-h-[54px] text-base m-0 outline-none shadow-none rounded-[20px] py-[15px]
+          data-[state=active]:shadow-none 
+          data-[state=active]:outline-none 
+          text-default-btn bg-white  border-default-btn  hover:border-orange border-2 disabled:bg-disabled  
+          data-[state=active]:text-white
+          data-[state=active]:hover:text-default-btn
+          data-[state=active]:bg-default-btn
+          data-[state=active]:hover:bg-orange
+          data-[state=active]:hover:border-default-btn"
+          >
+            Основна інформація
+          </TabsTrigger>
+          <TabsTrigger
+            value="ads"
+            aria-orientation="vertical"
+            className="w-[304px] lg:w-[307px] max-h-[54px] text-base m-0 outline-none shadow-none rounded-[20px] py-[15px]
+          data-[state=active]:shadow-none 
+          data-[state=active]:outline-none 
+          text-default-btn bg-white  border-default-btn  hover:border-orange border-2 disabled:bg-disabled  
+          data-[state=active]:text-white
+          data-[state=active]:hover:text-default-btn
+          data-[state=active]:bg-default-btn
+          data-[state=active]:hover:bg-orange
+          data-[state=active]:hover:border-default-btn"
+          >
+            Мої оголошення
+          </TabsTrigger>
+        </TabsList>
+
+        <TabsContent
+          value="info"
+          data-orientation="vertical"
+          className="m-auto lg:m-0 w-full"
+        >
+          <Outlet />
+        </TabsContent>
+
+        <TabsContent
+          value="ads"
+          data-orientation="vertical"
+          className="flex flex-col gap-[44px] w-full"
+        >
+          <Outlet />
+        </TabsContent>
+      </Tabs>
+    </div>
+  );
+}
