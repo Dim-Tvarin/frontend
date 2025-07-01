@@ -12,6 +12,8 @@ import { addViewedAnimal } from 'src/redux/animals/viewedAnimalsSlice';
 import { useEffect } from 'react';
 import type { AppDispatch } from 'src/redux/store';
 import { useDispatch } from 'react-redux';
+import formatDate from 'src/helpers/converDate';
+import HartSVG from 'src/assets/HartSVG';
 
 const defaultTypes = [
   AnimalType.dogs,
@@ -81,9 +83,19 @@ const PetPage = () => {
         </div>
 
         <div className="z-10 flex flex-col w-full lg:w-1/2 text-lg lg:text-xl text-left">
-          <h2 className="mb-16 lg:mb-24 font-bold text-2xl md:text-4xl lg:text-5xl">
-            {animal?.animalName}
-          </h2>
+          <div className="flex items-center">
+            <h2 className="mb-16 lg:mb-24 font-bold text-2xl md:text-4xl lg:text-5xl mr-100">
+              {animal?.animalName}
+            </h2>
+            <div className="flex items-center">
+              <HartSVG fill="none" stroke="#042D4A" />{' '}
+              <p className=" text-base">До обраних</p>
+            </div>
+          </div>
+
+          <div className="text-input-border text-sm mb-6">
+            Опубліковано: {animal?.updatedAt && formatDate(animal?.updatedAt)}
+          </div>
           <div className="gap-x-auto gap-y-16 grid grid-cols-2 mb-16 lg:mb-32">
             <p className="font-bold">Статус:</p>
             <p>
