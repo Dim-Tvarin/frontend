@@ -122,7 +122,7 @@ const PetPage = () => {
       console.error('Не вдалося змінити видимість:', error);
     }
   };
-  console.log('isOwner', isOwner, animal);
+  
   return (
     <div className="container">
       <div className="relative flex lg:flex-row flex-col gap-20 mt-72 lg:mt-100 mb-100 text-default-btn">
