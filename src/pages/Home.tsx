@@ -1,10 +1,10 @@
 import { CustomButton } from 'components/CustomButton';
 import ResponsiveImage from 'components/ResponsiveImage';
 import { useNavigate } from 'react-router-dom';
-import homeDogMin from '../assets/home-dog1.jpg';
-import homeDogMax from '../assets/home-dog2.png';
-import homeGirlDogMin from '../assets/home-girl&dog1.jpg';
-import homeGirlDogMax from '../assets/home-girl&dog@2.jpg';
+import homeDogMin from '../assets/home-dog1.webp';
+import homeDogMax from '../assets/home-dog2.webp';
+import homeGirlDogMin from '../assets/home-girl&dog1.webp';
+import homeGirlDogMax from '../assets/home-girl&dog@2.webp';
 import track from '../../public/track.png';
 import { LuCirclePlus } from 'react-icons/lu';
 import AnimalsCarousel from 'components/AnimalsCarousel';
