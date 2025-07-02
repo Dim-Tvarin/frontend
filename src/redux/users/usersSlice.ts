@@ -19,6 +19,7 @@ interface User {
   userType?: string;
   avatarURL?: string;
   location?: string;
+  id?: string;
   theme?: 'light' | 'dark';
   favorites: Animal[];
 }
@@ -41,6 +42,7 @@ const initialState: UserState = {
     userType: '',
     avatarURL: '',
     location: '',
+    id: '',
     theme: 'light',
     favorites: [],
   },

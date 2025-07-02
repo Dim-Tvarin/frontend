@@ -6,6 +6,7 @@ import { getYearDeclension } from 'src/helpers/getYearDeclension';
 import {
   useGetAnimalByIdQuery,
   useToggleFavoriteAnimalMutation,
+  useToggleHideAnimalMutation,
 } from 'src/redux/animals/animalsApi';
 import tracks4 from '../assets/tracks4.png';
 import ImageCarousel from 'components/ImageCarousel';
@@ -17,11 +18,21 @@ import type { AppDispatch } from 'src/redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import formatDate from 'src/helpers/converDate';
 import HartSVG from 'src/assets/HartSVG';
-import { selectIsLoggedIn } from 'src/redux/users/usersSlice';
+import { selectIsLoggedIn, selectUser } from 'src/redux/users/usersSlice';
 import {
   selectFavoriteAnimals,
   toggleAnimal,
 } from 'src/redux/animals/favoriteAnimalsSlice';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '../components/components/ui/tooltip';
+import { CustomButton } from 'components/CustomButton';
+import { FiEdit, FiTrash2 } from 'react-icons/fi';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { openDialog } from 'src/redux/dialogs/dialogSlice';
 
 const defaultTypes = [
   AnimalType.dogs,
@@ -43,8 +54,10 @@ const PetPage = () => {
   const { id } = useParams<{ id: string }>();
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const favAnimals = useSelector(selectFavoriteAnimals);
+  const owner = useSelector(selectUser);
   const isInFavorites = favAnimals.some(a => a.id === id);
   const [toggleFavorite] = useToggleFavoriteAnimalMutation();
+  const [toggleHideAnimal] = useToggleHideAnimalMutation();
 
   if (!id) {
     showToast({
@@ -56,7 +69,10 @@ const PetPage = () => {
 
     return;
   }
-  const { data, error, isLoading } = useGetAnimalByIdQuery(id, { skip: !id });
+  const { data, error, isLoading, refetch } = useGetAnimalByIdQuery(id, {
+    skip: !id,
+  });
+
   useEffect(() => {
     if (data?.animal) {
       dispatch(addViewedAnimal(data.animal));
@@ -76,6 +92,7 @@ const PetPage = () => {
     return;
   }
   const { animal, ownerName, ownerPhone } = data || {};
+  const isOwner = owner?.id === animal?.owner;
   const type =
     animal?.animalType && defaultTypes.includes(animal?.animalType)
       ? typeMapping[animal?.animalType]
@@ -84,7 +101,6 @@ const PetPage = () => {
           .toLowerCase()
           .replace(/^./, char => char.toUpperCase());
 
-  console.log('isInFavorites:', isInFavorites);
   const handleAddFavorite = () => {
     if (!animal) return;
     const shouldBeFavorite = !isInFavorites;
@@ -94,6 +110,19 @@ const PetPage = () => {
     }
   };
 
+  const handleToggleHidden = async () => {
+    if (!animal) return;
+    try {
+      await toggleHideAnimal({
+        id: animal.id,
+        isHidden: !animal.isHidden,
+      }).unwrap();
+      refetch();
+    } catch (error) {
+      console.error('Не вдалося змінити видимість:', error);
+    }
+  };
+  console.log('isOwner', isOwner, animal);
   return (
     <div className="container">
       <div className="relative flex lg:flex-row flex-col gap-20 mt-72 lg:mt-100 mb-100 text-default-btn">
@@ -164,12 +193,90 @@ const PetPage = () => {
               className="m-0 lg:-ml-[10px]"
             />
           </div>
-          <a
-            href={`tel:${ownerPhone}`}
-            className="place-content-center self-center grid bg-default-btn rounded-[20px] w-[236px] h-[44px] text-white text-base"
-          >
-            Зв’язатися з господарем
-          </a>
+          {isOwner ? (
+            <div>
+              <TooltipProvider>
+                <div className=" flex gap-11 overflow-visible cursor-pointer">
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <CustomButton
+                        styleType="iconButton"
+                        onClick={handleToggleHidden}
+                      >
+                        {animal?.isHidden ? (
+                          <FaEyeSlash className="text-white" size={24} />
+                        ) : (
+                          <FaEye className="text-white" size={22} />
+                        )}
+                      </CustomButton>
+                    </TooltipTrigger>
+                    <TooltipContent
+                      side="top"
+                      align="center"
+                      className="bg-dialog fill-none px-8 py-[1px] rounded-[6px] text-default-btn text-base"
+                      sideOffset={4}
+                    >
+                      Приховати
+                    </TooltipContent>
+                  </Tooltip>
+
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <CustomButton
+                        styleType="iconButton"
+                        onClick={() => navigate(`/editannouncement/${id}`)}
+                      >
+                        <FiEdit className="text-white" size={22} />
+                      </CustomButton>
+                    </TooltipTrigger>
+                    <TooltipContent
+                      side="top"
+                      align="center"
+                      className="bg-dialog fill-none px-8 py-[1px] rounded-[6px] text-default-btn text-base"
+                      sideOffset={4}
+                    >
+                      Редагувати
+                    </TooltipContent>
+                  </Tooltip>
+
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <CustomButton
+                        styleType="iconButton"
+                        onClick={() =>
+                          dispatch(
+                            openDialog({
+                              type: 'alertDelete',
+                              entity: 'animal',
+                              id: id,
+                            })
+                          )
+                        }
+                        className="hover:bg-error-input"
+                      >
+                        <FiTrash2 className="text-white" size={22} />
+                      </CustomButton>
+                    </TooltipTrigger>
+                    <TooltipContent
+                      side="top"
+                      align="center"
+                      className="bg-dialog fill-none px-8 py-[1px] rounded-[6px] text-default-btn text-base"
+                      sideOffset={4}
+                    >
+                      Видалити
+                    </TooltipContent>
+                  </Tooltip>
+                </div>
+              </TooltipProvider>
+            </div>
+          ) : (
+            <a
+              href={`tel:${ownerPhone}`}
+              className="place-content-center self-center grid bg-default-btn rounded-[20px] w-[236px] h-[44px] text-white text-base"
+            >
+              Зв’язатися з господарем
+            </a>
+          )}
         </div>
       </div>
     </div>
