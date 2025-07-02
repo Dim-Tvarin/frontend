@@ -25,6 +25,7 @@ const ResponsiveImage = ({
         src={urlMin1x}
         srcSet={urlMin2x ? `${urlMin1x} 1x, ${urlMin2x} 2x` : undefined}
         alt={alt}
+        loading="lazy"
         className={className}
       />
     </picture>
