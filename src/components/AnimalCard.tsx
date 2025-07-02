@@ -123,7 +123,7 @@ const AnimalCard = ({
           </div>
         </div>
       )}
-      <div className="z-10 relative bg-main-pink-l/80 px-16 md:px-32 pt-8 md:pt-10 pb-[9px] md:pb-[14px] md:py-12 rounded-[30px] w-full">
+      <div className="z-10 relative bg-main-pink-l/80 px-16 md:px-32 pt-8 md:pt-10 pb-[9px] md:pb-[14px] md:py-12 rounded-[28px] w-full">
         <div className="text-left flex flex-col gap-[4px] md:gap-2.5">
           <div className="flex justify-between relative">
             <h2 className="font-medium text-base lg:text-lg">{name}</h2>
