@@ -68,11 +68,11 @@ const ProfileMyAdvertsTab = () => {
 
   return (
     <>
-      <div className="flex flex-row align-center justify-between">
+      <div className="flex flex-col lg:flex-row gap-20 lg:gap-0 items-center justify-between">
         <CustomButton
           type="submit"
           styleType="defaultButton"
-          className="flex gap-8 w-[238px] text-base m-0"
+          className="flex gap-8 w-[242px] lg:w-[238px] text-base m-0"
           onClick={() => {
             navigate('/announcement');
           }}
@@ -83,7 +83,7 @@ const ProfileMyAdvertsTab = () => {
         <CustomButton
           type="button"
           styleType="defaultButton"
-          className="flex gap-[6px] w-[108px] h-[45px] m-0 text-base"
+          className="flex gap-[6px] w-[242px] lg:w-[108px] m-0 text-base"
           onClick={() => setOpenFilters(prev => !prev)}
         >
           <FiFilter className="w-25 h-[29px]" />
@@ -109,7 +109,7 @@ const ProfileMyAdvertsTab = () => {
           {isLoading && !data?.animals && (
             <PetsListSkeleton className="grid-cols-3" length={9} />
           )}
-          <div className="grid grid-cols-3 gap-20 wrap">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-16 lg:gap-20 wrap">
             {data?.animals.map(item => (
               <AnimalCard
                 key={item.id}

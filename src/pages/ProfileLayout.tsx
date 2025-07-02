@@ -1,4 +1,3 @@
-// pages/ProfileLayout.tsx
 import { useLocation, useNavigate, Outlet } from 'react-router-dom';
 import {
   Tabs,
@@ -68,7 +67,7 @@ export default function ProfileLayout() {
         <TabsContent
           value="ads"
           data-orientation="vertical"
-          className="flex flex-col gap-[44px] w-full"
+          className="flex flex-col gap-32 lg:gap-[44px] w-full"
         >
           <Outlet />
         </TabsContent>

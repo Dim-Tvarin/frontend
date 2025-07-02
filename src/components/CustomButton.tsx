@@ -39,7 +39,7 @@ export const CustomButton = ({
         styleType === 'whiteButton' &&
           'rounded-[20px] px-6 py-2.5 w-[236px] h-[44px] mx-auto border-2 text-default-btn bg-white border-default-btn hover:border-orange disabled:bg-disabled',
         styleType === 'iconButton' &&
-          'w-9 h-9 bg-default-btn rounded-full hover:bg-link flex items-center justify-center hover:border-orange disabled:bg-disabled',
+          'w-6 lg:w-9 h-6 lg:h-9 bg-default-btn rounded-full hover:bg-link flex items-center justify-center hover:border-orange disabled:bg-disabled focus:outline-none focus-visible:outline-none',
         className
       )}
       disabled={loading}
