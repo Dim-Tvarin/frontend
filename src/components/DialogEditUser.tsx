@@ -40,7 +40,7 @@ const DialogEditUser: React.FC = () => {
                 onValueChange={setActiveTab}
                 className={`rounded-[30px]  text-center gap-0 bg-dialog ${
                   activeTab === 'account'
-                    ? 'w-full lg:w-[965px] min-h-[589px] pt-32 px-16 pb-50 lg:p-[60px] lg:pb-[84px] '
+                    ? 'w-full lg:w-[965px] min-h:[1092px] lg:min-h-[589px] pt-32 px-16 pb-50 lg:p-[60px] lg:pb-[84px] '
                     : 'w-full lg:w-[630px] min-h:[434px] lg:min-h-[481px] px-16 py-24 lg:p-50'
                 }`}
               >

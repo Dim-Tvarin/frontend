@@ -44,14 +44,14 @@ const UserPasswordForm = () => {
       <PasswordField
         label="Новий пароль"
         placeholder="********"
-        className="w-[328px] lg:w-[530px] h-40 text-base "
+        className="w-[328px] sm:w-[530px] h-40 text-base "
         labelClass="leading-[125%] text-default-btn "
         labelSize="[16px]"
         id="newPassword"
         {...register('newPassword')}
         error={errors.newPassword?.message}
       >
-        <p className="leading-[15px] lg:leading-[107%]">
+        <p className="leading-[15px] sm:leading-[107%]">
           Пароль повинен містити не менше 8 символів. Для кращого пароля
           використайте букви, великі букви та цифри. Новий пароль повинен
           відрізнятися від старого.
@@ -60,8 +60,8 @@ const UserPasswordForm = () => {
       <PasswordField
         label="Повторіть новий пароль для підтверждення"
         placeholder="********"
-        className="w-[328px] lg:w-[530px] h-40 text-base"
-        labelClass="leading-[20px] lg:leading-[125%] text-default-btn mt-16"
+        className="w-[328px] sm:w-[530px] h-40 text-base"
+        labelClass="leading-[20px] sm:leading-[125%] text-default-btn mt-16"
         labelSize="[16px]"
         id="repeat_newPassword"
         {...register('repeat_newPassword')}
@@ -70,7 +70,7 @@ const UserPasswordForm = () => {
       <CustomButton
         type="submit"
         styleType="defaultButton"
-        className="w-[236px] text-base mb-0 my-0 mt-32 lg:mt-50"
+        className="w-[236px] text-base mb-0 my-0 mt-32 sm:mt-50"
         disabled={isLoading}
       >
         {isLoading ? <Spinner /> : 'Оновити пароль'}

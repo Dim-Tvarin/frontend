@@ -78,9 +78,13 @@ const UserProfileForm = () => {
   }, [isSuccess, isError, dispatch]);
 
   return (
-    <form ref={formRef} onSubmit={handleSubmit(onSubmit)} className="flex">
-      <div className="w-[305px] h-[305px] mr-30 shrink-0 relative">
-        <div className=" rounded-[20px] overflow-hidden">
+    <form
+      ref={formRef}
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex flex-col md:flex-row gap-[97px] md:gap-0"
+    >
+      <div className="w-[328px] lg:w-[305px] h-[328px] lg:h-[305px] md:mr-30 shrink-0 relative">
+        <div className="rounded-[20px] overflow-hidden">
           <ResponsiveImage
             urlMin1x={user.avatarURL || avatarStubMin}
             urlMax1x={user.avatarURL || avatarStubMax}
@@ -93,17 +97,17 @@ const UserProfileForm = () => {
           fill="white"
           className="absolute bottom-[3px] right-[3px] cursor-pointer"
         />
-        <ul className="flex flex-col text-xs text-input-border mt-20">
+        <ul className="flex flex-col text-xs text-input-border mt-20 leading-[15px]">
           <li>Формати: JPG, PNG, GIF</li>
           <li>Макс. розмір: 2 МБ</li>
           <li>Рекомендований розмір: 150×150 – 500×500 px</li>
         </ul>
       </div>
-      <div className="flex flex-col gap-[15px]">
+      <div className="flex flex-col gap-[16px]">
         <InputField
           label="Ім’я або назва організації"
           placeholder="Введіть ваше імʼя"
-          className="w-[530px] h-48 text-[16px] pl-28"
+          className="w-[328px] lg:w-[530px] h-40 text-[16px] pl-28"
           labelClass="mb-10 text-default-btn"
           labelSize="[16px]"
           id="name"
@@ -113,14 +117,14 @@ const UserProfileForm = () => {
         <InputField
           label="Адреса електронної пошти"
           placeholder="Введіть адресу електронної пошти"
-          className="w-[530px] h-48 text-[16px] pl-28"
+          className="w-[328px] lg:w-[530px] h-40 text-[16px] pl-28"
           labelClass="text-default-btn mb-10"
           labelSize="[16px]"
           id="email"
           {...register('email')}
           error={emailError || errors.email?.message}
         />
-        <div className="flex justify-between gap-20">
+        <div className="flex flex-col lg:flex-row justify-between gap-20">
           <div className="flex flex-col text-[16px]">
             <label
               htmlFor="location"
@@ -136,7 +140,7 @@ const UserProfileForm = () => {
                   value={field.value}
                   onChange={field.onChange}
                   className="h-40 text-[16px] hover:border-input-border"
-                  widthClass="w-[255px]"
+                  widthClass="w-[328px] lg:w-[255px]"
                   errorMess={errors.location?.message}
                 />
               )}
@@ -145,7 +149,7 @@ const UserProfileForm = () => {
           <PhoneInput
             label="Номер телефону"
             placeholder="+380 (_ _) _ _ _-_ _-_ _"
-            className="w-[255px] h-40 text-[16px] pl-28"
+            className="w-[328px] lg:w-[255px] h-40 text-[16px] pl-28"
             labelClass="mb-10 text-default-btn"
             labelSize="[16px]"
             id="phone"
@@ -153,7 +157,7 @@ const UserProfileForm = () => {
             error={errors.phone?.message}
           />
         </div>
-        <DialogFooter className="flex flex-row gap-20 sm:justify-start ml-[19px] mt-30">
+        <DialogFooter className="flex flex-col sm:flex-col md:flex-row gap-20 m-auto sm:justify-start lg:ml-[19px] mt-16 lg:mt-30">
           <CustomButton
             type="submit"
             styleType="defaultButton"
@@ -165,7 +169,7 @@ const UserProfileForm = () => {
           <CustomButton
             type="button"
             styleType="whiteButton"
-            className="mt-32 w-[219px] h-[44px] text-base m-0"
+            className="mt-32 lg:w-[219px] h-[44px] text-base m-0"
             onClick={() =>
               dispatch(openDialog({ type: 'alertDelete', entity: 'user' }))
             }
