@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import Error from 'pages/Error';
 import Main from 'pages/Layout/Main';
@@ -26,8 +26,6 @@ import Article5 from 'pages/Blog/Article5';
 import Article6 from 'pages/Blog/Article6';
 import PrivacyPolicyPage from 'pages/PrivacyPolicyPage';
 import ProfileLayout from 'pages/ProfileLayout';
-import ProfileMainTab from 'components/ProfileMainTab';
-import ProfileMyAdvertsTab from 'components/ProfileMyAdvertsTab';
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -81,18 +79,22 @@ function App() {
         />
 
         <Route
-          path="profile/*"
+          path="profile/info"
           element={
             <PrivateRoute>
               <ProfileLayout />
             </PrivateRoute>
           }
-        >
-          <Route index element={<Navigate to="info" replace />} />
-          <Route path="info" element={<ProfileMainTab />} />
-          <Route path="ads" element={<ProfileMyAdvertsTab />} />
-          <Route path="*" element={<Error />} />
-        </Route>
+        />
+        <Route
+          path="profile/ads"
+          element={
+            <PrivateRoute>
+              <ProfileLayout />
+            </PrivateRoute>
+          }
+        />
+        <Route path="profile/*" element={<Error />} />
 
         <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
         <Route path="register" element={<Registration />} />

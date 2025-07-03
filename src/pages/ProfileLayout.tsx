@@ -1,15 +1,16 @@
-import { useLocation, useNavigate, Outlet } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
 } from 'components/components/ui/tabs';
+import ProfileMainTab from 'components/ProfileMainTab';
+import ProfileMyAdvertsTab from 'components/ProfileMyAdvertsTab';
 
 export default function ProfileLayout() {
   const navigate = useNavigate();
   const location = useLocation();
-
   const currentTab = location.pathname.endsWith('/ads') ? 'ads' : 'info';
   const handleTabChange = (tab: string) => {
     navigate(`/profile/${tab}`);
@@ -61,7 +62,7 @@ export default function ProfileLayout() {
           data-orientation="vertical"
           className="m-auto lg:m-0 w-auto md:w-full"
         >
-          <Outlet />
+          <ProfileMainTab />
         </TabsContent>
 
         <TabsContent
@@ -69,7 +70,7 @@ export default function ProfileLayout() {
           data-orientation="vertical"
           className="flex flex-col gap-32 lg:gap-[44px] w-full"
         >
-          <Outlet />
+          <ProfileMyAdvertsTab />
         </TabsContent>
       </Tabs>
     </div>
