@@ -18,7 +18,7 @@ export const CustomLabel: FC<CustomLabelProps> = ({
     <label
       htmlFor={htmlFor}
       className={cn(
-        'block text-left font-medium leading-[150%] h-20 text-input-label mb-10',
+        'block text-left font-medium leading-[150%] text-input-label mb-10',
         `text-${labelSize}`,
         labelClass
       )}
