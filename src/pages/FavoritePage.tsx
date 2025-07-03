@@ -78,8 +78,8 @@ const FavoritePage = () => {
         <div className="flex">
           <h1
             className={cn(
-              favorites.length > 0 ? 'text-lg' : 'text-[32px]',
-              'lg:text-lg text-center text-default-btn w-full'
+              favorites.length > 0 ? 'text-lg lg:text-[32px]' : 'text-[32px]',
+              'text-center text-default-btn w-full'
             )}
           >
             Обрані
