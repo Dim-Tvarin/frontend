@@ -84,19 +84,19 @@ const DialogAlertDelete = () => {
     <Dialog open={isOpen} onOpenChange={() => dispatch(closeDialog())}>
       <DialogOverlay className="bg-black/70" />
       <DialogContent
-        className="w-[800px] min-h-[300px] rounded-[30px] py-[62px] px-[86px] bg-dialog text-center gap-0"
+        className="max-w-full sm:w-[380px] lg:w-[800px] min-h-0.5 sm:min-h-[237px] lg:min-h-[300px] rounded-[30px] py-24 px-16 lg:py-[62px] lg:px-[86px] bg-dialog text-center gap-0"
         onPointerDownOutside={e => e.preventDefault()}
         aria-labelledby="dialog-content"
         aria-describedby={undefined}
       >
-        <div className="absolute top-[25px] left-[94px] w-40 h-[180px] bg-[url('./src/assets/bg-paws-alert.png')] bg-contain bg-no-repeat " />
-        <div className="absolute bottom-[25px] left-[54px] w-40 h-[180px] bg-[url('./src/assets/bg-paws-alert.png')] bg-contain bg-no-repeat " />
+        <div className="absolute top-[6px] lg:top-[25px] left-[60px] lg:left-[94px] w-40 h-[157px] lg:h-[180px] bg-[url('./src/assets/bg-paws-alert.png')] bg-contain bg-no-repeat " />
+        <div className="absolute bottom-[20px] lg:bottom-[25px] left-[12px] lg:left-[54px] w-40 h-[157px] lg:h-[180px] bg-[url('./src/assets/bg-paws-alert.png')] bg-contain bg-no-repeat " />
         <DialogClose className="absolute top-24 right-24 focus:outline-none focus-visible:outline-none">
           <CloseSVG />
         </DialogClose>
         <DialogHeader>
           <DialogTitle className="sr-only">Confirmation</DialogTitle>
-          <p className="text-[28px] leading-[150%] text-default-btn text-center mb-[47px]">
+          <p className="text-base lg:text-[28px] leading-[150%] text-default-btn text-center mt-[48px] px-50 lg:p-0 mb-[24px] lg:mb-[47px]">
             {description}
           </p>
         </DialogHeader>

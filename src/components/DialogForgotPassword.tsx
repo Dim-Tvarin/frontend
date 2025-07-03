@@ -73,7 +73,7 @@ const DialogForgotPassword: React.FC = () => {
     >
       <DialogOverlay className="bg-black/70" />
       <DialogContent
-        className="w-[413px] min-h-[363px] rounded-[30px] p-32 bg-dialog text-center gap-0"
+        className="max-w-full sm:w-[413px] min-h-[334px] sm:min-h-[363px] rounded-[30px] px-16 py-24 sm:p-32 bg-dialog text-center gap-0"
         onPointerDownOutside={e => e.preventDefault()}
         aria-labelledby="Забули пароль?"
         aria-describedby={undefined}
@@ -82,7 +82,7 @@ const DialogForgotPassword: React.FC = () => {
           <CloseSVG />
         </DialogClose>
         <DialogHeader>
-          <DialogTitle className="text-2xl leading-[140%] text-default-btn mb-30">
+          <DialogTitle className="text-2xl leading-[140%] text-default-btn mb-32 sm:mb-30">
             Забули пароль?
           </DialogTitle>
         </DialogHeader>
@@ -95,7 +95,7 @@ const DialogForgotPassword: React.FC = () => {
             placeholder="user@gmail.com"
             className="h-40 text-base"
             labelSize="base"
-            labelClass="text-input-border mb-16"
+            labelClass="text-input-border mb-10 sm:mb-16"
             id="forgotEmail"
             {...register('forgotEmail')}
             error={emailError || errors.forgotEmail?.message}

@@ -203,7 +203,11 @@ export const Header = () => {
             </NavLink>
             <div
               className="cursor-pointer"
-              onClick={() => navigate(isLoggedIn ? '/profile' : '/login')}
+              onClick={() =>
+                isLoggedIn
+                  ? navigate('/profile')
+                  : dispatch(openDialog('login'))
+              }
             >
               {isLoggedIn ? (
                 <div className="flex flex-col items-center max-h-[54px]">
