@@ -12,7 +12,6 @@ import VerifyPage from 'pages/Auth/VerifyPage';
 import Announcement from 'pages/Announcement/Announcement';
 import PetsList from 'pages/PetsList/PetsList';
 import PetPage from 'pages/PetPage';
-// import ProfilePage from 'pages/ProfilePage';
 import PrivateRoute from 'components/routes/PrivateRoute';
 import EditAnnouncement from 'pages/Announcement/EditAnnouncement';
 import { selectToken, selectUserTheme } from './redux/users/usersSlice';
@@ -92,6 +91,7 @@ function App() {
           <Route index element={<Navigate to="info" replace />} />
           <Route path="info" element={<ProfileMainTab />} />
           <Route path="ads" element={<ProfileMyAdvertsTab />} />
+          <Route path="*" element={<Error />} />
         </Route>
 
         <Route path="privacy-policy" element={<PrivacyPolicyPage />} />

@@ -59,7 +59,7 @@ export default function ProfileLayout() {
         <TabsContent
           value="info"
           data-orientation="vertical"
-          className="m-auto lg:m-0 w-full"
+          className="m-auto lg:m-0 w-auto md:w-full"
         >
           <Outlet />
         </TabsContent>

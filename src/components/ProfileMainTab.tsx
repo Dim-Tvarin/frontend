@@ -56,7 +56,7 @@ const ProfileMainTab = () => {
       <div className="relative flex flex-col md:flex-row">
         <div
           className={cn(
-            'w-[328px] h-[324px] lg:w-[305px] lg:h-[305px] mr-30 shrink-0 rounded-[20px] overflow-hidden',
+            'w-[328px] h-[324px] lg:w-[305px] lg:h-[305px] md:mr-30 shrink-0 rounded-[20px] overflow-hidden',
             user.userType === 'adopter' &&
               'max-lg:absolute top-0 left-0 w-[70px] h-[64px]'
           )}
@@ -94,7 +94,7 @@ const ProfileMainTab = () => {
           </div>
           <div
             className={cn(
-              'flex md:flex-col lg:flex-row gap-20 mr-auto mt-32 2xl:mt-auto',
+              'flex lg:flex-row gap-20 mr-auto mt-32 2xl:mt-auto',
               user.userType === 'adopter' && 'mt-[44px]'
             )}
           >
