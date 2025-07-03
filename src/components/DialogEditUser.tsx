@@ -11,7 +11,7 @@ import { useState } from 'react';
 import UserPasswordForm from './UserPasswordForm';
 
 const DialogEditUser: React.FC = () => {
-  const [activeTab, setActiveTab] = useState('password');
+  const [activeTab, setActiveTab] = useState('account');
   const dispatch = useDispatch<AppDispatch>();
   const activeDialog = useSelector(
     (state: RootState) => state.dialog.activeDialog
