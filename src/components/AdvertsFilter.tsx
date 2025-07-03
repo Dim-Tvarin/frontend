@@ -2,7 +2,17 @@ import BreedSelect from './BreedSelect';
 import { CitySelect } from './CitySelect';
 import { CustomButton } from './CustomButton';
 import FilterItem from './FilterItem';
-import type { AnimalsFilters } from 'pages/ProfilePage';
+
+export interface AnimalsFilters {
+  animalType?: 'cats' | 'dogs' | 'birds' | 'other';
+  gender?: 'male' | 'female';
+  breed?: string;
+  location?: string;
+  age?: string;
+  size?: string;
+  status?: 'active' | 'inactive';
+  sortByDate?: 'newest' | 'oldest';
+}
 
 interface AdvertsFilterProps {
   filters: AnimalsFilters;
