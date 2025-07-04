@@ -8,7 +8,7 @@ const Article2 = () => {
   const navigate = useNavigate();
   return (
     <div className="container">
-      <article className="gap-20 grid grid-cols-1 xl:grid-cols-2 mt-100 mb-50">
+      <article className="gap-20 grid grid-cols-1 xl:grid-cols-2 mt-100 mb-50 dark:text-default-btn">
         <div className="font-normal text-base text-left">
           <div className="relative justify-self-center bg-orange mb-40 rounded-[30px] w-[345px] md:w-[627px] h-[247px] md:h-[390px]">
             <img
@@ -155,6 +155,7 @@ const Article2 = () => {
         </div>
       </article>
       <CustomButton
+        styleType="defaultButton"
         className="z-10 bg-default-btn mb-100 rounded-[20px] w-[356px] h-[44px] text-base"
         onClick={() => navigate(-1)}
       >

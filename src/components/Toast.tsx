@@ -44,14 +44,18 @@ export function showToast({
         {icon}
       </div>
       <div className="flex-1 text-left">
-        <p className="text-xs font-medium text-default-btn">{title}</p>
+        <p className="text-xs font-medium text-default-btn dark:text-header">
+          {title}
+        </p>
         {description && (
-          <p className="text-default-btn text-xs font-normal">{description}</p>
+          <p className="text-default-btn dark:text-header text-xs font-normal">
+            {description}
+          </p>
         )}
       </div>
       <button
         onClick={() => toast.dismiss(t)}
-        className="text-default-btn hover:opacity-70"
+        className="text-default-btn dark:text-black hover:opacity-70"
       >
         <CloseSVG />
       </button>

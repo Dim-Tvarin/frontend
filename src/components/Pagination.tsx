@@ -2,6 +2,7 @@ import { Button } from './components/ui/button';
 import { FaArrowLeft } from 'react-icons/fa6';
 import { FaArrowRight } from 'react-icons/fa6';
 import { useSearchParams } from 'react-router';
+import { cn } from './lib/utils';
 
 const Pagination = ({
   currentPage = 1,
@@ -36,9 +37,14 @@ const Pagination = ({
         size="icon"
         disabled={currentPage === 1}
         onClick={handlePrev}
-        className="border-2 border-default-btn rounded-full w-32 lg:w-50 h-32 lg:h-50"
+        className="border-2 border-default-btn dark:border-btn-orange rounded-full w-32 lg:w-50 h-32 lg:h-50"
       >
-        <FaArrowLeft size={22} />
+        <FaArrowLeft
+          size={22}
+          className={cn('text-default-btn dark:text-orange', {
+            'text-disabled dark:text-default-btn': currentPage === 1,
+          })}
+        />
       </Button>
 
       {pages.map(page => (
@@ -50,11 +56,11 @@ const Pagination = ({
             onPageChange(page);
             setSearchParams({ page: `${page}` });
           }}
-          className={`rounded-full border-2 border-default-btn w-32 h-32 lg:w-50 lg:h-50 font-medium transition-colors text-base
+          className={`rounded-full border-2 border-default-btn dark:border-btn-orange w-32 h-32 lg:w-50 lg:h-50 font-medium transition-colors text-base
             ${
               currentPage === page
-                ? 'bg-orange text-white'
-                : 'bg-white text-default-btn hover:bg-gray/90'
+                ? 'bg-orange text-white dark:text-header'
+                : 'bg-white dark:bg-transparent text-default-btn dark:text-btn-orange'
             }
           `}
         >
@@ -67,7 +73,12 @@ const Pagination = ({
         size="icon"
         disabled={currentPage === totalPages}
         onClick={handleNext}
-        className="border-2 border-default-btn rounded-full w-32 lg:w-50 h-32 lg:h-50"
+        className={`border-2 border-default-btn dark:border-btn-orange rounded-full w-32 lg:w-50 h-32 lg:h-50 ${
+          currentPage === totalPages
+            ? 'bg-transparent text-white dark:text-default-btn'
+            : 'bg-white dark:bg-transparent text-default-btn dark:text-orange'
+        }
+          `}
       >
         <FaArrowRight size={22} />
       </Button>

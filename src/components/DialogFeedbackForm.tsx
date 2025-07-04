@@ -85,7 +85,7 @@ const DialogFeedbackForm: React.FC = () => {
     >
       <DialogOverlay className="bg-black/70" />
       <DialogContent
-        className="w-[455px] min-h-[503px] rounded-[30px] p-0 bg-white text-center gap-0 overflow-hidden"
+        className="w-[455px] min-h-[503px] rounded-[30px] p-0 bg-white dark:bg-dialog text-center gap-0 overflow-hidden"
         onPointerDownOutside={e => e.preventDefault()}
         aria-labelledby="dialog-content"
         aria-describedby={undefined}
@@ -93,13 +93,13 @@ const DialogFeedbackForm: React.FC = () => {
         <DialogClose className="absolute top-[13px] right-[13px] focus:outline-none focus-visible:outline-none">
           <CloseSVG fill="white" size="30" />
         </DialogClose>
-        <DialogHeader className="h-[52px] bg-default-btn p-16">
+        <DialogHeader className="h-[52px] bg-default-btn dark:bg-header p-16">
           <DialogTitle className="text-sm leading-[140%] text-white">
             Dim Tvaryn
           </DialogTitle>
         </DialogHeader>
         <div className="px-16 py-32">
-          <p className="text-default-btn rounded-[20px] bg-dialog px-12 py-16 text-sm text-left mb-16">
+          <p className="text-default-btn rounded-[20px] bg-dialog dark:bg-main px-12 py-16 text-sm text-left mb-16">
             Добрий день! Раді вітати Вас на нашому сайті. <br />
             Якщо у Вас є запитання чи пропозиції напишіть нам.
           </p>

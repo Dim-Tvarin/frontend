@@ -150,7 +150,9 @@ const PetsList = () => {
     <div className="container">
       <div className="relative flex justify-center mt-72 lg:mt-100 mb-100 lg:mb-50">
         <div className="flex flex-col">
-          <h1 className="mb-10 md:text-[32px] text-lg">{title}</h1>
+          <h1 className="mb-10 md:text-[32px] text-lg dark:text-default-btn">
+            {title}
+          </h1>
           {isFilterApplied && data && (
             <p className="w-full text-default-btn text-base md:text-lg text-center">
               {data.total === 0

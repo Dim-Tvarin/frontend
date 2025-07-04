@@ -3,11 +3,7 @@ import logo from '../../assets/color-logo.svg';
 import { CustomButton } from 'components/CustomButton';
 import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch } from '../../redux/store';
-import {
-  selectIsLoggedIn,
-  selectUser,
-  selectUserTheme,
-} from '../../redux/users/usersSlice';
+import { selectIsLoggedIn, selectUser } from '../../redux/users/usersSlice';
 import CabinetSVG from '../../assets/CabinetSVG';
 import { openDialog } from '../../redux/dialogs/dialogSlice';
 import {
@@ -21,8 +17,7 @@ import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import { RxCross2, RxHamburgerMenu } from 'react-icons/rx';
 import { cn } from 'components/lib/utils';
 import { useState } from 'react';
-import { changeThemeThunk } from 'src/redux/users/usersOperations';
-import { updateUserLocally } from '../../redux/users/usersSlice';
+import ThemeSwitch from 'components/ThemeSwitch';
 
 export const Header = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -33,20 +28,6 @@ export const Header = () => {
   const favoriteAnimals = useSelector(selectFavoriteAnimals);
   const favoritesCount = favoriteAnimals.length;
 
-  const currentTheme = useSelector(selectUserTheme);
-  const newTheme: 'light' | 'dark' = currentTheme === 'dark' ? 'light' : 'dark';
-  const handleToggleTheme = () => {
-    if (isLoggedIn) {
-      dispatch(changeThemeThunk({ theme: newTheme }));
-    } else {
-      dispatch(updateUserLocally({ theme: newTheme }));
-      document.documentElement.classList.remove(
-        currentTheme as 'light' | 'dark'
-      );
-      document.documentElement.classList.add(newTheme);
-    }
-  };
-
   return (
     <>
       <header className="z-30 flex items-center bg-header h-80 lg:h-100">
@@ -54,7 +35,7 @@ export const Header = () => {
         <nav className="xs:hidden lg:flex justify-between items-center container">
           <NavLink className="flex flex-col items-center gap-2" to="/" end>
             <img src={logo} alt="logo" className="w-46 h-46" />
-            <span className="hover:text-default-btn text-sm duration-300 transition:all">
+            <span className="dark:text-default-btn hover:text-default-btn dark:hover:text-white text-sm duration-300 transition:all">
               Dim Tvaryn
             </span>
           </NavLink>
@@ -70,8 +51,10 @@ export const Header = () => {
                 to="/allpets"
                 className={({ isActive }) =>
                   cn(
-                    'hover:text-default-btn transition-all duration-300',
-                    isActive ? 'text-default-btn underline' : 'text-black'
+                    'hover:text-default-btn dark:text-white transition-all duration-300',
+                    isActive
+                      ? 'text-default-btn dark:text-white underline'
+                      : 'text-black dark:text-default-btn'
                   )
                 }
                 end
@@ -84,8 +67,10 @@ export const Header = () => {
                 to="/announcement"
                 className={({ isActive }) =>
                   cn(
-                    'hover:text-default-btn transition-all duration-300',
-                    isActive ? 'text-default-btn underline' : 'text-black'
+                    'hover:text-default-btn dark:text-white transition-all duration-300',
+                    isActive
+                      ? 'text-default-btn dark:text-white underline'
+                      : 'text-black dark:text-default-btn'
                   )
                 }
                 end
@@ -98,8 +83,10 @@ export const Header = () => {
                 to="/blog"
                 className={({ isActive }) =>
                   cn(
-                    'hover:text-default-btn transition-all duration-300',
-                    isActive ? 'text-default-btn underline' : 'text-black'
+                    'hover:text-default-btn dark:text-white transition-all duration-300',
+                    isActive
+                      ? 'text-default-btn dark:text-white underline'
+                      : 'text-black dark:text-default-btn'
                   )
                 }
                 end
@@ -109,26 +96,22 @@ export const Header = () => {
             </li>
           </ul>
           <div className="flex items-center gap-28">
-            <CustomButton
-              styleType="whiteButton"
-              onClick={handleToggleTheme}
-              className="rounded-full w-100"
-            >
-              Theme: {currentTheme === 'dark' ? '🌙' : '☀️'}
-            </CustomButton>
+            <ThemeSwitch />
             <NavLink to="/favorite" className="relative" end>
               {favoritesCount > 0 ? (
                 <FaHeart size={32} className="text-error-input" />
               ) : (
-                <FaRegHeart size={32} />
+                <FaRegHeart
+                  className="text-black dark:text-default-btn"
+                  size={32}
+                />
               )}
               {favoritesCount > 0 && (
-                <span className="-top-5 -right-[3px] absolute flex justify-center items-center bg-none rounded-full w-8 h-20 text-black text-sm">
+                <span className="-top-5 -right-[3px] absolute flex justify-center items-center bg-none rounded-full w-8 h-20 text-black dark:text-default-btn text-sm">
                   {favoritesCount}
                 </span>
               )}
             </NavLink>
-
             {isLoggedIn ? (
               <div className="flex flex-col items-center max-h-[54px]">
                 <Avatar
@@ -265,6 +248,9 @@ export const Header = () => {
           <NavLink to="/blog" onClick={() => setMobileMenuOpen(false)}>
             Догляд за твариною
           </NavLink>
+          <div className="flex gap-16 m-auto">
+            <p>Тема</p> <ThemeSwitch />
+          </div>
         </div>
       </header>
 

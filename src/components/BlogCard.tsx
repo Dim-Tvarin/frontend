@@ -18,7 +18,7 @@ const BlogCard = ({
           className="mb-16 rounded-4xl w-full h-[280px] object-cover"
         />
       </Link>
-      <h3 className="font-medium text-base">{title}</h3>
+      <h3 className="font-medium text-base dark:text-default-btn">{title}</h3>
       <Link to={link} className="text-link text-sm underline">
         Читати більше
       </Link>

@@ -126,14 +126,16 @@ const AnimalCard = ({
       <div className="z-10 relative bg-main-pink-l/80 px-16 md:px-32 pt-8 md:pt-10 pb-[9px] md:pb-[14px] md:py-12 rounded-[28px] w-full">
         <div className="text-left flex flex-col gap-[4px] md:gap-2.5">
           <div className="flex justify-between relative">
-            <h2 className="font-medium text-base lg:text-lg">{name}</h2>
+            <h2 className="font-medium dark:text-default-btn text-base lg:text-lg">
+              {name}
+            </h2>
             {status === 'inactive' && (
-              <div className="absolute -top-[32px] -left-[16px] lg:block bg-orange lg:mt-2 rounded-[24px] lg:rounded-full w-[152px] lg:w-[162px] h-[24px] lg:h-[28px] font-bold text-white text-sm text-center leading-[171%]">
+              <div className="absolute -top-[32px] -left-[16px] lg:block bg-orange lg:mt-2 rounded-[24px] lg:rounded-full w-[152px] lg:w-[162px] h-[24px] lg:h-[28px] font-bold text-white dark:text-black text-sm text-center leading-[171%]">
                 Знайшов родину
               </div>
             )}
           </div>
-          <div className="flex gap-1 overflow-hidden font-medium text-sm lg:text-lg">
+          <div className="flex gap-1 overflow-hidden dark:text-default-btn font-medium text-sm lg:text-lg">
             {gender !== 'unknown' && <span>{genderMapping[gender]}</span>}
             {!!age.years && <span>{getYearDeclension(age.years)} </span>}
             {!!age.months && <span>{`${age.months}\u00A0міс.`}</span>}
@@ -145,7 +147,7 @@ const AnimalCard = ({
             >
               <HartSVG
                 hartFill={isInFavorites}
-                className="w-24 lg:w-[36px] h-24 lg:h-[36px]"
+                className="dark:text-orange w-24 lg:w-[36px] h-24 lg:h-[36px]"
               />
             </div>
           )}
@@ -174,9 +176,9 @@ const AnimalCard = ({
                   className={cn(animal?.isHidden && 'bg-link')}
                 >
                   {animal?.isHidden ? (
-                    <FaEyeSlash className="text-white w-[13px] lg:w-[42px] h-[13px] lg:h-[24px]" />
+                    <FaEyeSlash className="text-white dark:text-header w-[13px] lg:w-[42px] h-[13px] lg:h-[24px]" />
                   ) : (
-                    <FaEye className="text-white w-[13px] lg:w-[22px] h-[13px] lg:h-[22px]" />
+                    <FaEye className="text-white dark:text-header w-[13px] lg:w-[22px] h-[13px] lg:h-[22px]" />
                   )}
                 </CustomButton>
               </TooltipTrigger>
@@ -196,7 +198,7 @@ const AnimalCard = ({
                   styleType="iconButton"
                   onClick={() => navigate(`/editannouncement/${id}`)}
                 >
-                  <FiEdit className="text-white w-[13px] lg:w-[22px] h-[13px] lg:h-[22px]" />
+                  <FiEdit className="text-white dark:text-header w-[13px] lg:w-[22px] h-[13px] lg:h-[22px]" />
                 </CustomButton>
               </TooltipTrigger>
               <TooltipContent
@@ -222,9 +224,9 @@ const AnimalCard = ({
                       })
                     )
                   }
-                  className="hover:bg-error-input"
+                  className="hover:bg-error-input dark:hover:bg-error-input"
                 >
-                  <FiTrash2 className="text-white w-[13px] lg:w-[22px] h-[13px] lg:h-[22px]" />
+                  <FiTrash2 className="text-white  dark:text-header w-[13px] lg:w-[22px] h-[13px] lg:h-[22px]" />
                 </CustomButton>
               </TooltipTrigger>
               <TooltipContent

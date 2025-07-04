@@ -51,12 +51,12 @@ const DialogEditUser: React.FC = () => {
                     className="w-[219px] h-[44px] m-0 outline-none shadow-none rounded-[20px]
           data-[state=active]:shadow-none 
           data-[state=active]:outline-none 
-          text-white hover:text-default-btn bg-default-btn hover:bg-orange hover:border-default-btn hover:border-2 disabled:bg-disabled  
-          data-[state=active]:text-default-btn 
-          data-[state=active]:bg-white 
+          text-white dark:text-black hover:text-default-btn bg-default-btn dark:bg-orange hover:bg-orange dark:hover:bg-btn-orange-hov hover:border-default-btn dark:hover:border-btn-orange hover:border-2 disabled:bg-disabled  
+          data-[state=active]:text-default-btn data-[state=active]:dark:text-default-btn
+          data-[state=active]:bg-white data-[state=active]:dark:bg-transparent 
           data-[state=active]:border-2
-          data-[state=active]:border-default-btn 
-          data-[state=active]:hover:border-orange"
+          data-[state=active]:border-default-btn data-[state=active]:dark:border-orange
+          data-[state=active]:hover:border-orange data-[state=active]:dark:hover:border-btn-orange-hov"
                   >
                     Основна інформація
                   </TabsTrigger>
@@ -66,12 +66,12 @@ const DialogEditUser: React.FC = () => {
                     className="w-[219px] h-[44px] m-0 outline-none shadow-none rounded-[20px]
           data-[state=active]:shadow-none 
           data-[state=active]:outline-none 
-          text-white hover:text-default-btn bg-default-btn hover:bg-orange hover:border-default-btn hover:border-2 disabled:bg-disabled  
-          data-[state=active]:text-default-btn 
-          data-[state=active]:bg-white 
+          text-white dark:text-black hover:text-default-btn bg-default-btn dark:bg-orange hover:bg-orange dark:hover:bg-btn-orange-hov hover:border-default-btn dark:hover:border-btn-orange hover:border-2 disabled:bg-disabled  
+          data-[state=active]:text-default-btn data-[state=active]:dark:text-default-btn
+          data-[state=active]:bg-white data-[state=active]:dark:bg-transparent 
           data-[state=active]:border-2
-          data-[state=active]:border-default-btn 
-          data-[state=active]:hover:border-orange"
+          data-[state=active]:border-default-btn data-[state=active]:dark:border-orange
+          data-[state=active]:hover:border-orange data-[state=active]:dark:hover:border-btn-orange-hov"
                   >
                     Зміна паролю
                   </TabsTrigger>
