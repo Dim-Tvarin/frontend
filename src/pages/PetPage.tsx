@@ -122,7 +122,7 @@ const PetPage = () => {
       console.error('Не вдалося змінити видимість:', error);
     }
   };
-  
+  console.log('isInFavorites', isInFavorites);
   return (
     <div className="container">
       <div className="relative flex lg:flex-row flex-col gap-20 mt-72 lg:mt-100 mb-100 text-default-btn">
@@ -133,7 +133,7 @@ const PetPage = () => {
           {animal && <ImageCarousel images={animal?.animalImages} />}
         </div>
 
-        <div className="z-10 flex flex-col w-full lg:w-1/2 text-lg lg:text-xl text-left">
+        <div className="z-10 flex flex-col w-full lg:w-1/2 text-lg lg:text-base text-left">
           <div className="flex items-center">
             <h2 className="mb-16 lg:mb-24 font-bold text-2xl md:text-4xl lg:text-5xl mr-100">
               {animal?.animalName}
@@ -156,7 +156,7 @@ const PetPage = () => {
           <div className="text-input-border text-sm mb-6">
             Опубліковано: {animal?.updatedAt && formatDate(animal?.updatedAt)}
           </div>
-          <div className="gap-x-auto gap-y-16 grid grid-cols-2 mb-16 lg:mb-32">
+          <div className="gap-x-auto gap-y-10 lg:gap-y-16 grid grid-cols-2 mb-16 lg:mb-32">
             <p className="font-bold">Статус:</p>
             <p>
               {animal?.status === 'active'
