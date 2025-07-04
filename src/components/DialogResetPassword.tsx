@@ -65,7 +65,7 @@ const DialogResetPassword: React.FC = () => {
     >
       <DialogOverlay className="bg-black/70" />
       <DialogContent
-        className="w-[413px] min-h-[532px] rounded-[30px] p-32 bg-dialog text-center gap-0"
+        className="max-w-full sm:w-[413px] min-h-[490px] sm:min-h-[532px] rounded-[30px] px-16 py-24 sm:p-32 bg-dialog text-center gap-0"
         onPointerDownOutside={e => e.preventDefault()}
         aria-labelledby="Забули пароль?"
         aria-describedby={undefined}
@@ -74,7 +74,7 @@ const DialogResetPassword: React.FC = () => {
           <CloseSVG />
         </DialogClose>
         <DialogHeader>
-          <DialogTitle className="text-2xl leading-[140%] text-default-btn mb-30 text-center">
+          <DialogTitle className="text-2xl leading-[140%] text-default-btn mb-32 sm:mb-30 text-center">
             Забули пароль?
           </DialogTitle>
         </DialogHeader>
@@ -87,7 +87,7 @@ const DialogResetPassword: React.FC = () => {
             placeholder="********"
             className="h-40 text-[16px] mb-16"
             labelSize="base"
-            labelClass="text-input-border mb-16"
+            labelClass="text-input-border mb-10 sm:mb-16"
             id="password"
             {...register('password')}
             error={errors.password?.message}
@@ -98,7 +98,7 @@ const DialogResetPassword: React.FC = () => {
             placeholder="********"
             className="h-40 text-[16px] mb-16"
             labelSize="base"
-            labelClass="text-input-border mb-16"
+            labelClass="text-input-border mb-10 sm:mb-16"
             id="repeat_password"
             {...register('repeat_password')}
             error={resetCodeError || errors.repeat_password?.message}

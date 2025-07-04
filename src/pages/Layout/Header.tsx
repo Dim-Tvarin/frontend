@@ -133,7 +133,7 @@ export const Header = () => {
               <div className="flex flex-col items-center max-h-[54px]">
                 <Avatar
                   className="m-4 p-0 size-9 text-[10px] cursor-pointer"
-                  onClick={() => navigate('/profile')}
+                  onClick={() => navigate('/profile/info')}
                 >
                   <AvatarImage
                     src={user.avatarURL}
@@ -203,13 +203,17 @@ export const Header = () => {
             </NavLink>
             <div
               className="cursor-pointer"
-              onClick={() => navigate(isLoggedIn ? '/profile' : '/login')}
+              onClick={() =>
+                isLoggedIn
+                  ? navigate('/profile/info')
+                  : dispatch(openDialog('login'))
+              }
             >
               {isLoggedIn ? (
                 <div className="flex flex-col items-center max-h-[54px]">
                   <Avatar
                     className="m-4 p-0 size-9 text-[10px]"
-                    onClick={() => navigate('/profile')}
+                    onClick={() => navigate('/profile/info')}
                   >
                     <AvatarImage
                       src={user.avatarURL}
@@ -249,7 +253,7 @@ export const Header = () => {
               : '-translate-y-[300px] opacity-0 pointer-events-none'
           )}
         >
-          <NavLink to="/profile" onClick={() => setMobileMenuOpen(false)}>
+          <NavLink to="/profile/info" onClick={() => setMobileMenuOpen(false)}>
             Особистий кабінет
           </NavLink>
           <NavLink to="/allpets" onClick={() => setMobileMenuOpen(false)}>

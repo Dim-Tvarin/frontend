@@ -15,9 +15,11 @@ export const registrationSchema = z
 
     email: z
       .string()
+      .trim()
       .email('Невірний формат email')
       .max(50, 'Email не може перевищувати 50 символів')
-      .nonempty('Email є обовʼязковим'),
+      .nonempty('Email є обовʼязковим')
+      .transform(s => s.toLowerCase()),
 
     location: z
       .string()
@@ -64,9 +66,11 @@ export const registrationSchema = z
 export const loginSchema = z.object({
   email: z
     .string()
+    .trim()
     .email('Невірний формат email')
     .max(50, 'Email не може перевищувати 50 символів')
-    .nonempty('Email є обовʼязковим'),
+    .nonempty('Email є обовʼязковим')
+    .transform(s => s.toLowerCase()),
 
   password: z
     .string()

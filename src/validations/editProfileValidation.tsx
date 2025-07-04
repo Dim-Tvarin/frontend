@@ -14,9 +14,11 @@ export const editUserSchema = z.object({
 
   email: z
     .string()
+    .trim()
     .email('Невірний формат email')
     .max(50, 'Email не може перевищувати 50 символів')
-    .nonempty('Email є обовʼязковим'),
+    .nonempty('Email є обовʼязковим')
+    .transform(s => s.toLowerCase()),
 
   location: z
     .string()

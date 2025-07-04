@@ -10,7 +10,7 @@ import { TextareaDemo } from 'components/CustomTextarea';
 
 import { announceSchema } from '../../validations/announceValidation';
 import { animalTypeOptions, genderOption, type ErrorResponse } from './types';
-import track from '../../../public/track.png';
+import track from '/track.png?url';
 import { LuCirclePlus } from 'react-icons/lu';
 import { CitySelect } from 'components/CitySelect';
 import CustomRadioGroup from 'components/CustomRadioGroup';

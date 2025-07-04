@@ -12,7 +12,6 @@ import VerifyPage from 'pages/Auth/VerifyPage';
 import Announcement from 'pages/Announcement/Announcement';
 import PetsList from 'pages/PetsList/PetsList';
 import PetPage from 'pages/PetPage';
-import ProfilePage from 'pages/ProfilePage';
 import PrivateRoute from 'components/routes/PrivateRoute';
 import EditAnnouncement from 'pages/Announcement/EditAnnouncement';
 import { selectToken, selectUserTheme } from './redux/users/usersSlice';
@@ -26,6 +25,7 @@ import Article4 from 'pages/Blog/Article4';
 import Article5 from 'pages/Blog/Article5';
 import Article6 from 'pages/Blog/Article6';
 import PrivacyPolicyPage from 'pages/PrivacyPolicyPage';
+import ProfileLayout from 'pages/ProfileLayout';
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -43,7 +43,7 @@ function App() {
     }
   }, [theme]);
   useSyncFavoritesOnLogin();
-  console.log('week-21');
+  console.log('week-21.1.');
   return (
     <Routes>
       <Route path="/" element={<Main />}>
@@ -79,13 +79,23 @@ function App() {
         />
 
         <Route
-          path="profile/:tab?"
+          path="profile/info"
           element={
             <PrivateRoute>
-              <ProfilePage />
+              <ProfileLayout />
             </PrivateRoute>
           }
         />
+        <Route
+          path="profile/ads"
+          element={
+            <PrivateRoute>
+              <ProfileLayout />
+            </PrivateRoute>
+          }
+        />
+        <Route path="profile/*" element={<Error />} />
+
         <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
         <Route path="register" element={<Registration />} />
         <Route path="verify/:verifyToken" element={<VerifyPage />} />

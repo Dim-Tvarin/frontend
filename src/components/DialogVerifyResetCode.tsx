@@ -106,7 +106,7 @@ const DialogVerifyResetCode: React.FC = () => {
     >
       <DialogOverlay className="bg-black/70" />
       <DialogContent
-        className="w-[413px] min-h-[432px] rounded-[30px] p-32 bg-dialog text-center gap-0"
+        className="max-w-full sm:w-[413px] min-h-[450px] sm:min-h-[432px] rounded-[30px] px-16 py-24 sm:p-32 bg-dialog text-center gap-0"
         onPointerDownOutside={e => e.preventDefault()}
         aria-labelledby="Забули пароль?"
         aria-describedby={undefined}
@@ -115,7 +115,7 @@ const DialogVerifyResetCode: React.FC = () => {
           <CloseSVG />
         </DialogClose>
         <DialogHeader>
-          <DialogTitle className="text-2xl leading-[140%] text-default-btn mb-30 text-center">
+          <DialogTitle className="text-2xl leading-[140%] text-default-btn mb-32 sm:mb-30 text-center">
             Забули пароль?
           </DialogTitle>
         </DialogHeader>
@@ -131,7 +131,7 @@ const DialogVerifyResetCode: React.FC = () => {
             onChange={value => setValue('code', value)}
             error={verifyResetCodeError || errors.code?.message}
           />
-          <div className="mt-20 text-sm text-input-border mr-auto">
+          <div className="mt-16 sm:mt-20 text-sm text-center text-input-border">
             {!canResend && timer !== 0 ? (
               `Не отримали код? Надіслати повторно через 0:${timer < 10 ? '0' + timer : timer}`
             ) : (
