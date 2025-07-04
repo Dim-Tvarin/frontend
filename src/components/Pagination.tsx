@@ -37,7 +37,7 @@ const Pagination = ({
         size="icon"
         disabled={currentPage === 1}
         onClick={handlePrev}
-        className="border-2 border-default-btn dark:border-btn-orange rounded-full w-32 lg:w-50 h-32 lg:h-50 focus:outline-none focus-visible:outline-none"
+        className="border-2 border-default-btn dark:border-btn-orange rounded-full w-32 lg:w-50 h-32 lg:h-50"
       >
         <FaArrowLeft
           size={22}
@@ -56,7 +56,7 @@ const Pagination = ({
             onPageChange(page);
             setSearchParams({ page: `${page}` });
           }}
-          className={`rounded-full border-2 border-default-btn dark:border-btn-orange w-32 h-32 lg:w-50 lg:h-50 font-medium transition-colors text-base focus:outline-none focus-visible:outline-none
+          className={`rounded-full border-2 border-default-btn dark:border-btn-orange w-32 h-32 lg:w-50 lg:h-50 font-medium transition-colors text-base
             ${
               currentPage === page
                 ? 'bg-orange text-white dark:text-header'
@@ -73,7 +73,7 @@ const Pagination = ({
         size="icon"
         disabled={currentPage === totalPages}
         onClick={handleNext}
-        className={`border-2 border-default-btn dark:border-btn-orange rounded-full w-32 lg:w-50 h-32 lg:h-50  focus:outline-none focus-visible:outline-none ${
+        className={`border-2 border-default-btn dark:border-btn-orange rounded-full w-32 lg:w-50 h-32 lg:h-50 ${
           currentPage === totalPages
             ? 'bg-transparent text-white dark:text-default-btn'
             : 'bg-white dark:bg-transparent text-default-btn dark:text-orange'

@@ -95,7 +95,9 @@ const UserProfileForm = () => {
           onClick={handleClick}
           size={36}
           fill="white"
-          className="absolute bottom-[3px] right-[3px] cursor-pointer"
+          className="
+        fill-white
+        dark:stroke-header absolute bottom-[3px] right-[3px] cursor-pointer"
         />
         <ul className="flex flex-col text-xs text-input-border mt-20 leading-[15px]">
           <li>Формати: JPG, PNG, GIF</li>

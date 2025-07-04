@@ -130,7 +130,7 @@ const AnimalCard = ({
               {name}
             </h2>
             {status === 'inactive' && (
-              <div className="absolute -top-[32px] -left-[16px] lg:block bg-orange lg:mt-2 rounded-[24px] lg:rounded-full w-[152px] lg:w-[162px] h-[24px] lg:h-[28px] font-bold text-white text-sm text-center leading-[171%]">
+              <div className="absolute -top-[32px] -left-[16px] lg:block bg-orange lg:mt-2 rounded-[24px] lg:rounded-full w-[152px] lg:w-[162px] h-[24px] lg:h-[28px] font-bold text-white dark:text-black text-sm text-center leading-[171%]">
                 Знайшов родину
               </div>
             )}
@@ -176,9 +176,9 @@ const AnimalCard = ({
                   className={cn(animal?.isHidden && 'bg-link')}
                 >
                   {animal?.isHidden ? (
-                    <FaEyeSlash className="text-white w-[13px] lg:w-[42px] h-[13px] lg:h-[24px]" />
+                    <FaEyeSlash className="text-white dark:text-header w-[13px] lg:w-[42px] h-[13px] lg:h-[24px]" />
                   ) : (
-                    <FaEye className="text-white w-[13px] lg:w-[22px] h-[13px] lg:h-[22px]" />
+                    <FaEye className="text-white dark:text-header w-[13px] lg:w-[22px] h-[13px] lg:h-[22px]" />
                   )}
                 </CustomButton>
               </TooltipTrigger>
@@ -198,7 +198,7 @@ const AnimalCard = ({
                   styleType="iconButton"
                   onClick={() => navigate(`/editannouncement/${id}`)}
                 >
-                  <FiEdit className="text-white w-[13px] lg:w-[22px] h-[13px] lg:h-[22px]" />
+                  <FiEdit className="text-white dark:text-header w-[13px] lg:w-[22px] h-[13px] lg:h-[22px]" />
                 </CustomButton>
               </TooltipTrigger>
               <TooltipContent
@@ -224,9 +224,9 @@ const AnimalCard = ({
                       })
                     )
                   }
-                  className="hover:bg-error-input"
+                  className="hover:bg-error-input dark:hover:bg-error-input"
                 >
-                  <FiTrash2 className="text-white w-[13px] lg:w-[22px] h-[13px] lg:h-[22px]" />
+                  <FiTrash2 className="text-white  dark:text-header w-[13px] lg:w-[22px] h-[13px] lg:h-[22px]" />
                 </CustomButton>
               </TooltipTrigger>
               <TooltipContent

@@ -31,12 +31,12 @@ export default function ProfileLayout() {
             className="w-[304px] lg:w-[307px] max-h-[54px] text-base m-0 outline-none shadow-none rounded-[20px] py-[15px]
           data-[state=active]:shadow-none 
           data-[state=active]:outline-none 
-          text-default-btn bg-white  border-default-btn  hover:border-orange border-2 disabled:bg-disabled  
-          data-[state=active]:text-white
-          data-[state=active]:hover:text-default-btn
-          data-[state=active]:bg-default-btn
-          data-[state=active]:hover:bg-orange
-          data-[state=active]:hover:border-default-btn"
+          text-default-btn bg-white dark:bg-transparent border-default-btn dark:border-orange hover:border-orange dark:hover:border-btn-orange-hov border-2 disabled:bg-disabled  
+          data-[state=active]:text-white data-[state=active]:dark:text-black
+          data-[state=active]:hover:text-default-btn 
+          data-[state=active]:bg-default-btn data-[state=active]:dark:bg-orange
+          data-[state=active]:hover:bg-orange data-[state=active]:dark:hover:bg-btn-orange-hov
+          data-[state=active]:hover:border-default-btn data-[state=active]:dark:hover:border-btn-orange"
           >
             Основна інформація
           </TabsTrigger>
@@ -46,12 +46,12 @@ export default function ProfileLayout() {
             className="w-[304px] lg:w-[307px] max-h-[54px] text-base m-0 outline-none shadow-none rounded-[20px] py-[15px]
           data-[state=active]:shadow-none 
           data-[state=active]:outline-none 
-          text-default-btn bg-white  border-default-btn  hover:border-orange border-2 disabled:bg-disabled  
-          data-[state=active]:text-white
-          data-[state=active]:hover:text-default-btn
-          data-[state=active]:bg-default-btn
-          data-[state=active]:hover:bg-orange
-          data-[state=active]:hover:border-default-btn"
+          text-default-btn bg-white dark:bg-transparent border-default-btn dark:border-orange hover:border-orange dark:hover:border-btn-orange-hov border-2 disabled:bg-disabled  
+          data-[state=active]:text-white data-[state=active]:dark:text-black
+          data-[state=active]:hover:text-default-btn 
+          data-[state=active]:bg-default-btn data-[state=active]:dark:bg-orange
+          data-[state=active]:hover:bg-orange data-[state=active]:dark:hover:bg-btn-orange-hov
+          data-[state=active]:hover:border-default-btn data-[state=active]:dark:hover:border-btn-orange"
           >
             Мої оголошення
           </TabsTrigger>

@@ -74,7 +74,7 @@ const DialogEditAvatarUpload: React.FC = () => {
       <Dialog.Portal>
         <DialogOverlay className="fixed inset-0 bg-black/70" />
         <Dialog.Content
-          className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 bg-white pt-32 px-16 pb-50 lg:p-50 align-center rounded-2xl w-full lg:w-[955px] max-h-[535px] lg:max-h-[488px] focus-visible:outline-none"
+          className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 bg-white dark:bg-dialog pt-32 px-16 pb-50 lg:p-50 align-center rounded-2xl w-full lg:w-[955px] max-h-[535px] lg:max-h-[488px] focus-visible:outline-none"
           onPointerDownOutside={e => e.preventDefault()}
         >
           <Dialog.Close className="absolute top-24 right-24 focus:outline-none focus-visible:outline-none">
