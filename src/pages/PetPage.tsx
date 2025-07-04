@@ -155,7 +155,7 @@ const PetPage = () => {
             )}
           </div>
 
-          <div className="text-input-border text-sm mb-6">
+          <div className="text-input-border text-sm mb-20 lg:mb-24">
             Опубліковано: {animal?.updatedAt && formatDate(animal?.updatedAt)}
           </div>
           <div className="gap-x-auto gap-y-10 lg:gap-y-16 grid grid-cols-2 mb-16 lg:mb-32">
