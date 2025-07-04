@@ -1,25 +1,27 @@
 const HartSVG = ({
   fill = '#042D4A',
   stroke = 'white',
+  size = '36',
   hartFill,
   className = '',
 }: {
   fill?: string;
   stroke?: string;
+  size?: string;
   className?: string;
   hartFill?: boolean;
 }) => {
   return (
     <svg
-      width="36"
-      height="36"
+      width={size}
+      height={size}
       viewBox="0 0 36 36"
       fill="none"
       className={className}
     >
       <rect
-        width="36"
-        height="36"
+        width={size}
+        height={size}
         rx="18"
         className={`
         fill-[${fill}]

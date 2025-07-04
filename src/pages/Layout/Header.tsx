@@ -13,11 +13,11 @@ import {
 } from 'components/components/ui/avatar';
 import fallbackIcon from '../../assets/avatar-icon.png';
 import { selectFavoriteAnimals } from 'src/redux/animals/favoriteAnimalsSlice';
-import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import { RxCross2, RxHamburgerMenu } from 'react-icons/rx';
 import { cn } from 'components/lib/utils';
 import { useState } from 'react';
 import ThemeSwitch from 'components/ThemeSwitch';
+import HartSVG from 'src/assets/HartSVG';
 
 export const Header = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -98,16 +98,14 @@ export const Header = () => {
           <div className="flex items-center gap-28">
             <ThemeSwitch />
             <NavLink to="/favorite" className="relative" end>
-              {favoritesCount > 0 ? (
-                <FaHeart size={32} className="text-error-input" />
-              ) : (
-                <FaRegHeart
-                  className="text-black dark:text-default-btn"
-                  size={32}
-                />
-              )}
+              <HartSVG
+                size="46"
+                fill="none"
+                stroke="#042D4A"
+                hartFill={favoritesCount > 0 ? true : false}
+              />
               {favoritesCount > 0 && (
-                <span className="-top-5 -right-[3px] absolute flex justify-center items-center bg-none rounded-full w-8 h-20 text-black dark:text-default-btn text-sm">
+                <span className="top-0 right-0.5 absolute flex justify-center items-center bg-none rounded-full w-8 h-20 text-black dark:text-default-btn text-sm">
                   {favoritesCount}
                 </span>
               )}
@@ -173,13 +171,14 @@ export const Header = () => {
 
           <div className="flex gap-4 items-center">
             <NavLink to="/favorite" className="relative" end>
-              {favoritesCount > 0 ? (
-                <FaHeart size={24} className="text-error-input" />
-              ) : (
-                <FaRegHeart size={24} />
-              )}
+              <HartSVG
+                size="46"
+                fill="none"
+                stroke="#042D4A"
+                hartFill={favoritesCount > 0 ? true : false}
+              />
               {favoritesCount > 0 && (
-                <span className="-top-5 -right-[3px] absolute flex justify-center items-center bg-none rounded-full w-8 h-20 text-black text-sm">
+                <span className="top-0 right-0.5 absolute flex justify-center items-center bg-none rounded-full w-8 h-20 text-black text-sm">
                   {favoritesCount}
                 </span>
               )}
