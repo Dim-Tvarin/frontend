@@ -16,6 +16,7 @@
   --color-header: #dcd2c8;
   --color-black: #000;
   --color-white: #fff;
+  --color-main: #fff;
   --color-main-pink-l: #f7ebeb;
   --color-main-pink-d: #dbd0d0;
   --color-input-border: #99a2a5;
@@ -31,7 +32,8 @@
   --color-error: #ff564f;
   --color-error-input: #eb5050;
   --color-orange: #ff8c42;
-  --color-btn-orange: #ff7f50;
+  --color-btn-orange: #ffd8b0;
+  --color-btn-orange-hov: #ff6e1a;
   --color-btn-disabled: #0f172a80;
   --color-dialog: #ede9e9;
   --color-link: #4154bb;
@@ -93,22 +95,23 @@
 
 :root.dark {
   --color-bg-main: #1a1a1a;
-  --color-header: #2e2e2e;
-  --color-black: #ffffff;
-  --color-white: #0d0d0d;
-  --color-main-pink-l: #3d2d2d;
+  --color-header: #042d4a;
+  --color-black: #0d0d0d;
+  --color-white: #ffffff;
+  --color-main: #0f1c2e;
+  --color-main-pink-l: #1a2b3a;
   --color-main-pink-d: #2a1d1d;
   --color-input-border: #666666;
   --color-input-label: #cccccc;
   --color-input-file: #e2e8f0;
   --color-border-file: #999999;
   --color-border-drag: #aaaaaa;
-  --color-default-btn: #c0c0c0;
+  --color-default-btn: #ededed;
   --color-default-btn-hov: #e0e0e0;
   --color-disabled: #4b5563;
   --color-error: #f87171;
-  --color-error-input: #7f1d1d;
-  --color-orange: #ffb347;
+  --color-error-input: #eb5050;
+  --color-orange: #ff8c42;
   --color-btn-orange: #ff9966;
   --color-dialog: #1e1e1e;
   --color-link: #93c5fd;

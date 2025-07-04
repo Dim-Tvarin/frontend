@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import logo from '../../assets/color-logo.svg';
-import linkedin from '../../assets/linkedin.svg';
+import { TiSocialLinkedinCircular } from 'react-icons/ti';
 import { Link } from 'react-router-dom';
 import { LuClipboardList } from 'react-icons/lu';
 import { CustomButton } from 'components/CustomButton';
@@ -18,23 +18,28 @@ const Footer = () => {
           to="https://www.linkedin.com/company/dim-tvaryn/posts/?feedView=all"
           target="_blank"
         >
-          <img src={linkedin} alt="linkedin" />
+          <TiSocialLinkedinCircular
+            size={32}
+            className="dark:text-default-btn dark:hover:text-white"
+          />
         </Link>
       </div>
       <NavLink className="flex flex-col items-center gap-2" to="/" end>
         <img src={logo} alt="logo" className="w-40 sm:w-46 h-40 sm:h-46" />
-        <span className="text-sm">Dim Tvaryn</span>
+        <span className="text-sm dark:text-default-btn dark:hover:text-white">
+          Dim Tvaryn
+        </span>
       </NavLink>
       <CustomButton
         styleType="linkButton"
-        className="text-black w-[26px] sm:w-[165px] text-sm ml-[90px] sm:ml-80 focus:outline-none focus-visible:border-none focus-visible:outline-none focus-visible:ring-0"
+        className="text-black w-[26px] sm:w-[165px] text-sm ml-[90px] sm:ml-80 focus:outline-none focus-visible:border-none focus-visible:outline-none focus-visible:ring-0 dark:text-default-btn dark:hover:text-white"
         onClick={() => {
           dispatch(clearError());
           dispatch(openDialog('feedback'));
         }}
       >
         <LuClipboardList size={26} />
-        <span className="hidden sm:inline">Зворотній звʼязок</span>
+        <span className="hidden sm:inline ">Зворотній звʼязок</span>
       </CustomButton>
     </footer>
   );

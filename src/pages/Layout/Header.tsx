@@ -35,7 +35,7 @@ export const Header = () => {
         <nav className="xs:hidden lg:flex justify-between items-center container">
           <NavLink className="flex flex-col items-center gap-2" to="/" end>
             <img src={logo} alt="logo" className="w-46 h-46" />
-            <span className="hover:text-default-btn text-sm duration-300 transition:all">
+            <span className="dark:text-default-btn hover:text-default-btn dark:hover:text-white text-sm duration-300 transition:all">
               Dim Tvaryn
             </span>
           </NavLink>
@@ -51,8 +51,10 @@ export const Header = () => {
                 to="/allpets"
                 className={({ isActive }) =>
                   cn(
-                    'hover:text-default-btn transition-all duration-300',
-                    isActive ? 'text-default-btn underline' : 'text-black'
+                    'hover:text-default-btn dark:text-white transition-all duration-300',
+                    isActive
+                      ? 'text-default-btn dark:text-white underline'
+                      : 'text-black dark:text-default-btn'
                   )
                 }
                 end
@@ -65,8 +67,10 @@ export const Header = () => {
                 to="/announcement"
                 className={({ isActive }) =>
                   cn(
-                    'hover:text-default-btn transition-all duration-300',
-                    isActive ? 'text-default-btn underline' : 'text-black'
+                    'hover:text-default-btn dark:text-white transition-all duration-300',
+                    isActive
+                      ? 'text-default-btn dark:text-white underline'
+                      : 'text-black dark:text-default-btn'
                   )
                 }
                 end
@@ -79,8 +83,10 @@ export const Header = () => {
                 to="/blog"
                 className={({ isActive }) =>
                   cn(
-                    'hover:text-default-btn transition-all duration-300',
-                    isActive ? 'text-default-btn underline' : 'text-black'
+                    'hover:text-default-btn dark:text-white transition-all duration-300',
+                    isActive
+                      ? 'text-default-btn dark:text-white underline'
+                      : 'text-black dark:text-default-btn'
                   )
                 }
                 end
@@ -95,10 +101,13 @@ export const Header = () => {
               {favoritesCount > 0 ? (
                 <FaHeart size={32} className="text-error-input" />
               ) : (
-                <FaRegHeart size={32} />
+                <FaRegHeart
+                  className="text-black dark:text-default-btn"
+                  size={32}
+                />
               )}
               {favoritesCount > 0 && (
-                <span className="-top-5 -right-[3px] absolute flex justify-center items-center bg-none rounded-full w-8 h-20 text-black text-sm">
+                <span className="-top-5 -right-[3px] absolute flex justify-center items-center bg-none rounded-full w-8 h-20 text-black dark:text-default-btn text-sm">
                   {favoritesCount}
                 </span>
               )}
