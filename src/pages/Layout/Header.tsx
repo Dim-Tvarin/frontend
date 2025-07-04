@@ -239,6 +239,9 @@ export const Header = () => {
           <NavLink to="/blog" onClick={() => setMobileMenuOpen(false)}>
             Догляд за твариною
           </NavLink>
+          <div className="flex gap-16 m-auto">
+            <p>Тема</p> <ThemeSwitch />
+          </div>
         </div>
       </header>
 
