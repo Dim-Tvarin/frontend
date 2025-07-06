@@ -11,7 +11,7 @@ const Main = () => {
       <ImageCropProvider>
         <DialogsManager />
       </ImageCropProvider>
-      <main className="grow flex flex-col bg-bg-main">
+      <main className="grow flex flex-col bg-main">
         <Outlet />
       </main>
       <Footer />

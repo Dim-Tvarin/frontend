@@ -40,38 +40,38 @@ const DialogEditUser: React.FC = () => {
                 onValueChange={setActiveTab}
                 className={`rounded-[30px]  text-center gap-0 bg-dialog ${
                   activeTab === 'account'
-                    ? 'w-[965px] min-h-[589px] p-[60px] pb-[84px] '
-                    : 'w-[630px] min-h-[481px] p-50'
+                    ? 'w-full lg:w-[965px] min-h:[1092px] lg:min-h-[589px] pt-32 px-16 pb-50 lg:p-[60px] lg:pb-[84px] '
+                    : 'w-full lg:w-[630px] min-h:[434px] lg:min-h-[481px] px-16 py-24 lg:p-50'
                 }`}
               >
-                <TabsList className="gap-20 h-[44px]">
+                <TabsList className="flex flex-col lg:flex-row gap-20 h-[108px] lg:h-[44px]">
                   <TabsTrigger
                     value="account"
                     aria-orientation="vertical"
                     className="w-[219px] h-[44px] m-0 outline-none shadow-none rounded-[20px]
           data-[state=active]:shadow-none 
           data-[state=active]:outline-none 
-          text-white hover:text-default-btn bg-default-btn hover:bg-orange hover:border-default-btn hover:border-2 disabled:bg-disabled  
-          data-[state=active]:text-default-btn 
-          data-[state=active]:bg-white 
+          text-white dark:text-black hover:text-default-btn bg-default-btn dark:bg-orange hover:bg-orange dark:hover:bg-btn-orange-hov hover:border-default-btn dark:hover:border-btn-orange hover:border-2 disabled:bg-disabled  
+          data-[state=active]:text-default-btn data-[state=active]:dark:text-default-btn
+          data-[state=active]:bg-white data-[state=active]:dark:bg-transparent 
           data-[state=active]:border-2
-          data-[state=active]:border-default-btn 
-          data-[state=active]:hover:border-orange"
+          data-[state=active]:border-default-btn data-[state=active]:dark:border-orange
+          data-[state=active]:hover:border-orange data-[state=active]:dark:hover:border-btn-orange-hov"
                   >
                     Основна інформація
                   </TabsTrigger>
                   <TabsTrigger
                     value="password"
                     aria-orientation="vertical"
-                    className="w-[236px] h-[44px] m-0 outline-none shadow-none rounded-[20px]
+                    className="w-[219px] h-[44px] m-0 outline-none shadow-none rounded-[20px]
           data-[state=active]:shadow-none 
           data-[state=active]:outline-none 
-          text-white hover:text-default-btn bg-default-btn hover:bg-orange hover:border-default-btn hover:border-2 disabled:bg-disabled  
-          data-[state=active]:text-default-btn 
-          data-[state=active]:bg-white 
+          text-white dark:text-black hover:text-default-btn bg-default-btn dark:bg-orange hover:bg-orange dark:hover:bg-btn-orange-hov hover:border-default-btn dark:hover:border-btn-orange hover:border-2 disabled:bg-disabled  
+          data-[state=active]:text-default-btn data-[state=active]:dark:text-default-btn
+          data-[state=active]:bg-white data-[state=active]:dark:bg-transparent 
           data-[state=active]:border-2
-          data-[state=active]:border-default-btn 
-          data-[state=active]:hover:border-orange"
+          data-[state=active]:border-default-btn data-[state=active]:dark:border-orange
+          data-[state=active]:hover:border-orange data-[state=active]:dark:hover:border-btn-orange-hov"
                   >
                     Зміна паролю
                   </TabsTrigger>

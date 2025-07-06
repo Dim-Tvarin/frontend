@@ -27,19 +27,19 @@ export const CustomButton = ({
   return (
     <Button
       className={cn(
-        'w-full text-white outline-none shadow-none transition duration-300 ',
+        'w-full text-white dark:text-black outline-none shadow-none transition duration-300 ',
         styleType === 'defaultButton' &&
-          'rounded-[20px] px-6 py-2.5 w-[236px] h-[44px] mt-[54px] mx-auto bg-default-btn hover:bg-orange hover:border-default-btn hover:border-2 hover:text-default-btn disabled:bg-disabled',
+          'rounded-[20px] px-6 py-2.5 w-[236px] h-[44px] mt-[54px] mx-auto bg-default-btn dark:bg-orange hover:bg-orange dark:hover:bg-btn-orange-hov hover:border-default-btn dark:hover:border-btn-orange hover:border-2 hover:text-default-btn disabled:bg-disabled',
         styleType === 'redButton' &&
           'rounded-[20px] px-6 py-2.5 w-[236px] h-[44px] mt-[54px] mx-auto bg-red-btn hover:bg-red-btn-hov disabled:bg-disabled',
         styleType === 'orangeButton' &&
           'rounded-[20px] px-10 py-24 w-[230px] h-[45px] mt-[54px] mx-auto bg-btn-orange hover:bg-orange disabled:bg-disabled',
         styleType === 'linkButton' &&
-          'text-default-btn hover:text-orange disabled:text-disabled bg-none p-0',
+          'text-default-btn hover:text-orange dark:text-default-btn dark:hover:text-orange disabled:text-disabled bg-none p-0',
         styleType === 'whiteButton' &&
-          'rounded-[20px] px-6 py-2.5 w-[236px] h-[44px] mx-auto border-2 text-default-btn bg-white border-default-btn hover:border-orange disabled:bg-disabled',
+          'rounded-[20px] px-6 py-2.5 w-[236px] h-[44px] mx-auto border-2 text-default-btn bg-white dark:bg-orange dark:hover:bg-btn-orange-hov border-default-btn dark:border-0 hover:border-orange dark:hover:border-btn-orange  dark:hover:border-2 disabled:bg-disabled',
         styleType === 'iconButton' &&
-          'w-9 h-9 bg-default-btn rounded-full hover:bg-link flex items-center justify-center hover:border-orange disabled:bg-disabled',
+          'w-6 lg:w-9 h-6 lg:h-9 bg-default-btn dark:bg-orange rounded-full hover:bg-link dark:hover:bg-link flex items-center justify-center hover:border-orange disabled:bg-disabled focus:outline-none focus-visible:outline-none',
         className
       )}
       disabled={loading}

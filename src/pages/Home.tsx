@@ -1,11 +1,11 @@
 import { CustomButton } from 'components/CustomButton';
 import ResponsiveImage from 'components/ResponsiveImage';
 import { useNavigate } from 'react-router-dom';
-import homeDogMin from '../assets/home-dog1.jpg';
-import homeDogMax from '../assets/home-dog2.png';
-import homeGirlDogMin from '../assets/home-girl&dog1.jpg';
-import homeGirlDogMax from '../assets/home-girl&dog@2.jpg';
-import track from '../../public/track.png';
+import homeDogMin from '../assets/home-dog1.webp';
+import homeDogMax from '../assets/home-dog2.webp';
+import homeGirlDogMin from '../assets/home-girl&dog1.webp';
+import homeGirlDogMax from '../assets/home-girl&dog@2.webp';
+import track from '/track.png?url';
 import { LuCirclePlus } from 'react-icons/lu';
 import AnimalsCarousel from 'components/AnimalsCarousel';
 import { useSelector } from 'react-redux';
@@ -35,7 +35,8 @@ export const Home = () => {
             безпритульним тваринам знайти свій дім
           </p>
           <CustomButton
-            className="z-10 flex gap-8 bg-default-btn rounded-[20px] w-[236px] h-[44px] text-base"
+            styleType="defaultButton"
+            className="z-10 m-0 flex gap-8 bg-default-btn rounded-[20px] w-[236px] h-[44px] text-base"
             onClick={handleNavigateAnnouncement}
           >
             <LuCirclePlus size={20} />
@@ -95,6 +96,7 @@ export const Home = () => {
         </h3>
         <AnimalsCarousel />
         <CustomButton
+          styleType="defaultButton"
           className="z-10 flex gap-10 bg-default-btn mt-50 rounded-[20px] w-[236px] h-[44px] text-base"
           onClick={() => navigate('/allpets')}
         >

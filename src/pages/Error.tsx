@@ -1,4 +1,4 @@
-import bg from '../../public/assets/404@2x.jpg';
+import bg from '../../src/assets/404@2x.jpg';
 
 const Error = () => {
   return (

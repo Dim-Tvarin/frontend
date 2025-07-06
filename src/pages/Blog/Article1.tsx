@@ -6,7 +6,7 @@ const Article1 = () => {
   const navigate = useNavigate();
   return (
     <div className="container">
-      <article className="gap-20 grid grid-cols-1 md:grid-cols-2 mt-100 mb-64">
+      <article className="gap-20 grid grid-cols-1 md:grid-cols-2 mt-100 mb-64 dark:text-default-btn">
         <div className="font-normal text-base text-left">
           <div className="relative bg-orange mb-40 rounded-[30px] w-[345px] md:w-[627px] h-[158px] md:h-[287px]">
             <img
@@ -190,7 +190,8 @@ const Article1 = () => {
         </div>
       </article>
       <CustomButton
-        className="z-10 bg-default-btn mb-100 rounded-[20px] w-[356px] h-[44px] text-base"
+        styleType="defaultButton"
+        className="z-10 text-base bg-default-btn mb-100 rounded-[20px] w-[356px] h-[44px]"
         onClick={() => navigate(-1)}
       >
         Повернутися до попередньої сторінки

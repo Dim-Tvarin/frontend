@@ -74,13 +74,13 @@ const DialogEditAvatarUpload: React.FC = () => {
       <Dialog.Portal>
         <DialogOverlay className="fixed inset-0 bg-black/70" />
         <Dialog.Content
-          className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 bg-white p-50 align-center rounded-2xl w-[955px] max-h-[488px]"
+          className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 bg-white dark:bg-dialog pt-32 px-16 pb-50 lg:p-50 align-center rounded-2xl w-full lg:w-[955px] max-h-[535px] lg:max-h-[488px] focus-visible:outline-none"
           onPointerDownOutside={e => e.preventDefault()}
         >
           <Dialog.Close className="absolute top-24 right-24 focus:outline-none focus-visible:outline-none">
             <CloseSVG />
           </Dialog.Close>
-          <div className="px-[113px]">
+          <div className="lg:px-[113px]">
             <DialogHeader>
               <Dialog.Title className="text-left text-default-btn leading-[150%] mb-10 ">
                 Додайте фото
@@ -88,21 +88,21 @@ const DialogEditAvatarUpload: React.FC = () => {
             </DialogHeader>
             <div
               {...getRootProps()}
-              className={`m-auto w-[630px] h-[190px] p-[42px] border-2 border-dashed  rounded-[10px] text-center mb-32 ${isDragActive ? 'border-default-btn bg-main-pink-d' : 'border-border-drag bg-main-pink-l'}`}
+              className={`m-auto w-[328px] lg:w-[630px] h-[190px] pt-[34px] px-10 pb-[43px] lg:p-[42px] border-2 border-dashed  rounded-[10px] text-center mb-32 ${isDragActive ? 'border-default-btn bg-main-pink-d' : 'border-border-drag bg-main-pink-l'}`}
             >
-              <p className="text-lg text-default-btn mb-16">
+              <p className="text-lg text-default-btn mb-[27px] lg:mb-16">
                 {isDragActive ? (
                   'Відпустіть файл тут...'
                 ) : (
                   <>Перетягніть файл сюди</>
                 )}
               </p>
-              <div className="flex items-center gap-[19px] px-16 py-10 border-2 border-border-drag rounded-[8px] w-[382px] h-[64px] m-auto">
+              <div className="flex items-center gap-[16px] lg:gap-[19px] px-16 py-10 border-2 border-border-drag rounded-[8px] w-[308px] lg:w-[382px] h-[64px] m-auto">
                 <label className="cursor-pointer">
                   <CustomButton
                     as="span"
                     styleType="defaultButton"
-                    className="m-0 w-[149px]"
+                    className="m-0 w-[130px] lg:w-[149px]"
                     onClick={open}
                     disabled={!!file}
                   >
@@ -127,11 +127,11 @@ const DialogEditAvatarUpload: React.FC = () => {
             {error && <FormError error={error} />}
           </div>
 
-          <DialogFooter className="flex flex-row gap-20 sm:justify-center mt-32">
+          <DialogFooter className="flex flex-col lg:flex-row gap-20 items-center sm:justify-center mt-32">
             <CustomButton
               type="button"
               styleType="defaultButton"
-              className="w-[236px] text-base m-0"
+              className="w-[188px] lg:w-[236px] text-base m-0"
               onClick={() => {
                 if (!file) return;
                 setError(null);
@@ -144,7 +144,7 @@ const DialogEditAvatarUpload: React.FC = () => {
             <CustomButton
               type="button"
               styleType="whiteButton"
-              className="w-[157px] h-[44px] text-base m-0"
+              className="w-[188px] lg:w-[157px] h-[44px] text-base m-0"
               onClick={() => dispatch(closeDialog())}
             >
               Скасувати

@@ -71,7 +71,7 @@ const DialogLogin: React.FC = () => {
     >
       <DialogOverlay className="bg-black/70" />
       <DialogContent
-        className="w-[413px] min-h-[463px] rounded-[30px] p-32 bg-dialog text-center gap-0"
+        className="max-w-full sm:w-[413px] min-h-[420px] sm:min-h-[463px] rounded-[30px] px-16 py-24 sm:p-32 bg-dialog text-center gap-0"
         onPointerDownOutside={e => e.preventDefault()}
         aria-labelledby="dialog-content"
         aria-describedby={undefined}
@@ -80,7 +80,7 @@ const DialogLogin: React.FC = () => {
           <CloseSVG />
         </DialogClose>
         <DialogHeader>
-          <DialogTitle className="text-2xl leading-[140%] text-default-btn mb-30 text-center">
+          <DialogTitle className="text-2xl leading-[140%] text-default-btn mb-32 sm:mb-30 text-center">
             Авторизація
           </DialogTitle>
         </DialogHeader>
@@ -93,7 +93,7 @@ const DialogLogin: React.FC = () => {
             placeholder="user@gmail.com"
             className="h-40 text-[16px] mb-16"
             labelSize="base"
-            labelClass="text-input-border mb-16"
+            labelClass="text-input-border mb-10 sm:mb-16"
             id="email"
             {...register('email')}
             error={errors.email?.message}
@@ -103,7 +103,7 @@ const DialogLogin: React.FC = () => {
             placeholder="********"
             className="h-40 text-[16px]"
             labelSize="base"
-            labelClass="text-input-border mb-16"
+            labelClass="text-input-border mb-10 sm:mb-16"
             id="password"
             {...register('password')}
             error={

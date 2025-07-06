@@ -52,7 +52,7 @@ export const CodeInput: FC<CodeInputProps> = ({
   };
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col m-auto">
       <div className={cn('flex flex-row gap-10', className)}>
         {Array.from({ length }).map((_, i) => (
           <input
@@ -66,7 +66,7 @@ export const CodeInput: FC<CodeInputProps> = ({
             placeholder="*"
             maxLength={1}
             className={cn(
-              'w-50 h-50 text-center text-xl border border-input-border rounded-[8px] placeholder:text-input-border transition-all',
+              'w-[46px] sm:w-50 h-[46px] sm:h-50 text-center text-xl border border-input-border rounded-[8px] placeholder:text-input-border transition-all',
               error ? 'border-error-input' : 'border-input-border',
               'focus:ring-2 focus:ring-black'
             )}

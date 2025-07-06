@@ -40,7 +40,8 @@ const BlogMain = () => {
         />
       </div>
       <CustomButton
-        className="z-10 bg-default-btn mb-100 rounded-[20px] w-[332px] h-[44px]"
+        styleType="defaultButton"
+        className="z-10 bg-default-btn mb-100 rounded-[20px] w-[332px] h-[44px] text-base"
         onClick={() => navigate('/')}
       >
         Повернутися на головну сторінку

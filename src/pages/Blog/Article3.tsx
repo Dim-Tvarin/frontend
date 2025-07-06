@@ -6,7 +6,7 @@ const Article3 = () => {
   const navigate = useNavigate();
   return (
     <div className="container">
-      <article className="gap-20 grid grid-cols-1 xl:grid-cols-2 mt-100 mb-64">
+      <article className="gap-20 grid grid-cols-1 xl:grid-cols-2 mt-100 mb-64 dark:text-default-btn">
         <div className="font-normal text-base text-left">
           <h1 className="mb-16 font-bold text-title leading-40">
             Особливості здоров&#39;я та важливі аспекти, які потрібно знати при
@@ -196,6 +196,7 @@ const Article3 = () => {
         </div>
       </article>
       <CustomButton
+        styleType="defaultButton"
         className="z-10 bg-default-btn mb-100 rounded-[20px] w-[356px] h-[44px] text-base"
         onClick={() => navigate(-1)}
       >
