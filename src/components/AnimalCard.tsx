@@ -135,8 +135,12 @@ const AnimalCard = ({
               </div>
             )}
           </div>
-          <div className="flex gap-1 overflow-hidden dark:text-default-btn font-medium text-sm lg:text-lg">
-            {gender !== 'unknown' && <span>{genderMapping[gender]}</span>}
+
+          <div className="block text-ellipsis whitespace-nowrap sm:flex gap-1 overflow-hidden dark:text-default-btn font-medium text-base lg:text-lg">
+            {gender !== 'unknown' && (\u00A0
+              <span>{`${genderMapping[gender]}`}</span>
+            )}
+
             {!!age.years && <span>{getYearDeclension(age.years)} </span>}
             {!!age.months && <span>{`${age.months}\u00A0міс.`}</span>}
           </div>
