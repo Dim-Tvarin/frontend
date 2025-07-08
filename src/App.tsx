@@ -10,7 +10,6 @@ import { refreshThunk } from './redux/users/usersOperations';
 import type { AppDispatch } from './redux/store';
 import VerifyPage from 'pages/Auth/VerifyPage';
 import Announcement from 'pages/Announcement/Announcement';
-import PetsList from 'pages/PetsList/PetsList';
 import PetPage from 'pages/PetPage';
 import PrivateRoute from 'components/routes/PrivateRoute';
 import EditAnnouncement from 'pages/Announcement/EditAnnouncement';
@@ -26,6 +25,7 @@ import Article5 from 'pages/Blog/Article5';
 import Article6 from 'pages/Blog/Article6';
 import PrivacyPolicyPage from 'pages/PrivacyPolicyPage';
 import ProfileLayout from 'pages/ProfileLayout';
+import PetsPage from 'pages/PetsList/PetsPage';
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -57,7 +57,7 @@ function App() {
             </PrivateRoute>
           }
         />
-        <Route path="allpets" element={<PetsList />} />
+        <Route path="allpets" element={<PetsPage />} />
         <Route path="allpets/:id" element={<PetPage />} />
         <Route path="favorite" element={<FavoritePage />} />
 
