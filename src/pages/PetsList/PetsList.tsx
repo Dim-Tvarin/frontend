@@ -232,11 +232,16 @@ const PetsList = () => {
               }}
             >
               <div className="relative flex flex-col bg-dialog xl:bg-transparent xl:p-0 pt-32 rounded-4xl">
-                <div
-                  className="xl:hidden top-16 right-16 absolute"
-                  onClick={() => setOpenFilters(false)}
-                >
-                  <CloseSVG />
+                <div className="flex items-center justify-between px-16 mb-4">
+                  <div className="block xl:hidden text-default-btn text-base font-medium">
+                    Фільтр
+                  </div>
+                  <div
+                    className="xl:hidden"
+                    onClick={() => setOpenFilters(false)}
+                  >
+                    <CloseSVG fill="white" size="27" />
+                  </div>
                 </div>
                 <div className="flex flex-wrap gap-x-16 gap-y-10 xl:mb-32 ml-16 xl:ml-0 max-w-[344px]">
                   {activeFilterItems.length > 0 &&
