@@ -162,15 +162,16 @@ const PetsList = () => {
           )}
         </div>
         {data?.total === 0 ? (
-          <CustomButton
-            type="button"
-            styleType="defaultButton"
-            className="top-[95px] md:top-[135px] left-[calc(50%-98px)] z-50 absolute m-0 w-[196px]"
-            onClick={handleClearFilter}
-          >
-            До списку тварин
-          </CustomButton>
+          <></>
         ) : (
+          // <CustomButton
+          //   type="button"
+          //   styleType="defaultButton"
+          //   className="top-[95px] md:top-[135px] left-[calc(50%-98px)] z-50 absolute m-0 w-[196px]"
+          //   onClick={handleClearFilter}
+          // >
+          //   До списку тварин
+          // </CustomButton>
           <div
             className={`lg:top-0 absolute flex justify-between m-0 w-full ${isFilterApplied ? 'top-80' : 'top-50'}`}
           >
