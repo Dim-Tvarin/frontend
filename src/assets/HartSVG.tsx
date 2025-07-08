@@ -15,14 +15,14 @@ const HartSVG = ({
     <svg
       width={size}
       height={size}
-      viewBox="0 0 36 36"
+      viewBox={`0 0 ${size} ${size}`}
       fill="none"
       className={className}
     >
       <rect
         width={size}
         height={size}
-        rx="18"
+        rx={size}
         className={`
         fill-[${fill}]
         dark:fill-orange
