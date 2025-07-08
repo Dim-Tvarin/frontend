@@ -98,7 +98,7 @@ const PetsList = () => {
           {isFilterApplied && data && (
             <p className="w-full text-default-btn text-base md:text-lg text-center">
               {data.total === 0
-                ? 'По вашому запиту нічого не знайдено'
+                ? 'По вашому запиту знайдено 0, але ви можете обрати іншу тварину'
                 : `По вашому запиту знайдено ${data.total} тварини`}
             </p>
           )}
