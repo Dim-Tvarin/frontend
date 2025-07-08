@@ -220,7 +220,7 @@ export const Header = () => {
                   type="button"
                   className="focus-visible:shadow-none focus:shadow-none m-auto focus-visible:outline-none focus:outline-none focus-visible:ring-0"
                 >
-                  <CabinetSVG color="black" />
+                  <CabinetSVG />
                 </CustomButton>
               )}
             </div>
