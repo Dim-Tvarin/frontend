@@ -1,6 +1,6 @@
 const HartSVG = ({
   fill = '#042D4A',
-  stroke = 'white',
+  stroke,
   size = '36',
   hartFill,
   className = '',
