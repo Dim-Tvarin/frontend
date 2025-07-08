@@ -148,9 +148,9 @@ const PetsList = () => {
 
   return (
     <div className="container">
-      <div className="relative flex justify-center mt-72 lg:mt-100 mb-100 lg:mb-50">
+      <div className="relative flex justify-center mt-30 lg:mt-100 mb-100 lg:mb-50">
         <div className="flex flex-col">
-          <h1 className="mb-10 md:text-[32px] text-lg dark:text-default-btn">
+          <h1 className="mb-10 md:text-[32px] text-lg text-default-btn dark:text-default-btn">
             {title}
           </h1>
           {isFilterApplied && data && (
@@ -188,7 +188,7 @@ const PetsList = () => {
               <CustomButton
                 type="button"
                 styleType="whiteButton"
-                className="w-[192px] md:w-[217px] text-default-btn text-medium text-base"
+                className="w-[192px] md:w-[217px]  text-medium text-base text-default-btn"
                 onClick={() => setOpenSorting(prev => !prev)}
               >
                 Сортування за датою
