@@ -137,8 +137,8 @@ const AnimalCard = ({
           </div>
 
           <div className="block text-ellipsis whitespace-nowrap sm:flex gap-1 overflow-hidden dark:text-default-btn font-medium text-base lg:text-lg">
-            {gender !== 'unknown' && (\u00A0
-              <span>{`${genderMapping[gender]}`}</span>
+            {gender !== 'unknown' && (
+              <span>{`${genderMapping[gender]}\u00A0`}</span>
             )}
 
             {!!age.years && <span>{getYearDeclension(age.years)} </span>}

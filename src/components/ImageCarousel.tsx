@@ -41,7 +41,7 @@ const ImageCarousel = ({
         )}
         <div
           className={cn(
-            'bottom-0 absolute rounded-[30px] w-[95%] lg:w-[442px] xl:w-[615px] min-w-[310px] h-[194px] md:h-[428px] overflow-hidden xl:h-[444px]',
+            'bottom-0 absolute rounded-[30px] w-[97%] lg:w-[442px] xl:w-[615px] min-w-[310px] h-[200px] md:h-[428px] overflow-hidden xl:h-[444px]',
             isEditAnnouncement ? 'right-0' : 'left-0'
           )}
         >
