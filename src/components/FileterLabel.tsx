@@ -11,7 +11,7 @@ const FileterLabel: FC<LabelFilterProps> = ({ label, onRemove }) => {
     label = 'маленький';
   }
   return (
-    <div className="flex items-center gap-5 bg-white px-8 py-4 border border-input-border rounded-[10px] text-default-btn text-base">
+    <div className="flex items-center gap-5 dark:bg-main bg-white px-8 py-4 border border-input-border rounded-[10px] text-default-btn text-base">
       <span>{label}</span>
       <button
         onClick={onRemove}

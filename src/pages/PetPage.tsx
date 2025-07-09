@@ -144,9 +144,9 @@ const PetPage = () => {
                 onClick={handleAddFavorite}
               >
                 <div>
-                  <HartSVG hartFill={isInFavorites} />
+                  <HartSVG hartFill={isInFavorites} context="header" />
                 </div>
-                <p className=" text-base">До обраних</p>
+                <p className="ml-[4px] text-base">До обраних</p>
               </div>
             )}
           </div>

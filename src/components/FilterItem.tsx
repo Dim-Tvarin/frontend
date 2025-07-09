@@ -46,7 +46,7 @@ const FilterItem = ({
           <FaChevronDown color="#042D4A" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="bg-white shadow-none p-4 border-1 border-input-border w-(--radix-popover-trigger-width) text-default-btn -mt-4">
+      <PopoverContent className="bg-white dark:bg-main  shadow-none p-4 border-1 border-input-border w-(--radix-popover-trigger-width) text-default-btn -mt-4">
         <RadioGroup value={value} onValueChange={handleValueChange}>
           {items.map(item => (
             <div
