@@ -99,7 +99,7 @@ export const Header = () => {
             <ThemeSwitch />
             <NavLink to="/favorite" className="relative" end>
               <HartSVG
-                size="46"
+                size="36"
                 fill="none"
                 stroke="#042D4A"
                 hartFill={favoritesCount > 0 ? true : false}
