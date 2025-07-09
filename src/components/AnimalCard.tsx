@@ -151,8 +151,8 @@ const AnimalCard = ({
             >
               <HartSVG
                 hartFill={isInFavorites}
-                stroke="#EB5050"
-                className="dark:text-orange w-24 lg:w-[36px] h-24 lg:h-[36px]"
+                context="card"
+                className="w-24 lg:w-[36px] h-24 lg:h-[36px]"
               />
             </div>
           )}
