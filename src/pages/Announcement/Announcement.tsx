@@ -1,6 +1,6 @@
-import announce2 from '../../assets/announce2.jpg';
-import announce3 from '../../assets/announce3.jpg';
-import announce4 from '../../assets/announce4.jpg';
+import announce2 from '../../assets/announce2_2x.webp';
+import announce3 from '../../assets/announce3_2x.webp';
+import announce4 from '../../assets/announce4_2x.webp';
 import { InputField } from 'components/InputField';
 import { CustomButton } from 'components/CustomButton';
 import { z } from 'zod';
