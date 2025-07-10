@@ -29,10 +29,11 @@ const PetsList = () => {
   const navigate = useNavigate();
   const windowSize = useWindowSize();
 
-  const { data, isLoading, isFetching, error } = useGetFilteredAnimalsQuery(
-    { page, limit, ...filtersParams },
-    { skip: !filtersParams }
-  );
+  const { data, isLoading, isFetching, refetch, error } =
+    useGetFilteredAnimalsQuery(
+      { page, limit, ...filtersParams },
+      { skip: !filtersParams }
+    );
 
   const totalPages = data && Math.ceil(data?.total / limit);
   const title =
@@ -203,6 +204,7 @@ const PetsList = () => {
                   photoSrc={item.animalImages[0].url}
                   status={item.status}
                   animal={item}
+                  onRefetchMyAnimals={refetch}
                 />
               ))}
             </div>

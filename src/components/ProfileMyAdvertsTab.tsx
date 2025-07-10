@@ -121,6 +121,7 @@ const ProfileMyAdvertsTab = () => {
                 isMyProfile={true}
                 status={item.status}
                 animal={item}
+                onRefetchMyAnimals={refetch}
               />
             ))}
           </div>
