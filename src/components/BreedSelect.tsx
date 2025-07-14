@@ -190,12 +190,12 @@ const BreedSelect = ({
           </Button>
         </PopoverTrigger>
         <PopoverContent className="z-10 p-0 border-1 border-input-border rounded-t-lg w-(--radix-popover-trigger-width)">
-          <Command className="bg-white">
+          <Command className="bg-white dark:bg-main">
             <CommandInput
               placeholder="Пошук ..."
               onValueChange={val => setSearchValue(val)}
             />
-            <CommandList className="bg-white border-1 border-input-border rounded-b-lg">
+            <CommandList className="bg-white dark:bg-main border-1 border-input-border rounded-b-lg">
               {filteredBreed.map(
                 (breed: Pick<AnimalTrait, '_id' | 'breed'>) => (
                   <CommandItem
