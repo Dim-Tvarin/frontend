@@ -90,7 +90,7 @@ const PetsList = () => {
   };
   return (
     <div className="container">
-      <div className="relative flex justify-center mt-30 lg:mt-100 mb-100 lg:mb-50">
+      <div className="relative flex justify-center mt-30 lg:mt-100 mb-[120px] lg:mb-50">
         <div className="flex flex-col">
           <h1 className="mb-10 text-default-btn md:text-[32px] dark:text-default-btn text-lg">
             {title}
@@ -105,7 +105,7 @@ const PetsList = () => {
         </div>
         {data && data?.total > 0 && (
           <div
-            className={`lg:top-0 absolute flex justify-between m-0 w-full ${isFilterApplied ? 'top-80' : 'top-50'}`}
+            className={`lg:top-0 absolute flex justify-between m-0 w-full ${isFilterApplied ? 'top-80' : 'top-72'}`}
           >
             <CustomButton
               type="button"
@@ -120,7 +120,7 @@ const PetsList = () => {
               <CustomButton
                 type="button"
                 styleType="whiteButton"
-                className="w-[192px] md:w-[217px] text-default-btn text-medium text-base"
+                className="w-[192px] md:w-[217px] text-medium text-base text-default-btn"
                 onClick={() => setOpenSorting(prev => !prev)}
               >
                 Сортування за датою
