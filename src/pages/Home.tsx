@@ -70,7 +70,7 @@ export const Home = () => {
             />
           </div>
         </div>
-        <div className="z-10 flex flex-col justify-start items-start gap-10 md:gap-32 w-full md:w-2/4 text-start">
+        <div className="z-10 flex flex-col justify-start items-center gap-10 md:gap-32 w-full md:w-2/4 text-center">
           <h3 className="font-semibold lg:text-[32px] text-base">
             Чому саме ми?
           </h3>
