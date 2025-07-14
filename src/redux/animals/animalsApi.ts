@@ -111,10 +111,26 @@ export const animalsApi = createApi({
     }),
     getMyAnimals: build.query<
       MyAnimalsResponse,
-      { page?: number; limit?: number }
+      {
+        page?: number;
+        limit?: number;
+        animalType?: AnimalType;
+        gender?: string;
+        breed?: string;
+        location?: string;
+        age?: string;
+        size?: string;
+        sortByDate?: SortOrder;
+      }
     >({
-      query: ({ page = 1, limit = 9 }) =>
-        `animals/my-animals?page=${page}&limit=${limit}`,
+      query: ({ page = 1, limit = 12, ...params }) => {
+        const filteredParams = Object.fromEntries(
+          Object.entries(params).filter(([, v]) => v !== undefined && v !== '')
+        );
+        const queryString = new URLSearchParams(filteredParams).toString();
+        const url = `animals/my-animals?page=${page}&limit=${limit}&${queryString}`;
+        return url;
+      },
       providesTags: ['MyAnimals'],
     }),
     addFavoriteAnimal: build.mutation<unknown, string>({

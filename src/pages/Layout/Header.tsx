@@ -99,13 +99,11 @@ export const Header = () => {
             <ThemeSwitch />
             <NavLink to="/favorite" className="relative" end>
               <HartSVG
-                size="36"
-                fill="none"
-                stroke="#042D4A"
                 hartFill={favoritesCount > 0 ? true : false}
+                context="header"
               />
               {favoritesCount > 0 && (
-                <span className="top-0 right-0.5 absolute flex justify-center items-center bg-none rounded-full w-8 h-20 text-black dark:text-default-btn text-sm">
+                <span className="-top-1 right-0 absolute flex justify-center items-center bg-none rounded-full w-[9px] h-[18px] text-black dark:text-default-btn text-sm">
                   {favoritesCount}
                 </span>
               )}
@@ -172,13 +170,11 @@ export const Header = () => {
           <div className="flex gap-4 items-center">
             <NavLink to="/favorite" className="relative" end>
               <HartSVG
-                size="46"
-                fill="none"
-                stroke="#042D4A"
                 hartFill={favoritesCount > 0 ? true : false}
+                context="header"
               />
               {favoritesCount > 0 && (
-                <span className="top-0 right-0.5 absolute flex justify-center items-center bg-none rounded-full w-8 h-20 text-black text-sm">
+                <span className="-top-1 right-0 absolute flex justify-center items-center bg-none rounded-full w-[9px] h-[18px] text-black text-sm">
                   {favoritesCount}
                 </span>
               )}
@@ -219,7 +215,7 @@ export const Header = () => {
                   type="button"
                   className="focus-visible:shadow-none focus:shadow-none m-auto focus-visible:outline-none focus:outline-none focus-visible:ring-0"
                 >
-                  <CabinetSVG color="black" />
+                  <CabinetSVG />
                 </CustomButton>
               )}
             </div>
