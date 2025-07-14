@@ -249,52 +249,49 @@ export const forgotPasswordThunk = createAsyncThunk<
   }
 });
 
-export const verifyResetPasswordThunk = createAsyncThunk(
-  'users/verifyResetPassword',
-  async ({ resetPasswordCode }: { resetPasswordCode: string }, thunkAPI) => {
-    try {
-      const { data } = await marketplaceApiUsers.post('reset-password', {
-        resetPasswordCode,
-      });
-      setToken(data.token);
-      return data;
-    } catch (err) {
-      const error = err as AxiosError<ErrorResponse>;
+export const verifyResetPasswordThunk = createAsyncThunk<
+  { token: string; user: { id: string } },
+  { resetPasswordCode: string }
+>('users/verifyResetPassword', async ({ resetPasswordCode }, thunkAPI) => {
+  try {
+    const { data } = await marketplaceApiUsers.post<{
+      token: string;
+      user: { id: string };
+    }>('reset-password', {
+      resetPasswordCode,
+    });
 
-      const errorMessages: Record<number, string> = {
-        400: 'Код неправильний, спробуйте ще раз',
-        500: 'Помилка сервера. Спробуйте пізніше',
-      };
+    return data;
+  } catch (err) {
+    const error = err as AxiosError<ErrorResponse>;
 
-      return thunkAPI.rejectWithValue(
-        error.response?.status
-          ? errorMessages[error.response.status]
-          : 'Invalid or expired verification reset code'
-      );
-    }
+    const errorMessages: Record<number, string> = {
+      400: 'Код неправильний, спробуйте ще раз',
+      500: 'Помилка сервера. Спробуйте пізніше',
+    };
+
+    return thunkAPI.rejectWithValue(
+      error.response?.status
+        ? errorMessages[error.response.status]
+        : 'Invalid or expired verification reset code'
+    );
   }
-);
+});
 
 export const resetPasswordThunk = createAsyncThunk<
-  { message: string },
+  UsersVerificationResponse,
   ResetPasswordCredentials
 >('resetPassword', async (credentials, thunkAPI) => {
-  const token = (thunkAPI.getState() as RootState).users.token;
+  const userId = (thunkAPI.getState() as RootState).users.user.id;
 
-  if (!token) {
-    return thunkAPI.rejectWithValue('Token does not exist');
+  if (!userId) {
+    return thunkAPI.rejectWithValue('User ID is missing');
   }
 
-  setToken(token);
   try {
-    const { data } = await marketplaceApiUsers.patch<{ message: string }>(
-      'reset-password',
-      credentials,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
+    const { data } = await marketplaceApiUsers.patch<UsersVerificationResponse>(
+      `reset-password/${userId}`,
+      credentials
     );
     return data;
   } catch (err) {

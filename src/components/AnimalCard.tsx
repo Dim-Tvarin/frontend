@@ -10,6 +10,8 @@ import { getYearDeclension } from 'src/helpers/getYearDeclension';
 import { useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import {
+  addAnimal,
+  removeAnimal,
   selectFavoriteAnimals,
   toggleAnimal,
 } from 'src/redux/animals/favoriteAnimalsSlice';
@@ -70,28 +72,34 @@ const AnimalCard = ({
   const isProfileAdsPage = location.pathname === '/profile/ads';
   const isProfileInfoPage = location.pathname === '/profile/info';
 
-  const handleAddFavorite = () => {
+  const handleAddFavorite = async () => {
     if (!animal) return;
     const shouldBeFavorite = !isInFavorites;
     dispatch(toggleAnimal(animal));
     if (isLoggedIn) {
-      toggleFavorite({ id: animal.id, favorite: shouldBeFavorite });
+      try {
+        await toggleFavorite({
+          id: animal.id,
+          favorite: shouldBeFavorite,
+        }).unwrap();
+      } catch {
+        dispatch(toggleAnimal(animal));
+      }
     }
   };
 
   const handleToggleHidden = async () => {
     if (!animal) return;
-
     try {
       await toggleHideAnimal({
         id: animal.id,
         isHidden: !animal.isHidden,
       }).unwrap();
-
-      if (animal.isHidden === false) {
-        dispatch(toggleAnimal(animal));
+      if (!animal.isHidden) {
+        dispatch(removeAnimal(animal.id));
+      } else {
+        dispatch(addAnimal({ ...animal, isHidden: false }));
       }
-
       onRefetchMyAnimals?.();
     } catch (error) {
       console.error('Не вдалося змінити видимість:', error);
