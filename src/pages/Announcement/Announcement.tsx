@@ -173,8 +173,8 @@ const Announcement = () => {
             )}
           />
 
-          <div className="flex-wrap gap-0 md:gap-20 grid md:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-2 mt-16 lg:mt-32 w-full">
-            <div className="gap-x-16 grid grid-cols-2 w-full md:w-[305px]">
+          <div className="flex-wrap gap-0 md:gap-20 grid md:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-2 mt-16 lg:mt-32 w-full items-end">
+            <div className="gap-x-16 grid grid-cols-2 w-full md:w-[305px] items-end">
               <InputField
                 label="Вік *"
                 id="years"
@@ -184,7 +184,6 @@ const Announcement = () => {
                 {...register('age.years')}
               />
               <InputField
-                label=" "
                 id="months"
                 placeholder="0 місяців"
                 className="mr-10 w-full lg:w-[150px] h-[40px] text-base"
@@ -215,7 +214,7 @@ const Announcement = () => {
             </div>
           </div>
 
-          <div className="gap-10 lg:gap-32 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-2 mt-16 lg:mt-32 w-full">
+          <div className="gap-10 lg:gap-32 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-2 mt-16 lg:mt-32 w-full items-end">
             <InputField
               label="Ім’я тварини *"
               id="animalName"
