@@ -62,7 +62,6 @@ const ProfileMyAdvertsTab = () => {
     newParams.set('page', '1');
     setSearchParams(newParams);
     if (windowSize.width && windowSize.width < 1280) setOpenFilters(false);
-    console.log('data', data);
   };
 
   return (
@@ -79,13 +78,16 @@ const ProfileMyAdvertsTab = () => {
           <LuCirclePlus size={24} />
           Додати оголошення
         </CustomButton>
-        {isFilterApplied && data && (
-          <p className="w-full text-default-btn text-base md:text-lg text-center">
-            {data.total === 0
-              ? 'По вашому запиту знайдено 0'
-              : `По вашому запиту знайдено ${data.total} тварини`}
-          </p>
-        )}
+        {windowSize.width !== null &&
+          windowSize.width >= 768 &&
+          isFilterApplied &&
+          data && (
+            <p className="w-full text-default-btn text-base md:text-lg text-center">
+              {data.total === 0
+                ? 'По вашому запиту знайдено 0'
+                : `По вашому запиту знайдено ${data.total} тварини`}
+            </p>
+          )}
         <CustomButton
           type="button"
           styleType="defaultButton"
@@ -95,6 +97,13 @@ const ProfileMyAdvertsTab = () => {
           <FiFilter className="w-25 h-[29px]" />
           Фільтр
         </CustomButton>
+        {isFilterApplied && data && (
+          <p className="w-full text-default-btn text-base md:hidden text-center">
+            {data.total === 0
+              ? 'По вашому запиту знайдено 0'
+              : `По вашому запиту знайдено ${data.total} тварини`}
+          </p>
+        )}
       </div>
 
       {!isFilterApplied && data?.animals.length === 0 ? (
@@ -106,29 +115,39 @@ const ProfileMyAdvertsTab = () => {
           {isLoading ? (
             <PetsListSkeleton className="grid-cols-3" length={9} />
           ) : (
-            <div className="relative flex">
+            <div className="relative flex justify-around gap-20">
               {openFilters && (
-                <div className="absolute flex flex-col bg-dialog xl:bg-transparent xl:pt-100 xl:-left-[324px] rounded-4xl">
-                  <div className="flex justify-between items-center mb-4 px-16">
-                    <div className="xl:hidden block font-medium text-default-btn text-base">
-                      Фільтр
-                    </div>
+                <>
+                  {openFilters && windowSize.width! < 768 && (
                     <div
-                      className="xl:hidden"
+                      className="fixed inset-0 bg-black/80 z-40"
                       onClick={() => setOpenFilters(false)}
-                    >
-                      <CloseSVG fill="white" size="27" />
+                    />
+                  )}
+                  <div className="z-100 fixed top-0 left-0  md:absolute 2xl:-left-[324px] flex flex-col bg-dialog md:bg-transparent 2xl:pt-100 rounded-r-4xl md:rounded-4xl">
+                    <div className="flex justify-between items-center mb-4 px-16">
+                      <div className="pt-[40px] md:hidden block font-medium text-default-btn text-base">
+                        Фільтр
+                      </div>
+                      <div
+                        className="pt-[32px] md:hidden"
+                        onClick={() => setOpenFilters(false)}
+                      >
+                        <CloseSVG fill="white" size="27" />
+                      </div>
                     </div>
-                  </div>
 
-                  <Filter
-                    onSubmit={onSubmit}
-                    isLoading={isLoading}
-                    onClose={() => setOpenFilters(false)}
-                  />
-                </div>
+                    <Filter
+                      onSubmit={onSubmit}
+                      isLoading={isLoading}
+                      onClose={() => setOpenFilters(false)}
+                    />
+                  </div>
+                </>
               )}
-              <div className="grid grid-cols-2 lg:grid-cols-3 gap-16 lg:gap-20 wrap">
+              <div
+                className={`md:ml-auto grid gap-16 lg:gap-20 mb-32 md:mb-50 wrap justify-center transition-all duration-500 grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 ${openFilters ? 'xl:grid-cols-3 xl:w-3/4' : 'xl:grid-cols-4'}`}
+              >
                 {data?.animals.map(item => (
                   <AnimalCard
                     key={item.id}
