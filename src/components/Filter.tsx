@@ -37,8 +37,7 @@ const Filter = ({
   isFetching?: boolean;
   onClose: () => void;
 }) => {
-
- const { filtersParams, setFiltersParams } = useFilters();
+  const { filtersParams, setFiltersParams } = useFilters();
 
   const { control, handleSubmit, watch, reset, resetField } =
     useForm<FilterFormValues>({
@@ -173,7 +172,7 @@ const Filter = ({
         <CustomButton
           type="submit"
           styleType="defaultButton"
-          className="self-center m-0"
+          className="self-center m-0 mt-[34px]"
           loading={isLoading || isFetching}
         >
           Застосувати фільтр
