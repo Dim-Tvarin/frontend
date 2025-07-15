@@ -8,6 +8,8 @@ import { RadioGroup, RadioGroupItem } from './components/ui/radio-group';
 import { Label } from './components/ui/label';
 import { Button } from './components/ui/button';
 import { useState } from 'react';
+import { useWindowSize } from '@uidotdev/usehooks';
+import { cn } from './lib/utils';
 
 type Item = {
   value: string;
@@ -28,6 +30,7 @@ const FilterItem = ({
   onChange: (val: string) => void;
 }) => {
   const [open, setOpen] = useState(false);
+  const windowSize = useWindowSize();
 
   const handleValueChange = (val: string) => {
     onChange(val);
@@ -46,7 +49,14 @@ const FilterItem = ({
           <FaChevronDown color="#042D4A" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="bg-white dark:bg-main  shadow-none p-4 border-1 border-input-border w-(--radix-popover-trigger-width) text-default-btn -mt-4">
+      <PopoverContent
+        className={cn(
+          'shadow-none p-4 border-1 border-input-border w-(--radix-popover-trigger-width) text-default-btn -mt-4',
+          windowSize.width && windowSize.width < 1280
+            ? 'bg-dialog dark:bg-main'
+            : 'bg-white'
+        )}
+      >
         <RadioGroup value={value} onValueChange={handleValueChange}>
           {items.map(item => (
             <div

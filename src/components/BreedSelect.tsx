@@ -17,9 +17,10 @@ import { Button } from './components/ui/button';
 import { useEffect, useState } from 'react';
 import { BsCheckLg } from 'react-icons/bs';
 import FormError from './FormError';
-import { useDebounce } from '@uidotdev/usehooks';
+import { useDebounce, useWindowSize } from '@uidotdev/usehooks';
 import { InputField } from './InputField';
 import { AnimalType, type AnimalTypeValues } from 'pages/Announcement/types';
+import { cn } from './lib/utils';
 
 const getFilteredBreed = (
   data: Pick<AnimalTrait, '_id' | 'breed'>[],
@@ -110,6 +111,7 @@ const BreedSelect = ({
   const [searchValue, setSearchValue] = useState('');
   const { data, isLoading } = useGetAnimaltraitsQuery();
   const debouncedSearch = useDebounce(searchValue, 300);
+  const windowSize = useWindowSize();
 
   useEffect(() => {
     if (type === 'other' || type === undefined) {
@@ -189,13 +191,27 @@ const BreedSelect = ({
             </span>
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="z-10 p-0 border-1 border-input-border rounded-t-lg w-(--radix-popover-trigger-width)">
-          <Command className="bg-white dark:bg-main">
+        <PopoverContent
+          className={cn(
+            'z-10 p-0 border-1 border-input-border rounded-t-lg w-(--radix-popover-trigger-width)',
+            windowSize.width && windowSize.width < 1280
+              ? 'bg-dialog dark:bg-main'
+              : 'bg-white'
+          )}
+        >
+          <Command>
             <CommandInput
               placeholder="Пошук ..."
               onValueChange={val => setSearchValue(val)}
             />
-            <CommandList className="bg-white dark:bg-main border-1 border-input-border rounded-b-lg">
+            <CommandList
+              className={cn(
+                'border-1 border-input-border rounded-b-lg',
+                windowSize.width && windowSize.width < 1280
+                  ? 'bg-dialog dark:bg-main'
+                  : 'bg-white'
+              )}
+            >
               {filteredBreed.map(
                 (breed: Pick<AnimalTrait, '_id' | 'breed'>) => (
                   <CommandItem

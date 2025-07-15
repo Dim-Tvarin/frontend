@@ -14,7 +14,7 @@ import {
 } from './components/ui/command';
 import FormError from './FormError';
 import { useGetCitiesQuery } from 'src/redux/animals/addInfoApi';
-import { useDebounce } from '@uidotdev/usehooks';
+import { useDebounce, useWindowSize } from '@uidotdev/usehooks';
 import { cn } from './lib/utils';
 
 interface CityType {
@@ -72,6 +72,7 @@ export function CitySelect({
   const [searchValue, setSearchValue] = useState('');
   const [filteredData, setFilteredData] = useState<CityType[]>([]);
   const debouncedSearch = useDebounce(searchValue, 300);
+  const windowSize = useWindowSize();
 
   const { data, isLoading } = useGetCitiesQuery();
 
@@ -119,15 +120,25 @@ export function CitySelect({
         <PopoverContent
           className={cn(
             widthClass,
-            'z-10 p-0 border-1 border-input-border  dark:bg-main rounded-t-lg w-(--radix-popover-trigger-width)'
+            'z-10 p-0 border-1 border-input-border  dark:bg-main rounded-t-lg w-(--radix-popover-trigger-width)',
+            windowSize.width && windowSize.width < 1280
+              ? 'bg-dialog dark:bg-main'
+              : 'bg-white'
           )}
         >
-          <Command className="bg-white dark:bg-main">
+          <Command>
             <CommandInput
               placeholder="Пошук міста..."
               onValueChange={val => setSearchValue(val)}
             />
-            <CommandList className="bg-white dark:bg-main border-1 border-input-border rounded-b-lg">
+            <CommandList
+              className={cn(
+                'border-1 border-input-border rounded-b-lg',
+                windowSize.width && windowSize.width < 1280
+                  ? 'bg-dialog dark:bg-main'
+                  : 'bg-white'
+              )}
+            >
               {filteredData.map(city => (
                 <CommandItem
                   className="px-16 text-default-btn text-base text-left"
