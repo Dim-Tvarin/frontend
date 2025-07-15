@@ -106,7 +106,7 @@ const PetsList = () => {
         </div>
         {data && data?.total > 0 && (
           <div
-            className={`lg:top-0 absolute flex justify-between m-0 w-full ${isFilterApplied ? 'top-80' : 'top-72'}`}
+            className={`md:top-100 lg:top-0 absolute flex justify-between m-0 w-full ${isFilterApplied ? 'top-80' : 'top-72'}`}
           >
             <CustomButton
               type="button"
