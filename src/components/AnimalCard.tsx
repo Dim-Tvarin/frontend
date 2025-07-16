@@ -144,7 +144,12 @@ const AnimalCard = ({
             )}
           </div>
 
-          <div className="block text-ellipsis whitespace-nowrap sm:flex gap-1 overflow-hidden dark:text-default-btn font-medium text-base lg:text-lg">
+          <div
+            className={cn(
+              'block text-ellipsis whitespace-nowrap sm:flex gap-1 overflow-hidden dark:text-default-btn font-medium lg:text-lg',
+              tabletSize ? 'text-sm' : 'text-base'
+            )}
+          >
             {gender !== 'unknown' && (
               <span>{`${genderMapping[gender]}\u00A0`}</span>
             )}
