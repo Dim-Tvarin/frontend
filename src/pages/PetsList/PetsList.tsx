@@ -14,7 +14,7 @@ import { Spinner } from 'components/Spinner';
 import CloseSVG from 'src/assets/CloseSVG';
 import Filter, { type FilterFormValues } from 'components/Filter';
 import { useFilters } from 'src/context/FiltersContext';
-import tracks7 from '../../assets/tracks7.png';
+import tracks2 from '../../assets/bg-paws-register-mob.png';
 
 const limit = 12;
 
@@ -158,9 +158,6 @@ const PetsList = () => {
         <PetsListSkeleton />
       ) : (
         <div className="relative flex justify-around gap-20">
-          <div className="hidden lg:block -bottom-[120px] left-0 z-1 absolute">
-            <img src={tracks7} className="w-[282px]" alt="track" />
-          </div>
           {openFilters && (
             <div
               className="z-50 fixed xl:relative inset-0 flex flex-col items-start gap-24 bg-black/50 xl:bg-transparent pt-100 xl:pt-0 pl-16 xl:pl-0 xl:w-1/4 xl:h-fit"
@@ -187,6 +184,9 @@ const PetsList = () => {
                   isFetching={isFetching}
                   onClose={() => setOpenFilters(false)}
                 />
+                <div className="hidden lg:block -bottom-[140px] left-0 z-1 absolute">
+                  <img src={tracks2} className="w-[282px]" alt="track" />
+                </div>
               </div>
             </div>
           )}
