@@ -45,6 +45,10 @@ export const announceSchema = z.object({
     .string()
     .min(2, 'Мінімум 2 символи')
     .max(50, 'Максимум 50 символів')
+    .regex(
+      /^[A-Za-zА-Яа-яЁёІіЇїЄєҐґ\s]+$/,
+      'У полі імені тварини можуть бути тільки літери'
+    )
     .nonempty("Введіть ім'я тварини")
     .trim(),
   animalLocation: z
