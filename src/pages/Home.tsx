@@ -47,7 +47,7 @@ export const Home = () => {
           </div>
         </div>
         <div className="relative order-1 md:order-2 bg-orange rounded-[30px] w-[328px] md:w-[294px] lg:w-[638px] h-[202px] md:h-[213px] lg:h-[500px] overflow-hidden">
-          <div className="right-0 bottom-0 z-10 absolute rounded-[30px] w-[312px] md:w-[278px] lg:w-[615px] h-[186px] md:h-[198px] lg:h-[484px] overflow-hidden">
+          <div className="right-0 bottom-0 z-10 absolute rounded-[30px] w-[318px] md:w-[284px] lg:w-[615px] h-[192px] md:h-[203px] lg:h-[484px] overflow-hidden">
             <ResponsiveImage
               urlMax1x={homeDogMax}
               urlMin1x={homeDogMin}
@@ -61,8 +61,8 @@ export const Home = () => {
         <div className="-top-[175px] lg:-top-72 right-[10px] z-1 absolute w-[136px] lg:w-[210px] h-[133px] lg:h-[205px]">
           <img src={track} alt="track" />
         </div>
-        <div className="z-10 relative bg-orange rounded-[30px] w-[293px] md:w-[293px] lg:w-[638px] h-[202px] md:h-[315px] lg:h-[500px] overflow-hidden">
-          <div className="bottom-0 left-0 absolute rounded-[30px] w-[312px] md:w-[277px] lg:w-[615px] h-[186px] md:h-[303px] lg:h-[484px] overflow-hidden">
+        <div className="z-10 relative bg-orange rounded-[30px] w-[328px] md:w-[294px] lg:w-[638px] h-[202px] md:h-[213px] lg:h-[500px] overflow-hidden">
+          <div className="bottom-0 left-0 absolute rounded-[30px] w-[318px] md:w-[284px] lg:w-[615px] h-[192px] md:h-[203px] lg:h-[484px] overflow-hidden">
             <ResponsiveImage
               urlMax1x={homeGirlDogMax}
               urlMin1x={homeGirlDogMin}
