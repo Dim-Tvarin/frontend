@@ -270,7 +270,7 @@ const PetPage = () => {
           ) : (
             <a
               href={`tel:${ownerPhone}`}
-              className="place-content-center self-center grid bg-default-btn rounded-[20px] w-[236px] h-[44px] text-white text-base"
+              className="place-content-center self-center grid bg-default-btn rounded-[20px] w-[236px] h-[44px] text-white text-base dark:bg-orange dark:hover:bg-btn-orange-hov dark:text-black"
             >
               Зв’язатися з господарем
             </a>
