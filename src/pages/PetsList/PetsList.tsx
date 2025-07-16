@@ -173,7 +173,7 @@ const PetsList = () => {
                     className="xl:hidden"
                     onClick={() => setOpenFilters(false)}
                   >
-                    <CloseSVG fill="white" size="27" />
+                    <CloseSVG fill="white" size="30" />
                   </div>
                 </div>
 
