@@ -122,7 +122,7 @@ export function CitySelect({
             widthClass,
             'z-10 p-0 border-1 border-input-border  dark:bg-main rounded-t-lg w-(--radix-popover-trigger-width)',
             windowSize.width && windowSize.width < 1280
-              ? 'bg-dialog dark:bg-main'
+              ? 'bg-dialog'
               : 'bg-white'
           )}
         >
@@ -134,9 +134,9 @@ export function CitySelect({
             />
             <CommandList
               className={cn(
-                'border-1 border-input-border rounded-b-lg',
+                'border-1 border-input-border rounded-b-lg dark:bg-main',
                 windowSize.width && windowSize.width < 1280
-                  ? 'bg-dialog dark:bg-main'
+                  ? 'bg-dialog '
                   : 'bg-white'
               )}
             >
