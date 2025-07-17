@@ -12,6 +12,7 @@ import { useWindowSize } from '@uidotdev/usehooks';
 import Filter, { type FilterFormValues } from './Filter';
 import CloseSVG from 'src/assets/CloseSVG';
 import { useFilters } from 'src/context/FiltersContext';
+import { cn } from './lib/utils';
 
 const limit = 12;
 
@@ -82,7 +83,7 @@ const ProfileMyAdvertsTab = () => {
           windowSize.width >= 768 &&
           isFilterApplied &&
           data && (
-            <p className="w-full text-default-btn text-base md:text-lg text-center">
+            <p className="w-50% text-default-btn text-base md:text-lg text-center">
               {data.total === 0
                 ? 'По вашому запиту знайдено 0'
                 : `По вашому запиту знайдено ${data.total} тварини`}
@@ -107,7 +108,7 @@ const ProfileMyAdvertsTab = () => {
       </div>
 
       {!isFilterApplied && data?.animals.length === 0 ? (
-        <p className="text-center text-lg text-gray-500 mt-10">
+        <p className="text-center text-lg text-input-label mt-10">
           У вас поки немає оголошень.
         </p>
       ) : (
@@ -115,22 +116,22 @@ const ProfileMyAdvertsTab = () => {
           {isLoading ? (
             <PetsListSkeleton className="grid-cols-3" length={9} />
           ) : (
-            <div className="relative flex justify-around gap-20">
+            <div className="relative flex justify-around 2xl:justify-start gap-20">
               {openFilters && (
                 <>
-                  {openFilters && windowSize.width! < 768 && (
+                  {openFilters && windowSize.width! < 1024 && (
                     <div
                       className="fixed inset-0 bg-black/80 z-40"
                       onClick={() => setOpenFilters(false)}
                     />
                   )}
-                  <div className="z-100 fixed top-0 left-0  md:absolute 2xl:-left-[324px] flex flex-col bg-dialog md:bg-transparent 2xl:pt-100 rounded-r-4xl md:rounded-4xl">
+                  <div className="z-50 fixed top-0 left-0 lg:absolute 2xl:-left-[324px] flex flex-col bg-dialog lg:bg-transparent 2xl:pt-100 rounded-r-4xl md:rounded-r-4xl lg:rounded-4xl">
                     <div className="flex justify-between items-center mb-4 px-16">
-                      <div className="pt-[40px] md:hidden block font-medium text-default-btn text-base">
+                      <div className="pt-[40px] lg:hidden block font-medium text-default-btn text-base">
                         Фільтр
                       </div>
                       <div
-                        className="pt-[32px] md:hidden"
+                        className="pt-[32px] lg:hidden"
                         onClick={() => setOpenFilters(false)}
                       >
                         <CloseSVG fill="white" size="27" />
@@ -146,7 +147,16 @@ const ProfileMyAdvertsTab = () => {
                 </>
               )}
               <div
-                className={`md:ml-auto grid gap-16 lg:gap-20 mb-32 md:mb-50 wrap justify-center transition-all duration-500 grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 ${openFilters ? 'xl:grid-cols-3 xl:w-3/4' : 'xl:grid-cols-4'}`}
+                className={cn(
+                  'ml-auto 2xl:ml-0',
+                  'grid gap-16 lg:gap-20 mb-32 md:mb-50 wrap justify-center transition-all duration-500',
+                  'grid-cols-2',
+                  'sm:grid-cols-3',
+                  'md:grid-cols-2 lg:w-3/4',
+                  'lg:grid-cols-3',
+                  'xl:grid-cols-3',
+                  '2xl:grid-cols-3 2xl:w-full'
+                )}
               >
                 {data?.animals.map(item => (
                   <AnimalCard
