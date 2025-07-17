@@ -165,7 +165,7 @@ const PetsList = () => {
                 setOpenFilters(false);
               }}
             >
-              <div className="relative flex flex-col bg-dialog xl:bg-transparent xl:p-0 pt-32 rounded-r-4xl">
+              <div className="relative flex flex-col bg-dialog xl:bg-transparent xl:p-0 pt-32 rounded-r-4xl dark:bg-main">
                 <div className="flex justify-between items-center mb-4 px-16">
                   <div className="xl:hidden block font-medium text-default-btn text-base">
                     Фільтр

@@ -129,6 +129,7 @@ export function CitySelect({
           <Command>
             <CommandInput
               placeholder="Пошук міста..."
+              className="dark:text-white"
               onValueChange={val => setSearchValue(val)}
             />
             <CommandList

@@ -90,7 +90,7 @@ const Filter = ({
         onSubmit={handleSubmit(onSubmit)}
         onClick={e => e.stopPropagation()}
         className={cn(
-          'xl:flex flex-col transition-all duration-500 xl:bg-transparent',
+          'xl:flex flex-col transition-all duration-500 xl:bg-transparent dark:bg-main',
           'xl:static  xl:gap-32',
           'flex flex-col bg-dialog p-16 gap-16 rounded-4xl w-[344px] xl:w-[306px]  xl:mt-0  xl:p-0'
         )}

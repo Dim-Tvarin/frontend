@@ -203,6 +203,7 @@ const BreedSelect = ({
             <CommandInput
               placeholder="Пошук ..."
               onValueChange={val => setSearchValue(val)}
+              className="dark:text-white"
             />
             <CommandList
               className={cn(
