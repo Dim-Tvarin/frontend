@@ -247,8 +247,8 @@ const EditAnnouncement = () => {
               )}
             />
 
-            <div className="flex-wrap gap-0 md:gap-20 grid md:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-2 mt-16 lg:mt-32 w-full">
-              <div className="gap-x-16 lg:gap-[10px] grid grid-cols-2 w-full md:w-[296px]">
+            <div className="flex-wrap gap-0 md:gap-20 grid md:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-2 mt-16 lg:mt-32 w-full items-end">
+              <div className="gap-x-16 lg:gap-[10px] grid grid-cols-2 w-full md:w-[296px] items-end">
                 <Controller
                   name="age.years"
                   control={control}
@@ -345,7 +345,7 @@ const EditAnnouncement = () => {
               </div>
             </div>
 
-            <div className="gap-10 lg:gap-32 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-2 mt-16 lg:mt-32 w-full">
+            <div className="gap-10 lg:gap-32 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-2 mt-16 lg:mt-32 w-full items-end ">
               <InputField
                 label="Ім’я тварини *"
                 id="animalName"

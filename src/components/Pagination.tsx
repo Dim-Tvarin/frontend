@@ -75,7 +75,7 @@ const Pagination = ({
         onClick={handleNext}
         className={`border-2 border-default-btn dark:border-btn-orange rounded-full w-32 lg:w-50 h-32 lg:h-50 ${
           currentPage === totalPages
-            ? 'bg-transparent text-white dark:text-default-btn'
+            ? 'bg-transparent text-default-btn dark:text-default-btn'
             : 'bg-white dark:bg-transparent text-default-btn dark:text-orange'
         }
           `}

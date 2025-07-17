@@ -14,6 +14,7 @@ import { Spinner } from 'components/Spinner';
 import CloseSVG from 'src/assets/CloseSVG';
 import Filter, { type FilterFormValues } from 'components/Filter';
 import { useFilters } from 'src/context/FiltersContext';
+import tracks2 from '../../assets/bg-paws-register-mob.png';
 
 const limit = 12;
 
@@ -91,7 +92,7 @@ const PetsList = () => {
   };
   return (
     <div className="container">
-      <div className="relative flex justify-center mt-30 lg:mt-100 mb-100 lg:mb-50">
+      <div className="relative flex justify-center mt-30 lg:mt-100 mb-[120px] lg:mb-50">
         <div className="flex flex-col">
           <h1 className="mb-10 text-default-btn md:text-[32px] dark:text-default-btn text-lg">
             {title}
@@ -106,7 +107,7 @@ const PetsList = () => {
         </div>
         {data && data?.total > 0 && (
           <div
-            className={`lg:top-0 absolute flex justify-between m-0 w-full ${isFilterApplied ? 'top-80' : 'top-50'}`}
+            className={`md:top-100 lg:top-0 absolute flex justify-between m-0 w-full ${isFilterApplied ? 'top-80' : 'top-72'}`}
           >
             <CustomButton
               type="button"
@@ -121,7 +122,7 @@ const PetsList = () => {
               <CustomButton
                 type="button"
                 styleType="whiteButton"
-                className="w-[192px] md:w-[217px] text-default-btn text-medium text-base"
+                className="w-[192px] md:w-[217px] text-medium text-base text-default-btn"
                 onClick={() => setOpenSorting(prev => !prev)}
               >
                 Сортування за датою
@@ -159,12 +160,12 @@ const PetsList = () => {
         <div className="relative flex justify-around gap-20">
           {openFilters && (
             <div
-              className="z-50 fixed xl:relative inset-0 flex flex-col items-start gap-24 bg-black/50 xl:bg-transparent pt-100 xl:pt-0 pl-16 xl:pl-0 xl:w-1/4 xl:h-fit"
+              className="z-50 fixed xl:relative inset-0 flex flex-col items-start gap-24 bg-black/50 xl:bg-transparent p-0 xl:w-1/4 xl:h-fit"
               onClick={() => {
                 setOpenFilters(false);
               }}
             >
-              <div className="relative flex flex-col bg-dialog xl:bg-transparent xl:p-0 pt-32 rounded-4xl">
+              <div className="relative flex flex-col bg-dialog xl:bg-transparent xl:p-0 pt-32 rounded-r-4xl">
                 <div className="flex justify-between items-center mb-4 px-16">
                   <div className="xl:hidden block font-medium text-default-btn text-base">
                     Фільтр
@@ -173,7 +174,7 @@ const PetsList = () => {
                     className="xl:hidden"
                     onClick={() => setOpenFilters(false)}
                   >
-                    <CloseSVG fill="white" size="27" />
+                    <CloseSVG fill="white" size="30" />
                   </div>
                 </div>
 
@@ -183,6 +184,9 @@ const PetsList = () => {
                   isFetching={isFetching}
                   onClose={() => setOpenFilters(false)}
                 />
+                <div className="hidden lg:block -bottom-[140px] left-0 z-1 absolute">
+                  <img src={tracks2} className="w-[282px]" alt="track" />
+                </div>
               </div>
             </div>
           )}

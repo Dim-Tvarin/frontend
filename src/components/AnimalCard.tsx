@@ -132,9 +132,9 @@ const AnimalCard = ({
         </div>
       )}
       <div className="z-10 relative bg-main-pink-l/80 px-16 md:px-32 pt-8 md:pt-10 pb-[9px] md:pb-[14px] md:py-12 rounded-[28px] w-full">
-        <div className="text-left flex flex-col gap-[4px] md:gap-2.5">
+        <div className="text-left flex flex-col gap-2 md:gap-2.5">
           <div className="flex justify-between relative">
-            <h2 className="font-medium dark:text-default-btn text-base lg:text-lg">
+            <h2 className="font-medium dark:text-default-btn text-base lg:text-lg block text-ellipsis whitespace-nowrap overflow-hidden mt-24 md:mr-0">
               {name}
             </h2>
             {status === 'inactive' && (
@@ -144,7 +144,12 @@ const AnimalCard = ({
             )}
           </div>
 
-          <div className="block text-ellipsis whitespace-nowrap sm:flex gap-1 overflow-hidden dark:text-default-btn font-medium text-base lg:text-lg">
+          <div
+            className={cn(
+              'block text-ellipsis whitespace-nowrap sm:flex gap-1 overflow-hidden dark:text-default-btn font-medium lg:text-lg',
+              tabletSize ? 'text-sm' : 'text-base'
+            )}
+          >
             {gender !== 'unknown' && (
               <span>{`${genderMapping[gender]}\u00A0`}</span>
             )}
