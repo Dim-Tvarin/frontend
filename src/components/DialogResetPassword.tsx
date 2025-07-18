@@ -104,8 +104,10 @@ const DialogResetPassword: React.FC = () => {
             error={resetCodeError || errors.repeat_password?.message}
             autoComplete="new-password"
           >
-            Пароль повинен містити не менше 8 символів. Для кращого пароля
-            використайте маленькі та великі букви, а також цифри.
+            <p className="text-center">
+              Пароль повинен містити не менше 8 символів. Для кращого пароля
+              використайте маленькі та великі букви, а також цифри.
+            </p>
           </PasswordField>
           <DialogFooter>
             <CustomButton
