@@ -59,17 +59,17 @@ const FavoritePage = () => {
   const handleAscSorting = () => {
     setSorting('newest');
     setOpenSorting(false);
-    setPage(1);
+    setSearchParams({ page: '1' });
   };
   const handleDescSorting = () => {
     setSorting('oldest');
     setOpenSorting(false);
-    setPage(1);
+    setSearchParams({ page: '1' });
   };
   const handleClearFilter = () => {
     setSorting('none');
     setOpenSorting(false);
-    setPage(1);
+    setSearchParams({ page: '1' });
   };
 
   return (
