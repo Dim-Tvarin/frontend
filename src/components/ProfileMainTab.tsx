@@ -16,6 +16,7 @@ import { cn } from './lib/utils';
 import AnimalsCarousel from './AnimalsCarousel';
 import { useWindowSize } from '@uidotdev/usehooks';
 import AnimalCard from './AnimalCard';
+import pawsBg from '../assets/bg-paws-profile-main.png';
 
 const ProfileMainTab = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -54,6 +55,15 @@ const ProfileMainTab = () => {
   return (
     <>
       <div className="relative flex flex-col md:flex-row">
+        <div
+          className="absolute top-[170px] 2xl:-left-[324px] "
+          style={{
+            backgroundImage: `url(${pawsBg})`,
+            backgroundRepeat: 'no-repeat',
+            width: '285px',
+            height: '1436px',
+          }}
+        ></div>
         <div
           className={cn(
             'w-[328px] h-[324px] lg:w-[305px] lg:h-[305px] md:mr-30 shrink-0 rounded-[20px] overflow-hidden',

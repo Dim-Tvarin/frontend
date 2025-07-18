@@ -13,6 +13,8 @@ import Filter, { type FilterFormValues } from './Filter';
 import CloseSVG from 'src/assets/CloseSVG';
 import { useFilters } from 'src/context/FiltersContext';
 import { cn } from './lib/utils';
+import pawsBg from '../assets/bg-paws-profile-ads.png';
+import pawsFilterBg from '../assets/bg-paws-profile-filter.png';
 
 const limit = 12;
 
@@ -117,7 +119,7 @@ const ProfileMyAdvertsTab = () => {
             <PetsListSkeleton className="grid-cols-3" length={9} />
           ) : (
             <div className="relative flex justify-around 2xl:justify-start gap-20">
-              {openFilters && (
+              {openFilters ? (
                 <>
                   {openFilters && windowSize.width! < 1024 && (
                     <div
@@ -143,45 +145,65 @@ const ProfileMyAdvertsTab = () => {
                       isLoading={isLoading}
                       onClose={() => setOpenFilters(false)}
                     />
+                    <div
+                      style={{
+                        backgroundImage: `url(${pawsFilterBg})`,
+                        backgroundRepeat: 'no-repeat',
+                        width: '281px',
+                        height: '1059px',
+                        marginTop: '-100px',
+                      }}
+                    ></div>
                   </div>
                 </>
+              ) : (
+                <div
+                  className="absolute top-[52px] 2xl:-left-[324px] "
+                  style={{
+                    backgroundImage: `url(${pawsBg})`,
+                    backgroundRepeat: 'no-repeat',
+                    width: '283px',
+                    height: '1227px',
+                  }}
+                ></div>
               )}
-              <div
-                className={cn(
-                  'ml-auto 2xl:ml-0',
-                  'grid gap-16 lg:gap-20 mb-32 md:mb-50 wrap justify-center transition-all duration-500',
-                  'grid-cols-2',
-                  'sm:grid-cols-3',
-                  'md:grid-cols-2 lg:w-3/4',
-                  'lg:grid-cols-3',
-                  'xl:grid-cols-3',
-                  '2xl:grid-cols-3 2xl:w-full'
-                )}
-              >
-                {data?.animals.map(item => (
-                  <AnimalCard
-                    key={item.id}
-                    id={item.id}
-                    name={item.animalName}
-                    gender={item.gender}
-                    age={item.age}
-                    photoSrc={item.animalImages[0].url}
-                    isMyProfile={true}
-                    status={item.status}
-                    animal={item}
-                    onRefetchMyAnimals={refetch}
-                  />
-                ))}
-              </div>
+              <div className="flex gap-[32px] lg:gap-[50px] flex-col grow">
+                <div
+                  className={cn(
+                    'ml-auto 2xl:m-0',
+                    'grid gap-16 lg:gap-20 wrap justify-center transition-all duration-500',
+                    'grid-cols-2 sm:grid-cols-3 md:grid-cols-2',
+                    openFilters
+                      ? 'lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3'
+                      : 'lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-3',
+                    openFilters && 'lg:w-3/4 xl:w-3/4 2xl:w-full'
+                  )}
+                >
+                  {data?.animals.map(item => (
+                    <AnimalCard
+                      key={item.id}
+                      id={item.id}
+                      name={item.animalName}
+                      gender={item.gender}
+                      age={item.age}
+                      photoSrc={item.animalImages[0].url}
+                      isMyProfile={true}
+                      status={item.status}
+                      animal={item}
+                      onRefetchMyAnimals={refetch}
+                    />
+                  ))}
+                </div>
 
-              {!isLoading && data && !!totalPages && totalPages > 1 && (
-                <Pagination
-                  onPageChange={setPage}
-                  currentPage={page}
-                  totalPages={totalPages}
-                  className="mb-50 mt-auto"
-                />
-              )}
+                {!isLoading && data && !!totalPages && totalPages > 1 && (
+                  <Pagination
+                    onPageChange={setPage}
+                    currentPage={page}
+                    totalPages={totalPages}
+                    className="mb-50 lg:mb-100 mt-auto"
+                  />
+                )}
+              </div>
             </div>
           )}
         </div>
