@@ -34,7 +34,7 @@ export const InputField: FC<InputFieldProps> = ({
         id={id}
         ref={ref}
         className={cn(
-          'border border-input-border rounded-[8px] px-[20px] py-[14px] h-[48px] placeholder:text-input-border focus-visible:border-0',
+          'border border-input-border rounded-[8px] px-[20px] py-[14px] h-[48px] placeholder:text-input-border focus-visible:border-2 focus-visible:ring-0',
           { 'border-error-input': error },
           className
         )}

@@ -27,7 +27,7 @@ const DialogEditUser: React.FC = () => {
         <Dialog.Content
           className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50"
           onPointerDownOutside={e => e.preventDefault()}
-          aria-describedby="Забули пароль?"
+          aria-describedby="редагування профілю"
         >
           <Dialog.Close className="absolute top-24 right-24 focus:outline-none focus-visible:outline-none">
             <CloseSVG />
@@ -38,7 +38,7 @@ const DialogEditUser: React.FC = () => {
                 defaultValue="account"
                 value={activeTab}
                 onValueChange={setActiveTab}
-                className={`rounded-[30px]  text-center gap-0 bg-dialog ${
+                className={`rounded-[30px] text-center gap-0 bg-dialog ${
                   activeTab === 'account'
                     ? 'w-full lg:w-[965px] min-h:[1092px] lg:min-h-[589px] pt-32 px-16 pb-50 lg:p-[60px] lg:pb-[84px] '
                     : 'w-full lg:w-[630px] min-h:[434px] lg:min-h-[481px] px-16 py-24 lg:p-50'

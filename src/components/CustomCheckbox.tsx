@@ -45,7 +45,7 @@ const CustomCheckbox: FC<CheckboxProps> = ({
             onCheckedChange={onCheckedChange}
             disabled={disabled}
             className={cn(
-              'w-16 h-[18px] border-2 border-default-btn hover:border-orange',
+              'w-16 h-[18px] border-2 border-default-btn hover:border-orange ',
               { 'border-error-input': error },
               className
             )}
