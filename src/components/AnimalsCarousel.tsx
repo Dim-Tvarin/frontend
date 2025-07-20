@@ -42,12 +42,12 @@ const AnimalsCarousel: React.FC<AnimalsCarouselProps> = ({
       }}
       className="z-10 w-full"
     >
-      <CarouselContent className="flex -ml-16">
+      <CarouselContent className="flex ml-0">
         {list &&
           list?.map(item => (
             <CarouselItem
               key={item.id}
-              className="pl-20 basis-[73.6%] sm:basis-[42%] md:basis-[49%] lg:basis-[39%] xl:basis-[29%] 2xl:basis-[25%]"
+              className="pl-0 pr-[16px] md:pr-[20px] "
             >
               <AnimalCard
                 key={item.id}

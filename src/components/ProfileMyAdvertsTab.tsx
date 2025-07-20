@@ -21,7 +21,7 @@ const limit = 12;
 const ProfileMyAdvertsTab = () => {
   const navigate = useNavigate();
   const windowSize = useWindowSize();
-  const tabletSize = windowSize.width !== null && windowSize.width < 1024;
+  const tabletSize = windowSize.width !== null && windowSize.width < 1440;
   const [searchParams, setSearchParams] = useSearchParams();
   const rawPage = Number(searchParams.get('page'));
   const [page, setPage] = useState(rawPage === 0 ? 1 : rawPage);
@@ -121,19 +121,19 @@ const ProfileMyAdvertsTab = () => {
             <div className="relative flex justify-around 2xl:justify-start gap-20">
               {openFilters ? (
                 <>
-                  {openFilters && windowSize.width! < 1024 && (
+                  {openFilters && windowSize.width! < 1280 && (
                     <div
                       className="fixed inset-0 bg-black/80 z-40"
                       onClick={() => setOpenFilters(false)}
                     />
                   )}
-                  <div className="z-50 fixed top-0 left-0 lg:absolute 2xl:-left-[324px] flex flex-col bg-dialog lg:bg-transparent 2xl:pt-100 rounded-r-4xl md:rounded-r-4xl lg:rounded-4xl">
+                  <div className="z-50 fixed top-0 left-0 xl:absolute 2xl:-left-[324px] flex flex-col bg-dialog xl:bg-transparent 2xl:pt-100 rounded-r-4xl md:rounded-r-4xl xl:rounded-4xl">
                     <div className="flex justify-between items-center mb-4 px-16">
-                      <div className="pt-[40px] lg:hidden block font-medium text-default-btn text-base">
+                      <div className="pt-[40px] xl:hidden block font-medium text-default-btn text-base">
                         Фільтр
                       </div>
                       <div
-                        className="pt-[32px] lg:hidden"
+                        className="pt-[32px] xl:hidden"
                         onClick={() => setOpenFilters(false)}
                       >
                         <CloseSVG fill="white" size="27" />
@@ -161,7 +161,7 @@ const ProfileMyAdvertsTab = () => {
               ) : (
                 !tabletSize && (
                   <div
-                    className="absolute top-[52px] 2xl:-left-[324px] "
+                    className="absolute overflow-hidden top-[52px] 2xl:-left-[324px] "
                     style={{
                       backgroundImage: `url(${pawsBg})`,
                       backgroundRepeat: 'no-repeat',
@@ -171,16 +171,14 @@ const ProfileMyAdvertsTab = () => {
                   ></div>
                 )
               )}
-              <div className="flex gap-[32px] lg:gap-[50px] flex-col grow">
+              <div className="flex gap-[32px] lg:gap-[50px] flex-col xl:ml-auto 2xl:ml-0 2xl:grow">
                 <div
                   className={cn(
-                    'm-auto 2xl:m-0',
                     'grid gap-16 lg:gap-20 wrap justify-center transition-all duration-500',
                     'grid-cols-2 sm:grid-cols-3 md:grid-cols-2',
                     openFilters
-                      ? 'lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3'
-                      : 'lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-3',
-                    openFilters && 'lg:w-3/4 xl:w-3/4 2xl:w-full'
+                      ? 'xl:grid-cols-2 2xl:grid-cols-3'
+                      : 'xl:grid-cols-3 2xl:grid-cols-3'
                   )}
                 >
                   {data?.animals.map(item => (
@@ -204,7 +202,7 @@ const ProfileMyAdvertsTab = () => {
                     onPageChange={setPage}
                     currentPage={page}
                     totalPages={totalPages}
-                    className="mb-50 lg:mb-100 mt-auto"
+                    className="mb-50 lg:mb-0 mt-auto"
                   />
                 )}
               </div>

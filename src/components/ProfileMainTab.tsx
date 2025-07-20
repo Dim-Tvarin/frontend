@@ -22,7 +22,7 @@ const ProfileMainTab = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const windowSize = useWindowSize();
-  const tabletSize = windowSize.width !== null && windowSize.width < 1024;
+  const tabletSize = windowSize.width !== null && windowSize.width < 1440;
   const user = useSelector(selectUser);
   const favoriteAnimals = useSelector(selectFavoriteAnimals);
   const viewedAnimals = useSelector(selectViewedAnimals);
@@ -43,6 +43,9 @@ const ProfileMainTab = () => {
     .filter(animal => actualAnimalIds.includes(animal.id) && !animal.isHidden)
     .reverse()
     .slice(0, 6);
+  const visibleViewedMobile = viewedAnimals
+    .filter(animal => actualAnimalIds.includes(animal.id) && !animal.isHidden)
+    .reverse();
 
   const handleClick = () => {
     dispatch(logoutThunk());
@@ -53,11 +56,11 @@ const ProfileMainTab = () => {
   };
 
   return (
-    <div className="container">
+    <>
       <div className="relative flex flex-col md:flex-row">
         {!tabletSize && (
           <div
-            className="absolute top-[170px] 2xl:-left-[324px] "
+            className="absolute  overflow-hidden top-[170px] 2xl:-left-[324px] "
             style={{
               backgroundImage: `url(${pawsBg})`,
               backgroundRepeat: 'no-repeat',
@@ -140,9 +143,7 @@ const ProfileMainTab = () => {
             <>
               {tabletSize ? (
                 <AnimalsCarousel
-                  animals={
-                    tabletSize ? filteredFavoritesMobile : filteredFavorites
-                  }
+                  animals={filteredFavoritesMobile}
                   isLoading={animalsLoading}
                   onRefetch={animalsRefetch}
                 />
@@ -184,7 +185,7 @@ const ProfileMainTab = () => {
             </p>
           ) : tabletSize ? (
             <AnimalsCarousel
-              animals={visibleViewedAnimals}
+              animals={visibleViewedMobile}
               isLoading={animalsLoading}
             />
           ) : (
@@ -209,7 +210,7 @@ const ProfileMainTab = () => {
           )}
         </>
       )}
-    </div>
+    </>
   );
 };
 
