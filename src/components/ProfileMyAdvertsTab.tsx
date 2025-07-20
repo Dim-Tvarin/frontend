@@ -21,7 +21,7 @@ const limit = 12;
 const ProfileMyAdvertsTab = () => {
   const navigate = useNavigate();
   const windowSize = useWindowSize();
-
+  const tabletSize = windowSize.width !== null && windowSize.width < 1024;
   const [searchParams, setSearchParams] = useSearchParams();
   const rawPage = Number(searchParams.get('page'));
   const [page, setPage] = useState(rawPage === 0 ? 1 : rawPage);
@@ -145,32 +145,36 @@ const ProfileMyAdvertsTab = () => {
                       isLoading={isLoading}
                       onClose={() => setOpenFilters(false)}
                     />
-                    <div
-                      style={{
-                        backgroundImage: `url(${pawsFilterBg})`,
-                        backgroundRepeat: 'no-repeat',
-                        width: '281px',
-                        height: '1059px',
-                        marginTop: '-100px',
-                      }}
-                    ></div>
+                    {!tabletSize && (
+                      <div
+                        style={{
+                          backgroundImage: `url(${pawsFilterBg})`,
+                          backgroundRepeat: 'no-repeat',
+                          width: '281px',
+                          height: '1059px',
+                          marginTop: '-100px',
+                        }}
+                      ></div>
+                    )}
                   </div>
                 </>
               ) : (
-                <div
-                  className="absolute top-[52px] 2xl:-left-[324px] "
-                  style={{
-                    backgroundImage: `url(${pawsBg})`,
-                    backgroundRepeat: 'no-repeat',
-                    width: '283px',
-                    height: '1227px',
-                  }}
-                ></div>
+                !tabletSize && (
+                  <div
+                    className="absolute top-[52px] 2xl:-left-[324px] "
+                    style={{
+                      backgroundImage: `url(${pawsBg})`,
+                      backgroundRepeat: 'no-repeat',
+                      width: '283px',
+                      height: '1227px',
+                    }}
+                  ></div>
+                )
               )}
               <div className="flex gap-[32px] lg:gap-[50px] flex-col grow">
                 <div
                   className={cn(
-                    'ml-auto 2xl:m-0',
+                    'm-auto 2xl:m-0',
                     'grid gap-16 lg:gap-20 wrap justify-center transition-all duration-500',
                     'grid-cols-2 sm:grid-cols-3 md:grid-cols-2',
                     openFilters

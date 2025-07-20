@@ -53,17 +53,19 @@ const ProfileMainTab = () => {
   };
 
   return (
-    <>
+    <div className="container">
       <div className="relative flex flex-col md:flex-row">
-        <div
-          className="absolute top-[170px] 2xl:-left-[324px] "
-          style={{
-            backgroundImage: `url(${pawsBg})`,
-            backgroundRepeat: 'no-repeat',
-            width: '285px',
-            height: '1436px',
-          }}
-        ></div>
+        {!tabletSize && (
+          <div
+            className="absolute top-[170px] 2xl:-left-[324px] "
+            style={{
+              backgroundImage: `url(${pawsBg})`,
+              backgroundRepeat: 'no-repeat',
+              width: '285px',
+              height: '1436px',
+            }}
+          ></div>
+        )}
         <div
           className={cn(
             'w-[328px] h-[324px] lg:w-[305px] lg:h-[305px] md:mr-30 shrink-0 rounded-[20px] overflow-hidden',
@@ -84,7 +86,7 @@ const ProfileMainTab = () => {
           <div
             className={cn(
               'flex flex-col mt-16 lg:mt-0 gap-10 text-left text-default-btn text-lg font-normal',
-              user.userType === 'adopter' && 'mt-0 ml-[86px]'
+              user.userType === 'adopter' && 'mt-0 ml-[86px] lg:ml-0'
             )}
           >
             <p
@@ -207,7 +209,7 @@ const ProfileMainTab = () => {
           )}
         </>
       )}
-    </>
+    </div>
   );
 };
 
