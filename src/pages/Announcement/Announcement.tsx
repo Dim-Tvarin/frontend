@@ -280,6 +280,9 @@ const Announcement = () => {
             Створити оголошення
           </CustomButton>
         </form>
+        <div className="bottom-[310px] lg:-bottom-[7px] 2xl:bottom-[71px] left-[67%] lg:left-[35%] z-1 absolute rotate-[87deg]">
+          <img src={track} alt="track" className="w-[103px] lg:w-[180px]" />
+        </div>
       </div>
 
       <div className="hidden z-20 lg:flex my-100 w-full lg:w-[50%]">
@@ -305,10 +308,6 @@ const Announcement = () => {
               className="w-[615px] h-[334px]"
             />
           </div>
-        </div>
-
-        <div className="hidden lg:block -bottom-[16px] left-[43%] z-1 absolute rotate-[57deg]">
-          <img src={track} alt="track" className="w-[180px]" />
         </div>
       </div>
     </div>
