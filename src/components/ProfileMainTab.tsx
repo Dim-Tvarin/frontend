@@ -149,28 +149,25 @@ const ProfileMainTab = () => {
                 />
               ) : (
                 <div className="grid grid-cols-3 gap-20">
-                  {favoriteAnimals
-                    .map(item => (
-                      <AnimalCard
-                        key={item.id}
-                        id={item.id}
-                        name={item.animalName}
-                        gender={item.gender}
-                        age={item.age}
-                        photoSrc={item.animalImages[0].url}
-                        status={item.status}
-                        animal={item}
-                        onRefetchMyAnimals={animalsRefetch}
-                      />
-                    ))
-                    .reverse()
-                    .slice(0, 3)}
+                  {filteredFavorites.map(item => (
+                    <AnimalCard
+                      key={item.id}
+                      id={item.id}
+                      name={item.animalName}
+                      gender={item.gender}
+                      age={item.age}
+                      photoSrc={item.animalImages[0].url}
+                      status={item.status}
+                      animal={item}
+                      onRefetchMyAnimals={animalsRefetch}
+                    />
+                  ))}
                 </div>
               )}
               <CustomButton
                 styleType="defaultButton"
                 onClick={() => navigate('/favorite')}
-                className="hidden lg:flex mt-50 text-base"
+                className="hidden 2xl:flex mt-50 text-base"
               >
                 Переглянути всіх
               </CustomButton>
@@ -190,22 +187,19 @@ const ProfileMainTab = () => {
             />
           ) : (
             <div className="h-[820px] grid grid-cols-3 gap-20 overflow-hidden">
-              {visibleViewedAnimals
-                .reverse()
-                .slice(0, 6)
-                .map(item => (
-                  <AnimalCard
-                    key={item.id}
-                    id={item.id}
-                    name={item.animalName}
-                    gender={item.gender}
-                    age={item.age}
-                    photoSrc={item.animalImages[0].url}
-                    status={item.status}
-                    animal={item}
-                    onRefetchMyAnimals={animalsRefetch}
-                  />
-                ))}
+              {visibleViewedAnimals.map(item => (
+                <AnimalCard
+                  key={item.id}
+                  id={item.id}
+                  name={item.animalName}
+                  gender={item.gender}
+                  age={item.age}
+                  photoSrc={item.animalImages[0].url}
+                  status={item.status}
+                  animal={item}
+                  onRefetchMyAnimals={animalsRefetch}
+                />
+              ))}
             </div>
           )}
         </>

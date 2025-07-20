@@ -171,7 +171,12 @@ const ProfileMyAdvertsTab = () => {
                   ></div>
                 )
               )}
-              <div className="flex gap-[32px] lg:gap-[50px] flex-col xl:ml-auto 2xl:ml-0 2xl:grow">
+              <div
+                className={cn(
+                  'flex gap-[32px] lg:gap-[50px] flex-col 2xl:ml-0 2xl:grow',
+                  openFilters && 'xl:ml-auto'
+                )}
+              >
                 <div
                   className={cn(
                     'grid gap-16 lg:gap-20 wrap justify-center transition-all duration-500',
