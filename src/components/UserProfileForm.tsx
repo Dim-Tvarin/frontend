@@ -130,7 +130,7 @@ const UserProfileForm = () => {
           <div className="flex flex-col text-[16px]">
             <label
               htmlFor="location"
-              className="text-base text-left text-default-btn mb-10 leading-[125%]"
+              className="text-base text-left text-default-btn mb-10 leading-[33px]"
             >
               Місто
             </label>

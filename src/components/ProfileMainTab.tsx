@@ -94,7 +94,7 @@ const ProfileMainTab = () => {
           >
             <p
               className={cn(
-                'text-[28px] font-bold',
+                'text-[28px] font-bold truncate',
                 user.userType === 'adopter' && 'text-xl'
               )}
             >
@@ -105,7 +105,7 @@ const ProfileMainTab = () => {
             </p>
             <p>{user.location}</p>
             <p>{user.phone}</p>
-            <p>{user.email}</p>
+            <p className=" truncate">{user.email}</p>
           </div>
           <div
             className={cn(
