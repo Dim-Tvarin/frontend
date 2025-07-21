@@ -126,11 +126,11 @@ const UserProfileForm = () => {
           {...register('email')}
           error={emailError || errors.email?.message}
         />
-        <div className="flex flex-col lg:flex-row justify-between gap-20 items-end">
+        <div className="flex flex-col lg:flex-row justify-between gap-20 items-start">
           <div className="flex flex-col text-[16px]">
             <label
               htmlFor="location"
-              className="text-base text-left text-default-btn mb-10 leading-[125%]"
+              className="text-base text-left text-default-btn mb-10 leading-[33px]"
             >
               Місто
             </label>
