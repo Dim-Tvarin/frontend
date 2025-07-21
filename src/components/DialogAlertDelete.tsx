@@ -21,6 +21,10 @@ import { logoutThunk } from 'src/redux/users/usersOperations';
 import { useDeleteUserMutation } from 'src/redux/users/usersApi';
 import { removeAnimal } from 'src/redux/animals/favoriteAnimalsSlice';
 import { removeViewedAnimal } from 'src/redux/animals/viewedAnimalsSlice';
+import pawsBg from '../assets/bg-paws-alert.png';
+import pawsBgMob from '../assets/bg-paws-alert-mob.png';
+import { cn } from './lib/utils';
+import { useWindowSize } from '@uidotdev/usehooks';
 
 const DialogAlertDelete = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -73,12 +77,14 @@ const DialogAlertDelete = () => {
     },
     user: {
       description:
-        'Ви дійсно хочете видалити ваш акаунт? Цю дію неможливо скасувати.',
+        'Ви дійсно хочете видалити профіль? Всі дані будуть безповоротно втрачені.',
       isLoading: isDeletingUser,
     },
   } as const;
 
   const { description, isLoading } = config[entity];
+  const windowSize = useWindowSize();
+  const mobileSize = windowSize.width !== null && windowSize.width < 1024;
 
   return (
     <Dialog open={isOpen} onOpenChange={() => dispatch(closeDialog())}>
@@ -89,14 +95,24 @@ const DialogAlertDelete = () => {
         aria-labelledby="dialog-content"
         aria-describedby={undefined}
       >
-        <div className="absolute top-[6px] lg:top-[25px] left-[60px] lg:left-[94px] w-40 h-[157px] lg:h-[180px] bg-[url('./src/assets/bg-paws-alert.png')] bg-contain bg-no-repeat " />
-        <div className="absolute bottom-[20px] lg:bottom-[25px] left-[12px] lg:left-[54px] w-40 h-[157px] lg:h-[180px] bg-[url('./src/assets/bg-paws-alert.png')] bg-contain bg-no-repeat " />
+        <div
+          className={cn(
+            'absolute top-[13px] lg:top-[25px] left-[6px] lg:left-[94px] w-[97px] lg:w-40 h-[211px] lg:h-[180px] bg-contain bg-no-repeat'
+          )}
+          style={{
+            backgroundImage: `url(${mobileSize ? pawsBgMob : pawsBg})`,
+          }}
+        />
+        <div
+          className="hidden lg:block absolute bottom-[20px] lg:bottom-[25px] left-[12px] lg:left-[54px] w-40 h-[157px] lg:h-[180px] bg-contain bg-no-repeat"
+          style={{ backgroundImage: `url(${pawsBg})` }}
+        />
         <DialogClose className="absolute top-24 right-24 focus:outline-none focus-visible:outline-none">
           <CloseSVG />
         </DialogClose>
         <DialogHeader>
           <DialogTitle className="sr-only">Confirmation</DialogTitle>
-          <p className="text-base lg:text-[28px] leading-[150%] text-default-btn text-center mt-[48px] px-50 lg:p-0 mb-[24px] lg:mb-[47px]">
+          <p className="text-base lg:text-[28px] leading-[150%] text-default-btn text-center mt-[42px] lg:mt-[48px] px-50 lg:p-0 mb-[30px] lg:mb-[47px]">
             {description}
           </p>
         </DialogHeader>
