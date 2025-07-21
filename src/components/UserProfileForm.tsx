@@ -126,7 +126,7 @@ const UserProfileForm = () => {
           {...register('email')}
           error={emailError || errors.email?.message}
         />
-        <div className="flex flex-col lg:flex-row justify-between gap-20 items-end">
+        <div className="flex flex-col lg:flex-row justify-between gap-20 items-start">
           <div className="flex flex-col text-[16px]">
             <label
               htmlFor="location"
