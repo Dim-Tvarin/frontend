@@ -135,7 +135,7 @@ const PetPage = () => {
 
         <div className="z-10 flex flex-col w-full lg:w-1/2 text-lg lg:text-base text-left">
           <div className="flex items-center">
-            <h2 className="mb-16 lg:mb-24 font-bold text-2xl md:text-4xl lg:text-5xl mr-100">
+            <h2 className="mb-16 lg:mb-24 font-bold text-2xl md:text-4xl lg:text-5xl mr-100  block text-ellipsis whitespace-nowrap overflow-hidden">
               {animal?.animalName}
             </h2>
             {!isOwner && (
@@ -270,7 +270,7 @@ const PetPage = () => {
           ) : (
             <a
               href={`tel:${ownerPhone}`}
-              className="place-content-center self-center grid bg-default-btn rounded-[20px] w-[236px] h-[44px] text-white text-base dark:bg-orange dark:hover:bg-btn-orange-hov dark:text-black"
+              className="place-content-center self-end grid bg-default-btn rounded-[20px] w-[236px] h-[44px] text-white text-base dark:bg-orange dark:hover:bg-btn-orange-hov dark:text-black"
             >
               Зв’язатися з господарем
             </a>
