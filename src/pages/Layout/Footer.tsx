@@ -12,8 +12,8 @@ import { openDialog } from 'src/redux/dialogs/dialogSlice';
 const Footer = () => {
   const dispatch = useDispatch<AppDispatch>();
   return (
-    <footer className="flex justify-center items-center bg-header px-16 py-5 lg:py-16">
-      <div className="flex gap-[20px] items-center mr-50 sm:mr-[84px]">
+    <footer className="flex items-center justify-center bg-header px-16 py-5 lg:py-16 gap-[46px] md:gap-[80px] md:pl-[130px]">
+      <div className="flex gap-[20px] items-center">
         <Link
           to="https://www.linkedin.com/company/dim-tvaryn/posts/?feedView=all"
           target="_blank"
@@ -33,7 +33,7 @@ const Footer = () => {
       </NavLink>
       <CustomButton
         styleType="linkButton"
-        className="text-black w-[26px] sm:w-[165px] text-sm ml-auto sm:ml-80 focus:outline-none focus-visible:border-none focus-visible:outline-none focus-visible:ring-0 dark:text-default-btn hover:text-link dark:hover:text-white"
+        className="text-black w-[26px] sm:w-[165px] text-sm focus:outline-none focus-visible:border-none focus-visible:outline-none focus-visible:ring-0 dark:text-default-btn dark:hover:text-white hover:text-link"
         onClick={() => {
           dispatch(clearError());
           dispatch(openDialog('feedback'));
