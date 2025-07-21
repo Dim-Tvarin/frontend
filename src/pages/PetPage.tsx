@@ -9,6 +9,7 @@ import {
   useToggleHideAnimalMutation,
 } from 'src/redux/animals/animalsApi';
 import tracks4 from '../assets/tracks4.png';
+import tracks2 from '../assets/tracks2.png';
 import ImageCarousel from 'components/ImageCarousel';
 import { showToast } from 'components/Toast';
 import { AnimalType } from './Announcement/types';
@@ -133,7 +134,7 @@ const PetPage = () => {
           {animal && <ImageCarousel images={animal?.animalImages} />}
         </div>
 
-        <div className="z-10 flex flex-col w-full lg:w-1/2 text-lg lg:text-base text-left">
+        <div className="z-10 flex flex-col w-full lg:w-1/2 text-base text-left">
           <div className="flex items-center">
             <h2 className="mb-16 lg:mb-24 font-bold text-2xl md:text-4xl lg:text-5xl mr-100  block text-ellipsis whitespace-nowrap overflow-hidden">
               {animal?.animalName}
@@ -184,11 +185,11 @@ const PetPage = () => {
           <p className="mb-20 lg:mb-32 text-medium">{animal?.adText}</p>
           <div className="gap-y-16 grid grid-cols-2 mb-32 lg:mb-50">
             <p className="font-bold">Контакта особа:</p>
-            <p className="text-medium">{ownerName}</p>
+            <p className="text-medium  z-10">{ownerName}</p>
             <p className="font-bold">Тел:</p>
             <PhoneReveal
               phone={ownerPhone || '+380987654321'}
-              className="m-0 lg:-ml-[10px]"
+              className="m-0 lg:-ml-[10px] z-10"
             />
           </div>
           {isOwner ? (
@@ -275,6 +276,9 @@ const PetPage = () => {
               Зв’язатися з господарем
             </a>
           )}
+          <div className=" lg:hidden bottom-[40px] -right-[20px] z-1 absolute">
+            <img src={tracks2} className="w-[90px] h-[164px]" alt="track" />
+          </div>
         </div>
       </div>
     </div>
