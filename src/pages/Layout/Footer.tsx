@@ -33,7 +33,7 @@ const Footer = () => {
       </NavLink>
       <CustomButton
         styleType="linkButton"
-        className="text-black w-[26px] sm:w-[165px] text-sm focus:outline-none focus-visible:border-none focus-visible:outline-none focus-visible:ring-0 dark:text-default-btn dark:hover:text-white"
+        className="text-black w-[26px] sm:w-[165px] text-sm focus:outline-none focus-visible:border-none focus-visible:outline-none focus-visible:ring-0 dark:text-default-btn dark:hover:text-white hover:text-link"
         onClick={() => {
           dispatch(clearError());
           dispatch(openDialog('feedback'));

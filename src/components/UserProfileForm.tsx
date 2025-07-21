@@ -159,7 +159,7 @@ const UserProfileForm = () => {
             error={errors.phone?.message}
           />
         </div>
-        <DialogFooter className="flex flex-col sm:flex-col md:flex-row gap-20 m-auto sm:justify-start lg:ml-[19px] mt-16 lg:mt-30">
+        <DialogFooter className="flex flex-col sm:flex-col lg:flex-row gap-20 m-auto sm:justify-start lg:ml-[19px] mt-16 lg:mt-30">
           <CustomButton
             type="submit"
             styleType="defaultButton"

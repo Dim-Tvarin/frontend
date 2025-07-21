@@ -12,13 +12,16 @@ import { useWindowSize } from '@uidotdev/usehooks';
 import Filter, { type FilterFormValues } from './Filter';
 import CloseSVG from 'src/assets/CloseSVG';
 import { useFilters } from 'src/context/FiltersContext';
+import { cn } from './lib/utils';
+import pawsBg from '../assets/bg-paws-profile-ads.png';
+import pawsFilterBg from '../assets/bg-paws-profile-filter.png';
 
 const limit = 12;
 
 const ProfileMyAdvertsTab = () => {
   const navigate = useNavigate();
   const windowSize = useWindowSize();
-
+  const tabletSize = windowSize.width !== null && windowSize.width < 1440;
   const [searchParams, setSearchParams] = useSearchParams();
   const rawPage = Number(searchParams.get('page'));
   const [page, setPage] = useState(rawPage === 0 ? 1 : rawPage);
@@ -82,7 +85,7 @@ const ProfileMyAdvertsTab = () => {
           windowSize.width >= 768 &&
           isFilterApplied &&
           data && (
-            <p className="w-full text-default-btn text-base md:text-lg text-center">
+            <p className="w-50% text-default-btn text-base md:text-lg text-center">
               {data.total === 0
                 ? 'По вашому запиту знайдено 0'
                 : `По вашому запиту знайдено ${data.total} тварини`}
@@ -107,7 +110,7 @@ const ProfileMyAdvertsTab = () => {
       </div>
 
       {!isFilterApplied && data?.animals.length === 0 ? (
-        <p className="text-center text-lg text-gray-500 mt-10">
+        <p className="text-center text-lg text-input-label mt-10">
           У вас поки немає оголошень.
         </p>
       ) : (
@@ -115,22 +118,22 @@ const ProfileMyAdvertsTab = () => {
           {isLoading ? (
             <PetsListSkeleton className="grid-cols-3" length={9} />
           ) : (
-            <div className="relative flex justify-around gap-20">
-              {openFilters && (
+            <div className="relative flex justify-around 2xl:justify-start gap-20">
+              {openFilters ? (
                 <>
-                  {openFilters && windowSize.width! < 768 && (
+                  {openFilters && windowSize.width! < 1280 && (
                     <div
                       className="fixed inset-0 bg-black/80 z-40"
                       onClick={() => setOpenFilters(false)}
                     />
                   )}
-                  <div className="z-100 fixed top-0 left-0  md:absolute 2xl:-left-[324px] flex flex-col bg-dialog md:bg-transparent 2xl:pt-100 rounded-r-4xl md:rounded-4xl">
+                  <div className="z-50 fixed top-0 left-0 xl:absolute 2xl:-left-[324px] flex flex-col bg-dialog xl:bg-transparent 2xl:pt-100 rounded-r-4xl md:rounded-r-4xl xl:rounded-4xl">
                     <div className="flex justify-between items-center mb-4 px-16">
-                      <div className="pt-[40px] md:hidden block font-medium text-default-btn text-base">
+                      <div className="pt-[40px] xl:hidden block font-medium text-default-btn text-base">
                         Фільтр
                       </div>
                       <div
-                        className="pt-[32px] md:hidden"
+                        className="pt-[32px] xl:hidden"
                         onClick={() => setOpenFilters(false)}
                       >
                         <CloseSVG fill="white" size="27" />
@@ -142,36 +145,72 @@ const ProfileMyAdvertsTab = () => {
                       isLoading={isLoading}
                       onClose={() => setOpenFilters(false)}
                     />
+                    {!tabletSize && (
+                      <div
+                        style={{
+                          backgroundImage: `url(${pawsFilterBg})`,
+                          backgroundRepeat: 'no-repeat',
+                          width: '281px',
+                          height: '1059px',
+                          marginTop: '-100px',
+                        }}
+                      ></div>
+                    )}
                   </div>
                 </>
+              ) : (
+                !tabletSize && (
+                  <div
+                    className="absolute overflow-hidden top-[52px] 2xl:-left-[324px] "
+                    style={{
+                      backgroundImage: `url(${pawsBg})`,
+                      backgroundRepeat: 'no-repeat',
+                      width: '283px',
+                      height: '1227px',
+                    }}
+                  ></div>
+                )
               )}
               <div
-                className={`md:ml-auto grid gap-16 lg:gap-20 mb-32 md:mb-50 wrap justify-center transition-all duration-500 grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 ${openFilters ? 'xl:grid-cols-3 xl:w-3/4' : 'xl:grid-cols-4'}`}
+                className={cn(
+                  'flex gap-[32px] lg:gap-[50px] flex-col 2xl:ml-0 2xl:grow',
+                  openFilters && 'xl:ml-auto'
+                )}
               >
-                {data?.animals.map(item => (
-                  <AnimalCard
-                    key={item.id}
-                    id={item.id}
-                    name={item.animalName}
-                    gender={item.gender}
-                    age={item.age}
-                    photoSrc={item.animalImages[0].url}
-                    isMyProfile={true}
-                    status={item.status}
-                    animal={item}
-                    onRefetchMyAnimals={refetch}
-                  />
-                ))}
-              </div>
+                <div
+                  className={cn(
+                    'grid gap-16 lg:gap-20 wrap justify-center transition-all duration-500',
+                    'grid-cols-2 sm:grid-cols-3 md:grid-cols-2',
+                    openFilters
+                      ? 'xl:grid-cols-2 2xl:grid-cols-3'
+                      : 'xl:grid-cols-3 2xl:grid-cols-3'
+                  )}
+                >
+                  {data?.animals.map(item => (
+                    <AnimalCard
+                      key={item.id}
+                      id={item.id}
+                      name={item.animalName}
+                      gender={item.gender}
+                      age={item.age}
+                      photoSrc={item.animalImages[0].url}
+                      isMyProfile={true}
+                      status={item.status}
+                      animal={item}
+                      onRefetchMyAnimals={refetch}
+                    />
+                  ))}
+                </div>
 
-              {!isLoading && data && !!totalPages && totalPages > 1 && (
-                <Pagination
-                  onPageChange={setPage}
-                  currentPage={page}
-                  totalPages={totalPages}
-                  className="mb-50 mt-auto"
-                />
-              )}
+                {!isLoading && data && !!totalPages && totalPages > 1 && (
+                  <Pagination
+                    onPageChange={setPage}
+                    currentPage={page}
+                    totalPages={totalPages}
+                    className="mb-50 lg:mb-0 mt-auto"
+                  />
+                )}
+              </div>
             </div>
           )}
         </div>
