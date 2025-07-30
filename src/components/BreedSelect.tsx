@@ -193,9 +193,9 @@ const BreedSelect = ({
         </PopoverTrigger>
         <PopoverContent
           className={cn(
-            'z-10 p-0 border-1 border-input-border rounded-t-lg w-(--radix-popover-trigger-width)',
+            'z-10 p-0 border-1 border-input-border rounded-t-lg w-(--radix-popover-trigger-width) dark:bg-main',
             windowSize.width && windowSize.width < 1280
-              ? 'bg-dialog dark:bg-main'
+              ? 'bg-dialog '
               : 'bg-white'
           )}
         >
@@ -203,12 +203,13 @@ const BreedSelect = ({
             <CommandInput
               placeholder="Пошук ..."
               onValueChange={val => setSearchValue(val)}
+              className="dark:text-white"
             />
             <CommandList
               className={cn(
-                'border-1 border-input-border rounded-b-lg',
+                'border-1 border-input-border rounded-b-lg dark:bg-main',
                 windowSize.width && windowSize.width < 1280
-                  ? 'bg-dialog dark:bg-main'
+                  ? 'bg-dialog '
                   : 'bg-white'
               )}
             >
