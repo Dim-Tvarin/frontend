@@ -160,12 +160,18 @@ const PetsList = () => {
         <div className="relative flex justify-around gap-20">
           {openFilters && (
             <div
-              className="z-50 fixed xl:relative inset-0 flex flex-col items-start gap-24 bg-black/50 xl:bg-transparent p-0 xl:w-1/4 xl:h-fit"
-              onClick={() => {
+              className={cn(
+                "z-50 fixed xl:relative inset-0 flex flex-col items-start gap-24 bg-black/50 xl:bg-transparent p-0 xl:w-1/4 xl:h-fit",
+                "animate-in fade-in-0 slide-in-from-left-64 duration-700 ease-out",
+              )}
+                onClick={() => {
                 setOpenFilters(false);
               }}
             >
-              <div className="relative flex flex-col bg-dialog xl:bg-transparent xl:p-0 pt-32 rounded-r-4xl dark:bg-main">
+              <div
+                className="relative flex flex-col bg-dialog xl:bg-transparent xl:p-0 pt-32 rounded-r-4xl dark:bg-main"
+                onClick={e => e.stopPropagation()}
+              >
                 <div className="flex justify-between items-center mb-4 px-16">
                   <div className="xl:hidden block font-medium text-default-btn text-base">
                     Фільтр
