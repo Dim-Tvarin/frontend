@@ -37,7 +37,7 @@ const HartSVG: React.FC<HartSVGProps> = ({
   if (hartFill) {
     strokeColor = 'var(--color-error-input)';
   } else if (context === 'header') {
-    strokeColor = theme === 'light' ? 'black' : 'white';
+    strokeColor = theme === 'light' ? 'black' : 'var(--color-default-btn)';
   } else {
     strokeColor = theme === 'light' ? 'white' : 'black';
   }
