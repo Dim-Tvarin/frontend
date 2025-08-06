@@ -140,22 +140,27 @@ const ProfileMyAdvertsTab = () => {
                       </div>
                     </div>
 
-                    <Filter
-                      onSubmit={onSubmit}
-                      isLoading={isLoading}
-                      onClose={() => setOpenFilters(false)}
-                    />
-                    {!tabletSize && (
-                      <div
-                        style={{
-                          backgroundImage: `url(${pawsFilterBg})`,
-                          backgroundRepeat: 'no-repeat',
-                          width: '281px',
-                          height: '1059px',
-                          marginTop: '-100px',
-                        }}
-                      ></div>
-                    )}
+                    <div
+                      className="overflow-hidden"
+                      style={{ maxHeight: 'calc(100dvh - 340px)' }}
+                    >
+                      <Filter
+                        onSubmit={onSubmit}
+                        isLoading={isLoading}
+                        onClose={() => setOpenFilters(false)}
+                      />
+                      {!tabletSize && (
+                        <div
+                          style={{
+                            backgroundImage: `url(${pawsFilterBg})`,
+                            backgroundRepeat: 'no-repeat',
+                            width: '281px',
+                            height: '1059px',
+                            marginTop: '-100px',
+                          }}
+                        ></div>
+                      )}
+                    </div>
                   </div>
                 </>
               ) : (
@@ -166,7 +171,8 @@ const ProfileMyAdvertsTab = () => {
                       backgroundImage: `url(${pawsBg})`,
                       backgroundRepeat: 'no-repeat',
                       width: '283px',
-                      height: '1227px',
+                      height: '100%',
+                      maxHeight: '1227px',
                     }}
                   ></div>
                 )
