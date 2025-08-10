@@ -3,9 +3,15 @@ import articleCat from '../../assets/article-2-cat.jpg';
 import articleDog from '../../assets/article-2-dog.jpg';
 import { useNavigate } from 'react-router';
 import { CustomButton } from 'components/CustomButton';
+import { useLayoutEffect } from 'react';
 
 const Article2 = () => {
   const navigate = useNavigate();
+  useLayoutEffect(() => {
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 0);
+  });
   return (
     <div className="container">
       <article className="gap-20 grid grid-cols-1 xl:grid-cols-2 mt-100 mb-50 dark:text-default-btn">
