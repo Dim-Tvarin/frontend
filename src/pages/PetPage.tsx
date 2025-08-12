@@ -8,8 +8,6 @@ import {
   useToggleFavoriteAnimalMutation,
   useToggleHideAnimalMutation,
 } from 'src/redux/animals/animalsApi';
-import tracks4 from '../assets/tracks4.png';
-import tracks2 from '../assets/tracks2.png';
 import ImageCarousel from 'components/ImageCarousel';
 import { showToast } from 'components/Toast';
 import { AnimalType } from './Announcement/types';
@@ -127,9 +125,7 @@ const PetPage = () => {
   return (
     <div className="container">
       <div className="relative flex lg:flex-row flex-col gap-20 mt-72 lg:mt-100 mb-100 text-default-btn">
-        <div className="hidden lg:block -top-[85px] right-[8px] z-1 absolute">
-          <img src={tracks4} className="w-[270px] h-[515px]" alt="track" />
-        </div>
+        <div className="absolute bg-[url('../src/assets/bg-paws-card-mob.png')] dark:bg-[url('../src/assets/bg-paws-card-dark-mob.png')] top-[872px] right-[84px] w-[90px] h-[165px] md:top-[86px] md:right-[8px] md:w-[270px] md:h-[513px] md:bg-[url('../src/assets/bg-paws-card.png')] dark:md:bg-[url('../src/assets/bg-paws-card-dark.png')] bg-contain bg-no-repeat " />
         <div className="w-full lg:w-1/2">
           {animal && <ImageCarousel images={animal?.animalImages} />}
         </div>
@@ -182,7 +178,9 @@ const PetPage = () => {
             <p>{animal?.size ? animal?.size : '-'}</p>
           </div>
           <p className="mb-16 font-bold">Опис:</p>
-          <p className="mb-20 lg:mb-32 text-medium">{animal?.adText}</p>
+          <p className="mb-20 lg:mb-32 text-medium text-wrap truncate">
+            {animal?.adText}
+          </p>
           <div className="gap-y-16 grid grid-cols-2 mb-32 lg:mb-50">
             <p className="font-bold">Контакта особа:</p>
             <p className="text-medium  z-10">{ownerName}</p>
@@ -276,9 +274,6 @@ const PetPage = () => {
               Зв’язатися з господарем
             </a>
           )}
-          <div className=" lg:hidden bottom-[40px] -right-[20px] z-1 absolute">
-            <img src={tracks2} className="w-[90px] h-[164px]" alt="track" />
-          </div>
         </div>
       </div>
     </div>
