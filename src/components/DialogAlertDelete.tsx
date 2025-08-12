@@ -21,10 +21,13 @@ import { logoutThunk } from 'src/redux/users/usersOperations';
 import { useDeleteUserMutation } from 'src/redux/users/usersApi';
 import { removeAnimal } from 'src/redux/animals/favoriteAnimalsSlice';
 import { removeViewedAnimal } from 'src/redux/animals/viewedAnimalsSlice';
-import pawsBg from '../assets/bg-paws-alert.png';
-import pawsBgMob from '../assets/bg-paws-alert-mob.png';
+import pawsBgLight from '../assets/bg-paws-alert.png';
+import pawsBgDark from '../assets/bg-paws-alert-dark.png';
+import pawsBgLightMob from '../assets/bg-paws-alert-mob.png';
+import pawsBgDarkMob from '../assets/bg-paws-alert-dark-mob.png';
 import { cn } from './lib/utils';
 import { useWindowSize } from '@uidotdev/usehooks';
+import { selectUserTheme } from 'src/redux/users/usersSlice';
 
 const DialogAlertDelete = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -86,11 +89,15 @@ const DialogAlertDelete = () => {
   const windowSize = useWindowSize();
   const mobileSize = windowSize.width !== null && windowSize.width < 1024;
 
+  const theme = useSelector(selectUserTheme);
+  const pawsBg = theme === 'light' ? pawsBgLight : pawsBgDark;
+  const pawsBgMob = theme === 'light' ? pawsBgLightMob : pawsBgDarkMob;
+
   return (
     <Dialog open={isOpen} onOpenChange={() => dispatch(closeDialog())}>
       <DialogOverlay className="bg-black/70" />
       <DialogContent
-        className="max-w-full sm:w-[380px] lg:w-[800px] min-h-0.5 sm:min-h-[237px] lg:min-h-[300px] rounded-[30px] py-24 px-16 lg:py-[62px] lg:px-[86px] bg-dialog text-center gap-0"
+        className="max-w-full sm:w-[380px] lg:w-[800px] min-h-0.5 sm:min-h-[237px] lg:h-[300px] rounded-[30px] py-24 px-16 lg:py-[62px] lg:px-[86px] bg-dialog text-center gap-0"
         onPointerDownOutside={e => e.preventDefault()}
         aria-labelledby="dialog-content"
         aria-describedby={undefined}
@@ -112,7 +119,7 @@ const DialogAlertDelete = () => {
         </DialogClose>
         <DialogHeader>
           <DialogTitle className="sr-only">Confirmation</DialogTitle>
-          <p className="text-base lg:text-[28px] leading-[150%] text-default-btn text-center mt-[42px] lg:mt-[48px] px-50 lg:p-0 mb-[30px] lg:mb-[47px]">
+          <p className="text-base lg:text-[28px] leading-[150%] text-default-btn text-center mt-[42px] lg:mt-0 px-50 lg:p-0 mb-[30px] lg:mb-[47px]">
             {description}
           </p>
         </DialogHeader>
