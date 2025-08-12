@@ -14,7 +14,6 @@ import { Spinner } from 'components/Spinner';
 import CloseSVG from 'src/assets/CloseSVG';
 import Filter, { type FilterFormValues } from 'components/Filter';
 import { useFilters } from 'src/context/FiltersContext';
-import tracks2 from '../../assets/bg-paws-register-mob.png';
 
 const limit = 12;
 
@@ -91,7 +90,7 @@ const PetsList = () => {
     setOpenSorting(false);
   };
   return (
-    <div className="container">
+    <div className="container 2xl:overflow-hidden">
       <div className="relative flex justify-center mt-30 lg:mt-100 mb-[120px] lg:mb-50">
         <div className="flex flex-col">
           <h1 className="mb-10 text-default-btn md:text-[32px] dark:text-default-btn text-lg">
@@ -166,6 +165,7 @@ const PetsList = () => {
               }}
             >
               <div className="relative flex flex-col bg-dialog xl:bg-transparent xl:p-0 pt-32 rounded-r-4xl">
+                <div className="absolute 2xl:top-[660px] 2xl:left-[23px] 2xl:w-[283px] 2xl:h-[1227px] 2xl:bg-[url('./src/assets/bg-paws-pets.png')] dark:2xl:bg-[url('./src/assets/bg-paws-pets-dark.png')] bg-contain bg-no-repeat " />
                 <div className="flex justify-between items-center mb-4 px-16">
                   <div className="xl:hidden block font-medium text-default-btn text-base">
                     Фільтр
@@ -184,9 +184,6 @@ const PetsList = () => {
                   isFetching={isFetching}
                   onClose={() => setOpenFilters(false)}
                 />
-                <div className="hidden lg:block -bottom-[140px] left-0 z-1 absolute">
-                  <img src={tracks2} className="w-[282px]" alt="track" />
-                </div>
               </div>
             </div>
           )}
