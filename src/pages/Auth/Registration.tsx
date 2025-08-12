@@ -12,15 +12,15 @@ import type { AppDispatch } from 'src/redux/store';
 const Registration = () => {
   const dispatch = useDispatch<AppDispatch>();
   return (
-    <div className="container relative h-full">
-      <div className="absolute bg-[url('./src/assets/bg-paws-register-mob.png')] top-[1254px] right-[12px] w-[133px] h-[113px] md:top-[13px] md:right-[80px] md:w-[771px] md:h-[1078px] md:bg-[url('./src/assets/bg-paws-register.png')] bg-contain bg-no-repeat " />
-      <div className="grid leading-[140%] tracking-[0.01em] text-default-btn relative items-center text-center grid-cols-1 gap-32 pt-40 pb-80 2xl:grid-cols-2 2xl:gap-20 2xl:pt-100 2xl:pb-0">
+    <div className="container relative h-full overflow-hidden">
+      <div className="absolute bg-[url('./src/assets/bg-paws-register-mob.png')] dark:bg-[url('./src/assets/bg-paws-register-dark-mob.png')] top-[1254px] right-[12px] w-[133px] h-[113px] md:top-[13px] md:right-[80px] md:w-[771px] md:h-[1078px] md:bg-[url('./src/assets/bg-paws-register.png')] dark:md:bg-[url('./src/assets/bg-paws-register-dark.png')] bg-contain bg-no-repeat " />
+      <div className="grid leading-[140%] tracking-[0.01em] text-default-btn relative items-center text-center grid-cols-1 gap-32 pt-40 pb-[80px] 2xl:grid-cols-2 2xl:gap-20 2xl:pt-100 ">
         <div className="flex flex-col-reverse sm:flex-row sm:gap-20 2xl:flex-col 2xl:gap-0">
           <div>
             <h2 className="text-[18px] mb-10 mt-16 2xl:text-[32px] 2xl:mb-32 2xl:mt-0">
               Ласкаво просимо
             </h2>
-            <p className="mb-20 text-center text-[16px] 2xl:mb-50 2xl:text-left 2xl:text-2xl">
+            <p className="mb-20 text-center leading-[140%] text-[16px] 2xl:mb-50 2xl:text-[24px]">
               Щоб мати можливість швидко написати оголошення, або зберегти
               анкети тваринок, які вам сподобалися, увійдіть
             </p>
