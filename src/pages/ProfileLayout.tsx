@@ -19,7 +19,7 @@ export default function ProfileLayout() {
 
   return (
     <FiltersProvider>
-      <div className="container">
+      <div className="container overflow-hidden">
         <Tabs
           value={currentTab}
           onValueChange={handleTabChange}

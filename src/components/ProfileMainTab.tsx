@@ -2,7 +2,7 @@ import ResponsiveImage from 'components/ResponsiveImage';
 import avatarStubMin from '../assets/avatar-stub.png';
 import avatarStubMax from '../assets/avatar-stub@2x.png';
 import { openDialog } from 'src/redux/dialogs/dialogSlice';
-import { selectUser } from 'src/redux/users/usersSlice';
+import { selectUser, selectUserTheme } from 'src/redux/users/usersSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch } from 'src/redux/store';
 import { logoutThunk } from 'src/redux/users/usersOperations';
@@ -16,7 +16,8 @@ import { cn } from './lib/utils';
 import AnimalsCarousel from './AnimalsCarousel';
 import { useWindowSize } from '@uidotdev/usehooks';
 import AnimalCard from './AnimalCard';
-import pawsBg from '../assets/bg-paws-profile-main.png';
+import pawsBgLight from '../assets/bg-paws-profile-main.png';
+import pawsBgDark from '../assets/bg-paws-profile-main-dark.png';
 
 const ProfileMainTab = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -24,6 +25,7 @@ const ProfileMainTab = () => {
   const windowSize = useWindowSize();
   const tabletSize = windowSize.width !== null && windowSize.width < 1440;
   const user = useSelector(selectUser);
+  const theme = useSelector(selectUserTheme);
   const favoriteAnimals = useSelector(selectFavoriteAnimals);
   const viewedAnimals = useSelector(selectViewedAnimals);
   const {
@@ -62,8 +64,9 @@ const ProfileMainTab = () => {
           <div
             className="absolute  overflow-hidden top-[170px] 2xl:-left-[324px] "
             style={{
-              backgroundImage: `url(${pawsBg})`,
+              backgroundImage: `url(${theme === 'dark' ? pawsBgDark : pawsBgLight})`,
               backgroundRepeat: 'no-repeat',
+              backgroundSize: 'contain',
               width: '285px',
               height: '1436px',
             }}
