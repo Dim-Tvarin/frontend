@@ -6,14 +6,16 @@ import homeDogMax from '../assets/home-dog2.webp';
 import homeGirlDogMin from '../assets/home-girl&dog1.webp';
 import homeGirlDogMax from '../assets/home-girl&dog@2.webp';
 import track from '/track.png?url';
+import trackDark from '/trackDark.png?url';
 import { LuCirclePlus } from 'react-icons/lu';
 import AnimalsCarousel from 'components/AnimalsCarousel';
 import { useSelector } from 'react-redux';
-import { selectIsLoggedIn } from 'src/redux/users/usersSlice';
+import { selectIsLoggedIn, selectUserTheme } from 'src/redux/users/usersSlice';
 
 export const Home = () => {
   const navigate = useNavigate();
   const isLoggedIn = useSelector(selectIsLoggedIn);
+  const theme = useSelector(selectUserTheme);
 
   const handleNavigateAnnouncement = () => {
     if (isLoggedIn) {
@@ -27,7 +29,7 @@ export const Home = () => {
     <div className="relative text-default-btn container">
       <section className="flex md:flex-row flex-col sm:items-center gap-[20px] mt-72 lg:mt-100">
         <div className="hidden md:block md:top-50 lg:top-[35px] md:left-46 lg:left-[88px] z-1 absolute w-[103px] lg:w-[207px] h-[105px] lg:h-[203px]">
-          <img src={track} alt="track" />
+          <img src={theme === 'light' ? track : trackDark} alt="track" />
         </div>
         <div className="z-10 flex flex-col justify-center items-center gap-30 lg:gap-50 order-2 md:order-1 sm:w-full md:w-2/4">
           <p className="z-10 md:px-0 lg:px-10 font-normal lg:text-[32px] text-base md:text-xl">
@@ -43,7 +45,7 @@ export const Home = () => {
             Додати оголошення
           </CustomButton>
           <div className="hidden md:block md:top-[266px] lg:top-[510px] xl:top-[455px] md:left-[248px] lg:left-[216px] xl:left-[354px] z-1 absolute w-[103px] lg:w-[300px] h-[105px] lg:h-[320px] rotate-[57deg]">
-            <img src={track} alt="track" />
+            <img src={theme === 'light' ? track : trackDark} alt="track" />
           </div>
         </div>
         <div className="relative order-1 md:order-2 bg-orange rounded-[30px] w-[328px] md:w-[294px] lg:w-[638px] h-[202px] md:h-[213px] lg:h-[500px] overflow-hidden">
@@ -59,7 +61,7 @@ export const Home = () => {
 
       <section className="relative flex md:flex-row flex-col items-start gap-[20px] mt-32 md:mt-80 lg:mt-100 mb-32 md:mb-80 lg:mb-100">
         <div className="-top-[175px] lg:-top-72 right-[10px] z-1 absolute w-[136px] lg:w-[210px] h-[133px] lg:h-[205px]">
-          <img src={track} alt="track" />
+          <img src={theme === 'light' ? track : trackDark} alt="track" />
         </div>
         <div className="z-10 relative bg-orange rounded-[30px] w-[328px] md:w-[294px] lg:w-[638px] h-[202px] md:h-[213px] lg:h-[500px] overflow-hidden">
           <div className="bottom-0 left-0 absolute rounded-[30px] w-[318px] md:w-[284px] lg:w-[615px] h-[192px] md:h-[203px] lg:h-[484px] overflow-hidden">
@@ -89,7 +91,7 @@ export const Home = () => {
       </section>
       <section className="relative flex flex-col justify-center items-center mb-50 lg:mb-100">
         <div className="-top-72 md:-top-[92px] right-0 md:right-16 z-1 absolute w-[103px] md:w-[172px] lg:w-[260px] h-[105px] md:h-[168px] lg:h-[270px] rotate-90 md:rotate-[57deg]">
-          <img src={track} alt="track" />
+          <img src={theme === 'light' ? track : trackDark} alt="track" />
         </div>
         <h3 className="z-10 relative mb-12 lg:mb-50 font-semibold text-base md:text-2xl lg:text-5xl leading-[1.4]">
           Тварини, які шукають дім
@@ -103,7 +105,7 @@ export const Home = () => {
           Переглянути всіх
         </CustomButton>
         <div className="hidden md:block -bottom-[88px] left-0 z-1 absolute w-[166px] lg:w-[186px] h-[170px] lg:h-[187px] -rotate-30">
-          <img src={track} alt="track" />
+          <img src={theme === 'light' ? track : trackDark} alt="track" />
         </div>
       </section>
     </div>
