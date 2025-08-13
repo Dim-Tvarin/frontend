@@ -112,7 +112,7 @@ const ProfileMainTab = () => {
           </div>
           <div
             className={cn(
-              'flex lg:flex-row gap-20 mr-auto mt-32 2xl:mt-auto',
+              'flex lg:flex-row gap-20 mr-auto mt-32 2xl:mt-[87px]',
               user.userType === 'adopter' && 'mt-[44px]'
             )}
           >

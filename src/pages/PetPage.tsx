@@ -138,7 +138,11 @@ const PetPage = () => {
             {!isOwner && (
               <div
                 className="flex items-center cursor-pointer"
-                onClick={handleAddFavorite}
+                onClick={e => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  handleAddFavorite();
+                }}
               >
                 <div>
                   <HartSVG hartFill={isInFavorites} context="header" />
@@ -198,7 +202,11 @@ const PetPage = () => {
                     <TooltipTrigger asChild>
                       <CustomButton
                         styleType="iconButton"
-                        onClick={handleToggleHidden}
+                        onClick={e => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          handleToggleHidden();
+                        }}
                       >
                         {animal?.isHidden ? (
                           <FaEyeSlash className="text-white" size={24} />
