@@ -14,12 +14,17 @@ import CloseSVG from 'src/assets/CloseSVG';
 import { useFilters } from 'src/context/FiltersContext';
 import { cn } from './lib/utils';
 import pawsBg from '../assets/bg-paws-profile-ads.png';
+import pawsBgDark from '../assets/bg-paws-profile-ads-dark.png';
 import pawsFilterBg from '../assets/bg-paws-profile-filter.png';
+import pawsFilterBgDark from '../assets/bg-paws-profile-filter-dark.png';
+import { useSelector } from 'react-redux';
+import { selectUserTheme } from 'src/redux/users/usersSlice';
 
 const limit = 12;
 
 const ProfileMyAdvertsTab = () => {
   const navigate = useNavigate();
+  const theme = useSelector(selectUserTheme);
   const windowSize = useWindowSize();
   const tabletSize = windowSize.width !== null && windowSize.width < 1440;
   const [searchParams, setSearchParams] = useSearchParams();
@@ -140,33 +145,41 @@ const ProfileMyAdvertsTab = () => {
                       </div>
                     </div>
 
-                    <Filter
-                      onSubmit={onSubmit}
-                      isLoading={isLoading}
-                      onClose={() => setOpenFilters(false)}
-                    />
-                    {!tabletSize && (
-                      <div
-                        style={{
-                          backgroundImage: `url(${pawsFilterBg})`,
-                          backgroundRepeat: 'no-repeat',
-                          width: '281px',
-                          height: '1059px',
-                          marginTop: '-100px',
-                        }}
-                      ></div>
-                    )}
+                    <div
+                      className="overflow-hidden"
+                      style={{ maxHeight: 'calc(100dvh - 340px)' }}
+                    >
+                      <Filter
+                        onSubmit={onSubmit}
+                        isLoading={isLoading}
+                        onClose={() => setOpenFilters(false)}
+                      />
+                      {!tabletSize && (
+                        <div
+                          style={{
+                            backgroundImage: `url(${theme === 'dark' ? pawsFilterBgDark : pawsFilterBg})`,
+                            backgroundRepeat: 'no-repeat',
+                            backgroundSize: 'contain',
+                            width: '281px',
+                            height: '1059px',
+                            marginTop: '-100px',
+                          }}
+                        ></div>
+                      )}
+                    </div>
                   </div>
                 </>
               ) : (
                 !tabletSize && (
                   <div
-                    className="absolute overflow-hidden top-[52px] 2xl:-left-[324px] "
+                    className="absolute top-[52px] 2xl:-left-[324px] "
                     style={{
-                      backgroundImage: `url(${pawsBg})`,
+                      backgroundImage: `url(${theme === 'dark' ? pawsBgDark : pawsBg})`,
                       backgroundRepeat: 'no-repeat',
+                      backgroundSize: 'contain',
                       width: '283px',
                       height: '1227px',
+                      // maxHeight: '1227px',
                     }}
                   ></div>
                 )

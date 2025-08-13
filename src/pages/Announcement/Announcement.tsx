@@ -10,7 +10,6 @@ import { TextareaDemo } from 'components/CustomTextarea';
 
 import { announceSchema } from '../../validations/announceValidation';
 import { animalTypeOptions, genderOption, type ErrorResponse } from './types';
-import track from '/track.png?url';
 import { LuCirclePlus } from 'react-icons/lu';
 import { CitySelect } from 'components/CitySelect';
 import CustomRadioGroup from 'components/CustomRadioGroup';
@@ -125,9 +124,7 @@ const Announcement = () => {
 
   return (
     <div className="z-10 relative flex flex-row items-start gap-16 text-default-btn container">
-      <div className="top-20 lg:top-[27px] left-10 lg:left-[84px] z-1 absolute">
-        <img src={track} alt="track" className="w-[105px] lg:w-[180px]" />
-      </div>
+      <div className="absolute bg-[url('../src/assets/bg-paws-adv-mob.png')] dark:bg-[url('../src/assets/bg-paws-adv-dark-mob.png')] left-[13px] w-[333px] h-[996px] md:top-[-9px] md:left-[66px] md:w-[658px] md:h-[1275px] md:bg-[url('../src/assets/bg-paws-adv.png')] dark:md:bg-[url('../src/assets/bg-paws-adv-dark.png')] bg-contain bg-no-repeat " />
 
       <div className="flex flex-col flex-1/2 mt-40 lg:mt-100">
         <h2 className="z-10 mb-16 lg:mb-32 lg:text-[32px] text-lg">
@@ -280,9 +277,6 @@ const Announcement = () => {
             Створити оголошення
           </CustomButton>
         </form>
-        <div className="bottom-[310px] lg:-bottom-[7px] 2xl:bottom-[71px] left-[67%] lg:left-[35%] z-1 absolute rotate-[87deg]">
-          <img src={track} alt="track" className="w-[103px] lg:w-[180px]" />
-        </div>
       </div>
 
       <div className="hidden z-20 lg:flex my-100 w-full lg:w-[50%]">

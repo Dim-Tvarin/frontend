@@ -1,12 +1,16 @@
 import BlogCard from 'components/BlogCard';
 import { CustomButton } from 'components/CustomButton';
 import { useNavigate } from 'react-router';
-import tracks4 from '../../assets/tracks4.png';
+import bgPawsBlog from '../../assets/bg-paws-blog.png';
+import bgPawsBlogDark from '../../assets/bg-paws-blog-dark.png';
+import { useSelector } from 'react-redux';
+import { selectUserTheme } from 'src/redux/users/usersSlice';
 
 const BlogMain = () => {
   const navigate = useNavigate();
+  const theme = useSelector(selectUserTheme);
   return (
-    <div className="relative container">
+    <div className="relative container overflow-hidden">
       <div className="gap-x-20 gap-y-32 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-100 mb-50">
         <BlogCard
           title="Знайдіть свого ідеального компаньйона: Поради щодо вибору тварини"
@@ -46,8 +50,12 @@ const BlogMain = () => {
       >
         Повернутися на головну сторінку
       </CustomButton>
-      <div className="hidden lg:block right-100 -bottom-[118px] z-1 absolute rotate-[32deg]">
-        <img src={tracks4} className="w-[270px] h-[515px]" alt="track" />
+      <div className="hidden lg:block right-100 -bottom-[70px] z-1 absolute ">
+        <img
+          src={theme === 'light' ? bgPawsBlog : bgPawsBlogDark}
+          className="w-[490px] h-[513px]"
+          alt="track"
+        />
       </div>
     </div>
   );

@@ -109,7 +109,7 @@ export const Header = () => {
               )}
             </NavLink>
             {isLoggedIn ? (
-              <div className="flex flex-col items-center max-h-[54px]">
+              <div className="flex flex-col items-center max-h-[54px] dark:text-default-btn">
                 <Avatar
                   className="m-4 p-0 size-9 text-[10px] cursor-pointer"
                   onClick={() => navigate('/profile/info')}
@@ -145,7 +145,7 @@ export const Header = () => {
         </nav>
 
         {/* MOBILE HEADER */}
-        <div className="hidden lg:hidden z-30 relative xs:flex justify-between items-center px-4 w-full container">
+        <div className="hidden lg:hidden z-30 relative xs:flex justify-between items-center px-4 w-full container dark:text-default-btn">
           <button
             onClick={() => {
               setMobileMenuOpen(!isMobileMenuOpen);
@@ -174,7 +174,7 @@ export const Header = () => {
                 context="header"
               />
               {favoritesCount > 0 && (
-                <span className="-top-1 right-0 absolute flex justify-center items-center bg-none rounded-full w-[9px] h-[18px] text-black text-sm">
+                <span className="-top-1 right-0 absolute flex justify-center items-center bg-none rounded-full w-[9px] h-[18px] text-black dark:text-default-btn text-sm">
                   {favoritesCount}
                 </span>
               )}
@@ -188,7 +188,7 @@ export const Header = () => {
               }
             >
               {isLoggedIn ? (
-                <div className="flex flex-col items-center max-h-[54px]">
+                <div className="flex flex-col items-center max-h-[54px] dark:text-default-btn">
                   <Avatar
                     className="m-4 p-0 size-9 text-[10px]"
                     onClick={() => navigate('/profile/info')}
@@ -198,11 +198,7 @@ export const Header = () => {
                       alt={`Аватар ${user.name}`}
                     />
                     <AvatarFallback>
-                      <img
-                        src={fallbackIcon}
-                        alt={`Аватар ${user.name}`}
-                        className="m-0 p-0 rounded-full w-full h-full object-cover"
-                      />
+                      <CabinetSVG className="m-0 p-0 rounded-full w-full h-full object-cover" />
                     </AvatarFallback>
                   </Avatar>
                   <span className="m-0 text-[10px] leading-[140%] tracking-[0.01em]">
