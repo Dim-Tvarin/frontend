@@ -51,10 +51,8 @@ const FilterItem = ({
       </PopoverTrigger>
       <PopoverContent
         className={cn(
-          'shadow-none p-4 border-1 border-input-border w-(--radix-popover-trigger-width) text-default-btn -mt-4',
-          windowSize.width && windowSize.width < 1280
-            ? 'bg-dialog dark:bg-main'
-            : 'bg-white'
+          'shadow-none p-4 border-1 border-input-border w-(--radix-popover-trigger-width) text-default-btn -mt-4 dark:bg-main',
+          windowSize.width && windowSize.width < 1280 ? 'bg-dialog' : 'bg-white'
         )}
       >
         <RadioGroup value={value} onValueChange={handleValueChange}>

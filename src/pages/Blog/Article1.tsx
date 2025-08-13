@@ -1,9 +1,15 @@
 import { CustomButton } from 'components/CustomButton';
 import articleImg from '../../assets/article-1.jpg';
 import { useNavigate } from 'react-router';
+import { useLayoutEffect } from 'react';
 
 const Article1 = () => {
   const navigate = useNavigate();
+  useLayoutEffect(() => {
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 0);
+  });
   return (
     <div className="container">
       <article className="gap-20 grid grid-cols-1 md:grid-cols-2 mt-100 mb-64 dark:text-default-btn">

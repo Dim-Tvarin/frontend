@@ -132,7 +132,7 @@ const PetPage = () => {
 
         <div className="z-10 flex flex-col w-full lg:w-1/2 text-base text-left">
           <div className="flex items-center">
-            <h2 className="mb-16 lg:mb-24 font-bold text-2xl md:text-4xl lg:text-5xl mr-100  block text-ellipsis whitespace-nowrap overflow-hidden">
+            <h2 className="mb-16 lg:mb-24 font-bold text-[28px] leading-[140%] tracking-[1%] mr-100  block text-ellipsis whitespace-nowrap overflow-hidden">
               {animal?.animalName}
             </h2>
             {!isOwner && (
@@ -182,7 +182,7 @@ const PetPage = () => {
             <p>{animal?.size ? animal?.size : '-'}</p>
           </div>
           <p className="mb-16 font-bold">Опис:</p>
-          <p className="mb-20 lg:mb-32 text-medium text-wrap truncate">
+          <p className="mb-20 lg:mb-32 text-medium break-words whitespace-pre-line">
             {animal?.adText}
           </p>
           <div className="gap-y-16 grid grid-cols-2 mb-32 lg:mb-50">
