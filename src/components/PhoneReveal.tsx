@@ -13,13 +13,13 @@ export const PhoneReveal = ({
 
   return (
     <div
-      className={`${className} flex items-center xl:gap-50 text-lg flex-col xl:flex-row`}
+      className={`${className} grid items-center xl:gap-50 text-lg xl:grid-cols-2 xl:w-[320px]`}
     >
       <span className=" font-medium">{isRevealed ? phone : maskedPhone}</span>
       {!isRevealed && (
         <button
           onClick={() => setIsRevealed(true)}
-          className="text-link hover:text-blue-600 transition"
+          className="text-link hover:text-blue-600 transition whitespace-nowrap"
         >
           Показати номер
         </button>

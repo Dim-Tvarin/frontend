@@ -171,7 +171,7 @@ const PetsList = () => {
                 className="relative flex flex-col bg-dialog xl:bg-transparent xl:p-0 pt-32 rounded-r-4xl dark:bg-main"
                 onClick={e => e.stopPropagation()}
               >
-                <div className="absolute 2xl:top-[660px] 2xl:left-[23px] 2xl:w-[283px] 2xl:h-[1227px] 2xl:bg-[url('./src/assets/bg-paws-pets.png')] dark:2xl:bg-[url('./src/assets/bg-paws-pets-dark.png')] bg-contain bg-no-repeat " />
+                <div className="absolute 2xl:top-[660px] 2xl:left-[23px] 2xl:w-[283px] 2xl:h-[1227px] 2xl:bg-[url('../src/assets/bg-paws-pets.png')] dark:2xl:bg-[url('../src/assets/bg-paws-pets-dark.png')] bg-contain bg-no-repeat " />
                 <div className="flex justify-between items-center mb-4 px-16">
                   <div className="xl:hidden block font-medium text-default-btn text-base">
                     Фільтр

@@ -24,7 +24,7 @@ export const Home = () => {
 
   return (
     <div className="relative text-default-btn container overflow-hidden">
-      <div className="absolute w-[356px] h-[1188px] top-[291px] right-[4px] bg-[url('./src/assets/bg-paws-home-mob.png')] dark:bg-[url('./src/assets/bg-paws-home-dark-mob.png')] md:bg-[url('./src/assets/bg-paws-home.png')] md:dark:bg-[url('./src/assets/bg-paws-home-dark.png')] md:top-[48px] md:left-[40px] md:right-0 md:w-[660px] lg:w-[1319px] md:[h-995px] lg:h-[1990px] bg-contain bg-no-repeat" />
+      <div className="absolute w-[356px] h-[1188px] top-[291px] right-[4px] bg-[url('../src/assets/bg-paws-home-mob.png')] dark:bg-[url('../src/assets/bg-paws-home-dark-mob.png')] md:bg-[url('../src/assets/bg-paws-home.png')] md:dark:bg-[url('../src/assets/bg-paws-home-dark.png')] md:top-[48px] md:left-[40px] md:right-0 md:w-[660px] lg:w-[1319px] md:[h-995px] lg:h-[1990px] bg-contain bg-no-repeat" />
       <section className="flex md:flex-row flex-col sm:items-center gap-[20px] mt-72 lg:mt-100">
         <div className="z-10 flex flex-col justify-center items-center gap-30 lg:gap-50 order-2 md:order-1 sm:w-full md:w-2/4">
           <p className="z-10 md:px-0 lg:px-10 font-normal lg:text-[32px] text-base md:text-xl">
