@@ -123,9 +123,9 @@ const PetPage = () => {
   };
 
   return (
-    <div className="container">
+    <div className="container min-h-screen">
       <div className="relative flex lg:flex-row flex-col gap-20 mt-72 lg:mt-100 mb-100 text-default-btn">
-        <div className="absolute bg-[url('../src/assets/bg-paws-card-mob.png')] dark:bg-[url('../src/assets/bg-paws-card-dark-mob.png')] top-[872px] right-[84px] w-[90px] h-[165px] md:top-[86px] md:right-[8px] md:w-[270px] md:h-[513px] md:bg-[url('../src/assets/bg-paws-card.png')] dark:md:bg-[url('../src/assets/bg-paws-card-dark.png')] bg-contain bg-no-repeat " />
+        <div className="absolute bg-[url('../src/assets/bg-paws-card-mob.png')] dark:bg-[url('../src/assets/bg-paws-card-dark-mob.png')] top-[702px] right-[84px] w-[90px] h-[165px] md:top-[86px] md:right-[8px] md:w-[270px] md:h-[513px] md:bg-[url('../src/assets/bg-paws-card.png')] dark:md:bg-[url('../src/assets/bg-paws-card-dark.png')] bg-contain bg-no-repeat " />
         <div className="w-full lg:w-1/2">
           {animal && <ImageCarousel images={animal?.animalImages} />}
         </div>

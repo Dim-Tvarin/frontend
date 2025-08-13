@@ -59,7 +59,7 @@ const ProfileMainTab = () => {
 
   return (
     <>
-      <div className="relative flex flex-col md:flex-row">
+      <div className="relative flex flex-col md:flex-row items-center">
         {!tabletSize && (
           <div
             className="absolute  overflow-hidden top-[170px] 2xl:-left-[324px] "
