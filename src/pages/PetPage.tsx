@@ -132,9 +132,16 @@ const PetPage = () => {
 
         <div className="z-10 flex flex-col w-full lg:w-1/2 text-base text-left">
           <div className="flex items-center">
-            <h2 className="mb-16 lg:mb-24 font-bold text-[28px] leading-[140%] tracking-[1%] mr-100  block text-ellipsis whitespace-nowrap overflow-hidden">
+            <h2 className="mb-16 lg:mb-24 font-bold text-[28px] leading-[140%] tracking-[1%] break-words whitespace-pre-line truncate">
               {animal?.animalName}
             </h2>
+          </div>
+
+          <div className="grid grid-cols-2 gap-x-auto mb-20 lg:mb-24">
+            <div className="text-input-border text-sm">
+              <p>Опубліковано:</p>
+              <p>{animal?.updatedAt && formatDate(animal?.updatedAt)}</p>
+            </div>
             {!isOwner && (
               <div
                 className="flex items-center cursor-pointer"
@@ -150,10 +157,6 @@ const PetPage = () => {
                 <p className="ml-[4px] text-base">До обраних</p>
               </div>
             )}
-          </div>
-
-          <div className="text-input-border text-sm mb-20 lg:mb-24">
-            Опубліковано: {animal?.updatedAt && formatDate(animal?.updatedAt)}
           </div>
           <div className="gap-x-auto gap-y-10 lg:gap-y-16 grid grid-cols-2 mb-16 lg:mb-32">
             <p className="font-bold">Статус:</p>
@@ -188,11 +191,13 @@ const PetPage = () => {
           <div className="gap-y-16 grid grid-cols-2 mb-32 lg:mb-50">
             <p className="font-bold">Контакта особа:</p>
             <p className="text-medium  z-10">{ownerName}</p>
-            <p className="font-bold">Тел:</p>
-            <PhoneReveal
-              phone={ownerPhone || '+380987654321'}
-              className="m-0 lg:-ml-[10px] z-10"
-            />
+            <div className="grid grid-cols-2">
+              <p className="font-bold">Тел:</p>
+              <PhoneReveal
+                phone={ownerPhone || '+380987654321'}
+                className="m-0 lg:-ml-[10px] z-10"
+              />
+            </div>
           </div>
           {isOwner ? (
             <div>
@@ -275,12 +280,11 @@ const PetPage = () => {
               </TooltipProvider>
             </div>
           ) : (
-            <a
-              href={`tel:${ownerPhone}`}
-              className="place-content-center self-end grid bg-default-btn rounded-[20px] w-[236px] h-[44px] text-white text-base dark:bg-orange dark:hover:bg-btn-orange-hov dark:text-black"
-            >
-              Зв’язатися з господарем
-            </a>
+            <CustomButton styleType="defaultButton">
+              <a href={`tel:${ownerPhone}`} className="hover:text-default-btn">
+                Зв’язатися з господарем
+              </a>
+            </CustomButton>
           )}
         </div>
       </div>
